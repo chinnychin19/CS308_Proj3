@@ -13,13 +13,13 @@ public class InstructionQueue {
         // TODO
         myQueue = new LinkedList<Instruction>();
     }
-    
-    public DataType processNextInstruction() {
-        //TODO
+
+    public DataType processNextInstruction () {
+        // TODO
         return null;
     }
-    
-    public boolean hasNextInstruction() {
+
+    public boolean hasNextInstruction () {
         return !myQueue.isEmpty();
     }
 }

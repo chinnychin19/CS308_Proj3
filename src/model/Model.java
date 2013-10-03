@@ -8,9 +8,10 @@ public class Model {
     protected Turtle myTurtle;
     protected CommandHistory myCommandHistory;
 
-    public Model() {
-        //TODO: this class should be a singleton instance and instantiate all private fields
+    public Model () {
+        // TODO: this class should be a singleton instance and instantiate all private fields
     }
+
     public Interpreter getInterpreter () {
         return myInterpreter;
     }
