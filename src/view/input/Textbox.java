@@ -1,4 +1,4 @@
-package input;
+package view.input;
 
 public class Textbox {
     

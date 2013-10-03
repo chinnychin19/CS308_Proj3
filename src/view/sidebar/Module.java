@@ -1,4 +1,4 @@
-package sidebar;
+package view.sidebar;
 
 import java.util.List;
 

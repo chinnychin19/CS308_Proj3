@@ -1,4 +1,4 @@
-package display;
+package view.display;
 
 public class ViewUpdater {
 
@@ -7,7 +7,7 @@ public class ViewUpdater {
     }
     
     public void displayOutput(){
-//        processNext();
+       
     }
    
 
