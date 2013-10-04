@@ -26,8 +26,17 @@ public class View {
         //Clear textbox    
     }
     protected void executeInput(){
-        myViewUpdater.displayOutput();
+        while (myModel.hasNextInstruction()){
+            myModel.processNextInstruction();
+            updateDisplay();
+            updateSidebar();
+        }
+       
+    }
+    private void updateSidebar(){
         mySidebar.update();
     }
-    
+    private void updateDisplay(){
+        myViewUpdater.displayOutput();
+    }
 }
