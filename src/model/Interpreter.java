@@ -5,7 +5,7 @@ public class Interpreter {
         // TODO
     }
 
-    public void parseInput (String input) {
-        // TODO
+    protected void parseInput (String input) {
+        // TODO: update commandHistory
     }
 }

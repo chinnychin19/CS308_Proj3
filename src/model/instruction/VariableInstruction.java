@@ -1,6 +1,5 @@
 package model.instruction;
 
-
 public class VariableInstruction extends Instruction {
 
     @Override
@@ -8,5 +7,5 @@ public class VariableInstruction extends Instruction {
         // TODO Auto-generated method stub
         return null;
     }
-//TODO
+    // TODO
 }
