@@ -1,5 +1,10 @@
 package model;
 
+import java.util.List;
+import java.util.Map;
+import model.command.Command;
+
+
 public class Model {
     protected Interpreter myInterpreter;
     protected CommandCache myCommandCache;
@@ -9,30 +14,75 @@ public class Model {
     protected CommandHistory myCommandHistory;
 
     public Model () {
-        // TODO: this class should be a singleton instance and instantiate all private fields
+        myInterpreter = new Interpreter();
+        myCommandCache = new CommandCache();
+        myVariableCache = new VariableCache();
+        myInstructionQueue = new InstructionQueue();
+        myTurtle = new Turtle();
+        myCommandHistory = new CommandHistory();
     }
 
-    public Interpreter getInterpreter () {
-        return myInterpreter;
+    public void parseInput (String s) {
+        myInterpreter.parseInput(s);
     }
 
-    public CommandCache getCommandCache () {
-        return myCommandCache;
+    public String processNextInstruction () {
+        return myInstructionQueue.processNextInstruction();
     }
 
-    public VariableCache getVariableCache () {
-        return myVariableCache;
+    public boolean hasNextInstruction () {
+        return myInstructionQueue.hasNextInstruction();
     }
 
-    public InstructionQueue getInstructionQueue () {
-        return myInstructionQueue;
+    public int getTurtleX () {
+        return myTurtle.getX();
     }
 
-    public Turtle getTurtle () {
-        return myTurtle;
+    public int getTurtleY () {
+        return myTurtle.getY();
     }
 
-    public CommandHistory getMyCommandHistory () {
-        return myCommandHistory;
+    public int getTurtleAngle () {
+        return myTurtle.getAngle();
+    }
+
+    public boolean isTurtleDrawing () {
+        return myTurtle.isDrawing();
+    }
+
+    public boolean isTurtleVisible () {
+        return myTurtle.isVisible();
+    }
+
+    public void putVariable (String key, String value) {
+        myVariableCache.put(key, value);
+    }
+
+    public Map<String, String> getAllVariables () {
+        return myVariableCache.getKeyValuePairs();
+    }
+
+    public void clearVariables () {
+        myVariableCache.clear();
+    }
+
+    public Map<String, String> getAllCommands () {
+        return myCommandCache.getAllCommands();
+    }
+
+    public void putCommand (String key, Command value) {
+        myCommandCache.put(key, value);
+    }
+
+    public void clearCommands () {
+        myCommandCache.clear();
+    }
+
+    public List<String> getHistory () {
+        return myCommandHistory.getHistory();
+    }
+
+    public void clearHistory () {
+        myCommandHistory.clear();
     }
 }

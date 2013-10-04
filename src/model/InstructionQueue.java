@@ -14,12 +14,12 @@ public class InstructionQueue {
         myQueue = new LinkedList<Instruction>();
     }
 
-    public DataType processNextInstruction () {
+    protected String processNextInstruction () {
         // TODO
         return null;
     }
 
-    public boolean hasNextInstruction () {
+    protected boolean hasNextInstruction () {
         return !myQueue.isEmpty();
     }
 }

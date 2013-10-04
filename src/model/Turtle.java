@@ -10,23 +10,23 @@ public class Turtle {
         // TODO
     }
 
-    public int getX () {
+    protected int getX () {
         return (int) myX;
     }
 
-    public int getY () {
+    protected int getY () {
         return (int) myY;
     }
 
-    public int getAngle () {
+    protected int getAngle () {
         return (int) myAngle;
     }
 
-    public boolean isDrawing () {
+    protected boolean isDrawing () {
         return fDrawing;
     }
 
-    public boolean isVisible () {
+    protected boolean isVisible () {
         return fVisible;
     }
 

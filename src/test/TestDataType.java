@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import dataType.DataType;
+import dataType.DataTypeFactory;
 
 
 public class TestDataType {

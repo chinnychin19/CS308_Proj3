@@ -13,17 +13,25 @@ public class CommandCache {
         myMap = new HashMap<String, Command>();
     }
 
-    public Command get (String key) {
+    protected Command get (String key) {
         return myMap.get(key);
     }
 
-    public void put (String key, Command value) {
+    protected void put (String key, Command value) {
         myMap.put(key, value);
     }
 
-    // TODO: should this be protected? Does View need access?
-    public void clear () {
+    protected void clear () {
         myMap.clear();
+    }
+
+    public Map<String, String> getAllCommands () {
+        Map<String, String> copy = new HashMap<String, String>();
+        for (String key : myMap.keySet()) {
+            String value = myMap.get(key).getBody();
+            copy.put(key, value);
+        }
+        return copy;
     }
 
 }

@@ -15,11 +15,11 @@ public class CommandHistory {
         myHistory.add(command);
     }
 
-    public List<String> getHistory () {
+    protected List<String> getHistory () {
         return new ArrayList<String>(myHistory);
     }
 
-    public void clear () {
+    protected void clear () {
         myHistory.clear();
     }
 }
