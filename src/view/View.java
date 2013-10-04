@@ -17,14 +17,16 @@ public class View {
     public View () {
 
     }
-    protected void executeInput(){
+    
+    protected void sendInput(){
         //when runButton is activated
         //input is sent to model
         String input = "";
-//        myModel.myInterpreter.parseInput(input);     
+        myModel.parseInput(input);  
         //Clear textbox    
+    }
+    protected void executeInput(){
         myViewUpdater.displayOutput();
-        
         mySidebar.update();
     }
     
