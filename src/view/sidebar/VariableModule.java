@@ -14,4 +14,10 @@ public class VariableModule extends Module {
         return null;
     }
 
+    @Override
+    protected void click () {
+        // TODO Auto-generated method stub
+        
+    }
+
 }

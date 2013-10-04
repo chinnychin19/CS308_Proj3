@@ -14,7 +14,8 @@ public abstract class Module {
      * @return List of created ModuleData
      */
     protected abstract List<ModuleData> initializeModuleContents();
-
-   
     
+    protected abstract void click();
+
+  
 }
