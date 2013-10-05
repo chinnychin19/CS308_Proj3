@@ -1,6 +1,6 @@
 package view.sidebar;
 
-public class SideBar {
+public class SideBar  {
     protected CommandsModule myCommandsModule;
     protected HistoryModule myHistoryModule;
     protected VariableModule myVariableModule;
