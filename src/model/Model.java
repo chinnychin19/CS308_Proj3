@@ -22,6 +22,30 @@ public class Model {
         myCommandHistory = new CommandHistory(this);
     }
 
+    protected Interpreter getInterpreter () {
+        return myInterpreter;
+    }
+
+    protected CommandCache getCommandCache () {
+        return myCommandCache;
+    }
+
+    protected VariableCache getVariableCache () {
+        return myVariableCache;
+    }
+
+    protected InstructionQueue getInstructionQueue () {
+        return myInstructionQueue;
+    }
+
+    protected Turtle getTurtle () {
+        return myTurtle;
+    }
+
+    protected CommandHistory getCommandHistory () {
+        return myCommandHistory;
+    }
+
     public void parseInput (String s) {
         myInterpreter.parseInput(s);
     }
