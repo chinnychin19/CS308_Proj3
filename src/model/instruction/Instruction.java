@@ -13,15 +13,15 @@ public abstract class Instruction {
         myParamCount = paramCount;
         myChildren = new ArrayList<Instruction>();
     }
-    
-    public int getNumParams() {
+
+    public int getNumParams () {
         return myParamCount;
     }
 
-    public Instruction getParent() {
+    public Instruction getParent () {
         return myParent;
     }
-    
+
     public List<Instruction> getChildren () {
         return myChildren;
     }

@@ -17,8 +17,8 @@ public class InstructionQueue {
         String s = "" + myQueue.poll().eval();
         return s;
     }
-    
-    protected void add(Instruction inst) {
+
+    protected void add (Instruction inst) {
         myQueue.add(inst);
     }
 

@@ -2,6 +2,7 @@ package model.instruction;
 
 import model.Model;
 
+
 public class InstructionFD extends Instruction {
 
     public InstructionFD (Instruction parent) {
@@ -11,7 +12,7 @@ public class InstructionFD extends Instruction {
     @Override
     public Instruction eval () {
         Instruction ret = getChildren().get(0).eval();
-        double pixels = ((InstructionConstant)ret).getValue();
+        double pixels = ((InstructionConstant) ret).getValue();
         Model.getTurtle().forward(pixels);
         return ret;
     }

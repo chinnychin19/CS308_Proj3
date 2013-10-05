@@ -7,7 +7,7 @@ import org.junit.Test;
 
 public class SimpleTest {
     private final double DELTA = 0.001;
-    
+
     @Test
     public void testTurtleMovement () {
         Model.initModel();
@@ -18,7 +18,7 @@ public class SimpleTest {
         Model.parseInput("fd 10");
         Model.parseInput("fd -20");
         Model.parseInput("fd 20 fd -10");
-//        myModel.parseInput("right 90 fd 10");
+        // myModel.parseInput("right 90 fd 10");
 
         Model.processNextInstruction();
         assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
@@ -28,10 +28,10 @@ public class SimpleTest {
         assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
         Model.processNextInstruction();
         assertEquals("Forward negative", 0, Model.getTurtleY(), DELTA);
-//        Model.processNextInstruction();
-//        assertEquals("Rotate right", beforeAngle - 90, Model.getTurtleAngle(), DELTA);
-//        myModel.processNextInstruction();
-//        assertEquals("Rotate right then forward", beforeX + 10, myModel.getTurtleX());
+        // Model.processNextInstruction();
+        // assertEquals("Rotate right", beforeAngle - 90, Model.getTurtleAngle(), DELTA);
+        // myModel.processNextInstruction();
+        // assertEquals("Rotate right then forward", beforeX + 10, myModel.getTurtleX());
     }
 
     @Test
@@ -39,7 +39,8 @@ public class SimpleTest {
         Model.initModel();
         String[] testString = { "Command 1", "Command 2", "Command 3" };
 
-        assertEquals("Empty command history", true, Model.getHistory().isEmpty()); //initially empty
+        assertEquals("Empty command history", true, Model.getHistory().isEmpty()); // initially
+                                                                                   // empty
 
         for (int i = 0; i < testString.length; i++) {
             Model.parseInput(testString[i]);

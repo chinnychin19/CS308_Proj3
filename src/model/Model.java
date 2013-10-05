@@ -13,7 +13,7 @@ public class Model {
     protected static Turtle myTurtle = new Turtle();
     protected static CommandHistory myCommandHistory;
 
-    public static void initModel() {
+    public static void initModel () {
         myInterpreter = new Interpreter();
         myCommandCache = new CommandCache();
         myVariableCache = new VariableCache();
@@ -21,7 +21,7 @@ public class Model {
         myTurtle = new Turtle();
         myCommandHistory = new CommandHistory();
     }
-    
+
     public static Interpreter getInterpreter () {
         return myInterpreter;
     }
@@ -110,107 +110,107 @@ public class Model {
         myCommandHistory.clear();
     }
 
-//    protected Interpreter myInterpreter;
-//    protected CommandCache myCommandCache;
-//    protected VariableCache myVariableCache;
-//    protected InstructionQueue myInstructionQueue;
-//    protected Turtle myTurtle;
-//    protected CommandHistory myCommandHistory;
-//
-//    public Model () {
-//        myInterpreter = new Interpreter(this);
-//        myCommandCache = new CommandCache(this);
-//        myVariableCache = new VariableCache(this);
-//        myInstructionQueue = new InstructionQueue(this);
-//        myTurtle = new Turtle(this);
-//        myCommandHistory = new CommandHistory(this);
-//    }
-//
-//    protected Interpreter getInterpreter () {
-//        return myInterpreter;
-//    }
-//
-//    protected CommandCache getCommandCache () {
-//        return myCommandCache;
-//    }
-//
-//    protected VariableCache getVariableCache () {
-//        return myVariableCache;
-//    }
-//
-//    protected InstructionQueue getInstructionQueue () {
-//        return myInstructionQueue;
-//    }
-//
-//    protected Turtle getTurtle () {
-//        return myTurtle;
-//    }
-//
-//    protected CommandHistory getCommandHistory () {
-//        return myCommandHistory;
-//    }
-//
-//    public void parseInput (String s) {
-//        myInterpreter.parseInput(s);
-//    }
-//
-//    public String processNextInstruction () {
-//        return myInstructionQueue.processNextInstruction();
-//    }
-//
-//    public boolean hasNextInstruction () {
-//        return myInstructionQueue.hasNextInstruction();
-//    }
-//
-//    public int getTurtleX () {
-//        return myTurtle.getX();
-//    }
-//
-//    public int getTurtleY () {
-//        return myTurtle.getY();
-//    }
-//
-//    public int getTurtleAngle () {
-//        return myTurtle.getAngle();
-//    }
-//
-//    public boolean isTurtleDrawing () {
-//        return myTurtle.isDrawing();
-//    }
-//
-//    public boolean isTurtleVisible () {
-//        return myTurtle.isVisible();
-//    }
-//
-//    public void putVariable (String key, String value) {
-//        myVariableCache.put(key, value);
-//    }
-//
-//    public Map<String, String> getAllVariables () {
-//        return myVariableCache.getKeyValuePairs();
-//    }
-//
-//    public void clearVariables () {
-//        myVariableCache.clear();
-//    }
-//
-//    public Map<String, String> getAllCommands () {
-//        return myCommandCache.getAllCommands();
-//    }
-//
-//    public void putCommand (String key, Command value) {
-//        myCommandCache.put(key, value);
-//    }
-//
-//    public void clearCommands () {
-//        myCommandCache.clear();
-//    }
-//
-//    public List<String> getHistory () {
-//        return myCommandHistory.getHistory();
-//    }
-//
-//    public void clearHistory () {
-//        myCommandHistory.clear();
-//    }
+    // protected Interpreter myInterpreter;
+    // protected CommandCache myCommandCache;
+    // protected VariableCache myVariableCache;
+    // protected InstructionQueue myInstructionQueue;
+    // protected Turtle myTurtle;
+    // protected CommandHistory myCommandHistory;
+    //
+    // public Model () {
+    // myInterpreter = new Interpreter(this);
+    // myCommandCache = new CommandCache(this);
+    // myVariableCache = new VariableCache(this);
+    // myInstructionQueue = new InstructionQueue(this);
+    // myTurtle = new Turtle(this);
+    // myCommandHistory = new CommandHistory(this);
+    // }
+    //
+    // protected Interpreter getInterpreter () {
+    // return myInterpreter;
+    // }
+    //
+    // protected CommandCache getCommandCache () {
+    // return myCommandCache;
+    // }
+    //
+    // protected VariableCache getVariableCache () {
+    // return myVariableCache;
+    // }
+    //
+    // protected InstructionQueue getInstructionQueue () {
+    // return myInstructionQueue;
+    // }
+    //
+    // protected Turtle getTurtle () {
+    // return myTurtle;
+    // }
+    //
+    // protected CommandHistory getCommandHistory () {
+    // return myCommandHistory;
+    // }
+    //
+    // public void parseInput (String s) {
+    // myInterpreter.parseInput(s);
+    // }
+    //
+    // public String processNextInstruction () {
+    // return myInstructionQueue.processNextInstruction();
+    // }
+    //
+    // public boolean hasNextInstruction () {
+    // return myInstructionQueue.hasNextInstruction();
+    // }
+    //
+    // public int getTurtleX () {
+    // return myTurtle.getX();
+    // }
+    //
+    // public int getTurtleY () {
+    // return myTurtle.getY();
+    // }
+    //
+    // public int getTurtleAngle () {
+    // return myTurtle.getAngle();
+    // }
+    //
+    // public boolean isTurtleDrawing () {
+    // return myTurtle.isDrawing();
+    // }
+    //
+    // public boolean isTurtleVisible () {
+    // return myTurtle.isVisible();
+    // }
+    //
+    // public void putVariable (String key, String value) {
+    // myVariableCache.put(key, value);
+    // }
+    //
+    // public Map<String, String> getAllVariables () {
+    // return myVariableCache.getKeyValuePairs();
+    // }
+    //
+    // public void clearVariables () {
+    // myVariableCache.clear();
+    // }
+    //
+    // public Map<String, String> getAllCommands () {
+    // return myCommandCache.getAllCommands();
+    // }
+    //
+    // public void putCommand (String key, Command value) {
+    // myCommandCache.put(key, value);
+    // }
+    //
+    // public void clearCommands () {
+    // myCommandCache.clear();
+    // }
+    //
+    // public List<String> getHistory () {
+    // return myCommandHistory.getHistory();
+    // }
+    //
+    // public void clearHistory () {
+    // myCommandHistory.clear();
+    // }
 }

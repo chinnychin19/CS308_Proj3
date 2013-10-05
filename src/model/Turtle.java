@@ -9,10 +9,10 @@ public class Turtle {
     protected Turtle () {
         myX = 0;
         myY = 0;
-        myAngle = Math.PI / 2; //only internally stored in radians
+        myAngle = Math.PI / 2; // only internally stored in radians
     }
-    
-    public void forward(double pixels) {
+
+    public void forward (double pixels) {
         myX += Math.cos(myAngle) * pixels;
         myY += Math.sin(myAngle) * pixels;
     }
@@ -26,7 +26,7 @@ public class Turtle {
     }
 
     protected int getAngle () {
-        return (int) (myAngle/Math.PI*180); //internally stored in radians
+        return (int) (myAngle / Math.PI * 180); // internally stored in radians
     }
 
     protected boolean isDrawing () {
