@@ -10,16 +10,19 @@ public class InstructionQueue {
     private Queue<Instruction> myQueue;
 
     protected InstructionQueue () {
-        // TODO
         myQueue = new LinkedList<Instruction>();
     }
-    
-    public DataType processNextInstruction() {
-        //TODO
-        return null;
+
+    protected String processNextInstruction () {
+        String s = "" + myQueue.poll().eval();
+        return s;
     }
-    
-    public boolean hasNextInstruction() {
+
+    protected void add (Instruction inst) {
+        myQueue.add(inst);
+    }
+
+    protected boolean hasNextInstruction () {
         return !myQueue.isEmpty();
     }
 }
