@@ -5,10 +5,13 @@ public class Turtle {
 
     private double myX, myY, myAngle;
     private boolean fDrawing, fVisible;
+    private Model myModel;
 
     protected Turtle (Model m) {
-        // myX = x;
-        // myY = y;
+        myModel = m;
+        myX = 0;
+        myY = 0;
+        myAngle = 90;
     }
 
     protected int getX () {
