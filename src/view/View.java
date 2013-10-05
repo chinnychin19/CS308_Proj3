@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
@@ -8,8 +9,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import model.Model;
 import view.display.ViewUpdater;
 import view.input.RunButton;
@@ -18,6 +23,8 @@ import view.sidebar.SideBar;
 
 
 public class View extends JFrame {
+    private static final int DISPLAY_HEIGHT = 100;
+    private static final int DISPLAY_WIDTH = 3;
     protected ViewUpdater myViewUpdater;
     protected RunButton myRunButton;
     protected Textbox myTextbox;
@@ -26,6 +33,7 @@ public class View extends JFrame {
     
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
+    private static final int FIELD_SIZE = 30;
     private JFileChooser myChooser;
     private ResourceBundle myResources;
     private ActionListener myActionListener;
@@ -38,15 +46,33 @@ public class View extends JFrame {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-        myResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE);
+        getContentPane().add(makeDisplay(), BorderLayout.NORTH);
+        getContentPane().add(makeInput(), BorderLayout.SOUTH);
         
 
         pack();
         setVisible(true);
     }
-    
+    private JComponent makeDisplay(){
+        JPanel display = new Display(DISPLAY_WIDTH,DISPLAY_HEIGHT);
+        return new JScrollPane(display);
+    }
     private JButton makeButton (){
         JButton result = new JButton("RUN");
+        return result;
+    }
+    protected JComponent makeInput () {
+        JPanel result = new JPanel();
+        result.add(makeTextField());
+        result.add(makeButton());
+
+        return result;
+    }
+    protected JTextField makeTextField () {
+        JTextField result = new JTextField(FIELD_SIZE);
+        result.addKeyListener(myKeyListener);
+        result.addFocusListener(myFocusListener);
+        result.addActionListener(myActionListener);
         return result;
     }
 
