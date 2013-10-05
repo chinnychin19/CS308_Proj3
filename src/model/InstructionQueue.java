@@ -9,7 +9,7 @@ import model.instruction.Instruction;
 public class InstructionQueue {
     private Queue<Instruction> myQueue;
 
-    protected InstructionQueue () {
+    protected InstructionQueue (Model m) {
         // TODO
         myQueue = new LinkedList<Instruction>();
     }

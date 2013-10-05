@@ -6,8 +6,9 @@ public class Turtle {
     private double myX, myY, myAngle;
     private boolean fDrawing, fVisible;
 
-    protected void Turtle () {
-        // TODO
+    protected Turtle (Model m) {
+        // myX = x;
+        // myY = y;
     }
 
     protected int getX () {

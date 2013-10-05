@@ -1,7 +1,7 @@
 package model;
 
 public class Interpreter {
-    protected Interpreter () {
+    protected Interpreter (Model m) {
         // TODO
     }
 

@@ -14,12 +14,12 @@ public class Model {
     protected CommandHistory myCommandHistory;
 
     public Model () {
-        myInterpreter = new Interpreter();
-        myCommandCache = new CommandCache();
-        myVariableCache = new VariableCache();
-        myInstructionQueue = new InstructionQueue();
-        myTurtle = new Turtle();
-        myCommandHistory = new CommandHistory();
+        myInterpreter = new Interpreter(this);
+        myCommandCache = new CommandCache(this);
+        myVariableCache = new VariableCache(this);
+        myInstructionQueue = new InstructionQueue(this);
+        myTurtle = new Turtle(this);
+        myCommandHistory = new CommandHistory(this);
     }
 
     public void parseInput (String s) {

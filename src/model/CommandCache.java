@@ -9,7 +9,7 @@ public class CommandCache {
     // TODO
     private Map<String, Command> myMap;
 
-    protected CommandCache () {
+    protected CommandCache (Model m) {
         myMap = new HashMap<String, Command>();
     }
 
