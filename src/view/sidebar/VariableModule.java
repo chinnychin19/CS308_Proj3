@@ -2,6 +2,7 @@ package view.sidebar;
 
 import java.util.List;
 
+
 public class VariableModule extends Module {
 
     public VariableModule () {
@@ -10,14 +11,14 @@ public class VariableModule extends Module {
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
-//        getVariableKeyPairs();
+        // getVariableKeyPairs();
         return null;
     }
 
     @Override
     protected void click () {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

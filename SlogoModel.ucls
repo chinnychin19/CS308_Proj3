@@ -10,8 +10,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="2" language="java" name="model.instruction.MoveInstruction" project="Proj3_Slogo" 
-    file="/Proj3_Slogo/src/model/instruction/MoveInstruction.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="2" language="java" name="model.instruction.Instruction_FD" project="Proj3_Slogo" 
+    file="/Proj3_Slogo/src/model/instruction/Instruction_FD.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="99" width="127" x="58" y="908"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

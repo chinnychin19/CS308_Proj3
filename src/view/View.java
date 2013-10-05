@@ -17,26 +17,29 @@ public class View {
     public View () {
 
     }
-    
-    protected void sendInput(){
-        //when runButton is activated
-        //input is sent to model
+
+    protected void sendInput () {
+        // when runButton is activated
+        // input is sent to model
         String input = "";
-        myModel.parseInput(input);  
-        //Clear textbox    
+        myModel.parseInput(input);
+        // Clear textbox
     }
-    protected void executeInput(){
-        while (myModel.hasNextInstruction()){
+
+    protected void executeInput () {
+        while (myModel.hasNextInstruction()) {
             myModel.processNextInstruction();
             updateDisplay();
             updateSidebar();
         }
-       
+
     }
-    private void updateSidebar(){
+
+    private void updateSidebar () {
         mySidebar.update();
     }
-    private void updateDisplay(){
+
+    private void updateDisplay () {
         myViewUpdater.displayOutput();
     }
 }
