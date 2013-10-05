@@ -4,13 +4,12 @@ public class SideBar {
     protected CommandsModule myCommandsModule;
     protected HistoryModule myHistoryModule;
     protected VariableModule myVariableModule;
-    
-    
-    public SideBar(){
-        
+
+    public SideBar () {
+
     }
-    
-    public void update(){
-        
+
+    public void update () {
+
     }
 }
