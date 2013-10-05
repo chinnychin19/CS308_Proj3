@@ -9,14 +9,17 @@ import model.instruction.Instruction;
 public class InstructionQueue {
     private Queue<Instruction> myQueue;
 
-    protected InstructionQueue (Model m) {
-        // TODO
+    protected InstructionQueue () {
         myQueue = new LinkedList<Instruction>();
     }
 
     protected String processNextInstruction () {
-        // TODO
-        return null;
+        String s = "" + myQueue.poll().eval();
+        return s;
+    }
+    
+    protected void add(Instruction inst) {
+        myQueue.add(inst);
     }
 
     protected boolean hasNextInstruction () {

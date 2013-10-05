@@ -5,13 +5,16 @@ public class Turtle {
 
     private double myX, myY, myAngle;
     private boolean fDrawing, fVisible;
-    private Model myModel;
 
-    protected Turtle (Model m) {
-        myModel = m;
+    protected Turtle () {
         myX = 0;
         myY = 0;
-        myAngle = 90;
+        myAngle = Math.PI / 2; //only internally stored in radians
+    }
+    
+    public void forward(double pixels) {
+        myX += Math.cos(myAngle) * pixels;
+        myY += Math.sin(myAngle) * pixels;
     }
 
     protected int getX () {
@@ -23,7 +26,7 @@ public class Turtle {
     }
 
     protected int getAngle () {
-        return (int) myAngle;
+        return (int) (myAngle/Math.PI*180); //internally stored in radians
     }
 
     protected boolean isDrawing () {

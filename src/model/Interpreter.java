@@ -5,17 +5,40 @@ import model.instruction.*;
 
 
 public class Interpreter {
-    private Model myModel;
 
-    protected Interpreter (Model m) {
-        // TODO
-        myModel = m;
+    protected Interpreter () {
     }
 
     protected void parseInput (String input) {
-        // TODO: update commandHistory
-        myModel.getCommandHistory().add(input);
+        input = input.replaceAll("\\s+", " "); //all white space becames a ' ' (space character)
+        input = input.trim();
+        if (input.isEmpty()) {
+            return;
+        }
+        Model.getCommandHistory().add(input);
         Scanner sc = new Scanner(input);
-        // TODO: scan and create Instruction tree using Instruction factory
+        Instruction root = InstructionFactory.getInstruction(sc.next(), null);
+        if (root == null) {
+            sc.close();
+            return;
+        }
+        Instruction cur = root;
+        while (sc.hasNext()) {
+            if (cur.getChildren().size() < cur.getNumParams()) {
+                Instruction temp = InstructionFactory.getInstruction(sc.next(), cur);
+                cur.addChild(temp);
+                cur = temp;
+            } else {
+                cur = cur.getParent(); //assumes parent exists, could be an error
+            }
+            if (cur.getParent() == null) {
+                Model.getInstructionQueue().add(root);
+                if (sc.hasNext()) {
+                    root = InstructionFactory.getInstruction(sc.next(), null);
+                    cur = root;
+                }
+            }
+        }
+        sc.close();
     }
 }

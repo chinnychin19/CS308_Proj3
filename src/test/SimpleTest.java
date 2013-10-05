@@ -6,49 +6,55 @@ import org.junit.Test;
 
 
 public class SimpleTest {
-
+    private final double DELTA = 0.001;
+    
     @Test
     public void testTurtleMovement () {
-        Model myModel = new Model();
-        double beforeX = myModel.getTurtleX();
-        double beforeY = myModel.getTurtleY();
-        double beforeAngle = myModel.getTurtleAngle();
+        Model.initModel();
+        double beforeX = Model.getTurtleX();
+        double beforeY = Model.getTurtleY();
+        double beforeAngle = Model.getTurtleAngle();
 
-        myModel.parseInput("fd 10");
-        myModel.parseInput("fd -20");
-        myModel.parseInput("right 90 fd 10");
+        Model.parseInput("fd 10");
+        Model.parseInput("fd -20");
+        Model.parseInput("fd 20 fd -10");
+//        myModel.parseInput("right 90 fd 10");
 
-        myModel.processNextInstruction();
-        assertEquals("Foward positive", beforeY + 10, myModel.getTurtleY());
-        myModel.processNextInstruction();
-        assertEquals("Forward negative", beforeY - 10, myModel.getTurtleY());
-        myModel.processNextInstruction();
-        assertEquals("Rotate right", beforeAngle - 90, myModel.getTurtleAngle());
-        myModel.processNextInstruction();
-        assertEquals("Rotate right then forward", beforeX + 10, myModel.getTurtleX());
+        Model.processNextInstruction();
+        assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
+        Model.processNextInstruction();
+        assertEquals("Forward negative", -10, Model.getTurtleY(), DELTA);
+        Model.processNextInstruction();
+        assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
+        Model.processNextInstruction();
+        assertEquals("Forward negative", 0, Model.getTurtleY(), DELTA);
+//        Model.processNextInstruction();
+//        assertEquals("Rotate right", beforeAngle - 90, Model.getTurtleAngle(), DELTA);
+//        myModel.processNextInstruction();
+//        assertEquals("Rotate right then forward", beforeX + 10, myModel.getTurtleX());
     }
 
     @Test
     public void testCommandHistory () {
-        Model myModel = new Model();
+        Model.initModel();
         String[] testString = { "Command 1", "Command 2", "Command 3" };
 
-        assertEquals("Empty command history", true, myModel.getHistory().isEmpty());
+        assertEquals("Empty command history", true, Model.getHistory().isEmpty()); //initially empty
 
         for (int i = 0; i < testString.length; i++) {
-            myModel.parseInput(testString[i]);
-            assertEquals("String " + i, testString[i], myModel.getHistory().get(i));
+            Model.parseInput(testString[i]);
+            assertEquals("String " + i, testString[i], Model.getHistory().get(i));
         }
     }
 
     @Test
     public void testInstructionQueue () {
-        Model myModel = new Model();
-        assertEquals("Before anything added", false, myModel.hasNextInstruction());
-        myModel.parseInput("fd 10");
-        assertEquals("Add one instruction", true, myModel.hasNextInstruction());
-        myModel.processNextInstruction();
-        assertEquals("After process instruction", false, myModel.hasNextInstruction());
+        Model.initModel();
+        assertEquals("Before anything added", false, Model.hasNextInstruction());
+        Model.parseInput("fd 10");
+        assertEquals("Add one instruction", true, Model.hasNextInstruction());
+        Model.processNextInstruction();
+        assertEquals("After process instruction", false, Model.hasNextInstruction());
     }
 
 }

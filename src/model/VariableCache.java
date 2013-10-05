@@ -10,7 +10,7 @@ public class VariableCache {
     // TODO
     private Map<String, DataType> myMap;
 
-    protected VariableCache (Model m) {
+    protected VariableCache () {
         myMap = new HashMap<String, DataType>();
     }
 

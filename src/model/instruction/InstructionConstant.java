@@ -3,13 +3,13 @@ package model.instruction;
 public class InstructionConstant extends Instruction {
     private double myValue;
 
-    public InstructionConstant (double value) {
-        super(0);
+    public InstructionConstant (double value, Instruction parent) {
+        super(0, parent);
         myValue = value;
     }
 
     @Override
-    protected Instruction eval () {
+    public Instruction eval () {
         return this;
     }
 

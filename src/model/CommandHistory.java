@@ -7,7 +7,7 @@ import java.util.List;
 public class CommandHistory {
     private List<String> myHistory;
 
-    protected CommandHistory (Model m) {
+    protected CommandHistory () {
         myHistory = new ArrayList<String>();
     }
 
