@@ -1,6 +1,7 @@
-package sidebar;
+package view.sidebar;
 
 import java.util.List;
+
 
 public class HistoryModule extends Module {
 
@@ -10,8 +11,14 @@ public class HistoryModule extends Module {
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
-//        getHistory();
+        // getHistory();
         return null;
+    }
+
+    @Override
+    protected void click () {
+        // TODO Auto-generated method stub
+
     }
 
 }
