@@ -2,6 +2,7 @@ package view.sidebar;
 
 import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 
@@ -9,7 +10,7 @@ import javax.swing.JPanel;
  * @author susanzhang93
  * 
  */
-public abstract class Module extends JPanel {
+public abstract class Module extends JComponent {
 
     public Module (int width, int height) {
         super();
