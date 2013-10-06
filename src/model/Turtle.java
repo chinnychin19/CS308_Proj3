@@ -2,15 +2,11 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.LinkedList;
-import java.util.Queue;
-import model.turtleMove.*;
 
 
 public class Turtle {
     private double myX, myY, myAngle;
     private boolean fDrawing, fVisible;
-    private Queue<TurtleMove> myQueue;
     private Collection<Path> myPaths;
 
     protected Turtle () {
@@ -19,7 +15,6 @@ public class Turtle {
         fDrawing = true;
         fVisible = true;
         myAngle = Math.PI / 2; // only internally stored in radians
-        myQueue = new LinkedList<TurtleMove>();
         myPaths = new ArrayList<Path>();
     }
 
