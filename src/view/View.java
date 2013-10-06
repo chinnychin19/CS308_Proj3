@@ -29,7 +29,6 @@ public class View extends JFrame {
     protected RunButton myRunButton;
     protected Textbox myTextbox;
     protected SideBar mySidebar;
-    protected Model myModel;
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
@@ -53,6 +52,7 @@ public class View extends JFrame {
 
         pack();
         setVisible(true);
+        Model.initModel();
     }
 
     private JComponent makeSideBar () {
@@ -89,19 +89,16 @@ public class View extends JFrame {
         // when runButton is activated
         // input is sent to model
         String input = "";
-        myModel.parseInput(input);
+        Model.parseInput(input);
         // Clear textbox
     }
 
     protected void executeInput () {
-        while (myModel.hasNextInstruction()) {
-            myModel.processNextInstruction();
+        while (Model.hasNextInstruction()) {
+            Model.processNextInstruction();
+            updateDisplay();
+            updateSidebar();
 
-            while (myModel.hasNextTurtleMove()) {
-                myModel.processNextTurtleMove();
-                updateDisplay();
-                updateSidebar();
-            }
         }
 
     }
