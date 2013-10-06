@@ -30,7 +30,7 @@ public class View extends JFrame {
     protected Textbox myTextbox;
     protected SideBar mySidebar;
     protected Model myModel;
-    
+
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
     private static final int FIELD_SIZE = 30;
@@ -48,19 +48,27 @@ public class View extends JFrame {
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
         getContentPane().add(makeDisplay(), BorderLayout.NORTH);
         getContentPane().add(makeInput(), BorderLayout.SOUTH);
-        
+
+        getContentPane().add(makeSideBar(), BorderLayout.EAST);
 
         pack();
         setVisible(true);
     }
-    private JComponent makeDisplay(){
-        JPanel display = new Display(DISPLAY_WIDTH,DISPLAY_HEIGHT);
+
+    private JComponent makeSideBar () {
+        return new SideBar(30, 100);
+    }
+
+    private JComponent makeDisplay () {
+        JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
         return new JScrollPane(display);
     }
-    private JButton makeButton (){
+
+    private JButton makeButton () {
         JButton result = new JButton("RUN");
         return result;
     }
+
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.add(makeTextField());
@@ -68,6 +76,7 @@ public class View extends JFrame {
 
         return result;
     }
+
     protected JTextField makeTextField () {
         JTextField result = new JTextField(FIELD_SIZE);
         result.addKeyListener(myKeyListener);
@@ -87,8 +96,8 @@ public class View extends JFrame {
     protected void executeInput () {
         while (myModel.hasNextInstruction()) {
             myModel.processNextInstruction();
-            
-            while (myModel.hasNextTurtleMove()){
+
+            while (myModel.hasNextTurtleMove()) {
                 myModel.processNextTurtleMove();
                 updateDisplay();
                 updateSidebar();
@@ -104,8 +113,8 @@ public class View extends JFrame {
     private void updateDisplay () {
         myViewUpdater.displayOutput();
     }
-    
-    public static void main (String[] args){
+
+    public static void main (String[] args) {
         new View();
     }
 }

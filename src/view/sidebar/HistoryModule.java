@@ -5,7 +5,8 @@ import java.util.List;
 
 public class HistoryModule extends Module {
 
-    public HistoryModule () {
+    public HistoryModule (int width, int height) {
+        super(width, height);
         // TODO Auto-generated constructor stub
     }
 
