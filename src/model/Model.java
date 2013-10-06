@@ -70,13 +70,13 @@ public class Model {
         return myTurtle.getAngle();
     }
 
-    public static boolean isTurtleDrawing () {
-        return myTurtle.isDrawing();
-    }
-
-    public static boolean isTurtleVisible () {
-        return myTurtle.isVisible();
-    }
+//    public static boolean isTurtleDrawing () {
+//        return myTurtle.isDrawing();
+//    }
+//
+//    public static boolean isTurtleVisible () {
+//        return myTurtle.isVisible();
+//    }
 
     public static void putVariable (String key, String value) {
         myVariableCache.put(key, value);
@@ -110,11 +110,11 @@ public class Model {
         myCommandHistory.clear();
     }
 
-    public static void processNextTurtleMove () {
-        myTurtle.doNextMove();
-    }
-
-    public static boolean hasNextTurtleMove () {
-        return myTurtle.hasNextMove();
-    }
+//    public static void processNextTurtleMove () {
+//        myTurtle.doNextMove();
+//    }
+//
+//    public static boolean hasNextTurtleMove () {
+//        return myTurtle.hasNextMove();
+//    }
 }

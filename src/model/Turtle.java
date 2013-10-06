@@ -1,29 +1,41 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Queue;
 import model.turtleMove.*;
 
 
 public class Turtle {
-    // TODO
-
     private double myX, myY, myAngle;
     private boolean fDrawing, fVisible;
     private Queue<TurtleMove> myQueue;
+    private Collection<Path> myPaths;
 
     protected Turtle () {
         myX = 0;
         myY = 0;
+        fDrawing = true;
+        fVisible = true;
         myAngle = Math.PI / 2; // only internally stored in radians
         myQueue = new LinkedList<TurtleMove>();
+        myPaths = new ArrayList<Path>();
+    }
+    
+    public void addPath(double x1, double y1, double x2, double y2) {
+        myPaths.add(new Path(x1, y1, x2, y2));
+    }
+    
+    public void clearPaths() {
+        myPaths.clear();
     }
 
-    protected int getX () {
+    public int getX () {
         return (int) myX;
     }
 
-    protected int getY () {
+    public int getY () {
         return (int) myY;
     }
 
@@ -31,11 +43,11 @@ public class Turtle {
         return (int) (myAngle / Math.PI * 180); // internally stored in radians
     }
 
-    protected boolean isDrawing () {
+    public boolean isDrawing () {
         return fDrawing;
     }
 
-    protected boolean isVisible () {
+    public boolean isVisible () {
         return fVisible;
     }
 
