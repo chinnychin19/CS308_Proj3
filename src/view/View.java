@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyListener;
@@ -41,13 +42,15 @@ public class View extends JFrame {
 
     public View () {
         setTitle("SLogo");
+        this.setLayout(new GridLayout(2, 2));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(makeModule(), BorderLayout.CENTER);
-        getContentPane().add(makeInput(), BorderLayout.SOUTH);
-        getContentPane().add(makeDisplay(), BorderLayout.NORTH);
+        getContentPane().add(makeModule());
+        getContentPane().add(makeInput());
+        getContentPane().add(makeDisplay());
 
         pack();
         setVisible(true);
+
         Model.initModel();
     }
 
