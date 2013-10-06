@@ -17,6 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import model.Model;
+import view.sidebar.CommandsModule;
+import view.sidebar.HistoryModule;
 import view.sidebar.VariableModule;
 import view.display.ViewUpdater;
 import view.input.RunButton;
@@ -24,6 +26,8 @@ import view.input.Textbox;
 
 
 public class View extends JFrame {
+    private static final int GUI_WIDTH = 500;
+    private static final int GUI_HEIGHT = 400;
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 30;
     protected ViewUpdater myViewUpdater;
@@ -43,12 +47,13 @@ public class View extends JFrame {
     public View () {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
 
         final JPanel modulePanel = new JPanel();
         modulePanel.setLayout(new GridLayout(2, 2));
-        modulePanel.add(makeModule());
-        modulePanel.add(makeModule());
-        modulePanel.add(makeModule());
+        modulePanel.add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
 
         final JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(1, 1));

@@ -10,7 +10,7 @@ public class CommandsModule extends Module {
     public CommandsModule (int width, int height) {
         super(width, height);
         this.setPreferredSize(new Dimension(width, height));
-        this.add(new JLabel("I have a number between 1 and 1000."));
+        this.add(new JLabel("Commands Module"));
         // TODO Auto-generated constructor stub
     }
 

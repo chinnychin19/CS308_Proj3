@@ -11,7 +11,7 @@ public class VariableModule extends Module {
     public VariableModule (int width, int height) {
         super(width, height);
 
-        this.add(new JLabel("VARIABLE"));
+        this.add(new JLabel("Variable Module"));
         // TODO Auto-generated constructor stub
     }
 
