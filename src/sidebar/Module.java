@@ -1,21 +1,13 @@
-package view.sidebar;
+package sidebar;
 
-import java.awt.Dimension;
 import java.util.List;
-import javax.swing.JPanel;
 
 
 /**
  * @author susanzhang93
  * 
  */
-public abstract class Module extends JPanel {
-
-    public Module (int width, int height) {
-        super();
-        this.setPreferredSize(new Dimension(width, height));
-    }
-
+public abstract class Module {
     private List<ModuleData> Library;
 
     /**
@@ -25,7 +17,5 @@ public abstract class Module extends JPanel {
      * @return List of created ModuleData
      */
     protected abstract List<ModuleData> initializeModuleContents ();
-
-    protected abstract void click ();
 
 }

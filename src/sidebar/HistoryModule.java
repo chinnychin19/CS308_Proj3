@@ -1,12 +1,11 @@
-package view.sidebar;
+package sidebar;
 
 import java.util.List;
 
 
 public class HistoryModule extends Module {
 
-    public HistoryModule (int width, int height) {
-        super(width, height);
+    public HistoryModule () {
         // TODO Auto-generated constructor stub
     }
 
@@ -14,12 +13,6 @@ public class HistoryModule extends Module {
     protected List<ModuleData> initializeModuleContents () {
         // getHistory();
         return null;
-    }
-
-    @Override
-    protected void click () {
-        // TODO Auto-generated method stub
-
     }
 
 }

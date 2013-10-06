@@ -1,12 +1,11 @@
-package view.sidebar;
+package sidebar;
 
 import java.util.List;
 
 
 public class CommandsModule extends Module {
 
-    public CommandsModule (int width, int height) {
-        super(width, height);
+    public CommandsModule () {
         // TODO Auto-generated constructor stub
     }
 
@@ -14,12 +13,6 @@ public class CommandsModule extends Module {
     protected List<ModuleData> initializeModuleContents () {
         // getCommands();
         return null;
-    }
-
-    @Override
-    protected void click () {
-        // TODO Auto-generated method stub
-
     }
 
 }

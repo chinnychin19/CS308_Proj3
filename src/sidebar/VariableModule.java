@@ -1,12 +1,11 @@
-package view.sidebar;
+package sidebar;
 
 import java.util.List;
 
 
 public class VariableModule extends Module {
 
-    public VariableModule (int width, int height) {
-        super(width, height);
+    public VariableModule () {
         // TODO Auto-generated constructor stub
     }
 
@@ -14,12 +13,6 @@ public class VariableModule extends Module {
     protected List<ModuleData> initializeModuleContents () {
         // getVariableKeyPairs();
         return null;
-    }
-
-    @Override
-    protected void click () {
-        // TODO Auto-generated method stub
-
     }
 
 }
