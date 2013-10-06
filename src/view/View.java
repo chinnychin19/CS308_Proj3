@@ -42,13 +42,26 @@ public class View extends JFrame {
 
     public View () {
         setTitle("SLogo");
-        this.setLayout(new GridLayout(2, 2));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(makeModule());
-        getContentPane().add(makeInput());
-        getContentPane().add(makeDisplay());
 
-        pack();
+        final JPanel modulePanel = new JPanel();
+        modulePanel.setLayout(new GridLayout(2, 2));
+        modulePanel.add(makeModule());
+        modulePanel.add(makeModule());
+        modulePanel.add(makeModule());
+
+        final JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(1, 1));
+        inputPanel.add(makeInput());
+
+        final JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new GridLayout(1, 0));
+        optionsPanel.add(makeButton());
+
+        this.getContentPane().add(modulePanel, BorderLayout.NORTH);
+        this.getContentPane().add(inputPanel, BorderLayout.CENTER);
+        this.getContentPane().add(optionsPanel, BorderLayout.SOUTH);
+
         setVisible(true);
 
         Model.initModel();
