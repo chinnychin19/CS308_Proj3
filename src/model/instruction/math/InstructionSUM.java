@@ -18,5 +18,4 @@ public class InstructionSUM extends Instruction {
 
         return new InstructionConstant(c, null);
     }
-
 }
