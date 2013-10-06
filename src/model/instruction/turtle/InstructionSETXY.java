@@ -4,6 +4,7 @@ import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
+
 public class InstructionSETXY extends Instruction {
 
     public InstructionSETXY (Instruction parent) {

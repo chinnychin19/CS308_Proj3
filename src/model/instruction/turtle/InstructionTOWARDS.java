@@ -4,6 +4,7 @@ import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
+
 public class InstructionTOWARDS extends Instruction {
 
     public InstructionTOWARDS (Instruction parent) {
@@ -19,5 +20,5 @@ public class InstructionTOWARDS extends Instruction {
         double deltaAngle = Model.getTurtle().doRotateTowards(x, y);
         return new InstructionConstant(deltaAngle, null);
     }
-    
+
 }
