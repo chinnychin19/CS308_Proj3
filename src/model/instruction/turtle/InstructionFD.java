@@ -1,6 +1,8 @@
-package model.instruction;
+package model.instruction.turtle;
 
 import model.Model;
+import model.instruction.Instruction;
+import model.instruction.InstructionConstant;
 
 
 public class InstructionFD extends Instruction {
