@@ -15,7 +15,7 @@ public class TurtleRelativeMove extends TurtleMove {
     public void doMove (Turtle thisTurtle) {
         double oldX = thisTurtle.getX(), oldY = thisTurtle.getY();
         thisTurtle.moveForward(myPixels);
-        if(thisTurtle.isDrawing()) {
+        if (thisTurtle.isDrawing()) {
             thisTurtle.addPath(oldX, oldY, thisTurtle.getX(), thisTurtle.getY());
         }
     }

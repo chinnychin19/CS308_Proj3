@@ -19,19 +19,19 @@ public class SimpleTest {
         Model.parseInput("fd -20");
         Model.parseInput("fd 20 fd -10");
         // myModel.parseInput("right 90 fd 10");
-        
+
         Model.processNextInstruction();
         assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
 
         Model.processNextInstruction();
         assertEquals("Forward negative", -10, Model.getTurtleY(), DELTA);
-        
+
         Model.processNextInstruction();
         assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
 
         Model.processNextInstruction();
         assertEquals("Forward negative", 0, Model.getTurtleY(), DELTA);
-        
+
         // Model.processNextTurtleMove();
         // assertEquals("Rotate right", beforeAngle - 90, Model.getTurtleAngle(), DELTA);
         // Model.processNextTurtleMove();

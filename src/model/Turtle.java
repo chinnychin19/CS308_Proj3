@@ -22,12 +22,12 @@ public class Turtle {
         myQueue = new LinkedList<TurtleMove>();
         myPaths = new ArrayList<Path>();
     }
-    
-    public void addPath(double x1, double y1, double x2, double y2) {
+
+    public void addPath (double x1, double y1, double x2, double y2) {
         myPaths.add(new Path(x1, y1, x2, y2));
     }
-    
-    public void clearPaths() {
+
+    public void clearPaths () {
         myPaths.clear();
     }
 
