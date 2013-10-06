@@ -2,6 +2,7 @@ package sidebar;
 
 import java.util.List;
 
+
 public class CommandsModule extends Module {
 
     public CommandsModule () {
@@ -10,7 +11,7 @@ public class CommandsModule extends Module {
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
-//        getCommands();
+        // getCommands();
         return null;
     }
 
