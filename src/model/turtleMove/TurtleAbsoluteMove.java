@@ -13,8 +13,10 @@ public class TurtleAbsoluteMove extends TurtleMove {
 
     @Override
     public void doMove (Turtle thisTurtle) {
+        if (thisTurtle.isDrawing()) {
+            thisTurtle.addPath(thisTurtle.getX(), thisTurtle.getY(), myX, myY);
+        }
         thisTurtle.setLocation(myX, myY);
-
     }
 
 }
