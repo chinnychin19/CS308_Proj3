@@ -10,7 +10,7 @@ import javax.swing.JPanel;
  * @author susanzhang93
  * 
  */
-public abstract class Module extends JComponent {
+public abstract class Module extends JPanel {
 
     public Module (int width, int height) {
         super();

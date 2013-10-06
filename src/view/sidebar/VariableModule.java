@@ -1,12 +1,17 @@
 package view.sidebar;
 
+import java.awt.Dimension;
 import java.util.List;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 
 public class VariableModule extends Module {
 
     public VariableModule (int width, int height) {
         super(width, height);
+
+        this.add(new JLabel("VARIABLE"));
         // TODO Auto-generated constructor stub
     }
 
