@@ -16,24 +16,22 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import model.Model;
+import view.sidebar.VariableModule;
 import view.display.ViewUpdater;
 import view.input.RunButton;
 import view.input.Textbox;
-import view.sidebar.SideBar;
 
 
 public class View extends JFrame {
     private static final int DISPLAY_HEIGHT = 100;
-    private static final int DISPLAY_WIDTH = 3;
+    private static final int DISPLAY_WIDTH = 30;
     protected ViewUpdater myViewUpdater;
     protected RunButton myRunButton;
     protected Textbox myTextbox;
-    protected SideBar mySidebar;
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     private static final String USER_DIR = "user.dir";
     private static final int FIELD_SIZE = 30;
-    private JFileChooser myChooser;
     private ResourceBundle myResources;
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
@@ -44,24 +42,23 @@ public class View extends JFrame {
     public View () {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
-        getContentPane().add(makeDisplay(), BorderLayout.NORTH);
+        getContentPane().add(makeModule(), BorderLayout.CENTER);
         getContentPane().add(makeInput(), BorderLayout.SOUTH);
-
-        getContentPane().add(makeSideBar(), BorderLayout.EAST);
+        getContentPane().add(makeDisplay(), BorderLayout.NORTH);
 
         pack();
         setVisible(true);
         Model.initModel();
     }
 
-    private JComponent makeSideBar () {
-        return new SideBar(30, 100);
-    }
-
     private JComponent makeDisplay () {
         JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-        return new JScrollPane(display);
+        return display;
+    }
+
+    private JComponent makeModule () {
+        VariableModule variable = new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        return variable;
     }
 
     private JButton makeButton () {
@@ -104,7 +101,7 @@ public class View extends JFrame {
     }
 
     private void updateSidebar () {
-        mySidebar.update();
+
     }
 
     private void updateDisplay () {
