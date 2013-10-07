@@ -2,29 +2,28 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
-import dataType.DataType;
-import dataType.DataTypeFactory;
 
 
 public class VariableCache {
     // TODO
-    private Map<String, DataType> myMap;
+    private Map<String, Double> myMap;
 
     protected VariableCache () {
-        myMap = new HashMap<String, DataType>();
+        myMap = new HashMap<String, Double>();
     }
 
-    protected DataType get (String key) {
-        return myMap.get(key);
+    public double get (String key) {
+        if (myMap.keySet().contains(key)) { return myMap.get(key); }
+        return 0; // default value of a variable if not found in cache
     }
 
-    protected void put (String key, DataType value) {
+    public void put (String key, double value) {
         myMap.put(key, value);
     }
 
     protected void put (String key, String value) {
-        DataType dt = DataTypeFactory.getDataType(value);
-        myMap.put(key, dt);
+        double val = Double.parseDouble(value);
+        put(key, val);
     }
 
     protected Map<String, String> getKeyValuePairs () {

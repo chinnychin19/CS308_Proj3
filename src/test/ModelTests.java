@@ -26,5 +26,4 @@ public class ModelTests {
         Model.processNextInstruction();
         assertEquals("After process instruction", false, Model.hasNextInstruction());
     }
-
 }

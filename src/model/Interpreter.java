@@ -17,7 +17,7 @@ public class Interpreter {
         Parser parser = new Parser(input);
         Instruction root = InstructionFactory.getInstruction(parser.next(), null);
         Instruction cur = root;
-        while (parser.hasNext()) {
+        while (parser.hasNext()) { // TODO: check for brackets
             if (cur.getChildren().size() < cur.getNumParams()) {
                 Instruction temp = InstructionFactory.getInstruction(parser.next(), cur);
                 cur.addChild(temp);
