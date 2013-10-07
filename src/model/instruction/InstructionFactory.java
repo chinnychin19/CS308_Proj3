@@ -85,7 +85,7 @@ public class InstructionFactory {
                 return new InstructionSUM(
                                           parent);
             }
-            else if (s.equalsIgnoreCase("-") || s.equalsIgnoreCase("DIFFERENC")) {
+            else if (s.equalsIgnoreCase("-") || s.equalsIgnoreCase("DIFFERENCE")) {
                 return new InstructionDIFFERENCE(
                                                  parent);
             }

@@ -24,8 +24,8 @@ public class MathTests {
     @Test
     public void testDIFFERENCE () {
         Model.initModel();
-        Model.parseInput("fd - 2 1");
-        Model.parseInput("fd difference 1 2");
+        Model.parseInput("fd - 2 1"); // forward 1
+        Model.parseInput("fd difference 1 2"); // forward -1
 
         Model.processNextInstruction();
         assertEquals(1, Model.getTurtle().getY(), DELTA);

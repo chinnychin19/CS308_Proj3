@@ -14,12 +14,12 @@ public class Interpreter {
         input = input.trim();
         if (input.isEmpty()) { return; }
         Model.getCommandHistory().add(input);
-        Scanner sc = new Scanner(input);
-        Instruction root = InstructionFactory.getInstruction(sc.next(), null);
+        Parser parser = new Parser(input);
+        Instruction root = InstructionFactory.getInstruction(parser.next(), null);
         Instruction cur = root;
-        while (sc.hasNext()) {
+        while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
-                Instruction temp = InstructionFactory.getInstruction(sc.next(), cur);
+                Instruction temp = InstructionFactory.getInstruction(parser.next(), cur);
                 cur.addChild(temp);
                 cur = temp;
             }
@@ -28,13 +28,12 @@ public class Interpreter {
             }
             if (cur == null) {
                 Model.getInstructionQueue().add(root);
-                if (sc.hasNext()) {
-                    root = InstructionFactory.getInstruction(sc.next(), null);
+                if (parser.hasNext()) {
+                    root = InstructionFactory.getInstruction(parser.next(), null);
                     cur = root;
                 }
             }
         }
-        sc.close();
         Model.getInstructionQueue().add(root);
     }
 }
