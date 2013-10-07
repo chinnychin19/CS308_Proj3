@@ -34,8 +34,8 @@ public class Turtle {
         return (int) myY;
     }
 
-    protected int getAngle () {
-        return (int) (myAngle / Math.PI * 180); // internally stored in radians
+    public int getAngle () {
+        return (int) radiansToDegrees(myAngle);
     }
 
     public boolean isDrawing () {
