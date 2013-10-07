@@ -44,6 +44,8 @@ public class Parser {
             myInput = myInput.substring(myInput.indexOf(SPACE)).trim();
             return ret;
         }
-        return myInput.trim();
+        String ret = myInput.trim();
+        myInput = "";
+        return ret;
     }
 }
