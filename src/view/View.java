@@ -22,6 +22,7 @@ import model.Model;
 import view.sidebar.CommandsModule;
 import view.sidebar.HistoryModule;
 import view.sidebar.VariableModule;
+import view.display.Canvas;
 import view.display.ViewUpdater;
 import view.input.RunButton;
 import view.input.Textbox;
@@ -78,7 +79,7 @@ public class View extends JFrame {
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-//        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
+        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
         setVisible(true);
 
