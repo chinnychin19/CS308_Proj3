@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import model.command.Command;
@@ -68,6 +69,10 @@ public class Model {
 
     public static int getTurtleAngle () {
         return myTurtle.getAngle();
+    }
+
+    public static Collection<Path> getTurtlePaths () {
+        return myTurtle.getPaths();
     }
 
     // public static boolean isTurtleDrawing () {

@@ -15,7 +15,7 @@ public class InstructionTOWARDS extends Instruction {
     public Instruction eval () {
         Instruction param1 = getChildren().get(0).eval();
         double x = ((InstructionConstant) param1).getValue();
-        Instruction param2 = getChildren().get(0).eval();
+        Instruction param2 = getChildren().get(1).eval();
         double y = ((InstructionConstant) param2).getValue();
         double deltaAngle = Model.getTurtle().doRotateTowards(x, y);
         return new InstructionConstant(deltaAngle, null);

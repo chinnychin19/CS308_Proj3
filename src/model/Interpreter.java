@@ -16,10 +16,6 @@ public class Interpreter {
         Model.getCommandHistory().add(input);
         Scanner sc = new Scanner(input);
         Instruction root = InstructionFactory.getInstruction(sc.next(), null);
-        if (root == null) {
-            sc.close();
-            return;
-        }
         Instruction cur = root;
         while (sc.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
@@ -30,7 +26,7 @@ public class Interpreter {
             else {
                 cur = cur.getParent(); // assumes parent exists, could be an error
             }
-            if (cur.getParent() == null) {
+            if (cur == null) {
                 Model.getInstructionQueue().add(root);
                 if (sc.hasNext()) {
                     root = InstructionFactory.getInstruction(sc.next(), null);

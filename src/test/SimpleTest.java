@@ -9,43 +9,9 @@ public class SimpleTest {
     private final double DELTA = 0.001;
 
     @Test
-    public void testTurtleMovement () {
-        Model.initModel();
-        double beforeX = Model.getTurtleX();
-        double beforeY = Model.getTurtleY();
-        double beforeAngle = Model.getTurtleAngle();
-
-        Model.parseInput("fd 10");
-        Model.parseInput("fd -20");
-        Model.parseInput("fd 20 fd -10");
-        // myModel.parseInput("right 90 fd 10");
-
-        Model.processNextInstruction();
-        assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
-
-        Model.processNextInstruction();
-        assertEquals("Forward negative", -10, Model.getTurtleY(), DELTA);
-
-        Model.processNextInstruction();
-        assertEquals("Foward positive", 10, Model.getTurtleY(), DELTA);
-
-        Model.processNextInstruction();
-        assertEquals("Forward negative", 0, Model.getTurtleY(), DELTA);
-
-        // Model.processNextTurtleMove();
-        // assertEquals("Rotate right", beforeAngle - 90, Model.getTurtleAngle(), DELTA);
-        // Model.processNextTurtleMove();
-        // assertEquals("Rotate right then forward", beforeX + 10, myModel.getTurtleX());
-    }
-
-    @Test
     public void testCommandHistory () {
         Model.initModel();
-        String[] testString = { "Command 1", "Command 2", "Command 3" };
-
-        assertEquals("Empty command history", true, Model.getHistory().isEmpty()); // initially
-                                                                                   // empty
-
+        String[] testString = { "fd 10", "fd 10", "fd 10" };
         for (int i = 0; i < testString.length; i++) {
             Model.parseInput(testString[i]);
             assertEquals("String " + i, testString[i], Model.getHistory().get(i));
@@ -60,6 +26,63 @@ public class SimpleTest {
         assertEquals("Add one instruction", true, Model.hasNextInstruction());
         Model.processNextInstruction();
         assertEquals("After process instruction", false, Model.hasNextInstruction());
+    }
+
+    @Test
+    public void testFD () {
+        Model.initModel();
+        Model.parseInput("fd 10");
+        Model.processNextInstruction();
+        assertEquals(10, Model.getTurtle().getY(), DELTA);
+    }
+
+    @Test
+    public void testBK () {
+        Model.initModel();
+        Model.parseInput("bk 10");
+        Model.processNextInstruction();
+        assertEquals(-10, Model.getTurtle().getY(), DELTA);
+    }
+
+    @Test
+    public void testLT () {
+        Model.initModel();
+        Model.parseInput("lt 10");
+        Model.processNextInstruction();
+        assertEquals(100, Model.getTurtle().getAngle(), DELTA);
+    }
+
+    @Test
+    public void testRT () {
+        Model.initModel();
+        Model.parseInput("rt 10");
+        Model.processNextInstruction();
+        assertEquals(80, Model.getTurtle().getAngle(), DELTA);
+    }
+
+    @Test
+    public void testSETH () {
+        Model.initModel();
+        Model.parseInput("seth 10");
+        Model.processNextInstruction();
+        assertEquals(10, Model.getTurtle().getAngle(), DELTA);
+    }
+
+    @Test
+    public void testTOWARDS () {
+        Model.initModel();
+        Model.parseInput("towards -10 10");
+        Model.processNextInstruction();
+        assertEquals(135, Model.getTurtle().getAngle(), DELTA);
+    }
+
+    @Test
+    public void testGOTO () {
+        Model.initModel();
+        Model.parseInput("goto -10 10");
+        Model.processNextInstruction();
+        assertEquals(-10, Model.getTurtle().getX(), DELTA);
+        assertEquals(10, Model.getTurtle().getY(), DELTA);
     }
 
 }

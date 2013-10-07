@@ -18,6 +18,10 @@ public class Turtle {
         myPaths = new ArrayList<Path>();
     }
 
+    protected Collection<Path> getPaths () {
+        return myPaths;
+    }
+
     private void addPath (double x1, double y1, double x2, double y2) {
         myPaths.add(new Path(x1, y1, x2, y2));
     }
@@ -76,23 +80,24 @@ public class Turtle {
 
     public double doRelativeRotate (double degrees) {
         double radians = degreesToRadians(degrees);
-        myAngle = (myAngle + radians) % (2 * Math.PI); // maintains 0 to 2 PI
+        myAngle = positiveMod(myAngle + radians, 2 * Math.PI); // maintains 0 to 2 PI
         return degrees;
     }
 
     public double doAbsoluteRotate (double degrees) {
-        double deltaDegrees = degrees - radiansToDegrees(myAngle) % 360; // CCW change in degrees
-        myAngle = degreesToRadians(degrees % 360); // maintains 0 to 2 PI
+        double deltaDegrees = degrees - radiansToDegrees(myAngle); // CCW change in degrees
+        myAngle = positiveMod(degreesToRadians(degrees), 2 * Math.PI); // maintains 0 to 2 PI
         return deltaDegrees;
     }
 
     public double doRotateTowards (double x, double y) {
         double dx = x - myX, dy = y - myY;
+        System.out.println(dx + " " + dy);
         double newRadians = Math.atan2(dy, dx); // (-Math.pi, Math.pi]
         double oldRadians = myAngle;
-        newRadians = newRadians % (2 * Math.PI); // (0, 2 PI]
+        newRadians = positiveMod(newRadians, 2 * Math.PI); // (0, 2 PI]
         myAngle = newRadians;  // maintains 0 to 2 PI
-        double deltaRadians = (newRadians - oldRadians) % (2 * Math.PI);
+        double deltaRadians = positiveMod(newRadians - oldRadians, 2 * Math.PI);
         return deltaRadians;
     }
 
@@ -106,5 +111,10 @@ public class Turtle {
 
     private static double distance (double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
+
+    private static double positiveMod (double num, double divisor) {
+        double ret = num % divisor;
+        return ret < 0 ? ret + divisor : ret;
     }
 }
