@@ -21,31 +21,34 @@ public class CommandsModule extends Module {
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
-       
-      JList list = new JList();
-      DefaultListModel listModel = new DefaultListModel();
-      listModel = new DefaultListModel();
-      listModel.addElement("Jane Doe");
-      listModel.addElement("John Smith");
-      listModel.addElement("Kathy Green");
 
-      //Create the list and put it in a scroll pane.
-      list = new JList(listModel);
-      JScrollPane listScrollPane = new JScrollPane(list);
-      add(listScrollPane);
+        JList list = new JList();
+        DefaultListModel listModel = new DefaultListModel();
+        listModel = new DefaultListModel();
+        listModel.addElement("Jane Doe");
+        listModel.addElement("John Smith");
+        listModel.addElement("Kathy Green");
+
+        // Create the list and put it in a scroll pane.
+        list = new JList(listModel);
+        JScrollPane listScrollPane = new JScrollPane(list);
+        add(listScrollPane);
 
         return null;
     }
-    public void mouseClicked(MouseEvent evt) {
+
+    public void mouseClicked (MouseEvent evt) {
         System.out.println("test");
-        JList list = (JList)evt.getSource();
+        JList list = (JList) evt.getSource();
         if (evt.getClickCount() == 2) {
             int index = list.locationToIndex(evt.getPoint());
-        } else if (evt.getClickCount() == 3) {   // Triple-click
+        }
+        else if (evt.getClickCount() == 3) {   // Triple-click
             int index = list.locationToIndex(evt.getPoint());
 
         }
     }
+
     @Override
     protected void click () {
         // TODO Auto-generated method stub
