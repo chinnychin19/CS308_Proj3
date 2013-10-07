@@ -78,7 +78,7 @@ public class View extends JFrame {
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
+//        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
         setVisible(true);
 
@@ -95,25 +95,21 @@ public class View extends JFrame {
         return result;
     }
 
-    private JComponent makeDisplay () {
-        JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-        return display;
-    }
+//    private JComponent makeDisplay () {
+//        JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+//        return display;
+//    }
 
     private JComponent makeModule () {
         VariableModule variable = new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT);
         return variable;
     }
 
-    private JButton makeButton () {
-        JButton result = new JButton("RUN");
-        return result;
-    }
 
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.add(makeTextField());
-        result.add(makeButton());
+        result.add(new RunButton("RUN"));
 
         return result;
     }
