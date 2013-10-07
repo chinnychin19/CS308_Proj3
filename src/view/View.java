@@ -47,6 +47,7 @@ public class View extends JFrame {
     private FocusListener myFocusListener;
 
     public View () {
+
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
@@ -64,32 +65,36 @@ public class View extends JFrame {
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
         optionsPanel.add(new Checkbox("Grid", null, true));
-        
+
         final JComboBox backgroundChooser = new JComboBox();
         backgroundChooser.addItem("COLOR");
         optionsPanel.add(backgroundChooser);
 
         optionsPanel.add(new Checkbox("Pen Down", null, true));
-        
+
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
-//        initEngineComponent will embed it 
+        // initEngineComponent will embed it
         this.getContentPane().add(modulePanel, BorderLayout.NORTH);
         this.getContentPane().add(inputPanel, BorderLayout.CENTER);
         this.getContentPane().add(optionsPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(new Canvas(), BorderLayout.EAST);
 
         setVisible(true);
 
         Model.initModel();
     }
-    private JComponent makeImageChooserButton(){
+
+    private JComponent makeImageChooserButton () {
         JButton result = new JButton("Image");
         return result;
     }
-    private JComponent makeHelpButton(){
+
+    private JComponent makeHelpButton () {
         JButton result = new JButton("Help Me");
         return result;
     }
+
     private JComponent makeDisplay () {
         JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
         return display;
