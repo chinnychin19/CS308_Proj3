@@ -7,7 +7,7 @@ import model.instruction.InstructionConstant;
 public class InstructionQUOTIENT extends Instruction {
 
     public InstructionQUOTIENT (Instruction parent) {
-        super(2, parent);
+        super(2, parent); // Quotient takes two parameters
     }
 
     @Override

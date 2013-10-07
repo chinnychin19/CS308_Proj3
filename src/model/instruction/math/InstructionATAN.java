@@ -6,17 +6,20 @@ import model.instruction.InstructionConstant;
 
 public class InstructionATAN extends Instruction {
 
+    private static final double PI_DEGREES = 180;
+
     public InstructionATAN (Instruction parent) {
-        super(1, parent);
+        super(1, parent); // Arctan takes one parameter
     }
 
     @Override
     public Instruction eval () {
+        // TODO: Atan at 0? atan2?
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        double radians = degrees / 180 * Math.PI;
+        double radians = degrees / PI_DEGREES * Math.PI;
 
-        radians = Math.atan(radians); // Atan at 0?
-        degrees = radians / Math.PI * 180;
+        radians = Math.atan(radians);
+        degrees = radians / Math.PI * PI_DEGREES;
 
         return new InstructionConstant(degrees, null);
     }

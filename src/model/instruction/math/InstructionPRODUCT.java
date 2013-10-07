@@ -7,7 +7,7 @@ import model.instruction.InstructionConstant;
 public class InstructionPRODUCT extends Instruction {
 
     public InstructionPRODUCT (Instruction parent) {
-        super(2, parent);
+        super(2, parent); // Product takes two parameters
     }
 
     @Override

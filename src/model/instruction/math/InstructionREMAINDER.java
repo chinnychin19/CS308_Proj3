@@ -7,7 +7,7 @@ import model.instruction.InstructionConstant;
 public class InstructionREMAINDER extends Instruction {
 
     public InstructionREMAINDER (Instruction parent) {
-        super(2, parent);
+        super(2, parent); // Remainder takes two parameters
     }
 
     @Override
