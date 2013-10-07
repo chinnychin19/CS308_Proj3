@@ -9,60 +9,158 @@ import dataType.DataType;
 public class InstructionFactory {
     public static Instruction getInstruction (String s, Instruction parent) {
         if (DataType.isString(s)) {
-            if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) { return new InstructionFORWARD(
-                                                                                                           parent); }
-            if (s.equalsIgnoreCase("BK") || s.equalsIgnoreCase("BACK")) { return new InstructionBACK(
-                                                                                                     parent); }
-            if (s.equalsIgnoreCase("LT") || s.equalsIgnoreCase("LEFT")) { return new InstructionLEFT(
-                                                                                                     parent); }
-            if (s.equalsIgnoreCase("RT") || s.equalsIgnoreCase("RIGHT")) { return new InstructionRIGHT(
-                                                                                                       parent); }
-            if (s.equalsIgnoreCase("SETH") || s.equalsIgnoreCase("SETHEADING")) { return new InstructionSETHEADING(
-                                                                                                                   parent); }
-            if (s.equalsIgnoreCase("TOWARDS")) { return new InstructionTOWARDS(parent); }
-            if (s.equalsIgnoreCase("GOTO") || s.equalsIgnoreCase("SETXY")) { return new InstructionSETXY(
-                                                                                                         parent); }
-            if (s.equalsIgnoreCase("PD") || s.equalsIgnoreCase("PENDOWN")) { return new InstructionPENDOWN(
-                                                                                                           parent); }
-            if (s.equalsIgnoreCase("PU") || s.equalsIgnoreCase("PENUP")) { return new InstructionPENUP(
-                                                                                                       parent); }
-            if (s.equalsIgnoreCase("ST") || s.equalsIgnoreCase("SHOWTURTLE")) { return new InstructionSHOWTURTLE(
-                                                                                                                 parent); }
-            if (s.equalsIgnoreCase("HT") || s.equalsIgnoreCase("HIDETURTLE")) { return new InstructionHIDETURTLE(
-                                                                                                                 parent); }
-            if (s.equalsIgnoreCase("HOME")) { return new InstructionHOME(parent); }
-            if (s.equalsIgnoreCase("CS") || s.equalsIgnoreCase("CLEARSCREEN")) { return new InstructionCLEARSCREEN(
-                                                                                                                   parent); }
-            if (s.equalsIgnoreCase("XCOR")) { return new InstructionXCOR(parent); }
-            if (s.equalsIgnoreCase("YCOR")) { return new InstructionYCOR(parent); }
-            if (s.equalsIgnoreCase("HEADING")) { return new InstructionHEADING(parent); }
-            if (s.equalsIgnoreCase("PENDOWN?") || s.equalsIgnoreCase("PENDOWNP")) { return new InstructionPENDOWNP(
-                                                                                                                   parent); }
-            if (s.equalsIgnoreCase("SHOWNG?") || s.equalsIgnoreCase("SHOWINGP")) { return new InstructionSHOWINGP(
-                                                                                                                  parent); }
-            if (s.equalsIgnoreCase("+") || s.equalsIgnoreCase("SUM")) { return new InstructionSUM(
-                                                                                                  parent); }
-            if (s.equalsIgnoreCase("-") || s.equalsIgnoreCase("DIFFERENC")) { return new InstructionDIFFERENCE(
-                                                                                                               parent); }
-            if (s.equalsIgnoreCase("*") || s.equalsIgnoreCase("PRODUCT")) { return new InstructionPRODUCT(
-                                                                                                          parent); }
-            if (s.equalsIgnoreCase("/") || s.equalsIgnoreCase("QUOTIENT")) { return new InstructionQUOTIENT(
-                                                                                                            parent); }
-            if (s.equalsIgnoreCase("%") || s.equalsIgnoreCase("REMAINDER")) { return new InstructionREMAINDER(
-                                                                                                              parent); }
-            if (s.equalsIgnoreCase("~") || s.equalsIgnoreCase("MINUS")) { return new InstructionMINUS(
-                                                                                                      parent); }
-            if (s.equalsIgnoreCase("RANDOM")) { return new InstructionRANDOM(parent); }
-            if (s.equalsIgnoreCase("SIN")) { return new InstructionSIN(parent); }
-            if (s.equalsIgnoreCase("COS")) { return new InstructionCOS(parent); }
-            if (s.equalsIgnoreCase("TAN")) { return new InstructionTAN(parent); }
-            if (s.equalsIgnoreCase("ATAN")) { return new InstructionATAN(parent); }
-            if (s.equalsIgnoreCase("LOG")) { return new InstructionLOG(parent); }
-            if (s.equalsIgnoreCase("POW")) {
+            // Turtle operations
+            if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) {
+                return new InstructionFORWARD(
+                                              parent);
+            }
+            else if (s.equalsIgnoreCase("BK") || s.equalsIgnoreCase("BACK")) {
+                return new InstructionBACK(
+                                           parent);
+            }
+            else if (s.equalsIgnoreCase("LT") || s.equalsIgnoreCase("LEFT")) {
+                return new InstructionLEFT(
+                                           parent);
+            }
+            else if (s.equalsIgnoreCase("RT") || s.equalsIgnoreCase("RIGHT")) {
+                return new InstructionRIGHT(
+                                            parent);
+            }
+            else if (s.equalsIgnoreCase("SETH") || s.equalsIgnoreCase("SETHEADING")) {
+                return new InstructionSETHEADING(
+                                                 parent);
+            }
+            else if (s.equalsIgnoreCase("TOWARDS")) {
+                return new InstructionTOWARDS(parent);
+            }
+            else if (s.equalsIgnoreCase("GOTO") || s.equalsIgnoreCase("SETXY")) {
+                return new InstructionSETXY(
+                                            parent);
+            }
+            else if (s.equalsIgnoreCase("PD") || s.equalsIgnoreCase("PENDOWN")) {
+                return new InstructionPENDOWN(
+                                              parent);
+            }
+            else if (s.equalsIgnoreCase("PU") || s.equalsIgnoreCase("PENUP")) {
+                return new InstructionPENUP(
+                                            parent);
+            }
+            else if (s.equalsIgnoreCase("ST") || s.equalsIgnoreCase("SHOWTURTLE")) {
+                return new InstructionSHOWTURTLE(
+                                                 parent);
+            }
+            else if (s.equalsIgnoreCase("HT") || s.equalsIgnoreCase("HIDETURTLE")) {
+                return new InstructionHIDETURTLE(
+                                                 parent);
+            }
+            else if (s.equalsIgnoreCase("HOME")) {
+                return new InstructionHOME(parent);
+            }
+            else if (s.equalsIgnoreCase("CS") || s.equalsIgnoreCase("CLEARSCREEN")) {
+                return new InstructionCLEARSCREEN(
+                                                  parent);
+            }
+
+            // Turtle queries
+            else if (s.equalsIgnoreCase("XCOR")) {
+                return new InstructionXCOR(parent);
+            }
+            else if (s.equalsIgnoreCase("YCOR")) {
+                return new InstructionYCOR(parent);
+            }
+            else if (s.equalsIgnoreCase("HEADING")) {
+                return new InstructionHEADING(parent);
+            }
+            else if (s.equalsIgnoreCase("PENDOWN?") || s.equalsIgnoreCase("PENDOWNP")) {
+                return new InstructionPENDOWNP(
+                                               parent);
+            }
+            else if (s.equalsIgnoreCase("SHOWNG?") || s.equalsIgnoreCase("SHOWINGP")) {
+                return new InstructionSHOWINGP(
+                                               parent);
+            }
+
+            // Math operations
+            else if (s.equalsIgnoreCase("+") || s.equalsIgnoreCase("SUM")) {
+                return new InstructionSUM(
+                                          parent);
+            }
+            else if (s.equalsIgnoreCase("-") || s.equalsIgnoreCase("DIFFERENC")) {
+                return new InstructionDIFFERENCE(
+                                                 parent);
+            }
+            else if (s.equalsIgnoreCase("*") || s.equalsIgnoreCase("PRODUCT")) {
+                return new InstructionPRODUCT(
+                                              parent);
+            }
+            else if (s.equalsIgnoreCase("/") || s.equalsIgnoreCase("QUOTIENT")) {
+                return new InstructionQUOTIENT(
+                                               parent);
+            }
+            else if (s.equalsIgnoreCase("%") || s.equalsIgnoreCase("REMAINDER")) {
+                return new InstructionREMAINDER(
+                                                parent);
+            }
+            else if (s.equalsIgnoreCase("~") || s.equalsIgnoreCase("MINUS")) {
+                return new InstructionMINUS(
+                                            parent);
+            }
+            else if (s.equalsIgnoreCase("RANDOM")) {
+                return new InstructionRANDOM(parent);
+            }
+            else if (s.equalsIgnoreCase("SIN")) {
+                return new InstructionSIN(parent);
+            }
+            else if (s.equalsIgnoreCase("COS")) {
+                return new InstructionCOS(parent);
+            }
+            else if (s.equalsIgnoreCase("TAN")) {
+                return new InstructionTAN(parent);
+            }
+            else if (s.equalsIgnoreCase("ATAN")) {
+                return new InstructionATAN(parent);
+            }
+            else if (s.equalsIgnoreCase("LOG")) {
+                return new InstructionLOG(parent);
+            }
+            else if (s.equalsIgnoreCase("POW")) {
                 return new InstructionPOW(parent);
             }
+
+            // Bool operations
+            else if (s.equalsIgnoreCase("LESS?") || s.equalsIgnoreCase("LESSP")) {
+                return new InstructionLESS(
+                                           parent);
+            }
+            else if (s.equalsIgnoreCase("GREATER?") || s.equalsIgnoreCase("GREATERP")) {
+                return new InstructionGREATER(
+                                              parent);
+            }
+            else if (s.equalsIgnoreCase("EQUAL?") || s.equalsIgnoreCase("EQUALP")) {
+                return new InstructionEQUAL(
+                                            parent);
+            }
+            else if (s.equalsIgnoreCase("NOTEQUAL?") || s.equalsIgnoreCase("NOTEQUALP")) {
+                return new InstructionNOTEQUAL(
+                                               parent);
+            }
+            else if (s.equalsIgnoreCase("AND")) {
+                return new InstructionAND(
+                                          parent);
+            }
+            else if (s.equalsIgnoreCase("OR")) {
+                return new InstructionOR(
+                                         parent);
+            }
+            else if (s.equalsIgnoreCase("NOT")) {
+                return new InstructionNOT(
+                                          parent);
+            }
+
+            // Unrecognized
             else {
-                return null; // should not happen. throw error or something. TODO
+                return null; // TODO: should only happen if user entered command. Check
+                             // commandCache. else error
             }
         }
         else { // is a number
