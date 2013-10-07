@@ -4,6 +4,7 @@ import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
+
 public class InstructionXCOR extends Instruction {
 
     public InstructionXCOR (Instruction parent) {
