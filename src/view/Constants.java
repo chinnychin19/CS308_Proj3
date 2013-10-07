@@ -8,9 +8,9 @@ public interface Constants {
     public static final int CANVAS_WIDTH = 500;
     public static final int CANVAS_HEIGHT = 500;
   
-    public static final int Y_TILES = 100;
-    public static final int X_TILES = 100;
-    public static final int TILE_HEIGHT = 30;
+    public static final int Y_TILES = 50;
+    public static final int X_TILES = 50;
+    public static final int TILE_HEIGHT = 20;
     
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     public static final String USER_DIR = "user.dir";
