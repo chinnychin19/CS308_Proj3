@@ -39,5 +39,6 @@ public class Interpreter {
             }
         }
         sc.close();
+        Model.getInstructionQueue().add(root);
     }
 }

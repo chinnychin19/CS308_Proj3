@@ -12,6 +12,7 @@ public abstract class Instruction {
     public Instruction (int paramCount, Instruction parent) {
         myParamCount = paramCount;
         myChildren = new ArrayList<Instruction>();
+        myParent = parent;
     }
 
     public int getNumParams () {

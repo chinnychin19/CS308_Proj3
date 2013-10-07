@@ -41,6 +41,45 @@ public class InstructionFactory {
             if (s.equalsIgnoreCase("SHOWNG?") || s.equalsIgnoreCase("SHOWINGP")) {
                 return new InstructionSHOWINGP(parent);
             }
+            if (s.equalsIgnoreCase("+") || s.equalsIgnoreCase("SUM")) {
+                return new InstructionSUM(parent);
+            }
+            if (s.equalsIgnoreCase("-") || s.equalsIgnoreCase("DIFFERENC")) {
+                return new InstructionDIFFERENCE(parent);
+            }
+            if (s.equalsIgnoreCase("*") || s.equalsIgnoreCase("PRODUCT")) {
+                return new InstructionPRODUCT(parent);
+            }
+            if (s.equalsIgnoreCase("/") || s.equalsIgnoreCase("QUOTIENT")) {
+                return new InstructionQUOTIENT(parent);
+            }
+            if (s.equalsIgnoreCase("%") || s.equalsIgnoreCase("REMAINDER")) {
+                return new InstructionREMAINDER(parent);
+            }
+            if (s.equalsIgnoreCase("~") || s.equalsIgnoreCase("MINUS")) {
+                return new InstructionMINUS(parent);
+            }
+            if (s.equalsIgnoreCase("RANDOM")) {
+                return new InstructionRANDOM(parent);
+            }
+            if (s.equalsIgnoreCase("SIN")) {
+                return new InstructionSIN(parent);
+            }
+            if (s.equalsIgnoreCase("COS")) {
+                return new InstructionCOS(parent);
+            }
+            if (s.equalsIgnoreCase("TAN")) {
+                return new InstructionTAN(parent);
+            }
+            if (s.equalsIgnoreCase("ATAN")) {
+                return new InstructionATAN(parent);
+            }
+            if (s.equalsIgnoreCase("LOG")) {
+                return new InstructionLOG(parent);
+            }
+            if (s.equalsIgnoreCase("POW")) {
+                return new InstructionPOW(parent);
+            }
             else {
                 return null; // should not happen. throw error or something. TODO
             }

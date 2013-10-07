@@ -4,11 +4,11 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
-public class InstructionSINE extends Instruction {
+public class InstructionSIN extends Instruction {
 
     private static final int PI_DEGREES = 180;
 
-    public InstructionSINE (Instruction parent) {
+    public InstructionSIN (Instruction parent) {
         super(1, parent); // Sine takes one parameter
     }
 

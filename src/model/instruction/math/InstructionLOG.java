@@ -14,8 +14,6 @@ public class InstructionLOG extends Instruction {
     public Instruction eval () {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         a = Math.log(a);
-
         return new InstructionConstant(a, null);
     }
-
 }
