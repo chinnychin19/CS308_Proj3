@@ -6,7 +6,7 @@ import model.instruction.InstructionConstant;
 
 public class InstructionNOTEQUAL extends Instruction {
 
-    public InstructionNOTEQUAL (int paramCount, Instruction parent) {
+    public InstructionNOTEQUAL (Instruction parent) {
         super(2, parent); // Not equal takes two parameters
     }
 

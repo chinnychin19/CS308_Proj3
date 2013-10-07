@@ -6,7 +6,7 @@ import model.instruction.InstructionConstant;
 
 public class InstructionAND extends Instruction {
 
-    public InstructionAND (int paramCount, Instruction parent) {
+    public InstructionAND (Instruction parent) {
         super(2, parent); // And takes two parameters
     }
 
