@@ -16,19 +16,17 @@ public class CommandsModule extends Module {
         super(width, height);
         this.setPreferredSize(new Dimension(width, height));
         this.add(new JLabel("Commands Module"));
-       
+
     }
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
 
-
-
         return null;
     }
 
     public void mouseClicked (MouseEvent evt) {
-       
+
     }
 
     @Override
