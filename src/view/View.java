@@ -23,6 +23,7 @@ import view.sidebar.CommandsModule;
 import view.sidebar.HistoryModule;
 import view.sidebar.VariableModule;
 import view.display.ViewUpdater;
+import view.input.InputPanel;
 import view.input.RunButton;
 import view.input.Textbox;
 
@@ -58,10 +59,6 @@ public class View extends JFrame {
         modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
 
-        final JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(1, 1));
-        inputPanel.add(makeInput());
-
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
         optionsPanel.add(new Checkbox("Grid", null, true));
@@ -76,9 +73,9 @@ public class View extends JFrame {
         optionsPanel.add(makeHelpButton());
         // initEngineComponent will embed it
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
-        this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(new InputPanel(), BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-//        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
+        // this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
         setVisible(true);
 
@@ -95,29 +92,14 @@ public class View extends JFrame {
         return result;
     }
 
-//    private JComponent makeDisplay () {
-//        JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-//        return display;
-//    }
+    // private JComponent makeDisplay () {
+    // JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    // return display;
+    // }
 
     private JComponent makeModule () {
         VariableModule variable = new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT);
         return variable;
-    }
-
-
-    protected JComponent makeInput () {
-        JPanel result = new JPanel();
-        result.add(makeTextField());
-        result.add(new RunButton("RUN"));
-
-        return result;
-    }
-
-    protected JTextField makeTextField () {
-        JTextField result = new Textbox(FIELD_SIZE);
-        ((Textbox) result).addInput("");
-        return result;
     }
 
     protected void sendInput () {

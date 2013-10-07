@@ -7,8 +7,10 @@ import org.junit.Test;
 import dataType.DataType;
 import view.input.Textbox;
 
+
 public class ViewTest {
     Textbox textbox;
+
     @Before
     public void setUp () throws Exception {
         textbox = new Textbox(50);
@@ -21,12 +23,17 @@ public class ViewTest {
     @Test
     public void testTextBox () {
         textbox.addInput("test");
-        assertEquals(textbox.getInput(), "test");
-        textbox.addInput("more input");
-        assertEquals(textbox.getInput(), "test more input");
+        assertEquals("test", textbox.getInput());
+        textbox.addInput(" more input");
+        assertEquals("test more input", textbox.getInput());
         textbox.clear();
-        assertEquals(textbox.getInput(),"");
-      
+        assertEquals(textbox.getInput(), "");
+        // textbox.addInput("test\n");
+        // assertEquals("test\n",textbox.getInput());
+    }
+
+    public void testRunButton () {
+
     }
 
 }
