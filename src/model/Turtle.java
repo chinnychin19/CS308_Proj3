@@ -30,16 +30,16 @@ public class Turtle {
         myPaths.clear();
     }
 
-    public int getX () {
-        return (int) myX;
+    public double getX () {
+        return myX;
     }
 
-    public int getY () {
-        return (int) myY;
+    public double getY () {
+        return myY;
     }
 
-    public int getAngle () {
-        return (int) radiansToDegrees(myAngle);
+    public double getAngle () {
+        return radiansToDegrees(myAngle);
     }
 
     public boolean isDrawing () {

@@ -15,12 +15,10 @@ public class InstructionCOS extends Instruction {
     @Override
     public Instruction eval () {
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        double radians = degrees / PI_DEGREES * Math.PI;
+        double radians = degrees * Math.PI / PI_DEGREES;
+        double ret = Math.cos(radians);
 
-        radians = Math.cos(radians);
-        degrees = radians / Math.PI * PI_DEGREES;
-
-        return new InstructionConstant(degrees, null);
+        return new InstructionConstant(ret, null);
     }
 
 }

@@ -59,15 +59,15 @@ public class Model {
         return myInstructionQueue.hasNextInstruction();
     }
 
-    public static int getTurtleX () {
+    public static double getTurtleX () {
         return myTurtle.getX();
     }
 
-    public static int getTurtleY () {
+    public static double getTurtleY () {
         return myTurtle.getY();
     }
 
-    public static int getTurtleAngle () {
+    public static double getTurtleAngle () {
         return myTurtle.getAngle();
     }
 

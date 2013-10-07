@@ -15,12 +15,10 @@ public class InstructionSIN extends Instruction {
     @Override
     public Instruction eval () {
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        double radians = degrees / PI_DEGREES * Math.PI;
+        double radians = degrees * Math.PI / PI_DEGREES;
+        double ret = Math.sin(radians);
 
-        radians = Math.sin(radians);
-        degrees = radians / Math.PI * PI_DEGREES;
-
-        return new InstructionConstant(degrees, null);
+        return new InstructionConstant(ret, null);
     }
 
 }

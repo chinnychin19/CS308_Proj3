@@ -16,12 +16,10 @@ public class InstructionATAN extends Instruction {
     public Instruction eval () {
         // TODO: Atan at 0? atan2?
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        double radians = degrees / PI_DEGREES * Math.PI;
+        double radians = degrees * Math.PI / PI_DEGREES;
+        double ret = Math.atan(radians);
 
-        radians = Math.atan(radians);
-        degrees = radians / Math.PI * PI_DEGREES;
-
-        return new InstructionConstant(degrees, null);
+        return new InstructionConstant(ret, null);
     }
 
 }
