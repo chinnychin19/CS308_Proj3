@@ -16,7 +16,7 @@ public class HistoryModule extends Module {
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
-        // getHistory();
+         
         return null;
     }
 
