@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,6 +19,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import model.Model;
+import view.sidebar.CommandsModule;
+import view.sidebar.HistoryModule;
 import view.sidebar.VariableModule;
 import view.display.ViewUpdater;
 import view.input.RunButton;
@@ -24,6 +28,8 @@ import view.input.Textbox;
 
 
 public class View extends JFrame {
+    private static final int GUI_WIDTH = 500;
+    private static final int GUI_HEIGHT = 400;
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 30;
     protected ViewUpdater myViewUpdater;
@@ -41,17 +47,52 @@ public class View extends JFrame {
     private FocusListener myFocusListener;
 
     public View () {
-        setTitle("SLogo");
-        this.setLayout(new GridLayout(2, 2));
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getContentPane().add(makeModule());
-        getContentPane().add(makeInput());
-        getContentPane().add(makeDisplay());
 
-        pack();
+        setTitle("SLogo");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
+
+        final JPanel modulePanel = new JPanel();
+        modulePanel.setLayout(new GridLayout(2, 2));
+        modulePanel.add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+
+        final JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(1, 1));
+        inputPanel.add(makeInput());
+
+        final JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new GridLayout(1, 0));
+        optionsPanel.add(new Checkbox("Grid", null, true));
+
+        final JComboBox backgroundChooser = new JComboBox();
+        backgroundChooser.addItem("COLOR");
+        optionsPanel.add(backgroundChooser);
+
+        optionsPanel.add(new Checkbox("Pen Down", null, true));
+
+        optionsPanel.add(makeImageChooserButton());
+        optionsPanel.add(makeHelpButton());
+        // initEngineComponent will embed it
+        this.getContentPane().add(modulePanel, BorderLayout.NORTH);
+        this.getContentPane().add(inputPanel, BorderLayout.CENTER);
+        this.getContentPane().add(optionsPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(new Canvas(), BorderLayout.EAST);
+
         setVisible(true);
 
         Model.initModel();
+    }
+
+    private JComponent makeImageChooserButton () {
+        JButton result = new JButton("Image");
+        return result;
+    }
+
+    private JComponent makeHelpButton () {
+        JButton result = new JButton("Help Me");
+        return result;
     }
 
     private JComponent makeDisplay () {

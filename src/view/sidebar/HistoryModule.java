@@ -10,13 +10,13 @@ public class HistoryModule extends Module {
     public HistoryModule (int width, int height) {
         super(width, height);
         this.setPreferredSize(new Dimension(width, height));
-        this.add(new JLabel("I have a number between 1 and 1000."));
+        this.add(new JLabel("History Module"));
         // TODO Auto-generated constructor stub
     }
 
     @Override
     protected List<ModuleData> initializeModuleContents () {
-        // getHistory();
+
         return null;
     }
 
