@@ -1,5 +1,5 @@
 package view;
- 
+
 import jgame.JGColor;
 import jgame.platform.JGEngine;
 
