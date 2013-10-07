@@ -22,23 +22,21 @@ import model.Model;
 import view.sidebar.CommandsModule;
 import view.sidebar.HistoryModule;
 import view.sidebar.VariableModule;
+import view.display.Canvas;
+import view.display.Display;
 import view.display.ViewUpdater;
 import view.input.RunButton;
 import view.input.Textbox;
 
 
 public class View extends JFrame {
-    private static final int GUI_WIDTH = 1000;
-    private static final int GUI_HEIGHT = 600;
-    private static final int DISPLAY_HEIGHT = 100;
-    private static final int DISPLAY_WIDTH = 300;
+    
+    
     protected ViewUpdater myViewUpdater;
     protected RunButton myRunButton;
     protected Textbox myTextbox;
 
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String USER_DIR = "user.dir";
-    private static final int FIELD_SIZE = 30;
+   
     private ResourceBundle myResources;
     private ActionListener myActionListener;
     private KeyListener myKeyListener;
@@ -50,13 +48,13 @@ public class View extends JFrame {
 
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
+        this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
 
         final JPanel modulePanel = new JPanel();
         modulePanel.setLayout(new GridLayout(3, 1));
-        modulePanel.add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new VariableModule(Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT));
+        modulePanel.add(new HistoryModule(Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT));
+        modulePanel.add(new CommandsModule(Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT));
 
         final JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(1, 1));
@@ -96,12 +94,12 @@ public class View extends JFrame {
     }
 
     private JComponent makeDisplay () {
-        JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        JPanel display = new Display(Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT);
         return display;
     }
 
     private JComponent makeModule () {
-        VariableModule variable = new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        VariableModule variable = new VariableModule(Constants.DISPLAY_WIDTH, Constants.DISPLAY_HEIGHT);
         return variable;
     }
 
@@ -119,7 +117,7 @@ public class View extends JFrame {
     }
 
     protected JTextField makeTextField () {
-        JTextField result = new JTextField(FIELD_SIZE);
+        JTextField result = new JTextField(Constants.FIELD_SIZE);
         result.addKeyListener(myKeyListener);
         result.addFocusListener(myFocusListener);
         result.addActionListener(myActionListener);
