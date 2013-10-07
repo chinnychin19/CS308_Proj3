@@ -7,16 +7,16 @@ import model.instruction.InstructionConstant;
 public class InstructionPOW extends Instruction {
 
     public InstructionPOW (Instruction parent) {
-        super(1, parent);
+        super(1, parent); // Power takes one parameter
     }
 
     @Override
     public Instruction eval () {
         // TODO: What is it power to?
-        double ret = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        ret *= ret;
+        double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
+        a *= a;
 
-        return new InstructionConstant(ret, null);
+        return new InstructionConstant(a, null);
     }
 
 }

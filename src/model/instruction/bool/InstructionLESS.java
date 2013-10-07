@@ -7,7 +7,7 @@ import model.instruction.InstructionConstant;
 public class InstructionLESS extends Instruction {
 
     public InstructionLESS (Instruction parent) {
-        super(2, parent); // Less takes one parameter
+        super(2, parent); // Less takes two parameters
     }
 
     @Override
