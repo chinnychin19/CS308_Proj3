@@ -117,7 +117,7 @@ public class View extends JFrame {
 
     protected JTextField makeTextField () {
         JTextField result = new Textbox(FIELD_SIZE);
-        
+        ((Textbox) result).addInput("");
         return result;
     }
 
