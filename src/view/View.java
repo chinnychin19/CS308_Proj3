@@ -28,10 +28,10 @@ import view.input.Textbox;
 
 
 public class View extends JFrame {
-    private static final int GUI_WIDTH = 500;
-    private static final int GUI_HEIGHT = 400;
+    private static final int GUI_WIDTH = 1000;
+    private static final int GUI_HEIGHT = 600;
     private static final int DISPLAY_HEIGHT = 100;
-    private static final int DISPLAY_WIDTH = 30;
+    private static final int DISPLAY_WIDTH = 300;
     protected ViewUpdater myViewUpdater;
     protected RunButton myRunButton;
     protected Textbox myTextbox;
@@ -53,7 +53,7 @@ public class View extends JFrame {
         this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
 
         final JPanel modulePanel = new JPanel();
-        modulePanel.setLayout(new GridLayout(2, 2));
+        modulePanel.setLayout(new GridLayout(3, 1));
         modulePanel.add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
@@ -75,10 +75,10 @@ public class View extends JFrame {
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
         // initEngineComponent will embed it
-        this.getContentPane().add(modulePanel, BorderLayout.NORTH);
-        this.getContentPane().add(inputPanel, BorderLayout.CENTER);
-        this.getContentPane().add(optionsPanel, BorderLayout.SOUTH);
-        this.getContentPane().add(new Canvas(), BorderLayout.EAST);
+        this.getContentPane().add(modulePanel, BorderLayout.EAST);
+        this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
+        this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
+        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
         setVisible(true);
 
