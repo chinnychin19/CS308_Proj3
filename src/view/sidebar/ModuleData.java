@@ -1,5 +1,10 @@
 package view.sidebar;
 
-public class ModuleData {
+import javax.swing.JComponent;
 
+public class ModuleData extends JComponent{
+    public ModuleData(String str){
+        
+        
+    }
 }

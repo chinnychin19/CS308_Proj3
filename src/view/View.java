@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -61,8 +63,17 @@ public class View extends JFrame {
 
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
-        optionsPanel.add(makeButton());
+        optionsPanel.add(new Checkbox("Grid", null, true));
+        
+        final JComboBox backgroundChooser = new JComboBox();
+        backgroundChooser.addItem("COLOR");
+        optionsPanel.add(backgroundChooser);
 
+        optionsPanel.add(new Checkbox("Pen Down", null, true));
+        
+        optionsPanel.add(makeImageChooserButton());
+        optionsPanel.add(makeHelpButton());
+//        initEngineComponent will embed it 
         this.getContentPane().add(modulePanel, BorderLayout.NORTH);
         this.getContentPane().add(inputPanel, BorderLayout.CENTER);
         this.getContentPane().add(optionsPanel, BorderLayout.SOUTH);
@@ -71,7 +82,14 @@ public class View extends JFrame {
 
         Model.initModel();
     }
-
+    private JComponent makeImageChooserButton(){
+        JButton result = new JButton("Image");
+        return result;
+    }
+    private JComponent makeHelpButton(){
+        JButton result = new JButton("Help Me");
+        return result;
+    }
     private JComponent makeDisplay () {
         JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
         return display;
