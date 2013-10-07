@@ -119,10 +119,8 @@ public class View extends JFrame {
     }
 
     protected JTextField makeTextField () {
-        JTextField result = new JTextField(FIELD_SIZE);
-        result.addKeyListener(myKeyListener);
-        result.addFocusListener(myFocusListener);
-        result.addActionListener(myActionListener);
+        JTextField result = new Textbox(FIELD_SIZE);
+        
         return result;
     }
 

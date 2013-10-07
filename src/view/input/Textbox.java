@@ -1,7 +1,15 @@
 package view.input;
 
-public class Textbox {
+import javax.swing.JTextField;
 
+public class Textbox extends JTextField {
+    
+    public Textbox(int fieldSize){
+        super(fieldSize);
+        this.addKeyListener(myKeyListener);
+        this.addFocusListener(myFocusListener);
+        this.addActionListener(myActionListener);
+    }
     protected void clear () {
         // TODO: Method that clears textbox
     }
