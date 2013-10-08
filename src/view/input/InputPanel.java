@@ -12,7 +12,7 @@ public class InputPanel extends JPanel {
     public InputPanel () {
         super();
         textbox = new Textbox(Constants.FIELD_SIZE);
-        runbutton = new RunButton("RUN",textbox);
+        runbutton = new RunButton("RUN", textbox);
         this.setLayout(new GridLayout(1, 1));
         this.add(textbox);
         this.add(runbutton);

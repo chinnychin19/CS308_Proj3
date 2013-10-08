@@ -14,8 +14,8 @@ public class InputTest {
     @Before
     public void setUp () throws Exception {
         textbox = new Textbox(50);
-        runButton = new RunButton("RUN",textbox);
-        
+        runButton = new RunButton("RUN", textbox);
+
     }
 
     @After
@@ -34,11 +34,15 @@ public class InputTest {
         textbox.addInput("test");
         assertEquals("test ", textbox.getInput());
     }
+
     @Test
     public void testRunButton () {
         textbox.addInput("test");
-        assertEquals("test ",runButton.sendUserInput());
-        assertEquals("",textbox.getInput());
+        assertEquals("test ", runButton.sendUserInput());
+        assertEquals("", textbox.getInput());
+        textbox.addInput("          ");
+        assertEquals("", runButton.sendUserInput());
+
     }
 
 }
