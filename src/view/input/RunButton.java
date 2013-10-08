@@ -4,12 +4,19 @@ import javax.swing.JButton;
 
 
 public class RunButton extends JButton {
-    public RunButton (String title) {
+    Textbox textbox;
+    public RunButton (String title, Textbox textbox) {
         super(title);
+        this.textbox = textbox;
     }
 
-    protected void sendUserInput () {
-
+    protected String sendUserInput () {
+         String input = textbox.getInput();
+         textbox.clear();
+         return input;
+        
+        
+        
     }
 
 }
