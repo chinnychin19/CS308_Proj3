@@ -20,7 +20,7 @@ public class Textbox extends JTextField {
     }
 
     public void addInput (String input) {
-        String newInput = getInput() + input+" ";
+        String newInput = getInput() + input + " ";
         this.setText(newInput);
     }
 

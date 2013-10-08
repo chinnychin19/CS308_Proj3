@@ -128,7 +128,4 @@ public class View extends JFrame {
         myViewUpdater.displayOutput();
     }
 
-    public static void main (String[] args) {
-        new View();
-    }
 }
