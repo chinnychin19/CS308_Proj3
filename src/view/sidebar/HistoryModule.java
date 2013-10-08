@@ -12,6 +12,7 @@ public class HistoryModule extends Module {
         this.add(new JLabel("History Module"));
         // TODO Auto-generated constructor stub
     }
+
     public HistoryModule () {
         super();
         this.add(new JLabel("History Module"));

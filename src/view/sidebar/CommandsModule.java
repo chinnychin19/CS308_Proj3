@@ -1,6 +1,5 @@
 package view.sidebar;
 
-
 import java.awt.event.MouseEvent;
 import java.util.List;
 import javax.swing.JLabel;
@@ -13,11 +12,11 @@ public class CommandsModule extends Module {
         super(width, height);
         this.add(new JLabel("Commands Module"));
     }
+
     public CommandsModule () {
         super();
         this.add(new JLabel("Commands Module"));
     }
-
 
     @Override
     protected List<ModuleData> initializeModuleContents () {

@@ -1,9 +1,7 @@
 package view.sidebar;
 
-
 import java.util.List;
 import javax.swing.JLabel;
-
 
 
 @SuppressWarnings("serial")

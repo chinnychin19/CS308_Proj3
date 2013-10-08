@@ -7,7 +7,6 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class SidebarPanel extends JPanel {
 
-
     public SidebarPanel () {
         super();
         setLayout(new GridLayout(3, 1));

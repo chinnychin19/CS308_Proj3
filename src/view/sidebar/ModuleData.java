@@ -8,11 +8,11 @@ import javax.swing.JComponent;
 @SuppressWarnings("serial")
 public class ModuleData extends JComponent {
     String content;
-    
-   
-    public String toString(){
+
+    public String toString () {
         return content;
     }
+
     public ModuleData (String str) {
         content = str;
 

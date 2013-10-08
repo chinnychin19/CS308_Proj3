@@ -21,20 +21,22 @@ public abstract class Module extends JPanel {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
     private List<ModuleData> Library;
-    public Module(){
+
+    public Module () {
         super();
-        this.setPreferredSize(new Dimension(DISPLAY_WIDTH , DISPLAY_HEIGHT));
+        this.setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         initializeModuleDisplay();
     }
+
     public Module (int width, int height) {
         super();
         this.setPreferredSize(new Dimension(width, height));
         initializeModuleDisplay();
     }
 
-    private void initializeModuleDisplay(){
-        
-        setBackground( Color.blue );
+    private void initializeModuleDisplay () {
+
+        setBackground(Color.blue);
     }
 
     /**
