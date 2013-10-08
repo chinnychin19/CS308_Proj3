@@ -14,6 +14,7 @@ public class InstructionPOW extends Instruction {
     public Instruction eval () {
         double base = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         double exp = ((InstructionConstant) getChildren().get(1).eval()).getValue();
+
         return new InstructionConstant(Math.pow(base, exp), null);
     }
 

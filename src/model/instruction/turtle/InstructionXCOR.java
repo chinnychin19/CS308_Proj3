@@ -9,7 +9,6 @@ public class InstructionXCOR extends Instruction {
 
     public InstructionXCOR (Instruction parent) {
         super(0, parent);
-        // TODO Auto-generated constructor stub
     }
 
     @Override

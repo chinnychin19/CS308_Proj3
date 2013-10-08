@@ -9,7 +9,6 @@ public class InstructionSETXY extends Instruction {
 
     public InstructionSETXY (Instruction parent) {
         super(2, parent);
-        // TODO Auto-generated constructor stub
     }
 
     @Override

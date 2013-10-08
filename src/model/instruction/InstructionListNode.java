@@ -8,8 +8,13 @@ public class InstructionListNode extends Instruction {
 
     @Override
     public Instruction eval () {
-        // TODO Auto-generated method stub
-        return null;
+        Instruction lastChild = null;
+
+        for (Instruction child : this.myChildren) {
+            lastChild = child.eval();
+        }
+
+        return lastChild == null ? new InstructionConstant(0, null) : lastChild;
     }
 
 }

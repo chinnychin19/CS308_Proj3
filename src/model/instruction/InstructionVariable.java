@@ -18,7 +18,7 @@ public class InstructionVariable extends InstructionConstant {
 
     @Override
     public Instruction eval () {
-        return this;
+        return new InstructionVariable(myName, null);
     }
 
     public String getName () {

@@ -13,6 +13,7 @@ public class InstructionMINUS extends Instruction {
     @Override
     public Instruction eval () {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue() * -1;
+
         return new InstructionConstant(a, null);
     }
 
