@@ -21,6 +21,7 @@ import javax.swing.JTextField;
 import model.Model;
 import view.sidebar.CommandsModule;
 import view.sidebar.HistoryModule;
+import view.sidebar.SidebarPanel;
 import view.sidebar.VariableModule;
 import view.display.ViewUpdater;
 import view.input.InputPanel;
@@ -31,21 +32,11 @@ import view.input.Textbox;
 public class View extends JFrame {
     private static final int GUI_WIDTH = 1000;
     private static final int GUI_HEIGHT = 600;
-    private static final int DISPLAY_HEIGHT = 100;
-    private static final int DISPLAY_WIDTH = 300;
     protected ViewUpdater myViewUpdater;
     protected RunButton myRunButton;
     protected Textbox myTextbox;
 
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String USER_DIR = "user.dir";
-    private static final int FIELD_SIZE = 30;
-    private ResourceBundle myResources;
-    private ActionListener myActionListener;
-    private KeyListener myKeyListener;
-    private MouseListener myMouseListener;
-    private MouseMotionListener myMouseMotionListener;
-    private FocusListener myFocusListener;
+
 
     public View () {
 
@@ -53,13 +44,10 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
 
-        final JPanel modulePanel = new JPanel();
-        modulePanel.setLayout(new GridLayout(3, 1));
-        modulePanel.add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-
+        final JPanel sidebarPanel = new SidebarPanel();
         final JPanel optionsPanel = new JPanel();
+        final JPanel inputPanel = new InputPanel();
+        
         optionsPanel.setLayout(new GridLayout(1, 0));
         optionsPanel.add(new Checkbox("Grid", null, true));
 
@@ -72,8 +60,8 @@ public class View extends JFrame {
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
         // initEngineComponent will embed it
-        this.getContentPane().add(modulePanel, BorderLayout.EAST);
-        this.getContentPane().add(new InputPanel(), BorderLayout.SOUTH);
+        this.getContentPane().add(sidebarPanel, BorderLayout.EAST);
+        this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
         // this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
@@ -97,10 +85,6 @@ public class View extends JFrame {
     // return display;
     // }
 
-    private JComponent makeModule () {
-        VariableModule variable = new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-        return variable;
-    }
 
     protected void sendInput () {
         // when runButton is activated
