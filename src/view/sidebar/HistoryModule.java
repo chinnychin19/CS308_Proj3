@@ -1,15 +1,19 @@
 package view.sidebar;
 
-import java.awt.Dimension;
 import java.util.List;
 import javax.swing.JLabel;
 
 
+@SuppressWarnings("serial")
 public class HistoryModule extends Module {
 
     public HistoryModule (int width, int height) {
         super(width, height);
-        this.setPreferredSize(new Dimension(width, height));
+        this.add(new JLabel("History Module"));
+        // TODO Auto-generated constructor stub
+    }
+    public HistoryModule () {
+        super();
         this.add(new JLabel("History Module"));
         // TODO Auto-generated constructor stub
     }
