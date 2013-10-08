@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 public class SidebarPanel extends JPanel {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
+
     public SidebarPanel () {
         super();
         setLayout(new GridLayout(3, 1));

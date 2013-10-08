@@ -36,8 +36,6 @@ public class View extends JFrame {
     protected RunButton myRunButton;
     protected Textbox myTextbox;
 
-
-
     public View () {
 
         setTitle("SLogo");
@@ -47,7 +45,7 @@ public class View extends JFrame {
         final JPanel sidebarPanel = new SidebarPanel();
         final JPanel optionsPanel = new JPanel();
         final JPanel inputPanel = new InputPanel();
-        
+
         optionsPanel.setLayout(new GridLayout(1, 0));
         optionsPanel.add(new Checkbox("Grid", null, true));
 
@@ -84,7 +82,6 @@ public class View extends JFrame {
     // JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
     // return display;
     // }
-
 
     protected void sendInput () {
         // when runButton is activated
