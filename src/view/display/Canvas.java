@@ -17,6 +17,8 @@ import jgame.platform.JGEngine;
 public class Canvas extends JGEngine {
     public TurtleSprite turtle = null;
 
+    // TODO: Deal with JGame coordinates vs SLogo defined coordinates :(
+
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
     }
@@ -52,30 +54,38 @@ public class Canvas extends JGEngine {
     @Override
     public void paintFrame () {
         super.paintFrame();
-        
+
         moveTurtle(100, 100);
         moveTurtle(100, 400);
         // TODO: Add boolean check for drawing grid
         drawGrid();
     }
 
-    public Vec2 checkOnScreen (double x, double y) {
-        if (x > Constants.CANVAS_WIDTH){
-            x = x - Constants.CANVAS_WIDTH;
+    /**
+     * Method that checks to see if new turtle coordinates are within the bounds of the canvas and
+     * fixes them accordingly if so
+     * 
+     * @param x x position
+     * @param y y position
+     * @return Vector containing modular x and y coordinates
+     */
+    public Vec2 forceWithinBounds (double x, double y) {
+        if (x > Constants.CANVAS_WIDTH) {
+            x = x % Constants.CANVAS_WIDTH;
         }
-        
-        else if (x < 0){
-            x = Constants.CANVAS_WIDTH - 1;
+
+        else if (x < 0) {
+            x = Constants.CANVAS_WIDTH - (Math.abs(x) % Constants.CANVAS_WIDTH);
         }
-        
-        if (y > Constants.CANVAS_HEIGHT){
-            y = y - Constants.CANVAS_HEIGHT;
+
+        if (y > Constants.CANVAS_HEIGHT) {
+            y = y % Constants.CANVAS_HEIGHT;
         }
-        
-        else if (y < 0){
-            y = Constants.CANVAS_HEIGHT;
+
+        else if (y < 0) {
+            y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
         }
-        
+
         return new Vec2((float) x, (float) y);
     }
 
@@ -116,9 +126,10 @@ public class Canvas extends JGEngine {
     }
 
     /**
-     * Method that draws grid
+     * Method that draws grid using drawGrid method
      */
-    public void drawGrid () {
+    public void drawGrid () { 
+        //TODO: Find a way to clear this
         for (int i = 1; i < Constants.NUM_GRIDLINES; i++) {
             drawLine(0, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES,
                      Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES);
