@@ -19,7 +19,7 @@ public class InstructionFactory {
 
             // Control Structures
             if (s.equalsIgnoreCase("FOR")) { return new InstructionFOR(parent); }
-            
+
             // Turtle operations
             if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) {
                 return new InstructionFORWARD(

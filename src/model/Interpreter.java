@@ -21,11 +21,11 @@ public class Interpreter {
         Model.getCommandHistory().add(input);
         List<Instruction> instructions = getInstructions(input);
         for (Instruction instr : instructions) {
-            Model.getInstructionQueue().add(instr);            
+            Model.getInstructionQueue().add(instr);
         }
     }
-    
-    public List<Instruction> getInstructions(String input) {
+
+    public List<Instruction> getInstructions (String input) {
         Parser parser = new Parser(input);
         List<Instruction> instructions = new ArrayList<Instruction>();
         Instruction root = InstructionFactory.getInstruction(parser.next(), null);
@@ -33,30 +33,36 @@ public class Interpreter {
         while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
                 if (cur instanceof InstructionLoop) {
-                    ((InstructionLoop)cur).setParameters(parser.next());
+                    ((InstructionLoop) cur).setParameters(parser.next());
                     String commandsInLoop = parser.next();
-                    commandsInLoop = commandsInLoop.substring(1, commandsInLoop.length()-1).trim(); //chop of brackets
-                    List<Instruction> listCommands = getInstructions(commandsInLoop); //commands in loop
+                    commandsInLoop =
+                            commandsInLoop.substring(1, commandsInLoop.length() - 1).trim(); // chop
+                                                                                             // of
+                                                                                             // brackets
+                    List<Instruction> listCommands = getInstructions(commandsInLoop); // commands in
+                                                                                      // loop
                     InstructionListNode node = new InstructionListNode(cur);
-                    for (Instruction instr: listCommands) {
-                        node.addChild(instr); //add all instructions to the list
+                    for (Instruction instr : listCommands) {
+                        node.addChild(instr); // add all instructions to the list
                     }
                     cur.addChild(node);
-                } else { //Normal instruction
+                }
+                else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.next(), cur);
                     cur.addChild(temp);
-                    cur = temp;                    
+                    cur = temp;
                 }
             }
             else {
                 cur = cur.getParent();
             }
-            if (cur == null) { //backtracked up to root's parent
+            if (cur == null) { // backtracked up to root's parent
                 instructions.add(root);
                 if (parser.hasNext()) {
                     root = InstructionFactory.getInstruction(parser.next(), null);
                     cur = root;
-                } else {
+                }
+                else {
                     return instructions;
                 }
             }
