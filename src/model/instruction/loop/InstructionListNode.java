@@ -1,9 +1,12 @@
-package model.instruction;
+package model.instruction.loop;
+
+import model.instruction.Instruction;
+import model.instruction.InstructionConstant;
 
 public class InstructionListNode extends Instruction {
 
     public InstructionListNode (Instruction parent) {
-        super(-1, parent);
+        super(Integer.MAX_VALUE, parent);
     }
 
     @Override

@@ -92,7 +92,6 @@ public class Turtle {
 
     public double doRotateTowards (double x, double y) {
         double dx = x - myX, dy = y - myY;
-        System.out.println(dx + " " + dy);
         double newRadians = Math.atan2(dy, dx); // (-Math.pi, Math.pi]
         double oldRadians = myAngle;
         newRadians = positiveMod(newRadians, 2 * Math.PI); // (0, 2 PI]

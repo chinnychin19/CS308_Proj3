@@ -22,6 +22,7 @@ public class InstructionVariable extends InstructionConstant {
     }
 
     public String getName () {
+        System.out.println(myName);
         return myName;
     }
 

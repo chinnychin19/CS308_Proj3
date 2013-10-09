@@ -1,23 +1,25 @@
 package model.instruction;
 
 import model.instruction.turtle.*;
+import model.instruction.loop.*;
 import model.instruction.math.*;
 import model.instruction.bool.*;
 import dataType.DataTypeChecker;
 
 
-;
-
 public class InstructionFactory {
     public static Instruction getInstruction (String s, Instruction parent) {
         if (DataTypeChecker.isString(s)) {
             // User variables
-            if (s.charAt(0) == ':') { return new InstructionVariable(s.substring(1), parent); }
+            if (s.charAt(0) == ':') { return new InstructionVariable(s, parent); }
 
-            // User-Defined Commands
+            // Setters
             if (s.equalsIgnoreCase("MAKE") || s.equalsIgnoreCase("SET")) { return new InstructionMAKE(
                                                                                                       parent); }
 
+            // Control Structures
+            if (s.equalsIgnoreCase("FOR")) { return new InstructionFOR(parent); }
+            
             // Turtle operations
             if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) {
                 return new InstructionFORWARD(

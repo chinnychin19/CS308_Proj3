@@ -13,6 +13,7 @@ public class Parser {
     }
 
     public boolean hasNext () {
+        myInput = myInput.trim();
         return !myInput.isEmpty();
     }
 
@@ -39,7 +40,7 @@ public class Parser {
             myInput = myInput.substring(stoppingPoint + 1).trim();
             return ret;
         }
-        else if (myInput.substring(1).contains(SPACE + "")) {
+        else if (myInput.contains(SPACE + "")) {
             String ret = myInput.substring(0, myInput.indexOf(SPACE));
             myInput = myInput.substring(myInput.indexOf(SPACE)).trim();
             return ret;
