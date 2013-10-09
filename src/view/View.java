@@ -79,7 +79,7 @@ public class View extends JFrame {
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
+        //this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
         setVisible(true);
 
@@ -110,7 +110,7 @@ public class View extends JFrame {
     protected JComponent makeInput () {
         JPanel result = new JPanel();
         result.add(makeTextField());
-        result.add(new RunButton("RUN"));
+        //result.add(new RunButton("RUN"));
 
         return result;
     }

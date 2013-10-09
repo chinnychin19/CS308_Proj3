@@ -10,11 +10,14 @@ public interface Constants {
 
     public static final int CANVAS_WIDTH = 500;
     public static final int CANVAS_HEIGHT = 500;
-    public static final JGColor CANVAS_COLOR =JGColor.white;
+    public static final JGColor CANVAS_COLOR =JGColor.blue;
   
     public static final int Y_TILES = 50;
     public static final int X_TILES = 50;
     public static final int TILE_HEIGHT = 20;
+    
+    public static final JGColor GRIDLINE_COLOR = JGColor.black;
+    public static final int NUM_GRIDLINES = 20;
     
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
