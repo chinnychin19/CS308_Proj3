@@ -10,17 +10,17 @@ public class Textbox extends JTextField {
 
     }
 
-    public void clear () {
+    protected void clear () {
         this.setText("");
     }
 
-    public String getInput () {
+    protected String getInput () {
 
-        return this.getText().trim();
+        return this.getText();
     }
 
     public void addInput (String input) {
-        String newInput = getInput() + input;
+        String newInput = getInput() + input + " ";
         this.setText(newInput);
     }
 
