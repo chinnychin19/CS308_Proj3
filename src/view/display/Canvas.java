@@ -61,6 +61,7 @@ public class Canvas extends JGEngine {
         drawGrid();
     }
 
+<<<<<<< HEAD
     /**
      * Method that checks to see if new turtle coordinates are within the bounds of the canvas and
      * fixes them accordingly if so
@@ -84,6 +85,23 @@ public class Canvas extends JGEngine {
 
         else if (y < 0) {
             y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
+=======
+    public Vec2 checkOnScreen (double x, double y) {
+        if (x > Constants.CANVAS_WIDTH) {
+            x = x - Constants.CANVAS_WIDTH;
+        }
+
+        else if (x < 0) {
+            x = Constants.CANVAS_WIDTH - 1;
+        }
+
+        if (y > Constants.CANVAS_HEIGHT) {
+            y = y - Constants.CANVAS_HEIGHT;
+        }
+
+        else if (y < 0) {
+            y = Constants.CANVAS_HEIGHT;
+>>>>>>> frontend
         }
 
         return new Vec2((float) x, (float) y);

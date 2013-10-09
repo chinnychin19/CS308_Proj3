@@ -1,32 +1,86 @@
 package view.sidebar;
 
+import java.awt.Color;
 import java.awt.Dimension;
-import java.util.List;
-import javax.swing.JComponent;
+import java.util.Collection;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import view.input.Textbox;
+import model.Model;
 
 
 /**
  * @author susanzhang93
  * 
  */
+@SuppressWarnings("serial")
 public abstract class Module extends JPanel {
+    private static final int DISPLAY_HEIGHT = 100;
+    private static final int DISPLAY_WIDTH = 300;
+    private JList list;
+    private DefaultListModel listModel;
+    private Textbox textbox;
 
-    public Module (int width, int height) {
+    public Module (Textbox textbox) {
+
         super();
-        this.setPreferredSize(new Dimension(width, height));
+        this.textbox = textbox;
+        this.setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        initializeModuleDisplay();
     }
 
-    private List<ModuleData> Library;
+    public Module (int width, int height, Textbox textbox) {
 
-    /**
-     * converts Model's output of command data to a ModuleData
-     * representation
-     * 
-     * @return List of created ModuleData
-     */
-    protected abstract List<ModuleData> initializeModuleContents ();
+        super();
+        this.textbox = textbox;
+        this.setPreferredSize(new Dimension(width, height));
+        initializeModuleDisplay();
 
-    protected abstract void click ();
+    }
 
+    protected void updateContent () {
+        Collection<ModuleData> listData = getStoredModelInformation();
+
+        listModel.clear();
+
+        for (ModuleData moduleData : listData) {
+            listModel.addElement(moduleData);
+
+        }
+    }
+
+    protected void initializeModuleContents () {
+
+        listModel = new DefaultListModel();
+        list = new JList(listModel);
+        list.addListSelectionListener(new ValueReporter());
+        JScrollPane listScrollPane = new JScrollPane(list);
+
+        add(listScrollPane);
+
+    }
+
+    private void initializeModuleDisplay () {
+        setBackground(Color.blue);
+        initializeModuleContents();
+    }
+
+    protected abstract Collection<ModuleData> getStoredModelInformation ();
+
+    private class ValueReporter implements ListSelectionListener {
+
+        public void valueChanged (ListSelectionEvent event) {
+            if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
+
+                ModuleData md = (ModuleData) list.getSelectedValue();
+                textbox.setText(md.content);
+
+            }
+
+        }
+    }
 }

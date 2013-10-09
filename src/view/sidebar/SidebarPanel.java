@@ -1,18 +1,32 @@
 package view.sidebar;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JPanel;
+import view.input.Textbox;
 
 
+@SuppressWarnings("serial")
 public class SidebarPanel extends JPanel {
-    private static final int DISPLAY_HEIGHT = 100;
-    private static final int DISPLAY_WIDTH = 300;
+    private List<Module> Modules;
 
-    public SidebarPanel () {
+    public SidebarPanel (Textbox textbox) {
         super();
+        Modules = new ArrayList<Module>();
         setLayout(new GridLayout(3, 1));
-        add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        addModule(new HistoryModule(textbox));
+        // addModule(new CommandsModule(textbox));
+    }
+
+    public void updateModules () {
+        for (Module module : Modules) {
+            module.updateContent();
+        }
+    }
+
+    private void addModule (Module module) {
+        Modules.add(module);
+        add(module);
     }
 }
