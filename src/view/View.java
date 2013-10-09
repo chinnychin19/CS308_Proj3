@@ -21,10 +21,9 @@ import javax.swing.JTextField;
 import model.Model;
 import view.sidebar.CommandsModule;
 import view.sidebar.HistoryModule;
-import view.sidebar.SidebarPanel;
 import view.sidebar.VariableModule;
+import view.display.Canvas;
 import view.display.ViewUpdater;
-import view.input.InputPanel;
 import view.input.RunButton;
 import view.input.Textbox;
 
@@ -32,9 +31,21 @@ import view.input.Textbox;
 public class View extends JFrame {
     private static final int GUI_WIDTH = 1000;
     private static final int GUI_HEIGHT = 600;
+    private static final int DISPLAY_HEIGHT = 100;
+    private static final int DISPLAY_WIDTH = 300;
     protected ViewUpdater myViewUpdater;
     protected RunButton myRunButton;
     protected Textbox myTextbox;
+
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String USER_DIR = "user.dir";
+    private static final int FIELD_SIZE = 30;
+    private ResourceBundle myResources;
+    private ActionListener myActionListener;
+    private KeyListener myKeyListener;
+    private MouseListener myMouseListener;
+    private MouseMotionListener myMouseMotionListener;
+    private FocusListener myFocusListener;
 
     public View () {
 
@@ -42,10 +53,17 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
 
-        final JPanel sidebarPanel = new SidebarPanel();
-        final JPanel optionsPanel = new JPanel();
-        final JPanel inputPanel = new InputPanel();
+        final JPanel modulePanel = new JPanel();
+        modulePanel.setLayout(new GridLayout(3, 1));
+        modulePanel.add(new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new HistoryModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        modulePanel.add(new CommandsModule(DISPLAY_WIDTH, DISPLAY_HEIGHT));
 
+        final JPanel inputPanel = new JPanel();
+        inputPanel.setLayout(new GridLayout(1, 1));
+        inputPanel.add(makeInput());
+
+        final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
         optionsPanel.add(new Checkbox("Grid", null, true));
 
@@ -58,10 +76,10 @@ public class View extends JFrame {
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
         // initEngineComponent will embed it
-        this.getContentPane().add(sidebarPanel, BorderLayout.EAST);
+        this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        // this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
+        //this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
 
         setVisible(true);
 
@@ -78,10 +96,30 @@ public class View extends JFrame {
         return result;
     }
 
-    // private JComponent makeDisplay () {
-    // JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    // return display;
-    // }
+//    private JComponent makeDisplay () {
+//        JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+//        return display;
+//    }
+
+    private JComponent makeModule () {
+        VariableModule variable = new VariableModule(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+        return variable;
+    }
+
+
+    protected JComponent makeInput () {
+        JPanel result = new JPanel();
+        result.add(makeTextField());
+        //result.add(new RunButton("RUN"));
+
+        return result;
+    }
+
+    protected JTextField makeTextField () {
+        JTextField result = new Textbox(FIELD_SIZE);
+        ((Textbox) result).addInput("");
+        return result;
+    }
 
     protected void sendInput () {
         // when runButton is activated
@@ -109,4 +147,7 @@ public class View extends JFrame {
         myViewUpdater.displayOutput();
     }
 
+    public static void main (String[] args) {
+        new View();
+    }
 }
