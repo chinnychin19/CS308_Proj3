@@ -1,5 +1,6 @@
 package view.sidebar;
 
+import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,24 +10,25 @@ import view.input.Textbox;
 
 @SuppressWarnings("serial")
 public class SidebarPanel extends JPanel {
-    private List<Module> Modules;
+    private List<ContentContainer> ContentContainers;
 
     public SidebarPanel (Textbox textbox) {
         super();
-        Modules = new ArrayList<Module>();
+        ContentContainers = new ArrayList<ContentContainer>();
         setLayout(new GridLayout(3, 1));
         addModule(new HistoryModule(textbox));
-        // addModule(new CommandsModule(textbox));
+        addModule(new CommandsModule(textbox));
+        addModule(new VariableModule(textbox));
     }
 
     public void updateModules () {
-        for (Module module : Modules) {
+        for (ContentContainer module : ContentContainers) {
             module.updateContent();
         }
     }
 
-    private void addModule (Module module) {
-        Modules.add(module);
-        add(module);
+    private void addModule (ContentContainer module) {
+        ContentContainers.add(module);
+        add((Component) module);
     }
 }
