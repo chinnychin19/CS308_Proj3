@@ -15,7 +15,9 @@ import jgame.platform.JGEngine;
  * 
  */
 public class Canvas extends JGEngine {
-    public TurtleSprite turtle = null;
+    private TurtleSprite turtle = null;
+    private boolean gridOn = false;
+    private JGColor color = JGColor.red;
 
     // TODO: Deal with JGame coordinates vs SLogo defined coordinates :(
 
@@ -29,6 +31,7 @@ public class Canvas extends JGEngine {
 
     public Canvas (JGPoint size) {
         initEngine(size.x, size.y);
+        
     }
 
     public Canvas () {
@@ -44,24 +47,40 @@ public class Canvas extends JGEngine {
     @Override
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
-        defineImage("turtleGif", "-", 0, "Turtle1.gif", "-", 0, 0, 50, 50);
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, "Turtle1.gif", "-", 0, 0, 50, 50);
+        
         // TODO: Deal with image offset - TURTLE_OFFSET
         turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
-        paintFrame();
-
     }
 
     @Override
     public void paintFrame () {
         super.paintFrame();
 
-        moveTurtle(100, 100);
-        moveTurtle(100, 400);
-        // TODO: Add boolean check for drawing grid
-        drawGrid();
+        if (gridOn) {
+            drawGrid();
+        }
+        
+        drawLine(0, 0, 100, 100, 2, JGColor.red);
+
+        //TODO: Implement actual GUI toggling
+        if (getKey('G')) {           
+            gridOn = !gridOn;
+            clearKey('G');
+        }
+        
+        if (getKey('B')) {
+            changeBackgroundColor(JGColor.red);
+            clearKey('B');
+        }
+        
+        if (getKey('M')){
+            moveTurtle(0, -10);
+            clearKey('M');
+        }
+
     }
 
-<<<<<<< HEAD
     /**
      * Method that checks to see if new turtle coordinates are within the bounds of the canvas and
      * fixes them accordingly if so
@@ -85,23 +104,6 @@ public class Canvas extends JGEngine {
 
         else if (y < 0) {
             y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
-=======
-    public Vec2 checkOnScreen (double x, double y) {
-        if (x > Constants.CANVAS_WIDTH) {
-            x = x - Constants.CANVAS_WIDTH;
-        }
-
-        else if (x < 0) {
-            x = Constants.CANVAS_WIDTH - 1;
-        }
-
-        if (y > Constants.CANVAS_HEIGHT) {
-            y = y - Constants.CANVAS_HEIGHT;
-        }
-
-        else if (y < 0) {
-            y = Constants.CANVAS_HEIGHT;
->>>>>>> frontend
         }
 
         return new Vec2((float) x, (float) y);
@@ -131,8 +133,24 @@ public class Canvas extends JGEngine {
      * @param color
      */
     public void changeBackgroundColor (JGColor color) {
-        setCanvasSettings(Constants.X_TILES, Constants.Y_TILES, Constants.TILE_HEIGHT,
-                          Constants.TILE_HEIGHT, null, color, null);
+        setBGColor(color);
+        setBGImage(null);
+    }
+    
+    /**
+     * Method that draws grid
+     */
+    public void drawGrid(){
+    for (int i = 1; i < Constants.NUM_GRIDLINES; i++) {
+        drawLine(0, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES,
+                 Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES);
+    }
+
+    for (int j = 1; j < Constants.NUM_GRIDLINES; j++) {
+        drawLine(Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES, 0,
+                 Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES,
+                 Constants.CANVAS_HEIGHT * 2);
+    }
     }
 
     /**
@@ -141,24 +159,6 @@ public class Canvas extends JGEngine {
     public void moveToOrigin () {
         turtle.setPos(Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                       Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
-    }
-
-    /**
-     * Method that draws grid using drawGrid method
-     */
-    public void drawGrid () { 
-        //TODO: Find a way to clear this
-        for (int i = 1; i < Constants.NUM_GRIDLINES; i++) {
-            drawLine(0, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES,
-                     Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES);
-        }
-
-        for (int j = 1; j < Constants.NUM_GRIDLINES; j++) {
-            drawLine(Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES, 0,
-                     Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES,
-                     Constants.CANVAS_HEIGHT * 2);
-        }
-
     }
 
 }
