@@ -12,39 +12,37 @@ public class RunButton extends JButton {
     SidebarPanel sidebar;
     private MouseListener myMouseListener;
 
-    public RunButton (String title, Textbox textbox) {
+    public RunButton (String title, Textbox textbox, SidebarPanel sidebar) {
         super(title);
         this.textbox = textbox;
+        this.sidebar = sidebar;
         Model.initModel();
         myMouseListener = new MouseListener() {
 
             @Override
             public void mouseClicked (MouseEvent e) {
+
                 executeRunCycle();
 
             }
 
             @Override
             public void mousePressed (MouseEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void mouseReleased (MouseEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void mouseEntered (MouseEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
             @Override
             public void mouseExited (MouseEvent e) {
-                // TODO Auto-generated method stub
 
             }
 
@@ -54,12 +52,16 @@ public class RunButton extends JButton {
     }
 
     protected void executeRunCycle () {
+
         sendUserInput();
+        sidebar.updateModules();
+
     }
 
     protected String sendUserInput () {
 
         String input = textbox.getInput();
+
         if (input.trim().equals("")) { return ""; }
         Model.parseInput(input);
         textbox.clear();

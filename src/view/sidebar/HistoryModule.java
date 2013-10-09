@@ -1,47 +1,36 @@
 package view.sidebar;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import javax.swing.JLabel;
+import view.input.Textbox;
+import model.Model;
 
 
 @SuppressWarnings("serial")
 public class HistoryModule extends Module {
+    private int JListindex = 0;
 
-    public HistoryModule (int width, int height) {
-        super(width, height);
+    public HistoryModule (int width, int height, Textbox textbox) {
+        super(width, height, textbox);
         this.add(new JLabel("History Module"));
         // TODO Auto-generated constructor stub
     }
 
-    public HistoryModule () {
-        super();
+    public HistoryModule (Textbox textbox) {
+        super(textbox);
         this.add(new JLabel("History Module"));
-        // TODO Auto-generated constructor stub
-    }
-
-    @Override
-    protected List<ModuleData> initializeModuleContents () {
-
-        return null;
-    }
-
-    @Override
-    protected void click () {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    protected void updatePanel () {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     protected Collection<ModuleData> getStoredModelInformation () {
-        // TODO Auto-generated method stub
-        return null;
+        Collection<ModuleData> historyCollection = new ArrayList<ModuleData>();
+        for (String history : Model.getHistory()) {
+            historyCollection.add(new ModuleData(history, history));
+        }
+        return historyCollection;
+
     }
 
 }
