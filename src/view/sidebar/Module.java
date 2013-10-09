@@ -10,7 +10,6 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import view.input.Textbox;
-import model.Model;
 
 
 /**
@@ -18,7 +17,7 @@ import model.Model;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class Module extends JPanel {
+public abstract class Module extends JPanel implements ContentContainer {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
     private JList list;
@@ -29,7 +28,7 @@ public abstract class Module extends JPanel {
 
         super();
         this.textbox = textbox;
-        this.setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
+        setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         initializeModuleDisplay();
     }
 
@@ -37,12 +36,13 @@ public abstract class Module extends JPanel {
 
         super();
         this.textbox = textbox;
-        this.setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension(width, height));
         initializeModuleDisplay();
 
     }
 
-    protected void updateContent () {
+    @Override
+    public void updateContent () {
         Collection<ModuleData> listData = getStoredModelInformation();
 
         listModel.clear();
@@ -54,12 +54,11 @@ public abstract class Module extends JPanel {
     }
 
     protected void initializeModuleContents () {
-
+        //
         listModel = new DefaultListModel();
         list = new JList(listModel);
         list.addListSelectionListener(new ValueReporter());
         JScrollPane listScrollPane = new JScrollPane(list);
-
         add(listScrollPane);
 
     }
@@ -73,6 +72,7 @@ public abstract class Module extends JPanel {
 
     private class ValueReporter implements ListSelectionListener {
 
+        @Override
         public void valueChanged (ListSelectionEvent event) {
             if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
 
