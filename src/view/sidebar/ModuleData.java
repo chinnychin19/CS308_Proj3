@@ -1,20 +1,24 @@
 package view.sidebar;
 
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 
 
 @SuppressWarnings("serial")
 public class ModuleData extends JComponent {
+    String display;
     String content;
 
     public String toString () {
-        return content;
+        return display;
     }
 
-    public ModuleData (String str) {
-        content = str;
+    public ModuleData (String displayString, String contentString) {
+        display = displayString;
+        content = contentString;
 
+    }
+
+    public String getContent () {
+        return content;
     }
 }

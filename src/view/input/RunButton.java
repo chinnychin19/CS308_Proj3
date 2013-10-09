@@ -3,22 +3,24 @@ package view.input;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
+import view.sidebar.SidebarPanel;
 import model.Model;
 
 
 public class RunButton extends JButton {
     Textbox textbox;
-
+    SidebarPanel sidebar;
     private MouseListener myMouseListener;
 
     public RunButton (String title, Textbox textbox) {
         super(title);
+        this.textbox = textbox;
         Model.initModel();
         myMouseListener = new MouseListener() {
 
             @Override
             public void mouseClicked (MouseEvent e) {
-                sendUserInput();
+                executeRunCycle();
 
             }
 
@@ -48,7 +50,11 @@ public class RunButton extends JButton {
 
         };
         this.addMouseListener(myMouseListener);
-        this.textbox = textbox;
+
+    }
+
+    protected void executeRunCycle () {
+        sendUserInput();
     }
 
     protected String sendUserInput () {

@@ -1,5 +1,7 @@
 package view.sidebar;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.JLabel;
 
@@ -29,6 +31,19 @@ public class VariableModule extends Module {
     protected void click () {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    protected void updatePanel () {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected Collection<ModuleData> getStoredModelInformation () {
+        Collection<ModuleData> cd = new ArrayList<ModuleData>();
+        cd.add(new ModuleData("display", "content"));
+        return cd;
     }
 
 }

@@ -1,6 +1,7 @@
 package view.sidebar;
 
 import java.awt.event.MouseEvent;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.JLabel;
 
@@ -32,6 +33,18 @@ public class CommandsModule extends Module {
     protected void click () {
         // TODO Auto-generated method stub
 
+    }
+
+    @Override
+    protected void updatePanel () {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    protected Collection<ModuleData> getStoredModelInformation () {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 }

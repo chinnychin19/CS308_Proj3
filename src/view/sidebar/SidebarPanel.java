@@ -11,7 +11,7 @@ public class SidebarPanel extends JPanel {
         super();
         setLayout(new GridLayout(3, 1));
         add(new VariableModule());
-        add(new HistoryModule());
-        add(new CommandsModule());
+        // add(new HistoryModule());
+        // add(new CommandsModule());
     }
 }
