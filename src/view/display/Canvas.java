@@ -52,7 +52,7 @@ public class Canvas extends JGEngine {
     @Override
     public void paintFrame () {
         super.paintFrame();
-        
+
         moveTurtle(100, 100);
         moveTurtle(100, 400);
         // TODO: Add boolean check for drawing grid
@@ -60,22 +60,22 @@ public class Canvas extends JGEngine {
     }
 
     public Vec2 checkOnScreen (double x, double y) {
-        if (x > Constants.CANVAS_WIDTH){
+        if (x > Constants.CANVAS_WIDTH) {
             x = x - Constants.CANVAS_WIDTH;
         }
-        
-        else if (x < 0){
+
+        else if (x < 0) {
             x = Constants.CANVAS_WIDTH - 1;
         }
-        
-        if (y > Constants.CANVAS_HEIGHT){
+
+        if (y > Constants.CANVAS_HEIGHT) {
             y = y - Constants.CANVAS_HEIGHT;
         }
-        
-        else if (y < 0){
+
+        else if (y < 0) {
             y = Constants.CANVAS_HEIGHT;
         }
-        
+
         return new Vec2((float) x, (float) y);
     }
 

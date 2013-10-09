@@ -1,28 +1,26 @@
 package view.sidebar;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-import javax.swing.DefaultListModel;
+import java.util.Map;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import view.input.Textbox;
+import model.Model;
 
 
+@SuppressWarnings("serial")
 public class CommandsModule extends Module {
 
-    public CommandsModule (int width, int height) {
-        super(width, height);
-        this.setPreferredSize(new Dimension(width, height));
+    public CommandsModule (int width, int height, Textbox textbox) {
+        super(width, height, textbox);
         this.add(new JLabel("Commands Module"));
-
     }
 
-    @Override
-    protected List<ModuleData> initializeModuleContents () {
-
-        return null;
+    public CommandsModule (Textbox textbox) {
+        super(textbox);
+        this.add(new JLabel("Commands Module"));
     }
 
     public void mouseClicked (MouseEvent evt) {
@@ -30,9 +28,13 @@ public class CommandsModule extends Module {
     }
 
     @Override
-    protected void click () {
-        // TODO Auto-generated method stub
-
+    protected Collection<ModuleData> getStoredModelInformation () {
+        Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
+        Map<String, String> commandMap = Model.getAllCommands();
+        for (String key : commandMap.keySet()) {
+            commandCollection.add(new ModuleData(key, commandMap.get(key)));
+        }
+        return commandCollection;
     }
 
 }
