@@ -3,7 +3,11 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/jgame-jre.jar"/>
+	<classpathentry kind="lib" path="lib/jgame-jre.jar" sourcepath="lib/jgame-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/slogo_team04/lib/jgame-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="lib/jgame-src.jar"/>
 	<classpathentry kind="lib" path="lib/jgame-javadoc.jar"/>
 	<classpathentry kind="output" path="bin"/>

@@ -1,5 +1,7 @@
 package view;
 
+import jgame.JGColor;
+
 public interface Constants {
     public static final int GUI_WIDTH = 1000;
     public static final int GUI_HEIGHT = 600;
@@ -8,6 +10,7 @@ public interface Constants {
 
     public static final int CANVAS_WIDTH = 500;
     public static final int CANVAS_HEIGHT = 500;
+    public static final JGColor CANVAS_COLOR =JGColor.white;
   
     public static final int Y_TILES = 50;
     public static final int X_TILES = 50;

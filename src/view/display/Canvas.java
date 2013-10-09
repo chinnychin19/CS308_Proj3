@@ -15,7 +15,7 @@ public class Canvas extends JGEngine {
 
     @Override
     public void initCanvas () {
-        setCanvasSettings(Constants.X_TILES, Constants.Y_TILES, Constants.TILE_HEIGHT, Constants.TILE_HEIGHT, null , JGColor.blue, null);
+        setCanvasSettings(Constants.X_TILES, Constants.Y_TILES, Constants.TILE_HEIGHT, Constants.TILE_HEIGHT, null , Constants.CANVAS_COLOR, null);
     }
 
     @Override
