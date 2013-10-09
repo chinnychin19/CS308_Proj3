@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import model.Model;
 import view.sidebar.SidebarPanel;
+import view.display.Canvas;
 import view.display.ViewUpdater;
 import view.input.InputPanel;
 import view.input.RunButton;
@@ -21,7 +22,13 @@ import view.input.Textbox;
 public class View extends JFrame {
     private static final int GUI_WIDTH = 1000;
     private static final int GUI_HEIGHT = 600;
+    private static final int DISPLAY_HEIGHT = 100;
+    private static final int DISPLAY_WIDTH = 300;
     protected ViewUpdater myViewUpdater;
+
+    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
+    private static final String USER_DIR = "user.dir";
+    private static final int FIELD_SIZE = 30;
 
     public View () {
 
@@ -97,4 +104,7 @@ public class View extends JFrame {
         myViewUpdater.displayOutput();
     }
 
+    public static void main (String[] args) {
+        new View();
+    }
 }
