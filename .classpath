@@ -10,5 +10,7 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="lib/jgame-src.jar"/>
 	<classpathentry kind="lib" path="lib/jgame-javadoc.jar"/>
+	<classpathentry kind="lib" path="lib/jbox2d-src.jar"/>
+	<classpathentry kind="lib" path="lib/jgame-jbox2d.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
