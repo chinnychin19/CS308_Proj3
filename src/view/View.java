@@ -2,17 +2,24 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.IOException;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import jgame.JGColor;
 import model.Model;
 import view.sidebar.SidebarPanel;
 import view.display.Canvas;
@@ -33,6 +40,11 @@ public class View extends JFrame {
     private static final String USER_DIR = "user.dir";
     private static final int FIELD_SIZE = 30;
 
+    private static Canvas viewCanvas;
+
+    /**
+     * Constructor for View Class
+     */
     public View () {
 
         setTitle("SLogo");
@@ -48,13 +60,14 @@ public class View extends JFrame {
 
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
-        
-        optionsPanel.add(makeGridCheckbox());
 
-        final JComboBox backgroundChooser = new JComboBox();
-        backgroundChooser.addItem("COLOR");
-        optionsPanel.add(backgroundChooser);
-        optionsPanel.add(new Checkbox("Pen Down", null, true));
+        viewCanvas = new Canvas();
+
+        optionsPanel.add(makeGridCheckbox());
+        optionsPanel.add(makeTurtleCheckbox());
+        //optionsPanel.add(new Checkbox("Pen Down", null, true));
+        optionsPanel.add(penColorChooser());
+        optionsPanel.add(makeBackgroundChooser());
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
 
@@ -62,34 +75,210 @@ public class View extends JFrame {
         this.getContentPane().add(sidebarPanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        // this.getContentPane().add(new Canvas(), BorderLayout.CENTER);
+        this.getContentPane().add(viewCanvas, BorderLayout.CENTER);
 
         setVisible(true);
 
         Model.initModel();
 
     }
-    
-    private Component makeGridCheckbox(){
-        Component result = new Checkbox("Grid", null, true);
-        
-       
-        return result;
-    }
-    
-//    private ItemListener gridListener(){
-//        ItemListener listener = new ItemListener();
-//        return listener;
-//    }
 
-    private JComponent makeImageChooserButton () {
-        JButton result = new JButton("Image");
+    private JButton penColorChooser () {
+        JButton result = new JButton("Change Pen Color");
+        result.addActionListener(penColorListener());
         return result;
     }
 
+    /**
+     * Method that creates ActionListener for backgroundChooser button
+     * 
+     * @return ActionLitener for backgroundListener
+     */
+    private ActionListener penColorListener () {
+        ActionListener listener = new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                Color newColor =
+                        JColorChooser.showDialog(null, "Choose a new pen color", Color.red);
+                viewCanvas.changePenColor(new JGColor(newColor.getRed(),
+                                                             newColor.getGreen(), newColor
+                                                                     .getBlue()));
+            }
+
+        };
+
+        return listener;
+    }
+
+    /**
+     * Creates button to pop up color choosing dialogue
+     * 
+     * @return JButton with label "Change Color"
+     */
+    private JButton makeBackgroundChooser () {
+        JButton result = new JButton("Change BG Color");
+        result.addActionListener(backgroundListener());
+        return result;
+    }
+
+    /**
+     * Method that creates ActionListener for backgroundChooser button
+     * 
+     * @return ActionLitener for backgroundListener
+     */
+    private ActionListener backgroundListener () {
+        ActionListener listener = new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                Color newColor =
+                        JColorChooser.showDialog(null, "Choose a new background color", Color.red);
+                viewCanvas.changeBackgroundColor(new JGColor(newColor.getRed(),
+                                                             newColor.getGreen(), newColor
+                                                                     .getBlue()));
+            }
+
+        };
+
+        return listener;
+    }
+
+    /**
+     * Method that returns checkbox to toggle if turtle is visible
+     * 
+     * @return
+     */
+    private JCheckBox makeTurtleCheckbox () {
+        JCheckBox result = new JCheckBox("Turtle on Screen?", null, true);
+        result.addItemListener(turtleListener());
+        return result;
+    }
+
+    /**
+     * Listener to check if turtle is on screen
+     */
+    private ItemListener turtleListener () {
+        ItemListener listener = new ItemListener() {
+
+            public void itemStateChanged (ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    // TODO: Make this less hardcoded
+                    viewCanvas.changeTurtleImage("Turtle1.gif");
+                }
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    viewCanvas.changeTurtleImage("Invisible.gif");
+                }
+            }
+
+        };
+
+        return listener;
+    }
+
+    /**
+     * Class that makes checkbox for Grid
+     * 
+     * @return Checkbox that toggles grid
+     */
+    private JCheckBox makeGridCheckbox () {
+        JCheckBox result = new JCheckBox("Grid", null, false);
+        result.addItemListener(gridListener());
+
+        return result;
+    }
+
+    /**
+     * Method that returns an ItemListener meant to be used with the Grid Checkbox. If the
+     * checkbox is toggled, the status of the grid is toggled within the canvas class
+     * 
+     * @return
+     */
+    private ItemListener gridListener () {
+        ItemListener listener = new ItemListener() {
+
+            public void itemStateChanged (ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    viewCanvas.toggleGrid();
+                }
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    viewCanvas.toggleGrid();
+                }
+            }
+
+        };
+
+        return listener;
+    }
+
+    /**
+     * Dropdown box for choosing image
+     * 
+     * @return
+     */
+    private JComboBox<?> makeImageChooserButton () {
+        String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
+        JComboBox<?> result = new JComboBox(turtleOptions);
+        result.addActionListener(imageListener());
+
+        return result;
+    }
+
+    /**
+     * Action Listener for image dropdown box
+     * 
+     * @return
+     */
+    private ActionListener imageListener () {
+        ActionListener listener = new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                JComboBox<?> cb = (JComboBox) e.getSource();
+                String turtleSelection = (String) cb.getSelectedItem();
+                viewCanvas.changeTurtleImage(turtleSelection);
+            }
+
+        };
+
+        return listener;
+    }
+
+    /**
+     * Method that creates button to open html help page
+     * 
+     * @return button with label "Help Me"
+     */
     private JComponent makeHelpButton () {
         JButton result = new JButton("Help Me");
+        result.addActionListener(helpListener());
         return result;
+    }
+
+    /**
+     * Method that creates action listener for help button
+     * 
+     * @return
+     */
+    private ActionListener helpListener () {
+        ActionListener listener = new ActionListener() {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                String helpPage =
+                        "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
+                try {
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
+                }
+                catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+
+        };
+
+        return listener;
     }
 
     // private JComponent makeDisplay () {
