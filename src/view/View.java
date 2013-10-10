@@ -31,7 +31,7 @@ import view.input.Textbox;
 
 public class View extends JFrame {
     private static final int GUI_WIDTH = 1000;
-    private static final int GUI_HEIGHT = 600;
+    private static final int GUI_HEIGHT = 650;
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
     protected ViewUpdater myViewUpdater;
@@ -64,8 +64,9 @@ public class View extends JFrame {
         viewCanvas = new Canvas();
 
         optionsPanel.add(makeGridCheckbox());
-        optionsPanel.add(makeTurtleCheckbox());
-        //optionsPanel.add(new Checkbox("Pen Down", null, true));
+        optionsPanel.add(makeTurtleCheckBox());
+        optionsPanel.add(statusCheckBox());
+        // optionsPanel.add(new Checkbox("Pen Down", null, true));
         optionsPanel.add(penColorChooser());
         optionsPanel.add(makeBackgroundChooser());
         optionsPanel.add(makeImageChooserButton());
@@ -102,8 +103,8 @@ public class View extends JFrame {
                 Color newColor =
                         JColorChooser.showDialog(null, "Choose a new pen color", Color.red);
                 viewCanvas.changePenColor(new JGColor(newColor.getRed(),
-                                                             newColor.getGreen(), newColor
-                                                                     .getBlue()));
+                                                      newColor.getGreen(), newColor
+                                                              .getBlue()));
             }
 
         };
@@ -149,7 +150,7 @@ public class View extends JFrame {
      * 
      * @return
      */
-    private JCheckBox makeTurtleCheckbox () {
+    private JCheckBox makeTurtleCheckBox () {
         JCheckBox result = new JCheckBox("Turtle on Screen?", null, true);
         result.addItemListener(turtleListener());
         return result;
@@ -168,6 +169,32 @@ public class View extends JFrame {
                 }
                 else if (e.getStateChange() == ItemEvent.DESELECTED) {
                     viewCanvas.changeTurtleImage("Invisible.gif");
+                }
+            }
+
+        };
+
+        return listener;
+    }
+
+    
+    private JCheckBox statusCheckBox () {
+        JCheckBox result = new JCheckBox("Turtle Status", null, true);
+        result.addItemListener(statusListener());
+
+        return result;
+    }
+
+
+    private ItemListener statusListener () {
+        ItemListener listener = new ItemListener() {
+
+            public void itemStateChanged (ItemEvent e) {
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    viewCanvas.toggleStatus();
+                }
+                else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    viewCanvas.toggleStatus();
                 }
             }
 

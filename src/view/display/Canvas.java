@@ -6,10 +6,10 @@ import java.util.ArrayList;
 import org.jbox2d.common.Vec2;
 import view.Constants;
 import jgame.JGColor;
+import jgame.JGFont;
 import jgame.JGImage;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
-
 
 
 /**
@@ -21,29 +21,27 @@ import jgame.platform.JGEngine;
 public class Canvas extends JGEngine {
     private TurtleSprite turtle = null;
     private boolean gridOn = false;
+    private boolean statusOn = true;
     private String gifName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
     private ArrayList<Point2D.Double> pointList = new ArrayList<Point2D.Double>();
-
-    
-    // TODO: Deal with JGame coordinates vs SLogo defined coordinates :(
 
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
     }
 
-     public Canvas () {
-     initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-     }
+    public Canvas () {
+        initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+    }
 
     public Canvas (JGPoint size) {
         initEngine(size.x, size.y);
 
     }
 
-//    public Canvas () {
-//        initEngineApplet();
-//    }
+    // public Canvas () {
+    // initEngineApplet();
+    // }
 
     @Override
     public void initCanvas () {
@@ -58,12 +56,11 @@ public class Canvas extends JGEngine {
 
         // TODO: Deal with image offset - TURTLE_OFFSET
         turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
-        
-        pointList.add(new Double(0.0,0.1));
-        pointList.add(new Double(10,500));
-        pointList.add(new Double(80,80));
-        
-        
+
+        pointList.add(new Double(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
+        pointList.add(new Double(10, 500));
+        pointList.add(new Double(80, 80));
+
     }
 
     @Override
@@ -74,37 +71,55 @@ public class Canvas extends JGEngine {
             drawGrid();
         }
 
-        //drawLine(0, 0, 100, 100, 2, JGColor.red);
-        //System.out.println(pointList);
-         for (int i=0; i < pointList.size()-1; i++){
-             Point2D start = pointList.get(i);
-             Point2D end = pointList.get(i+1);
-             drawLine(start.getX(), start.getY(), end.getX(), end.getY(), 2, penColor);
-         }
-        
-        // TODO: Implement actual GUI toggling
-        if (getKey('M')) {
-            moveTurtle(0, -10);
-            clearKey('M');
+        drawPath();
+     // TODO: Move turtle to end location (get from Model)
+        if (statusOn) {
+        drawStatus();
         }
+        
 
     }
-    
+
+    public void drawStatus () {
+        int offset = 5;
+        //TODO: Get data from Model
+        drawString("X:" + turtle.x, 5, offset, -1, new JGFont("arial", 0, 12),
+                   penColor);
+        drawString("Y:" + turtle.y, 5, offset += 13, -1, new JGFont("arial", 0, 12),
+                   penColor);
+        drawString("Heading:", 5, offset += 13, -1, new JGFont("arial", 0, 12),
+                   penColor);    
+    }
+
     /**
-     * Method to convert JGame coordinates to SLogo defined coordinates 
-     *
+     * Method that draws the turtle's path from Model's stored list of paths
+     */
+    public void drawPath () {
+        for (int i = 0; i < pointList.size() - 1; i++) {
+            Point2D start = pointList.get(i);
+            Point2D end = pointList.get(i + 1);
+            drawLine(start.getX(), start.getY(), end.getX(), end.getY(), 2, penColor);
+        }
+    }
+
+    /**
+     * Method to convert JGame coordinates to SLogo defined coordinates
+     * 
      * @param x
      */
-    public void convertCoordinates(double x){
-       
+    public Point2D convertCoordinates (Point2D coordinate) {
+        coordinate.setLocation(coordinate.getX() - Constants.GUI_WIDTH, coordinate.getY() -
+                                                                        Constants.GUI_HEIGHT);
+        return coordinate;
     }
-    
+
     /**
      * Method that changes turtle image
+     * 
      * @param gifName
      */
-    public void changeTurtleImage(String gifName){
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, gifName, "-", 0, 0, 50, 50);
+    public void changeTurtleImage (String imageName) {
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
     }
 
     /**
@@ -159,18 +174,30 @@ public class Canvas extends JGEngine {
         setBGColor(color);
         setBGImage(null);
     }
-    
-    public void changePenColor (JGColor color){
+
+    /**
+     * Method that changes the pen's color
+     * 
+     * @param color color to change pen to
+     */
+    public void changePenColor (JGColor color) {
         penColor = color;
     }
-    
+
     /**
      * Method that toggles grid on/off
      */
-    public void toggleGrid(){
+    public void toggleGrid () {
         gridOn = !gridOn;
     }
     
+    /**
+     * Method that toggles tutle status on/off
+     */
+    public void toggleStatus () {
+        statusOn = !statusOn;
+    }
+
     /**
      * Method that draws grid
      */
@@ -191,8 +218,8 @@ public class Canvas extends JGEngine {
      * Moves turtle sprite to center of canvas
      */
     public void moveToOrigin () {
-        turtle.setPos(Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                      Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+        turtle.setPos(Constants.CANVAS_WIDTH / 2,
+                      Constants.CANVAS_HEIGHT / 2);
     }
 
 }

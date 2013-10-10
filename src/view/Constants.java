@@ -17,7 +17,7 @@ public interface Constants {
 
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
-    public static final JGColor CANVAS_COLOR = JGColor.white;
+    public static final JGColor CANVAS_COLOR = JGColor.blue;
 
     public static final int Y_TILES = 50;
     public static final int X_TILES = 50;
