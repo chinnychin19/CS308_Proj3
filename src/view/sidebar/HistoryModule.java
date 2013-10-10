@@ -10,7 +10,6 @@ import model.Model;
 
 @SuppressWarnings("serial")
 public class HistoryModule extends Module {
-    private int JListindex = 0;
 
     public HistoryModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);

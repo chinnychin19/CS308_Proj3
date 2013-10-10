@@ -1,9 +1,7 @@
 package view.sidebar;
 
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 import javax.swing.JLabel;
 import view.input.Textbox;
@@ -21,10 +19,6 @@ public class CommandsModule extends Module {
     public CommandsModule (Textbox textbox) {
         super(textbox);
         this.add(new JLabel("Commands Module"));
-    }
-
-    public void mouseClicked (MouseEvent evt) {
-
     }
 
     @Override
