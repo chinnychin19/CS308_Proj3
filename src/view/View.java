@@ -30,10 +30,6 @@ import view.input.Textbox;
 
 
 public class View extends JFrame {
-    private static final int GUI_WIDTH = 1000;
-    private static final int GUI_HEIGHT = 650;
-    private static final int DISPLAY_HEIGHT = 100;
-    private static final int DISPLAY_WIDTH = 300;
     protected ViewUpdater myViewUpdater;
 
     private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
@@ -49,7 +45,7 @@ public class View extends JFrame {
 
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(GUI_WIDTH, GUI_HEIGHT));
+        this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
         Textbox textbox = new Textbox(Constants.FIELD_SIZE);
         final JPanel sidebarPanel = new SidebarPanel(textbox);
 
@@ -72,7 +68,6 @@ public class View extends JFrame {
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
 
-        // initEngineComponent will embed it
         this.getContentPane().add(sidebarPanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
@@ -177,14 +172,17 @@ public class View extends JFrame {
         return listener;
     }
 
-    
+    /**
+     * Checkbox for status
+     * 
+     * @return
+     */
     private JCheckBox statusCheckBox () {
         JCheckBox result = new JCheckBox("Turtle Status", null, true);
         result.addItemListener(statusListener());
 
         return result;
     }
-
 
     private ItemListener statusListener () {
         ItemListener listener = new ItemListener() {
