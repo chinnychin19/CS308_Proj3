@@ -11,12 +11,15 @@ public class LoopTests {
     @Test
     public void testWithVariable () {
         Model.initModel();
-        Model.parseInput("for [ :tick 1 6 1 ] [ fd :tick ]");
-        Model.parseInput("dotimes [ :tick 7 ] [ fd :tick ]");
+        Model.parseInput("for [ :tick 1 6 1 ] [ fd :tick ]"); // 1,2,3,4,5,6
+        Model.parseInput("dotimes [ :tick 7 ] [ fd :tick ]"); // 0,1,2,3,4,5,6
+        Model.parseInput("repeat 6 [ fd :repcount ]");  // 1,2,3,4,5,6
         Model.processNextInstruction();
         assertEquals(21, Model.getTurtle().getY(), DELTA);
         Model.processNextInstruction();
         assertEquals(42, Model.getTurtle().getY(), DELTA);
+        Model.processNextInstruction();
+        assertEquals(63, Model.getTurtle().getY(), DELTA);
     }
 
     @Test
@@ -24,11 +27,14 @@ public class LoopTests {
         Model.initModel();
         Model.parseInput("fd for [ :tick 1 6 1 ] [ sum :tick :tick ]");
         Model.parseInput("fd dotimes [ :tick 7 ] [ sum :tick :tick ]");
+        Model.parseInput("fd repeat 6 [ sum :repcount :repcount ]");
         Model.processNextInstruction();
         // last sum is 6+6=12
         assertEquals(12, Model.getTurtle().getY(), DELTA);
         Model.processNextInstruction();
         assertEquals(24, Model.getTurtle().getY(), DELTA);
+        Model.processNextInstruction();
+        assertEquals(36, Model.getTurtle().getY(), DELTA);
     }
 
     @Test
@@ -40,6 +46,10 @@ public class LoopTests {
         assertEquals(252, Model.getTurtle().getY(), DELTA);
         Model.processNextInstruction();
         assertEquals(546, Model.getTurtle().getY(), DELTA);
+        Model.parseInput("home repeat 6 [ repeat 6 [ fd :repcount ] ]");
+        Model.processNextInstruction();
+        Model.processNextInstruction();
+        assertEquals(21 * 6, Model.getTurtle().getY(), DELTA);
     }
 
     @Test
