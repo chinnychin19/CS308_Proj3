@@ -1,6 +1,9 @@
 package model;
 
 import java.util.Stack;
+import model.instruction.Instruction;
+import model.instruction.InstructionFactory;
+import model.instruction.loop.InstructionLoop;
 
 
 public class Parser {
@@ -17,7 +20,18 @@ public class Parser {
         return !myInput.isEmpty();
     }
 
-    public String next () {
+    public String nextWord () {
+        if (myInput.contains(SPACE + "")) {
+            String ret = myInput.substring(0, myInput.indexOf(SPACE));
+            myInput = myInput.substring(myInput.indexOf(SPACE)).trim();
+            return ret;
+        }
+        String ret = myInput.trim();
+        myInput = "";
+        return ret;
+    }
+
+    public String nextList () {
         myInput = myInput.trim();
         if (myInput.charAt(0) == '[') {
             // Return the string encased in the outer brackets
@@ -38,15 +52,46 @@ public class Parser {
             }
             String ret = myInput.substring(0, stoppingPoint + 1); // stores [...]
             myInput = myInput.substring(stoppingPoint + 1).trim();
-            return ret;
+            return ret.trim();
         }
-        else if (myInput.contains(SPACE + "")) {
-            String ret = myInput.substring(0, myInput.indexOf(SPACE));
-            myInput = myInput.substring(myInput.indexOf(SPACE)).trim();
-            return ret;
+        else {
+            // TODO: error, not at a list
+            return null;
         }
-        String ret = myInput.trim();
-        myInput = "";
-        return ret;
     }
+
+    public String nextExpression () {
+        StringBuilder expression = new StringBuilder();
+        String firstWord = nextWord();
+        expression.append(firstWord + " ");
+        Instruction root = InstructionFactory.getInstruction(firstWord, null);
+        Instruction cur = root;
+        while (hasNext()) {
+            if (cur.getChildren().size() < cur.getNumParams()) {
+                if (cur instanceof InstructionLoop) { // TODO: and not a REPEAT loop
+                    String parameters = nextList(); // enclosed in brackets
+                    expression.append(parameters + " ");
+                    ((InstructionLoop) cur).setParameters(parameters);
+                    String commandsInLoop = nextList();
+                    expression.append(commandsInLoop + " ");
+                    cur.addChild(null); // the commands stored in the loop don't matter in this case
+                }
+                else { // Normal instruction
+                    String nextInstruction = nextWord();
+                    expression.append(nextInstruction + " ");
+                    Instruction temp = InstructionFactory.getInstruction(nextInstruction, cur);
+                    cur.addChild(temp);
+                    cur = temp;
+                }
+            }
+            else {
+                cur = cur.getParent();
+            }
+            if (cur == null) { // backtracked up to root's parent
+                return expression.toString().trim();
+            }
+        }
+        return expression.toString().trim();
+    }
+
 }
