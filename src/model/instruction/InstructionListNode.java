@@ -1,7 +1,5 @@
 package model.instruction;
 
-
-
 public class InstructionListNode extends Instruction {
 
     public InstructionListNode (Instruction parent) {
