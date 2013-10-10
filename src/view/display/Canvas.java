@@ -7,7 +7,6 @@ import org.jbox2d.common.Vec2;
 import view.Constants;
 import jgame.JGColor;
 import jgame.JGFont;
-import jgame.JGImage;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
 
@@ -72,23 +71,22 @@ public class Canvas extends JGEngine {
         }
 
         drawPath();
-     // TODO: Move turtle to end location (get from Model)
+        // TODO: Move turtle to end location (get from Model)
         if (statusOn) {
-        drawStatus();
+            drawStatus();
         }
-        
 
     }
 
     public void drawStatus () {
         int offset = 5;
-        //TODO: Get data from Model
+        // TODO: Get data from Model
         drawString("X:" + turtle.x, 5, offset, -1, new JGFont("arial", 0, 12),
                    penColor);
         drawString("Y:" + turtle.y, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                    penColor);
         drawString("Heading:", 5, offset += 13, -1, new JGFont("arial", 0, 12),
-                   penColor);    
+                   penColor);
     }
 
     /**
@@ -190,7 +188,7 @@ public class Canvas extends JGEngine {
     public void toggleGrid () {
         gridOn = !gridOn;
     }
-    
+
     /**
      * Method that toggles tutle status on/off
      */

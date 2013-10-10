@@ -2,16 +2,21 @@ package view;
 
 import jgame.JGColor;
 
-
+/**
+ * Class that stores constants for the view
+ * 
+ * @author susanzhang93
+ *
+ */
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 60;
     public static final int GUI_WIDTH = 1000;
-    public static final int GUI_HEIGHT = 600;
+    public static final int GUI_HEIGHT = 650;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
 
     public static final int TURTLE_OFFSET = 25;
-    
+
     public static final int GRID_CID = 2;
     public static final int TURTLE_CID = 0;
 
