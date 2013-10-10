@@ -18,7 +18,10 @@ public class InstructionFactory {
                                                                                                       parent); }
 
             // Control Structures
-            if (s.equalsIgnoreCase("FOR")) { return new InstructionFOR(parent); }
+            if (s.equalsIgnoreCase("FOR")) {
+                return new InstructionFOR(parent);
+            }
+            else if (s.equalsIgnoreCase("DOTIMES")) { return new InstructionDOTIMES(parent); }
 
             // Turtle operations
             if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) {

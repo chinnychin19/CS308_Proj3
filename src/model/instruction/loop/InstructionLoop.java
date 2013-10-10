@@ -21,11 +21,21 @@ public abstract class InstructionLoop extends Instruction {
     @Override
     public Instruction eval () {
         Instruction ret = null;
-        for (double i = myStart; i < myEnd + 1; i += myIncrement) {
-            Model.getVariableCache().put(myVariable, i);
-            // TODO: should this variable be taken out of scope after the loop?
-            // TODO: well we should check if it already existed first
-            ret = getChildren().get(0).eval();
+
+        // TODO: Change this?
+        if (myStart > myEnd && myIncrement < 0) {
+            for (double i = myStart; i > myEnd - 1; i += myIncrement) {
+                Model.getVariableCache().put(myVariable, i);
+                ret = getChildren().get(0).eval();
+            }
+        }
+        else {
+            for (double i = myStart; i < myEnd + 1; i += myIncrement) {
+                Model.getVariableCache().put(myVariable, i);
+                // TODO: should this variable be taken out of scope after the loop?
+                // TODO: well we should check if it already existed first
+                ret = getChildren().get(0).eval();
+            }
         }
         return ret;
     }
