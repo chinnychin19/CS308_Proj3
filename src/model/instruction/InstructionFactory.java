@@ -4,6 +4,7 @@ import model.instruction.turtle.*;
 import model.instruction.loop.*;
 import model.instruction.math.*;
 import model.instruction.bool.*;
+import model.instruction.conditional.*;
 import dataType.DataTypeChecker;
 
 
@@ -24,7 +25,13 @@ public class InstructionFactory {
             else if (s.equalsIgnoreCase("DOTIMES")) {
                 return new InstructionDOTIMES(parent);
             }
-            else if (s.equalsIgnoreCase("REPEAT")) { return new InstructionREPEAT(parent); }
+            else if (s.equalsIgnoreCase("REPEAT")) {
+                return new InstructionREPEAT(parent);
+            }
+            else if (s.equalsIgnoreCase("IF")) {
+                return new InstructionIF(parent);
+            }
+            else if (s.equalsIgnoreCase("IFELSE")) { return new InstructionIFELSE(parent); }
 
             // Turtle operations
             if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) {
