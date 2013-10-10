@@ -40,4 +40,15 @@ public class ParserTests {
         assertEquals("[ 10 fd 10 ]", p.nextList());
         assertEquals(false, p.hasNext());
     }
+
+    @Test
+    public void testRepeatExpression () {
+        Model.initModel();
+        String input = "repeat sum 3 3 [ 10 fd 10 ]";
+        Parser p = new Parser(input);
+        assertEquals("repeat", p.nextWord());
+        assertEquals("sum 3 3", p.nextExpression());
+        assertEquals("[ 10 fd 10 ]", p.nextList());
+        assertEquals(false, p.hasNext());
+    }
 }

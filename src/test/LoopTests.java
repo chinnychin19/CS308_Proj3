@@ -46,7 +46,7 @@ public class LoopTests {
         assertEquals(252, Model.getTurtle().getY(), DELTA);
         Model.processNextInstruction();
         assertEquals(546, Model.getTurtle().getY(), DELTA);
-        Model.parseInput("home repeat 6 [ repeat 6 [ fd :repcount ] ]");
+        Model.parseInput("home repeat sum 3 sum 2 1 [ repeat 6 [ fd :repcount ] ]");
         Model.processNextInstruction();
         Model.processNextInstruction();
         assertEquals(21 * 6, Model.getTurtle().getY(), DELTA);
