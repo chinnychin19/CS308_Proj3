@@ -30,15 +30,15 @@ public class ConditionalTests {
     public void testIFELSE () {
         // TODO: Finish test
         Model.initModel();
-        Model.parseInput("if 1 [ fd 10 ]");
-        Model.parseInput("if 0 [ fd 10 ]");
-        Model.parseInput("if sum 1 2 [ fd 10 ]");
+        Model.parseInput("ifelse 1 [ fd 10 ] [ fd 20 ]");
+        Model.parseInput("ifelse 0 [ fd 10 ] [ fd 20 ]");
+        Model.parseInput("ifelse sum 1 2 [ fd 10 ] [ fd 20 ]");
         Model.processNextInstruction();
         assertEquals(10, Model.getTurtleY(), DELTA);
         Model.processNextInstruction();
-        assertEquals(10, Model.getTurtleY(), DELTA);
+        assertEquals(30, Model.getTurtleY(), DELTA);
         Model.processNextInstruction();
-        assertEquals(20, Model.getTurtleY(), DELTA);
+        assertEquals(40, Model.getTurtleY(), DELTA);
     }
 
 }
