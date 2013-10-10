@@ -1,7 +1,5 @@
-package model.instruction.loop;
+package model.instruction;
 
-import model.instruction.Instruction;
-import model.instruction.InstructionConstant;
 
 
 public class InstructionListNode extends Instruction {

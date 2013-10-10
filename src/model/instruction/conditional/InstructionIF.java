@@ -1,4 +1,7 @@
-package model.instruction;
+package model.instruction.conditional;
+
+import model.instruction.Instruction;
+import model.instruction.InstructionConstant;
 
 public class InstructionIF extends InstructionConditional {
     public InstructionIF (Instruction parent) {

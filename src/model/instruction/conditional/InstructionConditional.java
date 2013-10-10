@@ -1,4 +1,6 @@
-package model.instruction;
+package model.instruction.conditional;
+
+import model.instruction.Instruction;
 
 public abstract class InstructionConditional extends Instruction {
     public static final double EPSILON = 0.0000001;
