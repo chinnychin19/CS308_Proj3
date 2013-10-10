@@ -2,8 +2,11 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Checkbox;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -45,7 +48,8 @@ public class View extends JFrame {
 
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
-        optionsPanel.add(new Checkbox("Grid", null, true));
+        
+        optionsPanel.add(makeGridCheckbox());
 
         final JComboBox backgroundChooser = new JComboBox();
         backgroundChooser.addItem("COLOR");
@@ -65,6 +69,18 @@ public class View extends JFrame {
         Model.initModel();
 
     }
+    
+    private Component makeGridCheckbox(){
+        Component result = new Checkbox("Grid", null, true);
+        
+       
+        return result;
+    }
+    
+//    private ItemListener gridListener(){
+//        ItemListener listener = new ItemListener();
+//        return listener;
+//    }
 
     private JComponent makeImageChooserButton () {
         JButton result = new JButton("Image");

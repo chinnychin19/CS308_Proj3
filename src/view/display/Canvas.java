@@ -18,6 +18,7 @@ public class Canvas extends JGEngine {
     private TurtleSprite turtle = null;
     private boolean gridOn = false;
     private JGColor color = JGColor.red;
+    private String gifName = "Turtle1.gif";
 
     // TODO: Deal with JGame coordinates vs SLogo defined coordinates :(
 
@@ -25,18 +26,18 @@ public class Canvas extends JGEngine {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
     }
 
-    // public Canvas () {
-    // initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-    // }
+     public Canvas () {
+     initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+     }
 
     public Canvas (JGPoint size) {
         initEngine(size.x, size.y);
-        
+
     }
 
-    public Canvas () {
-        initEngineApplet();
-    }
+//    public Canvas () {
+//        initEngineApplet();
+//    }
 
     @Override
     public void initCanvas () {
@@ -47,8 +48,8 @@ public class Canvas extends JGEngine {
     @Override
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, "Turtle1.gif", "-", 0, 0, 50, 50);
-        
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, gifName, "-", 0, 0, 50, 50);
+
         // TODO: Deal with image offset - TURTLE_OFFSET
         turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
     }
@@ -60,21 +61,28 @@ public class Canvas extends JGEngine {
         if (gridOn) {
             drawGrid();
         }
-        
+
         drawLine(0, 0, 100, 100, 2, JGColor.red);
 
-        //TODO: Implement actual GUI toggling
-        if (getKey('G')) {           
-            gridOn = !gridOn;
+        // TODO: Implement actual GUI toggling
+        if (getKey('G')) {
+            toggleGrid();
             clearKey('G');
         }
         
+        if (getKey('C')){
+            gifName = "Turtle2.gif";
+            defineImage("turtleGif", "-", Constants.TURTLE_CID, gifName, "-", 0, 0, 50, 50);
+
+            clearKey('C');
+        }
+
         if (getKey('B')) {
             changeBackgroundColor(JGColor.red);
             clearKey('B');
         }
-        
-        if (getKey('M')){
+
+        if (getKey('M')) {
             moveTurtle(0, -10);
             clearKey('M');
         }
@@ -137,20 +145,28 @@ public class Canvas extends JGEngine {
         setBGImage(null);
     }
     
+    
+    /**
+     * Method that toggles grid on/off
+     */
+    public void toggleGrid(){
+        gridOn = !gridOn;
+    }
+    
     /**
      * Method that draws grid
      */
-    public void drawGrid(){
-    for (int i = 1; i < Constants.NUM_GRIDLINES; i++) {
-        drawLine(0, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES,
-                 Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES);
-    }
+    public void drawGrid () {
+        for (int i = 1; i < Constants.NUM_GRIDLINES; i++) {
+            drawLine(0, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES,
+                     Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT * i / Constants.NUM_GRIDLINES);
+        }
 
-    for (int j = 1; j < Constants.NUM_GRIDLINES; j++) {
-        drawLine(Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES, 0,
-                 Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES,
-                 Constants.CANVAS_HEIGHT * 2);
-    }
+        for (int j = 1; j < Constants.NUM_GRIDLINES; j++) {
+            drawLine(Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES, 0,
+                     Constants.CANVAS_WIDTH * j / Constants.NUM_GRIDLINES,
+                     Constants.CANVAS_HEIGHT * 2);
+        }
     }
 
     /**
