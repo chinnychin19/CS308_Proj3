@@ -33,14 +33,13 @@ public class Interpreter {
         while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
                 if (cur instanceof InstructionLoop) {
-                    ((InstructionLoop) cur).setParameters(parser.next());
+                    String parameters = parser.next(); // ideally enclosed in brackets
+                    ((InstructionLoop) cur).setParameters(parameters);
                     String commandsInLoop = parser.next();
                     commandsInLoop =
-                            commandsInLoop.substring(1, commandsInLoop.length() - 1).trim(); // chop
-                                                                                             // of
-                                                                                             // brackets
-                    List<Instruction> listCommands = getInstructions(commandsInLoop); // commands in
-                                                                                      // loop
+                            commandsInLoop.substring(1, commandsInLoop.length() - 1).trim();
+                    // chop of brackets
+                    List<Instruction> listCommands = getInstructions(commandsInLoop);
                     InstructionListNode node = new InstructionListNode(cur);
                     for (Instruction instr : listCommands) {
                         node.addChild(instr); // add all instructions to the list

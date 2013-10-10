@@ -45,9 +45,11 @@ public class LoopTests {
     @Test
     public void testBackwards () {
         Model.initModel();
-        Model.parseInput("fd for [ :tick 6 1 -1 ] [ sum :tick :tick ]");
+        assertEquals(90, Model.getTurtle().getAngle(), DELTA);
+        Model.parseInput("rt for [ :tick 6 2 -1 ] [ fd sum :tick :tick ]");
         Model.processNextInstruction();
-        // last sum is 1+1=2
-        assertEquals(2, Model.getTurtle().getY(), DELTA);
+        // last sum is 2+2=4
+        assertEquals(86, Model.getTurtle().getAngle(), DELTA);
+        assertEquals(40, Model.getTurtle().getY(), DELTA);
     }
 }

@@ -22,20 +22,24 @@ public abstract class InstructionLoop extends Instruction {
     public Instruction eval () {
         Instruction ret = null;
 
-        // TODO: Change this?
-        if (myStart > myEnd && myIncrement < 0) {
-            for (double i = myStart; i > myEnd - 1; i += myIncrement) {
+        if (myIncrement < 0) {
+            for (double i = myStart; i > myEnd + myIncrement; i += myIncrement) {
+                // myIncrement is negative so adding is "subtracting"
                 Model.getVariableCache().put(myVariable, i);
                 ret = getChildren().get(0).eval();
             }
         }
-        else {
-            for (double i = myStart; i < myEnd + 1; i += myIncrement) {
+        else if (myIncrement > 0) {
+            for (double i = myStart; i < myEnd + myIncrement / 2; i += myIncrement) {
+                // adding myIncrement/2 guarantees there won't be a double precision error to myEnd
                 Model.getVariableCache().put(myVariable, i);
                 // TODO: should this variable be taken out of scope after the loop?
                 // TODO: well we should check if it already existed first
                 ret = getChildren().get(0).eval();
             }
+        }
+        else {
+            // infinite loop; TODO: allow the user to do this?
         }
         return ret;
     }

@@ -22,6 +22,8 @@ public class InstructionDOTIMES extends InstructionLoop {
         // Parameters: variable, limit (end + 1)
         setVariable(((InstructionVariable) paramNodes.get(0)).getName());
         setEnd(((InstructionConstant) paramNodes.get(1)).getValue() - 1);
+        setStart(0); // hard coded for DOTIMES
+        setIncrement(1); // hard coded for DOTIMES
     }
 
 }
