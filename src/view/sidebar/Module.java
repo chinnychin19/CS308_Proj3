@@ -64,7 +64,7 @@ public abstract class Module extends JPanel implements ContentContainer {
     }
 
     private void initializeModuleDisplay () {
-        setBackground(Color.blue);
+        setBackground(Color.white);
         initializeModuleContents();
     }
 

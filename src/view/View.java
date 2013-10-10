@@ -19,6 +19,7 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import jgame.JGColor;
 import model.Model;
 import view.sidebar.SidebarPanel;
@@ -55,7 +56,7 @@ public class View extends JFrame {
 
         final JPanel inputPanel = new InputPanel();
         RunButton runbutton = new RunButton("RUN", textbox, (SidebarPanel) sidebarPanel);
-        inputPanel.add(textbox);
+        inputPanel.add(new JScrollPane(textbox));
         inputPanel.add(runbutton);
 
         final JPanel optionsPanel = new JPanel();
@@ -65,7 +66,7 @@ public class View extends JFrame {
 
         optionsPanel.add(makeGridCheckbox());
         optionsPanel.add(makeTurtleCheckbox());
-        //optionsPanel.add(new Checkbox("Pen Down", null, true));
+        // optionsPanel.add(new Checkbox("Pen Down", null, true));
         optionsPanel.add(penColorChooser());
         optionsPanel.add(makeBackgroundChooser());
         optionsPanel.add(makeImageChooserButton());
@@ -102,8 +103,8 @@ public class View extends JFrame {
                 Color newColor =
                         JColorChooser.showDialog(null, "Choose a new pen color", Color.red);
                 viewCanvas.changePenColor(new JGColor(newColor.getRed(),
-                                                             newColor.getGreen(), newColor
-                                                                     .getBlue()));
+                                                      newColor.getGreen(), newColor
+                                                              .getBlue()));
             }
 
         };

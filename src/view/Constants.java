@@ -11,7 +11,7 @@ public interface Constants {
     public static final int DISPLAY_WIDTH = 300;
 
     public static final int TURTLE_OFFSET = 25;
-    
+
     public static final int GRID_CID = 2;
     public static final int TURTLE_CID = 0;
 
