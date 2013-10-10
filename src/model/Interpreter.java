@@ -3,11 +3,15 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 import model.instruction.*;
+import model.instruction.conditional.InstructionConditional;
+import model.instruction.conditional.InstructionIF;
+import model.instruction.conditional.InstructionIFELSE;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.loop.InstructionREPEAT;
 
 
 public class Interpreter {
+    // TODO: when complete, refactor out repeated code for interpreting lists
 
     protected void parseInput (String input) {
         input = input.replaceAll("\\s+", " "); // all white space becames a ' ' (space character)
@@ -46,6 +50,29 @@ public class Interpreter {
                         node.addChild(instr); // add all instructions to the list
                     }
                     cur.addChild(node);
+                }
+                else if (cur instanceof InstructionConditional) {
+                    String strCondition = parser.nextExpression();
+                    cur.addChild(getInstructions(strCondition).get(0));
+                    int numLists =
+                            (cur instanceof InstructionIF) ? 1 :
+                                                          (cur instanceof InstructionIFELSE) ? 2
+                                                                                            : -1; // -1
+                                                                                                  // should
+                                                                                                  // not
+                                                                                                  // happen
+                    for (int listIndex = 0; listIndex < numLists; listIndex++) {
+                        String commandsInLoop = parser.nextList();
+                        commandsInLoop =
+                                commandsInLoop.substring(1, commandsInLoop.length() - 1).trim();
+                        // chop of brackets
+                        List<Instruction> listCommands = getInstructions(commandsInLoop);
+                        InstructionListNode node = new InstructionListNode(cur);
+                        for (Instruction instr : listCommands) {
+                            node.addChild(instr); // add all instructions to the list
+                        }
+                        cur.addChild(node);
+                    }
                 }
                 else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.nextWord(), cur);
