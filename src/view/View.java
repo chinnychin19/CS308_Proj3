@@ -84,7 +84,7 @@ public class View extends JFrame {
 
     public void updateCanvasData () {
         viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
-        // viewCanvas.setHeading(0);
+        viewCanvas.setHeading(Model.getTurtleAngle());
         // viewCanvas.setPaths();
     }
 
