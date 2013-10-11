@@ -11,7 +11,7 @@ import jgame.platform.JGEngine;
  * 
  */
 public class TurtleSprite extends JGObject {
-
+    
     /**
      * Constructor for TurtleSprite class
      * 
@@ -28,5 +28,8 @@ public class TurtleSprite extends JGObject {
     public TurtleSprite (double x, double y, int CID) {
         super("turtle", true, x, y, CID, "turtleGif", 0, 0, 0, 0, -1);
     }
+    
+    
+    
 
 }

@@ -21,8 +21,11 @@ public class Canvas extends JGEngine {
     private TurtleSprite turtle = null;
     private boolean gridOn = false;
     private boolean statusOn = true;
+    private boolean penUp = false;
     private String gifName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
+    
+    private double heading = 0;
     private ArrayList<Point2D.Double> pointList = new ArrayList<Point2D.Double>();
 
     public static void main (String[] args) {
@@ -66,26 +69,27 @@ public class Canvas extends JGEngine {
     public void paintFrame () {
         super.paintFrame();
 
-        if (gridOn) {
+        if (gridOn && !penUp) {
             drawGrid();
+        }
+
+        if (statusOn) {
+            drawStatus();
         }
 
         drawPath();
         // TODO: Move turtle to end location (get from Model)
-        if (statusOn) {
-            drawStatus();
-        }
 
     }
 
     public void drawStatus () {
         int offset = 5;
         // TODO: Get data from Model
-        drawString("X:" + turtle.x, 5, offset, -1, new JGFont("arial", 0, 12),
+        drawString("X: " + turtle.x, 5, offset, -1, new JGFont("arial", 0, 12),
                    penColor);
-        drawString("Y:" + turtle.y, 5, offset += 13, -1, new JGFont("arial", 0, 12),
+        drawString("Y: " + turtle.y, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                    penColor);
-        drawString("Heading:", 5, offset += 13, -1, new JGFont("arial", 0, 12),
+        drawString("Heading: ", 5, offset += 13, -1, new JGFont("arial", 0, 12),
                    penColor);
     }
 
@@ -103,7 +107,7 @@ public class Canvas extends JGEngine {
     /**
      * Method to convert JGame coordinates to SLogo defined coordinates
      * 
-     * @param x
+     * @param coordinate coordinate in form of Point2D
      */
     public Point2D convertCoordinates (Point2D coordinate) {
         coordinate.setLocation(coordinate.getX() - Constants.GUI_WIDTH, coordinate.getY() -
@@ -114,7 +118,7 @@ public class Canvas extends JGEngine {
     /**
      * Method that changes turtle image
      * 
-     * @param gifName
+     * @param imageName name of image
      */
     public void changeTurtleImage (String imageName) {
         defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
@@ -151,16 +155,15 @@ public class Canvas extends JGEngine {
     /**
      * Moves turtle sprite, and draws line between displacement
      * 
-     * @param x change in x direction
-     * @param y change in y direction
+     * @param x new x location of turtle
+     * @param y new y location of turtle
      */
-    public void moveTurtle (double x, double y) {
-        double newX = turtle.x + x;
-        double newY = turtle.y + y;
-
-        // Relative
-        drawLine(turtle.x, turtle.y, newX, newY);
-        turtle.setPos(newX, newY);
+    public void moveTurtle (double x, double y) {     
+        turtle.setPos(x, y);
+    }
+    
+    public void moveTurtle (Point2D.Double coordinate) {     
+        turtle.setPos(coordinate.getX(), coordinate.getY());
     }
 
     /**
@@ -190,7 +193,7 @@ public class Canvas extends JGEngine {
     }
 
     /**
-     * Method that toggles tutle status on/off
+     * Method that toggles turtle status on/off
      */
     public void toggleStatus () {
         statusOn = !statusOn;
@@ -213,7 +216,24 @@ public class Canvas extends JGEngine {
     }
 
     /**
-     * Moves turtle sprite to center of canvas
+     * Sets list of points
+     * 
+     * @param list new ArrayList of points
+     */
+    public void setPoints (ArrayList<Point2D.Double> list) {
+        pointList = list;
+    }
+    
+    /**
+     * Sets heading of turtle
+     */
+    public void setHeading(double newHeading){
+        this.heading = newHeading;
+    }
+    
+
+    /**
+     * Moves turtle sprite to center of canvas (is this completely necessary)
      */
     public void moveToOrigin () {
         turtle.setPos(Constants.CANVAS_WIDTH / 2,
