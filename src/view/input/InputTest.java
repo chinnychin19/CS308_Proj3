@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import view.Constants;
+import view.View;
 import view.sidebar.SidebarPanel;
 import dataType.DataType;
 
@@ -15,12 +16,13 @@ public class InputTest {
     Textbox textbox;
     RunButton runButton;
     SidebarPanel sidebarPanel;
+    View view;
 
     @Before
     public void setUp () throws Exception {
         textbox = new Textbox(50);
         sidebarPanel = new SidebarPanel(textbox);
-        runButton = new RunButton("RUN", textbox, sidebarPanel);
+        runButton = new RunButton("RUN", textbox, sidebarPanel, view);
 
     }
 

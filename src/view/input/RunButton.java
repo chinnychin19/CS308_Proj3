@@ -3,6 +3,7 @@ package view.input;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
+import view.View;
 import view.sidebar.SidebarPanel;
 import model.Model;
 
@@ -11,9 +12,11 @@ public class RunButton extends JButton {
     Textbox textbox;
     SidebarPanel sidebar;
     private MouseListener myMouseListener;
+    private View view;
 
-    public RunButton (String title, Textbox textbox, SidebarPanel sidebar) {
+    public RunButton (String title, Textbox textbox, SidebarPanel sidebar, View view) {
         super(title);
+        this.view = view;
         this.textbox = textbox;
         this.sidebar = sidebar;
         Model.initModel();
@@ -54,6 +57,7 @@ public class RunButton extends JButton {
     protected void executeRunCycle () {
 
         sendUserInput();
+        view.updateCanvasData();
         sidebar.updateModules();
 
     }
