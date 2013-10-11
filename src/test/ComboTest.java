@@ -17,7 +17,7 @@ public class ComboTest {
     }
 
     @Test
-    public void testTRFD () {
+    public void testRTFD () {
         Model.initModel();
         Model.parseInput("rt fd rt fd rt fd rt fd 90");
         Model.processNextInstruction();
@@ -25,5 +25,33 @@ public class ComboTest {
         assertEquals(0, Model.getTurtleY(), DELTA);
         assertEquals(90, Model.getTurtleAngle(), DELTA);
         assertEquals(4, Model.getTurtlePaths().size());
+    }
+
+    @Test
+    public void testTOFOR () {
+        Model.initModel();
+        Model.parseInput("to simpleMove [ :step ] [ for [ :tick 1 6 1 ] [ fd sum :tick :step ] ]");
+        Model.processNextInstruction();
+        Model.parseInput("simpleMove 2");
+        Model.processNextInstruction();
+        assertEquals(33, Model.getTurtleY(), DELTA);
+    }
+    
+    @Test
+    public void testFDREMAINDER () {
+        Model.initModel();
+        Model.parseInput("fd remainder 5 remainder remainder 10 6 5");
+        Model.processNextInstruction();
+        assertEquals(1, Model.getTurtleY(), DELTA);
+    }
+    
+    @Test
+    public void testComplicated () {
+        Model.initModel();
+        Model.parseInput("to complicatedFunc [ :step :stepTwo ] [ ifelse sum :step :stepTwo [] [] ]");
+        Model.processNextInstruction();
+        Model.parseInput("simpleMove 2");
+        Model.processNextInstruction();
+        assertEquals(33, Model.getTurtleY(), DELTA);
     }
 }

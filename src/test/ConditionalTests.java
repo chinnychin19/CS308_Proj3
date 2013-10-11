@@ -28,17 +28,18 @@ public class ConditionalTests {
 
     @Test
     public void testIFELSE () {
-        // TODO: Finish test
         Model.initModel();
         Model.parseInput("ifelse 1 [ fd 10 ] [ fd 20 ]");
         Model.parseInput("ifelse 0 [ fd 10 ] [ fd 20 ]");
-        Model.parseInput("ifelse sum 1 2 [ fd 10 ] [ fd 20 ]");
+        Model.parseInput("fd ifelse sum 1 2 [ fd 10 ] [ fd 20 ]");
+        Model.parseInput("ifelse 1 [ ifelse 1 [ fd 10 ] [ fd 20 ] ] [ fd 20 ]");
         Model.processNextInstruction();
         assertEquals(10, Model.getTurtleY(), DELTA);
         Model.processNextInstruction();
         assertEquals(30, Model.getTurtleY(), DELTA);
         Model.processNextInstruction();
-        assertEquals(40, Model.getTurtleY(), DELTA);
+        assertEquals(50, Model.getTurtleY(), DELTA);
+        Model.processNextInstruction();
+        assertEquals(60, Model.getTurtleY(), DELTA);
     }
-
 }
