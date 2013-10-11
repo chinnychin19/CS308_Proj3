@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry excluding="src-base/|src-base/" kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
-	<classpathentry kind="lib" path="lib/jgame-jre.jar"/>
-	<classpathentry kind="lib" path="lib/jgame-src.jar"/>
+	<classpathentry kind="lib" path="lib/jbox2d-src.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/slogo_team04/lib/jbox2d-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jgame-jbox2d.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/slogo_team04/lib/jbox2d-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

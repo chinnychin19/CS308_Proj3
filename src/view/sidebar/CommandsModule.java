@@ -1,58 +1,34 @@
 package view.sidebar;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.event.MouseEvent;
-import java.util.List;
-import javax.swing.DefaultListModel;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import view.input.Textbox;
+import model.Model;
 
 
+@SuppressWarnings("serial")
 public class CommandsModule extends Module {
 
-    public CommandsModule (int width, int height) {
-        super(width, height);
-        this.setPreferredSize(new Dimension(width, height));
+    public CommandsModule (int width, int height, Textbox textbox) {
+        super(width, height, textbox);
         this.add(new JLabel("Commands Module"));
-        // TODO Auto-generated constructor stub
+    }
+
+    public CommandsModule (Textbox textbox) {
+        super(textbox);
+        this.add(new JLabel("Commands Module"));
     }
 
     @Override
-    protected List<ModuleData> initializeModuleContents () {
-
-        JList list = new JList();
-        DefaultListModel listModel = new DefaultListModel();
-        listModel = new DefaultListModel();
-        listModel.addElement("Jane Doe");
-        listModel.addElement("John Smith");
-        listModel.addElement("Kathy Green");
-
-        // Create the list and put it in a scroll pane.
-        list = new JList(listModel);
-        JScrollPane listScrollPane = new JScrollPane(list);
-        add(listScrollPane);
-
-        return null;
-    }
-
-    public void mouseClicked (MouseEvent evt) {
-        System.out.println("test");
-        JList list = (JList) evt.getSource();
-        if (evt.getClickCount() == 2) {
-            int index = list.locationToIndex(evt.getPoint());
+    protected Collection<ModuleData> getStoredModelInformation () {
+        Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
+        Map<String, String> commandMap = Model.getAllCommands();
+        for (String key : commandMap.keySet()) {
+            commandCollection.add(new ModuleData(key, commandMap.get(key)));
         }
-        else if (evt.getClickCount() == 3) {   // Triple-click
-            int index = list.locationToIndex(evt.getPoint());
-
-        }
-    }
-
-    @Override
-    protected void click () {
-        // TODO Auto-generated method stub
-
+        return commandCollection;
     }
 
 }
