@@ -1,5 +1,6 @@
 package view.sidebar;
 
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -14,12 +15,14 @@ import view.input.Textbox;
 @SuppressWarnings("serial")
 public class VariableModule extends Module {
     JButton edit;
+    TextField textfield;
     public VariableModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
         this.add(new JLabel("Variable Module"));
         edit =new JButton("Edit");
         edit.addActionListener(new EditListener());
         this.add(edit);
+        textfield = new TextField();
         
     }
 
@@ -30,17 +33,15 @@ public class VariableModule extends Module {
         edit =new JButton("Edit");
         edit.addActionListener(new EditListener());
         this.add(edit);
+        textfield = new TextField();
     }
     class EditListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            //This method can be called only if
-            //there's a valid selection
-            //so go ahead and remove whatever's selected.
-            System.out.println("Edit clicked");
+
             int index = list.getSelectedIndex();
             Object o = listModel.get(index);
             listModel.remove(index);
-            
+           
             listModel.add(index, new ModuleData("updated","updatedvalue"));
             int size = listModel.getSize();
 
@@ -48,10 +49,7 @@ public class VariableModule extends Module {
 //                fireButton.setEnabled(false);
 
             } else { //Select an index.
-                if (index == listModel.getSize()) {
-                    //removed item in last position
-                    index--;
-                }
+               
 
                 list.setSelectedIndex(index);
                 list.ensureIndexIsVisible(index);
