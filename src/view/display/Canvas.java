@@ -20,7 +20,7 @@ public class Canvas extends JGEngine {
     private TurtleSprite turtle = null;
     private boolean gridOn = false;
     private boolean statusOn = true;
-    private boolean penUp = false;
+    private boolean visible = true;
     private String imageName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
     private double heading = 90;
@@ -54,6 +54,7 @@ public class Canvas extends JGEngine {
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
         defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
+        // turtleGif is name of image within JGEngine, imageName is the actual name of image
 
         // TODO: Deal with image offset - TURTLE_OFFSET
         turtle =
@@ -67,7 +68,7 @@ public class Canvas extends JGEngine {
     public void paintFrame () {
         super.paintFrame();
 
-        if (gridOn && !penUp) {
+        if (gridOn) {
             drawGrid();
         }
 
@@ -96,6 +97,20 @@ public class Canvas extends JGEngine {
                    penColor);
     }
 
+    public void isTurtleVisible (boolean visible) {
+        if (visible != this.visible) {
+            if (visible) {
+                turtle.resume();
+            }
+
+            else {
+                turtle.suspend();
+            }
+        }
+
+        this.visible = visible;
+    }
+
     /**
      * Method that draws the turtle's path from Model's stored list of paths
      */
@@ -120,16 +135,19 @@ public class Canvas extends JGEngine {
                    new JGFont("arial", 0, 12), JGColor.red);
     }
 
-    public void setError(String error){
-        this.error=error;
+    public void setError (String error) {
+        this.error = error;
     }
+
     /**
      * Method that changes turtle image
      * 
      * @param imageName name of image
      */
     public void changeTurtleImage (String imageName) {
+        this.imageName = imageName;
         defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
+        adjustImageAngle(this.heading);
     }
 
     /**
@@ -206,19 +224,35 @@ public class Canvas extends JGEngine {
      */
     public void setHeading (double newHeading) {
 
-        // if (this.heading != newHeading){
-        // defineImageRotated ("turtleTest", "-",
-        // Constants.TURTLE_CID, "turtleGif", (this.heading - newHeading)*Math.PI/180);
-        //
-        // turtle.remove();
-        // double x = turtle.getX();
-        // double y = turtle.getY();
-        // turtle= new TurtleSprite(this, x,
-        // y, 1, "turtleTest");
-        // }
+        if (this.heading != newHeading) {
+            
+            adjustImageAngle(newHeading);
+           
+        }
 
         this.heading = newHeading;
 
+    }
+    
+    public void adjustImageAngle(double heading){
+        if (heading >= 45 && heading < 135) {
+            imageName = imageName.substring(0, 11);
+        }
+
+        else if (heading >= 135 && heading < 225) {
+            imageName = imageName.substring(0, 7) + "_2.gif";
+        }
+
+        else if (heading >= 225 && heading < 315) {
+            imageName = imageName.substring(0, 7) + "_3.gif";
+        }
+
+        else if (heading >= 315 || heading < 45) {
+            imageName = imageName.substring(0, 7) + "_4.gif";
+        }
+        
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50,
+                    50);
     }
 
     /**
