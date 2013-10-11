@@ -1,18 +1,30 @@
 package view.input;
 
-public class Textbox {
+import javax.swing.JTextArea;
+
+
+public class Textbox extends JTextArea {
+
+    public Textbox (int fieldSize) {
+        super();
+        final int ROWS = 5;
+
+        this.setRows(ROWS);
+
+    }
 
     protected void clear () {
-        // TODO: Method that clears textbox
+        this.setText("");
     }
 
     protected String getInput () {
-        // TODO: Method that returns what is currently in textbox
-        return "";
+
+        return this.getText();
     }
 
-    protected void addInput (String input) {
-        // TODO: Method that takes in a string from history and adds to textbox
+    public void addInput (String input) {
+        String newInput = getInput() + input + " ";
+        this.setText(newInput);
     }
 
 }

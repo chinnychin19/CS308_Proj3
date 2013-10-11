@@ -1,4 +1,4 @@
-package view;
+package view.display;
 
 import java.awt.Dimension;
 import javax.swing.JLabel;

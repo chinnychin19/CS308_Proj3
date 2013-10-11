@@ -1,28 +1,34 @@
 package view.sidebar;
 
-import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import javax.swing.JLabel;
+import view.input.Textbox;
+import model.Model;
 
 
+@SuppressWarnings("serial")
 public class HistoryModule extends Module {
 
-    public HistoryModule (int width, int height) {
-        super(width, height);
-        this.setPreferredSize(new Dimension(width, height));
+    public HistoryModule (int width, int height, Textbox textbox) {
+        super(width, height, textbox);
         this.add(new JLabel("History Module"));
         // TODO Auto-generated constructor stub
     }
 
-    @Override
-    protected List<ModuleData> initializeModuleContents () {
-
-        return null;
+    public HistoryModule (Textbox textbox) {
+        super(textbox);
+        this.add(new JLabel("History Module"));
     }
 
     @Override
-    protected void click () {
-        // TODO Auto-generated method stub
+    protected Collection<ModuleData> getStoredModelInformation () {
+        Collection<ModuleData> historyCollection = new ArrayList<ModuleData>();
+        for (String history : Model.getHistory()) {
+            historyCollection.add(new ModuleData(history, history));
+        }
+        return historyCollection;
 
     }
 
