@@ -1,11 +1,13 @@
-package model.instruction;
+package model.instruction.turtle;
 
 import model.Model;
+import model.instruction.Instruction;
+import model.instruction.InstructionConstant;
 
 
-public class InstructionFD extends Instruction {
+public class InstructionFORWARD extends Instruction {
 
-    public InstructionFD (Instruction parent) {
+    public InstructionFORWARD (Instruction parent) {
         super(1, parent); // FD takes 1 parameter
     }
 
@@ -13,7 +15,7 @@ public class InstructionFD extends Instruction {
     public Instruction eval () {
         Instruction ret = getChildren().get(0).eval();
         double pixels = ((InstructionConstant) ret).getValue();
-        Model.getTurtle().addRelativeMove(pixels);
+        Model.getTurtle().doRelativeMove(pixels);
         return ret;
     }
 }

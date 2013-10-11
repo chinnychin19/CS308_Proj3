@@ -6,12 +6,13 @@ import java.util.List;
 
 public abstract class Instruction {
     protected List<Instruction> myChildren;
-    protected int myParamCount;
+    private int myParamCount;
     protected Instruction myParent;
 
     public Instruction (int paramCount, Instruction parent) {
         myParamCount = paramCount;
         myChildren = new ArrayList<Instruction>();
+        myParent = parent;
     }
 
     public int getNumParams () {
@@ -27,7 +28,7 @@ public abstract class Instruction {
     }
 
     public void addChild (Instruction child) {
-        if (myChildren.size() >= myParamCount) {
+        if (myChildren.size() >= getNumParams()) {
             try {
                 throw new Exception("Too many parameters added to the instruction.");
             }
