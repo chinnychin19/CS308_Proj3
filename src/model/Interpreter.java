@@ -107,6 +107,26 @@ public class Interpreter {
                     }
                 }
                 else if (cur instanceof UserCommand) {
+                    // int paramsEntered = cur.getChildren().size();
+                    // int paramIndex = cur.getNumParams() - paramsEntered - 2;
+                    // if (paramIndex < 0) {
+                    // cur = cur.getParent();
+                    // }
+                    // String paramName = ((UserCommand) cur).getParamNames().get(paramIndex);
+                    // cur.addChild(new InstructionVariable(paramName, cur));
+                    // String param = parser.nextExpression();
+                    // double value;
+                    // try {
+                    // value =
+                    // ((InstructionConstant)getInstructions(param).get(0).eval()).getValue();
+                    // }
+                    // catch (Exception e) {
+                    // instructions.add(new ErrorInstruction("Something went wrong"));
+                    // return instructions;
+                    // }
+                    // Model.getVariableCache().put(paramName,
+                    // value);
+
                     List<String> paramNames = ((UserCommand) cur).getParamNames();
                     for (int i = 0; i < paramNames.size(); i++) {
                         cur.addChild(new InstructionVariable(paramNames.get(i), cur));
@@ -114,6 +134,7 @@ public class Interpreter {
                         Model.getVariableCache().put(paramNames.get(i),
                                                      getParamValue(param));
                     }
+
                 }
                 else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.nextWord(), cur);

@@ -87,8 +87,8 @@ public class View extends JFrame {
         viewCanvas.setHeading(Model.getTurtleAngle());
         viewCanvas.setPaths(Model.getTurtlePaths());
     }
-    
-    public void displayError(String error){
+
+    public void displayError (String error) {
         viewCanvas.setError(error);
     }
 

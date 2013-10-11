@@ -27,6 +27,22 @@ public class UserDefinedTests {
     }
 
     @Test
+    public void testExpression () {
+        Model.initModel();
+        Model.parseInput("make :var1 sum 3 7");
+        Model.parseInput("fd :var1");
+        assertEquals(10, Model.getTurtle().getY(), DELTA);
+    }
+
+    @Test
+    public void testFORExpression () {
+        Model.initModel();
+        Model.parseInput("make :var1 for [ :v 0 5 1 ] [ sum 10 :v ]");
+        Model.parseInput("fd :var1");
+        assertEquals(15, Model.getTurtle().getY(), DELTA);
+    }
+
+    @Test
     public void testCallImmediately () {
         Model.initModel();
         Model.parseInput("make :var1 17 fd :var1");

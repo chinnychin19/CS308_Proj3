@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.*;
 import model.Model;
 import model.instruction.error.DivideByZero;
+import model.instruction.error.InfiniteLoop;
 import model.instruction.error.InvalidCommandInstruction;
 import model.instruction.error.LogOfZero;
 import model.instruction.error.NonPositiveRandom;
@@ -88,4 +89,16 @@ public class ErrorTests {
         String ret = Model.parseInput("sum sum sum 3 4");
         assertEquals(TooFewParametersInstruction.MESSAGE, ret);
     }
+
+    @Test
+    public void testInfiniteLoop () {
+        Model.initModel();
+        String ret = Model.parseInput("for [ :v 0 1 0 ] [ fd 10 ]");
+        assertEquals(InfiniteLoop.MESSAGE, ret);
+        ret = Model.parseInput("for [ :v 0 1 -1 ] [ fd 10 ]");
+        assertEquals(InfiniteLoop.MESSAGE, ret);
+        ret = Model.parseInput("for [ :v 1 0 1 ] [ fd 10 ]");
+        assertEquals(InfiniteLoop.MESSAGE, ret);
+    }
+
 }

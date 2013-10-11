@@ -2,6 +2,7 @@ package model.instruction.loop;
 
 import model.Model;
 import model.instruction.Instruction;
+import model.instruction.error.InfiniteLoop;
 
 
 public abstract class InstructionLoop extends Instruction {
@@ -23,13 +24,15 @@ public abstract class InstructionLoop extends Instruction {
         Instruction ret = null;
 
         if (myIncrement < 0) {
-            for (double i = myStart; i > myEnd + myIncrement; i += myIncrement) {
+            if (myEnd > myStart) { throw new InfiniteLoop(); }
+            for (double i = myStart; i > myEnd + myIncrement / 2; i += myIncrement) {
                 // myIncrement is negative so adding is "subtracting"
                 Model.getVariableCache().put(myVariable, i);
                 ret = getChildren().get(0).eval();
             }
         }
         else if (myIncrement > 0) {
+            if (myStart > myEnd) { throw new InfiniteLoop(); }
             for (double i = myStart; i < myEnd + myIncrement / 2; i += myIncrement) {
                 // adding myIncrement/2 guarantees there won't be a double precision error to myEnd
                 Model.getVariableCache().put(myVariable, i);
@@ -39,7 +42,7 @@ public abstract class InstructionLoop extends Instruction {
             }
         }
         else {
-            // infinite loop; TODO: allow the user to do this?
+            throw new InfiniteLoop();
         }
         return ret;
     }

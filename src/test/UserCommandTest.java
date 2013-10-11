@@ -44,24 +44,19 @@ public class UserCommandTest {
     }
 
     @Test
-    public void testCommandCache () {
-        HashMap<String, String> myCommandCache;
-        Model.initModel();
-        Model.parseInput("to simpleMove [ :step ] [ fd :step ]");
-        Model.parseInput("to secondMove [ :hello :hi ] [ rt :hello ]");
-        myCommandCache = (HashMap<String, String>) Model.getAllCommands();
-
-        for (String myKey : myCommandCache.keySet()) {
-            System.out.println("Key: " + myKey);
-            System.out.println("Value: " + myCommandCache.get(myKey));
-        }
-    }
-
-    @Test
     public void testCallImmediately () {
         Model.initModel();
         Model.parseInput("to simpleMove [ :step ] [ fd :step ] simpleMove 2");
         assertEquals(2, Model.getTurtle().getY(), DELTA);
     }
+
+    // @Test
+    // public void testCommandInLoop () {
+    // Model.initModel();
+    // Model.parseInput("to fun [ :f ] [ repeat 5 [ fd :f rt 36 ] ]");
+    // Model.parseInput("repeat 10 [ fun * :repcount 10 ]");
+    // assertNotEquals(0, Model.getTurtle().getX(), DELTA);
+    // assertNotEquals(0, Model.getTurtle().getY(), DELTA);
+    // }
 
 }

@@ -120,9 +120,10 @@ public class Canvas extends JGEngine {
                    new JGFont("arial", 0, 12), JGColor.red);
     }
 
-    public void setError(String error){
-        this.error=error;
+    public void setError (String error) {
+        this.error = error;
     }
+
     /**
      * Method that changes turtle image
      * 
