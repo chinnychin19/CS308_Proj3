@@ -10,7 +10,7 @@ import jgame.JGColor;
  */
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 60;
-    public static final int GUI_WIDTH = 1000;
+    public static final int GUI_WIDTH = 900;
     public static final int GUI_HEIGHT = 650;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
@@ -22,7 +22,7 @@ public interface Constants {
 
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
-    public static final JGColor CANVAS_COLOR = JGColor.blue;
+    public static final JGColor CANVAS_COLOR = JGColor.black;
 
     public static final int Y_TILES = 50;
     public static final int X_TILES = 50;
