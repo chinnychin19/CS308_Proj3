@@ -21,10 +21,11 @@ public class Canvas extends JGEngine {
     private boolean gridOn = false;
     private boolean statusOn = true;
     private boolean penUp = false;
-    private String gifName = "Turtle1.gif";
+    private String imageName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
     private double heading = 90;
     private Collection<Path> pointList = new ArrayList<Path>();
+    private String error = "";
 
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
@@ -52,13 +53,14 @@ public class Canvas extends JGEngine {
     @Override
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, gifName, "-", 0, 0, 50, 50);
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
 
         // TODO: Deal with image offset - TURTLE_OFFSET
-        turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
-
-        // moveTurtle(150, 150);
-        // pointList.add(new Path(10,10, -300, 300));
+        turtle =
+                new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                                 Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET, 1,
+                                 "turtleGif");
+        // dbgShowBoundingBox (true);
     }
 
     @Override
@@ -73,7 +75,7 @@ public class Canvas extends JGEngine {
             drawStatus();
         }
 
-        // displayError("test");
+        displayError(error);
 
         drawPath();
         // TODO: Move turtle to end location (get from Model)
@@ -83,10 +85,11 @@ public class Canvas extends JGEngine {
     public void drawStatus () {
         int offset = 5;
         // TODO: Get data from Model
-        drawString("X: " + (turtle.x - Constants.CANVAS_WIDTH / 2), 5, offset, -1,
+        drawString("X: " + (turtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5, offset, -1,
                    new JGFont("arial", 0, 12),
                    penColor);
-        drawString("Y: " + (-turtle.y + Constants.CANVAS_HEIGHT / 2), 5, offset += 13, -1,
+        drawString("Y: " + (-turtle.getOffsetY() + Constants.CANVAS_HEIGHT / 2), 5, offset += 13,
+                   -1,
                    new JGFont("arial", 0, 12),
                    penColor);
         drawString("Heading: " + heading, 5, offset += 13, -1, new JGFont("arial", 0, 12),
@@ -117,6 +120,9 @@ public class Canvas extends JGEngine {
                    new JGFont("arial", 0, 12), JGColor.red);
     }
 
+    public void setError(String error){
+        this.error=error;
+    }
     /**
      * Method that changes turtle image
      * 
@@ -133,7 +139,8 @@ public class Canvas extends JGEngine {
      * @param y new y location of turtle
      */
     public void moveTurtle (double x, double y) {
-        turtle.setPos(x + Constants.CANVAS_WIDTH / 2, -y + Constants.CANVAS_HEIGHT / 2);
+        turtle.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
     }
 
     /**
@@ -198,7 +205,20 @@ public class Canvas extends JGEngine {
      * Sets heading of turtle
      */
     public void setHeading (double newHeading) {
+
+        // if (this.heading != newHeading){
+        // defineImageRotated ("turtleTest", "-",
+        // Constants.TURTLE_CID, "turtleGif", (this.heading - newHeading)*Math.PI/180);
+        //
+        // turtle.remove();
+        // double x = turtle.getX();
+        // double y = turtle.getY();
+        // turtle= new TurtleSprite(this, x,
+        // y, 1, "turtleTest");
+        // }
+
         this.heading = newHeading;
+
     }
 
     /**
@@ -207,6 +227,10 @@ public class Canvas extends JGEngine {
     public void moveToOrigin () {
         turtle.setPos(Constants.CANVAS_WIDTH / 2,
                       Constants.CANVAS_HEIGHT / 2);
+    }
+
+    public String getImageName () {
+        return imageName;
     }
 
 }
