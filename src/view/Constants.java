@@ -12,7 +12,7 @@ import jgame.JGColor;
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 60;
     public static final int GUI_WIDTH = 900;
-    public static final int GUI_HEIGHT = 650;
+    public static final int GUI_HEIGHT = 735;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
 
