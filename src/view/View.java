@@ -84,8 +84,8 @@ public class View extends JFrame {
 
     public void updateCanvasData () {
         viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
-        // viewCanvas.setHeading(0);
-        // viewCanvas.setPaths();
+        viewCanvas.setHeading(Model.getTurtleAngle());
+        viewCanvas.setPaths(Model.getTurtlePaths());
     }
 
     private JButton penColorChooser () {
@@ -325,15 +325,6 @@ public class View extends JFrame {
         Model.parseInput(input);
     }
 
-    protected void executeInput () {
-        while (Model.hasNextInstruction()) {
-            Model.processNextInstruction();
-            updateDisplay();
-            updateSidebar();
-
-        }
-
-    }
 
     private void updateSidebar () {
 
