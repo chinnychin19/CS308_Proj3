@@ -14,7 +14,7 @@ public class VariableModule extends Module {
 
     public VariableModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
-        // this.add(new JLabel("Variable Module"));
+        this.add(new JLabel("Variable Module"));
         this.add(new JButton("Edit"));
     }
 
