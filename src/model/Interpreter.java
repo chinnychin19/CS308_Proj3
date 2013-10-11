@@ -10,7 +10,9 @@ import model.instruction.conditional.InstructionIF;
 import model.instruction.conditional.InstructionIFELSE;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.loop.InstructionREPEAT;
-import model.instruction.error.Error;
+import model.instruction.error.ErrorInstruction;
+import model.instruction.error.InvalidCommandInstruction;
+import model.instruction.error.TooFewParametersInstruction;
 
 
 public class Interpreter {
@@ -25,9 +27,10 @@ public class Interpreter {
         for (Instruction instr : instructions) {
             // Model.getInstructionQueue().add(instr);
             // Model.processNextInstruction();
-            Instruction result = instr.eval();
-            if (result instanceof Error) {
-                return ((Error)result).getMessage();
+            try { 
+                instr.eval();
+            } catch (Exception e) {
+                return e.getMessage();
             }
         }
         return "";
@@ -39,6 +42,10 @@ public class Interpreter {
         if (!parser.hasNext()) { return instructions; }
         Instruction root = InstructionFactory.getInstruction(parser.nextWord(), null);
         Instruction cur = root;
+        if (root == null) {
+            instructions.add(new InvalidCommandInstruction());
+            return instructions;
+        }
         while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
                 if (cur instanceof InstructionLoop) {
@@ -89,7 +96,13 @@ public class Interpreter {
                     cur.addChild(new InstructionString(name, cur));
                     cur.addChild(new InstructionString(params, cur));
                     cur.addChild(new InstructionString(commands, cur));
-                    cur.eval();
+                    try {
+                        cur.eval();
+                    } catch(Exception e) {
+                        //need to return the current list, plus an error node
+                        instructions.add(new ErrorInstruction("Error in the TO command"));
+                        return instructions;
+                    }
                 }
                 else if (cur instanceof UserCommand) {
                     List<String> paramNames = ((UserCommand) cur).getParamNames();
@@ -114,12 +127,26 @@ public class Interpreter {
                 if (parser.hasNext()) {
                     root = InstructionFactory.getInstruction(parser.nextWord(), null);
                     cur = root;
+                    if (root == null) {
+                        instructions.add(new InvalidCommandInstruction());
+                        return instructions;
+                    }
                 }
                 else {
                     return instructions;
                 }
             }
         }
+
+        //make sure all instruction have correct number of parameters
+        while (cur != null) {
+            if (cur.getChildren().size() != cur.getNumParams()) {
+                instructions.add(new TooFewParametersInstruction());
+                return instructions;
+            }
+            cur = cur.getParent();
+        }
+        
         instructions.add(root);
         return instructions;
     }

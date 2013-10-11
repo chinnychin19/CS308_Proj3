@@ -12,7 +12,7 @@ public class InstructionXCOR extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double ret = Model.getTurtle().getX();
         return new InstructionConstant(ret, null);
     }

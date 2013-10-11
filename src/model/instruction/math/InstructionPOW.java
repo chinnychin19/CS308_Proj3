@@ -11,7 +11,7 @@ public class InstructionPOW extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double base = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         double exp = ((InstructionConstant) getChildren().get(1).eval()).getValue();
 

@@ -19,7 +19,7 @@ public abstract class InstructionLoop extends Instruction {
     public abstract void setParameters (String parameters);
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Instruction ret = null;
 
         if (myIncrement < 0) {

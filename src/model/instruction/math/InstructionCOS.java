@@ -13,7 +13,7 @@ public class InstructionCOS extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         double radians = degrees * Math.PI / PI_DEGREES;
         double ret = Math.cos(radians);

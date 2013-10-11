@@ -42,7 +42,7 @@ public class UserCommand extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         List<Double> oldParameterValues = new ArrayList<Double>();
 //        // set parameter values
 //        for (int i = 1; i <= myParamNames.size(); i++) {

@@ -11,7 +11,7 @@ public class InstructionIFELSE extends InstructionConditional {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double condition = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         int index = Math.abs(condition) > InstructionConditional.EPSILON ? 1 : 2;
         return (InstructionConstant) getChildren().get(index).eval();
