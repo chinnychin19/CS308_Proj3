@@ -86,7 +86,7 @@ public class View extends JFrame {
         viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
         viewCanvas.setHeading(Model.getTurtleAngle());
         viewCanvas.setPaths(Model.getTurtlePaths());
-        viewCanvas.isTurtleVisible(Model.isTurtleVisible ());
+        viewCanvas.isTurtleVisible(Model.isTurtleVisible());
     }
 
     public void displayError (String error) {

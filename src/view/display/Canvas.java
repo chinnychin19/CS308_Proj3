@@ -225,16 +225,16 @@ public class Canvas extends JGEngine {
     public void setHeading (double newHeading) {
 
         if (this.heading != newHeading) {
-            
+
             adjustImageAngle(newHeading);
-           
+
         }
 
         this.heading = newHeading;
 
     }
-    
-    public void adjustImageAngle(double heading){
+
+    public void adjustImageAngle (double heading) {
         if (heading >= 45 && heading < 135) {
             imageName = imageName.substring(0, 7) + ".gif";
         }
@@ -250,7 +250,7 @@ public class Canvas extends JGEngine {
         else if (heading >= 315 || heading < 45) {
             imageName = imageName.substring(0, 7) + "_4.gif";
         }
-        
+
         defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50,
                     50);
     }
