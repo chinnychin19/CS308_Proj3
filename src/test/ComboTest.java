@@ -36,7 +36,7 @@ public class ComboTest {
         Model.processNextInstruction();
         assertEquals(33, Model.getTurtleY(), DELTA);
     }
-    
+
     @Test
     public void testFDREMAINDER () {
         Model.initModel();
@@ -44,7 +44,7 @@ public class ComboTest {
         Model.processNextInstruction();
         assertEquals(1, Model.getTurtleY(), DELTA);
     }
-    
+
     @Test
     public void testComplicated () {
         Model.initModel();
