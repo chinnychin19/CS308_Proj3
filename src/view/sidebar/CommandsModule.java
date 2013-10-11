@@ -13,12 +13,12 @@ public class CommandsModule extends Module {
 
     public CommandsModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
-        this.add(new JLabel("Commands Module"));
+
     }
 
     public CommandsModule (Textbox textbox) {
         super(textbox);
-        this.add(new JLabel("Commands Module"));
+
     }
 
     @Override
@@ -29,6 +29,12 @@ public class CommandsModule extends Module {
             commandCollection.add(new ModuleData(key, commandMap.get(key)));
         }
         return commandCollection;
+    }
+
+    @Override
+    protected String getModuleName () {
+
+        return "Commands Module";
     }
 
 }

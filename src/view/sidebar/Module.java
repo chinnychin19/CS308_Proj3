@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Collection;
 import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,13 +21,14 @@ import view.input.Textbox;
 public abstract class Module extends JPanel implements ContentContainer {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
-    private JList list;
-    private DefaultListModel listModel;
+    protected JList list;
+    protected DefaultListModel listModel;
     private Textbox textbox;
 
     public Module (Textbox textbox) {
 
         super();
+        setModuleName(getModuleName());
         this.textbox = textbox;
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         initializeModuleDisplay();
@@ -35,6 +37,7 @@ public abstract class Module extends JPanel implements ContentContainer {
     public Module (int width, int height, Textbox textbox) {
 
         super();
+        setModuleName(getModuleName());
         this.textbox = textbox;
         setPreferredSize(new Dimension(width, height));
         initializeModuleDisplay();
@@ -62,6 +65,13 @@ public abstract class Module extends JPanel implements ContentContainer {
         add(listScrollPane);
 
     }
+
+    private void setModuleName (String moduleName) {
+        this.add(new JLabel(moduleName));
+
+    }
+
+    protected abstract String getModuleName ();
 
     private void initializeModuleDisplay () {
         setBackground(Color.white);
