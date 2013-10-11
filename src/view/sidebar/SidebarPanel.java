@@ -10,25 +10,26 @@ import view.input.Textbox;
 
 @SuppressWarnings("serial")
 public class SidebarPanel extends JPanel {
-    private List<ContentContainer> ContentContainers;
+    private List<Module> Modules;
 
     public SidebarPanel (Textbox textbox) {
         super();
-        ContentContainers = new ArrayList<ContentContainer>();
-        setLayout(new GridLayout(3, 1));
+        Modules = new ArrayList<Module>();
+
         addModule(new HistoryModule(textbox));
         addModule(new CommandsModule(textbox));
         addModule(new VariableModule(textbox));
+        setLayout(new GridLayout(Modules.size(), 1));
     }
 
     public void updateModules () {
-        for (ContentContainer module : ContentContainers) {
+        for (Module module : Modules) {
             module.updateContent();
         }
     }
 
-    private void addModule (ContentContainer module) {
-        ContentContainers.add(module);
+    private void addModule (Module module) {
+        Modules.add(module);
         add((Component) module);
     }
 }

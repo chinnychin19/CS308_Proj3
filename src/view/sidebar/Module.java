@@ -18,7 +18,7 @@ import view.input.Textbox;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class Module extends JPanel implements ContentContainer {
+public abstract class Module extends JPanel {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
     protected JList list;
@@ -44,7 +44,6 @@ public abstract class Module extends JPanel implements ContentContainer {
 
     }
 
-    @Override
     public void updateContent () {
         Collection<ModuleData> listData = getStoredModelInformation();
 
@@ -60,7 +59,16 @@ public abstract class Module extends JPanel implements ContentContainer {
         //
         listModel = new DefaultListModel();
         list = new JList(listModel);
-        list.addListSelectionListener(new ValueReporter());
+        list.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged (ListSelectionEvent event) {
+                if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
+                    ModuleData md = (ModuleData) list.getSelectedValue();
+                    textbox.setText(md.content);
+
+                }
+
+            }
+        });
         JScrollPane listScrollPane = new JScrollPane(list);
         add(listScrollPane);
 
@@ -80,17 +88,4 @@ public abstract class Module extends JPanel implements ContentContainer {
 
     protected abstract Collection<ModuleData> getStoredModelInformation ();
 
-    private class ValueReporter implements ListSelectionListener {
-
-        @Override
-        public void valueChanged (ListSelectionEvent event) {
-            if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
-
-                ModuleData md = (ModuleData) list.getSelectedValue();
-                textbox.setText(md.content);
-
-            }
-
-        }
-    }
 }

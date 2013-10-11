@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Model;
 import view.input.Textbox;
@@ -64,17 +64,23 @@ public class VariableModule extends Module {
                 String putStatus = Model.putVariable(selected.getDisplay(), newValue);
                 updateVariable(index, selected, putStatus);
             }
+            else{
+                JOptionPane.showMessageDialog(null,
+                                              "Select a variable");
+            }
         }
 
         private void displayInputError (String putStatus) {
-            // TODO Auto-generated method stub
+            JOptionPane.showMessageDialog(null,
+                    putStatus);
+           
 
         }
 
         @SuppressWarnings("unchecked")
         private void updateVariable (int index, ModuleData selected, String putStatus) {
             if (putStatus.equals("")) {
-                selected.setContent(textfield.getText());
+                
                 listModel.remove(index);
                 listModel.add(index, selected);
                 list.setSelectedIndex(index);
@@ -82,6 +88,7 @@ public class VariableModule extends Module {
             }
             else {
                 displayInputError(putStatus);
+                textfield.setText("");
             }
 
         }
@@ -92,7 +99,8 @@ public class VariableModule extends Module {
         Collection<ModuleData> variableCollection = new ArrayList<ModuleData>();
         Map<String, String> variableMap = Model.getAllVariables();
         for (String key : variableMap.keySet()) {
-            variableCollection.add(new ModuleData(key, variableMap.get(key)));
+            
+            variableCollection.add(new ModuleData(key, key));
         }
         return variableCollection;
     }
