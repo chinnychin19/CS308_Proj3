@@ -31,6 +31,10 @@ public class UserCommand extends Instruction {
         myName = name;
     }
 
+    public List<String> getParamNames () {
+        return myParamNames;
+    }
+
     @Override
     public int getNumParams () {
         return myParamNames.size() + 1;
@@ -38,19 +42,19 @@ public class UserCommand extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         List<Double> oldParameterValues = new ArrayList<Double>();
-        // set parameter values
-        for (int i = 1; i <= myParamNames.size(); i++) {
-            double value = ((InstructionConstant) getChildren().get(i)).getValue();
-            oldParameterValues.add(value);
-            Model.getVariableCache().put(myParamNames.get(i - 1), value);
-        }
+        // // set parameter values
+        // for (int i = 1; i <= myParamNames.size(); i++) {
+        // double value = ((InstructionConstant) getChildren().get(i)).getValue();
+        // oldParameterValues.add(value);
+        // Model.getVariableCache().put(myParamNames.get(i - 1), value);
+        // }
         Instruction ret = myRootCommand.eval();
-        // reset old parameter values
-        for (int i = 0; i < myParamNames.size(); i++) {
-            Model.getVariableCache().put(myParamNames.get(i), oldParameterValues.get(i));
-        }
+        // // reset old parameter values
+        // for (int i = 0; i < myParamNames.size(); i++) {
+        // Model.getVariableCache().put(myParamNames.get(i), oldParameterValues.get(i));
+        // }
         return ret;
     }
 

@@ -86,9 +86,10 @@ public class View extends JFrame {
         viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
         viewCanvas.setHeading(Model.getTurtleAngle());
         viewCanvas.setPaths(Model.getTurtlePaths());
+        viewCanvas.isTurtleVisible(Model.isTurtleVisible ());
     }
-    
-    public void displayError(String error){
+
+    public void displayError (String error) {
         viewCanvas.setError(error);
     }
 
@@ -101,7 +102,7 @@ public class View extends JFrame {
     /**
      * Method that creates ActionListener for backgroundChooser button
      * 
-     * @return ActionLitener for backgroundListener
+     * @return ActionListener for backgroundListener
      */
     private ActionListener penColorListener () {
         ActionListener listener = new ActionListener() {
@@ -328,7 +329,6 @@ public class View extends JFrame {
         String input = "";
         Model.parseInput(input);
     }
-
 
     private void updateSidebar () {
 

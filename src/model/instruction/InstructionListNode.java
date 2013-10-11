@@ -7,7 +7,7 @@ public class InstructionListNode extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Instruction lastChild = null;
 
         for (Instruction child : this.myChildren) {

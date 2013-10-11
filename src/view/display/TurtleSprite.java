@@ -29,12 +29,12 @@ public class TurtleSprite extends JGObject {
     public TurtleSprite (double x, double y, int CID) {
         super("turtle", true, x, y, CID, "turtleGif", 0, 0, 0, 0, -1);
     }
-    
-    public double getOffsetX(){
+
+    public double getOffsetX () {
         return this.x + Constants.TURTLE_OFFSET;
     }
-    
-    public double getOffsetY(){
+
+    public double getOffsetY () {
         return this.y + Constants.TURTLE_OFFSET;
     }
 

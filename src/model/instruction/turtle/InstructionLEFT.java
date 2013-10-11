@@ -12,7 +12,7 @@ public class InstructionLEFT extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Instruction ret = getChildren().get(0).eval();
         double angle = ((InstructionConstant) ret).getValue();
         Model.getTurtle().doRelativeRotate(angle); // turns CCW

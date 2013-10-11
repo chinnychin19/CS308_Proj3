@@ -2,26 +2,39 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import dataType.DataTypeChecker;
 import model.instruction.*;
+import model.instruction.command.UserCommand;
 import model.instruction.conditional.InstructionConditional;
 import model.instruction.conditional.InstructionIF;
 import model.instruction.conditional.InstructionIFELSE;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.loop.InstructionREPEAT;
+import model.instruction.error.ErrorInstruction;
+import model.instruction.error.InvalidCommandInstruction;
+import model.instruction.error.TooFewParametersInstruction;
 
 
 public class Interpreter {
     // TODO: when complete, refactor out repeated code for interpreting lists
 
-    protected void parseInput (String input) {
+    protected String parseInput (String input) {
         input = input.replaceAll("\\s+", " "); // all white space becames a ' ' (space character)
         input = input.trim();
-        if (input.isEmpty()) { return; }
+        if (input.isEmpty()) { return ""; }
         Model.getCommandHistory().add(input);
         List<Instruction> instructions = getInstructions(input);
         for (Instruction instr : instructions) {
-            Model.getInstructionQueue().add(instr);
+            // Model.getInstructionQueue().add(instr);
+            // Model.processNextInstruction();
+            try {
+                instr.eval();
+            }
+            catch (Exception e) {
+                return e.getMessage();
+            }
         }
+        return "";
     }
 
     public List<Instruction> getInstructions (String input) {
@@ -30,6 +43,10 @@ public class Interpreter {
         if (!parser.hasNext()) { return instructions; }
         Instruction root = InstructionFactory.getInstruction(parser.nextWord(), null);
         Instruction cur = root;
+        if (root == null) {
+            instructions.add(new InvalidCommandInstruction());
+            return instructions;
+        }
         while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
                 if (cur instanceof InstructionLoop) {
@@ -80,6 +97,44 @@ public class Interpreter {
                     cur.addChild(new InstructionString(name, cur));
                     cur.addChild(new InstructionString(params, cur));
                     cur.addChild(new InstructionString(commands, cur));
+                    try {
+                        cur.eval();
+                    }
+                    catch (Exception e) {
+                        // need to return the current list, plus an error node
+                        instructions.add(new ErrorInstruction("Error in the TO command"));
+                        return instructions;
+                    }
+                }
+                else if (cur instanceof UserCommand) {
+                    // int paramsEntered = cur.getChildren().size();
+                    // int paramIndex = cur.getNumParams() - paramsEntered - 2;
+                    // if (paramIndex < 0) {
+                    // cur = cur.getParent();
+                    // }
+                    // String paramName = ((UserCommand) cur).getParamNames().get(paramIndex);
+                    // cur.addChild(new InstructionVariable(paramName, cur));
+                    // String param = parser.nextExpression();
+                    // double value;
+                    // try {
+                    // value =
+                    // ((InstructionConstant)getInstructions(param).get(0).eval()).getValue();
+                    // }
+                    // catch (Exception e) {
+                    // instructions.add(new ErrorInstruction("Something went wrong"));
+                    // return instructions;
+                    // }
+                    // Model.getVariableCache().put(paramName,
+                    // value);
+
+                    List<String> paramNames = ((UserCommand) cur).getParamNames();
+                    for (int i = 0; i < paramNames.size(); i++) {
+                        cur.addChild(new InstructionVariable(paramNames.get(i), cur));
+                        String param = parser.nextWord();
+                        Model.getVariableCache().put(paramNames.get(i),
+                                                     getParamValue(param));
+                    }
+
                 }
                 else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.nextWord(), cur);
@@ -95,13 +150,32 @@ public class Interpreter {
                 if (parser.hasNext()) {
                     root = InstructionFactory.getInstruction(parser.nextWord(), null);
                     cur = root;
+                    if (root == null) {
+                        instructions.add(new InvalidCommandInstruction());
+                        return instructions;
+                    }
                 }
                 else {
                     return instructions;
                 }
             }
         }
+
+        // make sure all instruction have correct number of parameters
+        while (cur != null) {
+            if (cur.getChildren().size() != cur.getNumParams()) {
+                instructions.add(new TooFewParametersInstruction());
+                return instructions;
+            }
+            cur = cur.getParent();
+        }
+
         instructions.add(root);
         return instructions;
+    }
+
+    private double getParamValue (String nextWord) {
+        if (DataTypeChecker.isNumber(nextWord)) { return Double.parseDouble(nextWord); }
+        return Model.getVariableCache().get(nextWord);
     }
 }
