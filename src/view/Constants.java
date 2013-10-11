@@ -2,11 +2,12 @@ package view;
 
 import jgame.JGColor;
 
+
 /**
  * Class that stores constants for the view
  * 
  * @author susanzhang93
- *
+ * 
  */
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 60;
