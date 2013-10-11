@@ -27,9 +27,10 @@ public class Interpreter {
         for (Instruction instr : instructions) {
             // Model.getInstructionQueue().add(instr);
             // Model.processNextInstruction();
-            try { 
+            try {
                 instr.eval();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 return e.getMessage();
             }
         }
@@ -98,8 +99,9 @@ public class Interpreter {
                     cur.addChild(new InstructionString(commands, cur));
                     try {
                         cur.eval();
-                    } catch(Exception e) {
-                        //need to return the current list, plus an error node
+                    }
+                    catch (Exception e) {
+                        // need to return the current list, plus an error node
                         instructions.add(new ErrorInstruction("Error in the TO command"));
                         return instructions;
                     }
@@ -138,7 +140,7 @@ public class Interpreter {
             }
         }
 
-        //make sure all instruction have correct number of parameters
+        // make sure all instruction have correct number of parameters
         while (cur != null) {
             if (cur.getChildren().size() != cur.getNumParams()) {
                 instructions.add(new TooFewParametersInstruction());
@@ -146,7 +148,7 @@ public class Interpreter {
             }
             cur = cur.getParent();
         }
-        
+
         instructions.add(root);
         return instructions;
     }

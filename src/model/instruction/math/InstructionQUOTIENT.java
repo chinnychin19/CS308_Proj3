@@ -16,9 +16,7 @@ public class InstructionQUOTIENT extends Instruction {
     public Instruction eval () throws Exception {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         double b = ((InstructionConstant) getChildren().get(1).eval()).getValue();
-        if (b == 0) {
-            throw new DivideByZero();
-        }
+        if (b == 0) { throw new DivideByZero(); }
         double c = (int) (a / b);
 
         return new InstructionConstant(c, null);

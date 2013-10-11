@@ -14,9 +14,7 @@ public class InstructionLOG extends Instruction {
     @Override
     public Instruction eval () throws Exception {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        if (a == 0) {
-            throw new LogOfZero();
-        }
+        if (a == 0) { throw new LogOfZero(); }
         a = Math.log(a);
 
         return new InstructionConstant(a, null);

@@ -14,8 +14,9 @@ public class InstructionQueue {
 
     protected String processNextInstruction () {
         try {
-            return "" + myQueue.poll().eval();            
-        } catch (Exception e) {
+            return "" + myQueue.poll().eval();
+        }
+        catch (Exception e) {
             return e.getMessage();
         }
     }

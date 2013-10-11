@@ -2,8 +2,9 @@ package model.instruction.error;
 
 import model.instruction.Instruction;
 
+
 public class ErrorInstruction extends Instruction {
-    
+
     private String myMessage;
 
     public ErrorInstruction (String message) {
@@ -12,7 +13,7 @@ public class ErrorInstruction extends Instruction {
     }
 
     @Override
-    public Instruction eval() throws Exception {
+    public Instruction eval () throws Exception {
         throw new Exception(myMessage);
     }
 }

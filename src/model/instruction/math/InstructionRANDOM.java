@@ -14,9 +14,7 @@ public class InstructionRANDOM extends Instruction {
     @Override
     public Instruction eval () throws Exception {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        if (a <= 0) {
-            throw new NonPositiveRandom();
-        }
+        if (a <= 0) { throw new NonPositiveRandom(); }
         a = (int) (a * Math.random());
 
         return new InstructionConstant(a, null);

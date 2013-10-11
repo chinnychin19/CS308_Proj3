@@ -16,9 +16,7 @@ public class InstructionTAN extends Instruction {
     @Override
     public Instruction eval () throws Exception {
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
-        if (degrees == 90) {
-            throw new TanOfNinety();
-        }
+        if (degrees == 90) { throw new TanOfNinety(); }
         double radians = degrees * Math.PI / PI_DEGREES;
         double ret = Math.tan(radians);
 

@@ -76,14 +76,14 @@ public class ErrorTests {
     }
 
     @Test
-    public void testInvalidCommand() {
+    public void testInvalidCommand () {
         Model.initModel();
         String ret = Model.parseInput("hakuna 17");
         assertEquals(InvalidCommandInstruction.MESSAGE, ret);
     }
 
     @Test
-    public void testTooFewParameters() {
+    public void testTooFewParameters () {
         Model.initModel();
         String ret = Model.parseInput("sum sum sum 3 4");
         assertEquals(TooFewParametersInstruction.MESSAGE, ret);
