@@ -120,7 +120,7 @@ public class Canvas extends JGEngine {
             drawLine(toDraw.getX1() + Constants.CANVAS_WIDTH / 2, -toDraw.getY1() +
                                                                   Constants.CANVAS_WIDTH / 2,
                      toDraw.getX2() + Constants.CANVAS_WIDTH / 2, -toDraw.getY2() +
-                                                                  Constants.CANVAS_WIDTH / 2, 2,
+                                                                  Constants.CANVAS_WIDTH / 2, 1,
                      penColor);
         }
     }
@@ -146,7 +146,7 @@ public class Canvas extends JGEngine {
      */
     public void changeTurtleImage (String imageName) {
         this.imageName = imageName;
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, this.imageName, "-", 0, 0, 50, 50);
         adjustImageAngle(this.heading);
     }
 
@@ -236,7 +236,7 @@ public class Canvas extends JGEngine {
     
     public void adjustImageAngle(double heading){
         if (heading >= 45 && heading < 135) {
-            imageName = imageName.substring(0, 11);
+            imageName = imageName.substring(0, 7) + ".gif";
         }
 
         else if (heading >= 135 && heading < 225) {
