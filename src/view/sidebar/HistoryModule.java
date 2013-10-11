@@ -13,13 +13,12 @@ public class HistoryModule extends Module {
 
     public HistoryModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
-        this.add(new JLabel("History Module"));
-        // TODO Auto-generated constructor stub
+
     }
 
     public HistoryModule (Textbox textbox) {
         super(textbox);
-        this.add(new JLabel("History Module"));
+
     }
 
     @Override
@@ -30,6 +29,12 @@ public class HistoryModule extends Module {
         }
         return historyCollection;
 
+    }
+
+    @Override
+    protected String getModuleName () {
+
+        return "History Module";
     }
 
 }
