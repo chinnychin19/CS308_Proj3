@@ -48,10 +48,18 @@ public class ComboTest {
     @Test
     public void testComplicated () {
         Model.initModel();
-        Model.parseInput("to complicatedFunc [ :step :stepTwo ] [ ifelse sum :step :stepTwo [] [] ]");
+        Model.parseInput("to square [ ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
+        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+        Model.parseInput("make :a 3");
+        Model.parseInput("make :b 2");
         Model.processNextInstruction();
-        Model.parseInput("simpleMove 2");
         Model.processNextInstruction();
-        assertEquals(33, Model.getTurtleY(), DELTA);
+        Model.processNextInstruction();
+        Model.processNextInstruction();
+        Model.parseInput("ifelse sum :a :b [ square fd 10 ] [ rookMove :a fd :b to newMove [ :tick ] [ fd :tick fd sum :a :b ] newMove 2 ]");
+        Model.processNextInstruction();
+
+        assertEquals(10, Model.getTurtle().getY(), DELTA);
+
     }
 }

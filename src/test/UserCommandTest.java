@@ -12,7 +12,7 @@ public class UserCommandTest {
     @Test
     public void testSimple () {
         Model.initModel();
-        Model.parseInput("TO rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
         Model.processNextInstruction();
         assertEquals(0, Model.getTurtle().getY(), DELTA);
         Model.parseInput("rookMove 5");
@@ -25,8 +25,8 @@ public class UserCommandTest {
     @Test
     public void testNested () {
         Model.initModel();
-        Model.parseInput("TO rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
-        Model.parseInput("TO secondMove [ :stepd :rotate ] [ rookMove :stepd fd :stepd rt :rotate fd :stepd lt :rotate ]");
+        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+        Model.parseInput("to secondMove [ :stepd :rotate ] [ rookMove :stepd fd :stepd rt :rotate fd :stepd lt :rotate ]");
         // TODO: if variable name same as before, will call original value. If new name, will use
         // original :step value when calling rookMove
         Model.processNextInstruction();
@@ -46,7 +46,7 @@ public class UserCommandTest {
     @Test
     public void testNoParams () {
         Model.initModel();
-        Model.parseInput("TO square [  ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
+        Model.parseInput("to square [  ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
         Model.processNextInstruction();
         Model.parseInput("square");
         Model.processNextInstruction();
@@ -59,8 +59,8 @@ public class UserCommandTest {
     public void testCommandCache () {
         HashMap<String, String> myCommandCache;
         Model.initModel();
-        Model.parseInput("TO rookMove [ :step ] [ fd :step ]");
-        Model.parseInput("TO secondMove [ :hello :hi ] [ rt :hello ]");
+        Model.parseInput("to simpleMove [ :step ] [ fd :step ]");
+        Model.parseInput("to secondMove [ :hello :hi ] [ rt :hello ]");
         Model.processNextInstruction();
         Model.processNextInstruction();
         myCommandCache = (HashMap<String, String>) Model.getAllCommands();
@@ -69,6 +69,15 @@ public class UserCommandTest {
             System.out.println("Key: " + myKey);
             System.out.println("Value: " + myCommandCache.get(myKey));
         }
+    }
+
+    @Test
+    public void testCallImmediately () {
+        Model.initModel();
+        Model.parseInput("to simpleMove [ :step ] [ fd :step ] simpleMove 2");
+        Model.processNextInstruction();
+
+        assertEquals(2, Model.getTurtle().getY(), DELTA);
     }
 
 }
