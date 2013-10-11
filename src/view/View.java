@@ -325,7 +325,6 @@ public class View extends JFrame {
         Model.parseInput(input);
     }
 
-
     private void updateSidebar () {
 
     }

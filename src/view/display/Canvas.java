@@ -1,6 +1,5 @@
 package view.display;
 
-
 import java.util.ArrayList;
 import java.util.Collection;
 import model.Path;
@@ -57,9 +56,9 @@ public class Canvas extends JGEngine {
 
         // TODO: Deal with image offset - TURTLE_OFFSET
         turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
-        
-        //moveTurtle(150, 150);
-        //pointList.add(new Path(10,10, -300, 300));
+
+        // moveTurtle(150, 150);
+        // pointList.add(new Path(10,10, -300, 300));
     }
 
     @Override
@@ -74,7 +73,7 @@ public class Canvas extends JGEngine {
             drawStatus();
         }
 
-        //displayError("test");
+        // displayError("test");
 
         drawPath();
         // TODO: Move turtle to end location (get from Model)
@@ -100,7 +99,11 @@ public class Canvas extends JGEngine {
     public void drawPath () {
         for (int i = 0; i < pointList.size(); i++) {
             Path toDraw = ((ArrayList<Path>) pointList).get(i);
-            drawLine(toDraw.getX1()+Constants.CANVAS_WIDTH/2, -toDraw.getY1()+Constants.CANVAS_WIDTH/2, toDraw.getX2()+Constants.CANVAS_WIDTH/2, -toDraw.getY2()+Constants.CANVAS_WIDTH/2, 2, penColor);
+            drawLine(toDraw.getX1() + Constants.CANVAS_WIDTH / 2, -toDraw.getY1() +
+                                                                  Constants.CANVAS_WIDTH / 2,
+                     toDraw.getX2() + Constants.CANVAS_WIDTH / 2, -toDraw.getY2() +
+                                                                  Constants.CANVAS_WIDTH / 2, 2,
+                     penColor);
         }
     }
 
@@ -110,10 +113,9 @@ public class Canvas extends JGEngine {
      * @param error
      */
     public void displayError (String error) {
-        drawString(error, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT *.95, 0,
+        drawString(error, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT * .95, 0,
                    new JGFont("arial", 0, 12), JGColor.red);
     }
-
 
     /**
      * Method that changes turtle image

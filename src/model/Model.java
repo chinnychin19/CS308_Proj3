@@ -50,9 +50,9 @@ public class Model {
     public static String parseInput (String s) {
         String ret = "";
         myInterpreter.parseInput(s);
-        while (hasNextInstruction()) {
-            ret = processNextInstruction();
-        }
+        // while (hasNextInstruction()) {
+        // ret = processNextInstruction();
+        // }
         return ret; // ret will be non-empty i.f.f. there is an error
     }
 

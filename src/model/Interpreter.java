@@ -20,7 +20,9 @@ public class Interpreter {
         Model.getCommandHistory().add(input);
         List<Instruction> instructions = getInstructions(input);
         for (Instruction instr : instructions) {
-            Model.getInstructionQueue().add(instr);
+            // Model.getInstructionQueue().add(instr);
+            // Model.processNextInstruction();
+            instr.eval();
         }
     }
 
@@ -80,6 +82,7 @@ public class Interpreter {
                     cur.addChild(new InstructionString(name, cur));
                     cur.addChild(new InstructionString(params, cur));
                     cur.addChild(new InstructionString(commands, cur));
+                    cur.eval();
                 }
                 else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.nextWord(), cur);
