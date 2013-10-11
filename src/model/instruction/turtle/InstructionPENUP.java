@@ -12,7 +12,7 @@ public class InstructionPENUP extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Model.getTurtle().setDrawing(false);
         return new InstructionConstant(0, null);
     }

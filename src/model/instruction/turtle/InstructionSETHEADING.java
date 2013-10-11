@@ -12,7 +12,7 @@ public class InstructionSETHEADING extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Instruction param = getChildren().get(0).eval();
         double angle = ((InstructionConstant) param).getValue();
         double deltaAngle = Model.getTurtle().doAbsoluteRotate(angle);

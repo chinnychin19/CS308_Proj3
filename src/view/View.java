@@ -88,8 +88,8 @@ public class View extends JFrame {
         viewCanvas.setPaths(Model.getTurtlePaths());
         viewCanvas.isTurtleVisible(Model.isTurtleVisible ());
     }
-    
-    public void displayError(String error){
+
+    public void displayError (String error) {
         viewCanvas.setError(error);
     }
 
@@ -329,7 +329,6 @@ public class View extends JFrame {
         String input = "";
         Model.parseInput(input);
     }
-
 
     private void updateSidebar () {
 

@@ -9,7 +9,7 @@ public class InstructionString extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         return new InstructionString(myString, null);
     }
 

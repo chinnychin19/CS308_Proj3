@@ -12,7 +12,7 @@ public class InstructionSHOWINGP extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double ret = Model.getTurtle().isVisible() ? 1 : 0;
         return new InstructionConstant(ret, null);
     }

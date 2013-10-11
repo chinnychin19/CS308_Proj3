@@ -10,7 +10,7 @@ public class InstructionIF extends InstructionConditional {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double condition = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         if (Math.abs(condition) > InstructionConditional.EPSILON) {
             return (InstructionConstant) getChildren().get(1)

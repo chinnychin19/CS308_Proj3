@@ -9,7 +9,7 @@ public class InstructionConstant extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         return new InstructionConstant(myValue, null);
     }
 

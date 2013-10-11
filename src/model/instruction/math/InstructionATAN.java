@@ -13,7 +13,7 @@ public class InstructionATAN extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         // TODO: Atan at 0? atan2?
         double degrees = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         double radians = degrees * Math.PI / PI_DEGREES;

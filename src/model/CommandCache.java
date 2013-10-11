@@ -17,9 +17,8 @@ public class CommandCache {
         if (!myMap.containsKey(key)) { return null; }
         // delete previous command parameters before returning, but maintain root command node
         UserCommand ret = myMap.get(key);
-        InstructionListNode rootNode = ret.getRootNode();
         ret.getChildren().clear();
-        ret.addChild(rootNode);
+        ret.addChild(ret.getRootNode());
         return ret;
     }
 

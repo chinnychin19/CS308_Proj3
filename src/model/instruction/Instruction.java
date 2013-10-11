@@ -2,6 +2,9 @@ package model.instruction;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.instruction.loop.InstructionLoop;
+import model.instruction.error.*;
+import model.instruction.error.InternalError;
 
 
 public abstract class Instruction {
@@ -30,7 +33,7 @@ public abstract class Instruction {
     public void addChild (Instruction child) {
         if (myChildren.size() >= getNumParams()) {
             try {
-                throw new Exception("Too many parameters added to the instruction.");
+                throw new InternalError();
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -39,5 +42,5 @@ public abstract class Instruction {
         myChildren.add(child);
     }
 
-    public abstract Instruction eval ();
+    public abstract Instruction eval () throws Exception;
 }

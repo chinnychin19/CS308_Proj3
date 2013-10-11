@@ -11,7 +11,7 @@ public class InstructionNOT extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         a = a == 0 ? 1 : 0;
 

@@ -16,14 +16,4 @@ public class ModelTests {
             assertEquals("String " + i, testString[i], Model.getHistory().get(i));
         }
     }
-
-    @Test
-    public void testInstructionQueue () {
-        Model.initModel();
-        assertEquals("Before anything added", false, Model.hasNextInstruction());
-        Model.parseInput("fd 10");
-        assertEquals("Add one instruction", true, Model.hasNextInstruction());
-        Model.processNextInstruction();
-        assertEquals("After process instruction", false, Model.hasNextInstruction());
-    }
 }

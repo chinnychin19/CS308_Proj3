@@ -12,7 +12,7 @@ public class InstructionTOWARDS extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Instruction param1 = getChildren().get(0).eval();
         double x = ((InstructionConstant) param1).getValue();
         Instruction param2 = getChildren().get(1).eval();

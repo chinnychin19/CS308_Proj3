@@ -12,7 +12,7 @@ public class InstructionHOME extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double dist = Model.getTurtle().doAbsoluteMove(0, 0);
         return new InstructionConstant(dist, null);
     }

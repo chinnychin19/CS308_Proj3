@@ -10,9 +10,9 @@ public class InstructionMAKE extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         String name = ((InstructionVariable) getChildren().get(0)).getName();
-        double value = ((InstructionConstant) getChildren().get(1)).getValue();
+        double value = ((InstructionConstant) getChildren().get(1).eval()).getValue();
         Model.getVariableCache().put(name, value);
         return new InstructionConstant(value, null);
     }
