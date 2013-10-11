@@ -3,7 +3,7 @@ package model;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import model.command.Command;
+import model.instruction.command.UserCommand;
 
 
 public class Model {
@@ -99,7 +99,7 @@ public class Model {
         return myCommandCache.getAllCommands();
     }
 
-    public static void putCommand (String key, Command value) {
+    public static void putCommand (String key, UserCommand value) {
         myCommandCache.put(key, value);
     }
 

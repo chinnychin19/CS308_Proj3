@@ -57,10 +57,8 @@ public class Interpreter {
                     int numLists =
                             (cur instanceof InstructionIF) ? 1 :
                                                           (cur instanceof InstructionIFELSE) ? 2
-                                                                                            : -1; // -1
-                                                                                                  // should
-                                                                                                  // not
-                                                                                                  // happen
+                                                                                            : -1;
+                    // -1 should not happen
                     for (int listIndex = 0; listIndex < numLists; listIndex++) {
                         String commandsInLoop = parser.nextList();
                         commandsInLoop =
@@ -73,6 +71,14 @@ public class Interpreter {
                         }
                         cur.addChild(node);
                     }
+                }
+                else if (cur instanceof InstructionTO) {
+                    String name = parser.nextWord();
+                    String params = parser.nextList();
+                    String commands = parser.nextList();
+                    cur.addChild(new InstructionString(name, cur));
+                    cur.addChild(new InstructionString(params, cur));
+                    cur.addChild(new InstructionString(commands, cur));
                 }
                 else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.nextWord(), cur);

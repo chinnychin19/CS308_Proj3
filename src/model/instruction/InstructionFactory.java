@@ -1,5 +1,6 @@
 package model.instruction;
 
+import model.Model;
 import model.instruction.turtle.*;
 import model.instruction.loop.*;
 import model.instruction.math.*;
@@ -15,8 +16,11 @@ public class InstructionFactory {
             if (s.charAt(0) == ':') { return new InstructionVariable(s, parent); }
 
             // Setters
-            if (s.equalsIgnoreCase("MAKE") || s.equalsIgnoreCase("SET")) { return new InstructionMAKE(
-                                                                                                      parent); }
+            if (s.equalsIgnoreCase("MAKE") || s.equalsIgnoreCase("SET")) {
+                return new InstructionMAKE(
+                                           parent);
+            }
+            else if (s.equalsIgnoreCase("TO")) { return new InstructionTO(parent); }
 
             // Control Structures
             if (s.equalsIgnoreCase("FOR")) {
@@ -183,8 +187,12 @@ public class InstructionFactory {
 
             // Unrecognized
             else {
-                return null; // TODO: should only happen if user entered command. Check
-                             // commandCache. else error
+                if (Model.getCommandCache().contains(s)) {
+                    return Model.getCommandCache().get(s);
+                }
+                else {
+                    return null;
+                }
             }
         }
         else { // is a number
