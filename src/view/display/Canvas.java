@@ -24,7 +24,6 @@ public class Canvas extends JGEngine {
     private boolean penUp = false;
     private String gifName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
-
     private double heading = 0;
     private ArrayList<Point2D.Double> pointList = new ArrayList<Point2D.Double>();
 
@@ -59,9 +58,9 @@ public class Canvas extends JGEngine {
         // TODO: Deal with image offset - TURTLE_OFFSET
         turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
 
-        pointList.add(new Double(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
-        pointList.add(new Double(10, 500));
-        pointList.add(new Double(80, 80));
+//        pointList.add(new Double(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
+//        pointList.add(new Double(10, 500));
+//        pointList.add(new Double(80, 80));
 
     }
 
@@ -85,11 +84,11 @@ public class Canvas extends JGEngine {
     public void drawStatus () {
         int offset = 5;
         // TODO: Get data from Model
-        drawString("X: " + turtle.x, 5, offset, -1, new JGFont("arial", 0, 12),
+        drawString("X: " + (turtle.x-Constants.CANVAS_WIDTH/2), 5, offset, -1, new JGFont("arial", 0, 12),
                    penColor);
-        drawString("Y: " + turtle.y, 5, offset += 13, -1, new JGFont("arial", 0, 12),
+        drawString("Y: " + -(turtle.y-Constants.CANVAS_HEIGHT/2), 5, offset += 13, -1, new JGFont("arial", 0, 12),
                    penColor);
-        drawString("Heading: ", 5, offset += 13, -1, new JGFont("arial", 0, 12),
+        drawString("Heading: " + heading, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                    penColor);
     }
 
@@ -162,9 +161,6 @@ public class Canvas extends JGEngine {
         turtle.setPos(x, y);
     }
 
-    public void moveTurtle (Point2D.Double coordinate) {
-        turtle.setPos(coordinate.getX(), coordinate.getY());
-    }
 
     /**
      * Changes color of canvas background

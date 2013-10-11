@@ -1,8 +1,5 @@
 package model.error;
 
-import dataType.DataType;
-
-
 public abstract class Error {
     private String myMessage;
 
