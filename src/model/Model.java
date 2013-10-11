@@ -48,8 +48,7 @@ public class Model {
     }
 
     public static String parseInput (String s) {
-        String ret = "";
-        myInterpreter.parseInput(s);
+        String ret = myInterpreter.parseInput(s);
         // while (hasNextInstruction()) {
         // ret = processNextInstruction();
         // }

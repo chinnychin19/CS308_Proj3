@@ -10,22 +10,27 @@ import model.instruction.conditional.InstructionIF;
 import model.instruction.conditional.InstructionIFELSE;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.loop.InstructionREPEAT;
+import model.instruction.error.Error;
 
 
 public class Interpreter {
     // TODO: when complete, refactor out repeated code for interpreting lists
 
-    protected void parseInput (String input) {
+    protected String parseInput (String input) {
         input = input.replaceAll("\\s+", " "); // all white space becames a ' ' (space character)
         input = input.trim();
-        if (input.isEmpty()) { return; }
+        if (input.isEmpty()) { return ""; }
         Model.getCommandHistory().add(input);
         List<Instruction> instructions = getInstructions(input);
         for (Instruction instr : instructions) {
             // Model.getInstructionQueue().add(instr);
             // Model.processNextInstruction();
-            instr.eval();
+            Instruction result = instr.eval();
+            if (result instanceof Error) {
+                return ((Error)result).getMessage();
+            }
         }
+        return "";
     }
 
     public List<Instruction> getInstructions (String input) {

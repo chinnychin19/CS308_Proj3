@@ -2,6 +2,9 @@ package model.instruction;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.instruction.loop.InstructionLoop;
+import model.instruction.error.*;
+import model.instruction.error.Error;
 
 
 public abstract class Instruction {
@@ -39,5 +42,21 @@ public abstract class Instruction {
         myChildren.add(child);
     }
 
+    public Instruction execute() {
+        System.out.println("execute");
+        Error err = isError();
+        return err == null ? eval() : err;
+    }
+    
+    public Error isError() {
+        for (Instruction i : getChildren()) {
+            Instruction result = i.eval();
+            if (result instanceof Error) {
+                return (Error)result;
+            }
+        }
+        return null;
+    }
+    
     public abstract Instruction eval ();
 }
