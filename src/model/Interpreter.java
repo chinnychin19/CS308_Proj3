@@ -2,7 +2,9 @@ package model;
 
 import java.util.ArrayList;
 import java.util.List;
+import dataType.DataTypeChecker;
 import model.instruction.*;
+import model.instruction.command.UserCommand;
 import model.instruction.conditional.InstructionConditional;
 import model.instruction.conditional.InstructionIF;
 import model.instruction.conditional.InstructionIFELSE;
@@ -84,6 +86,15 @@ public class Interpreter {
                     cur.addChild(new InstructionString(commands, cur));
                     cur.eval();
                 }
+                else if (cur instanceof UserCommand) {
+                    List<String> paramNames = ((UserCommand) cur).getParamNames();
+                    for (int i = 0; i < paramNames.size(); i++) {
+                        cur.addChild(new InstructionVariable(paramNames.get(i), cur));
+                        String param = parser.nextWord();
+                        Model.getVariableCache().put(paramNames.get(i),
+                                                     getParamValue(param));
+                    }
+                }
                 else { // Normal instruction
                     Instruction temp = InstructionFactory.getInstruction(parser.nextWord(), cur);
                     cur.addChild(temp);
@@ -106,5 +117,10 @@ public class Interpreter {
         }
         instructions.add(root);
         return instructions;
+    }
+
+    private double getParamValue (String nextWord) {
+        if (DataTypeChecker.isNumber(nextWord)) { return Double.parseDouble(nextWord); }
+        return Model.getVariableCache().get(nextWord);
     }
 }

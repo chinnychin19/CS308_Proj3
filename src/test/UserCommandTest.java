@@ -22,16 +22,15 @@ public class UserCommandTest {
     @Test
     public void testNested () {
         Model.initModel();
-        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
-        Model.parseInput("to secondMove [ :step :rotate ] [ rookMove :step fd :step rt :rotate fd :step lt :rotate ]");
+        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step ]");
+        Model.parseInput("to secondMove [ :step :rotate ] [ rookMove :step rt :rotate rookMove :step ]");
         // TODO: if variable name same as before, will call original value. If new name, will use
         // original :step value when calling rookMove
         Model.parseInput("rookMove 5");
-        assertEquals(5, Model.getTurtle().getX(), DELTA);
         assertEquals(10, Model.getTurtle().getY(), DELTA);
         Model.parseInput("secondMove 3 90");
-        assertEquals(11, Model.getTurtle().getX(), DELTA);
-        assertEquals(19, Model.getTurtle().getY(), DELTA);
+        assertEquals(16, Model.getTurtle().getY(), DELTA);
+        assertEquals(6, Model.getTurtle().getX(), DELTA);
     }
 
     @Test

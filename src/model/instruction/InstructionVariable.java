@@ -18,7 +18,7 @@ public class InstructionVariable extends InstructionConstant {
 
     @Override
     public Instruction eval () {
-        return new InstructionVariable(myName, null);
+        return new InstructionConstant(Model.getVariableCache().get(myName), null);
     }
 
     public String getName () {
