@@ -220,7 +220,7 @@ public class Canvas extends JGEngine {
      * 
      * @param list new ArrayList of points
      */
-    public void setPoints (ArrayList<Point2D.Double> list) {
+    public void setPaths (ArrayList<Point2D.Double> list) {
         pointList = list;
     }
 

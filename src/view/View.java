@@ -81,6 +81,12 @@ public class View extends JFrame {
         Model.initModel();
 
     }
+    
+    public void updateCanvasData(){
+        viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
+//        viewCanvas.setHeading(0);
+//        viewCanvas.setPaths();
+    }
 
     private JButton penColorChooser () {
         JButton result = new JButton("Change Pen Color");
