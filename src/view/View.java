@@ -325,15 +325,6 @@ public class View extends JFrame {
         Model.parseInput(input);
     }
 
-    protected void executeInput () {
-        while (Model.hasNextInstruction()) {
-            Model.processNextInstruction();
-            updateDisplay();
-            updateSidebar();
-
-        }
-
-    }
 
     private void updateSidebar () {
 
