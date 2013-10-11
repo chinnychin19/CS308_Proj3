@@ -24,7 +24,7 @@ public class Canvas extends JGEngine {
     private boolean penUp = false;
     private String gifName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
-    
+
     private double heading = 0;
     private ArrayList<Point2D.Double> pointList = new ArrayList<Point2D.Double>();
 
@@ -158,11 +158,11 @@ public class Canvas extends JGEngine {
      * @param x new x location of turtle
      * @param y new y location of turtle
      */
-    public void moveTurtle (double x, double y) {     
+    public void moveTurtle (double x, double y) {
         turtle.setPos(x, y);
     }
-    
-    public void moveTurtle (Point2D.Double coordinate) {     
+
+    public void moveTurtle (Point2D.Double coordinate) {
         turtle.setPos(coordinate.getX(), coordinate.getY());
     }
 
@@ -223,14 +223,13 @@ public class Canvas extends JGEngine {
     public void setPoints (ArrayList<Point2D.Double> list) {
         pointList = list;
     }
-    
+
     /**
      * Sets heading of turtle
      */
-    public void setHeading(double newHeading){
+    public void setHeading (double newHeading) {
         this.heading = newHeading;
     }
-    
 
     /**
      * Moves turtle sprite to center of canvas (is this completely necessary)
