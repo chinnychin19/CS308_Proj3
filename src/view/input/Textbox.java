@@ -1,12 +1,15 @@
 package view.input;
 
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 
-public class Textbox extends JTextField {
+public class Textbox extends JTextArea {
 
     public Textbox (int fieldSize) {
-        super(fieldSize);
+        super();
+        final int ROWS = 5;
+
+        this.setRows(ROWS);
 
     }
 
