@@ -13,7 +13,12 @@ public class InstructionQueue {
     }
 
     protected String processNextInstruction () {
-        return "" + myQueue.poll().eval();
+        try {
+            return "" + myQueue.poll().eval();
+        }
+        catch (Exception e) {
+            return e.getMessage();
+        }
     }
 
     protected void add (Instruction inst) {

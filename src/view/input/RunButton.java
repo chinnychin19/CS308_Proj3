@@ -67,7 +67,7 @@ public class RunButton extends JButton {
         String input = textbox.getInput();
 
         if (input.trim().equals("")) { return ""; }
-        Model.parseInput(input);
+        view.displayError(Model.parseInput(input)); // Errors need to be implemented on Model side
         textbox.clear();
         return input;
 

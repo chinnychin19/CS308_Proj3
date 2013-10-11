@@ -23,4 +23,8 @@ public class DataTypeChecker {
         return !(isInteger(s) || isDouble(s));
     }
 
+    public static boolean isNumber (String s) {
+        return isDouble(s) || isInteger(s);
+    }
+
 }

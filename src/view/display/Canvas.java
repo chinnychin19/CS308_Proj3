@@ -1,9 +1,8 @@
 package view.display;
 
-import java.awt.geom.Point2D;
-import java.awt.geom.Point2D.Double;
 import java.util.ArrayList;
-import org.jbox2d.common.Vec2;
+import java.util.Collection;
+import model.Path;
 import view.Constants;
 import jgame.JGColor;
 import jgame.JGFont;
@@ -21,11 +20,12 @@ public class Canvas extends JGEngine {
     private TurtleSprite turtle = null;
     private boolean gridOn = false;
     private boolean statusOn = true;
-    private boolean penUp = false;
-    private String gifName = "Turtle1.gif";
+    private boolean visible = true;
+    private String imageName = "Turtle1.gif";
     private JGColor penColor = JGColor.red;
-    private double heading = 0;
-    private ArrayList<Point2D.Double> pointList = new ArrayList<Point2D.Double>();
+    private double heading = 90;
+    private Collection<Path> pointList = new ArrayList<Path>();
+    private String error = "";
 
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
@@ -53,28 +53,30 @@ public class Canvas extends JGEngine {
     @Override
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, gifName, "-", 0, 0, 50, 50);
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
+        // turtleGif is name of image within JGEngine, imageName is the actual name of image
 
         // TODO: Deal with image offset - TURTLE_OFFSET
-        turtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2, 1);
-
-//        pointList.add(new Double(Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT / 2));
-//        pointList.add(new Double(10, 500));
-//        pointList.add(new Double(80, 80));
-
+        turtle =
+                new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                                 Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET, 1,
+                                 "turtleGif");
+        // dbgShowBoundingBox (true);
     }
 
     @Override
     public void paintFrame () {
         super.paintFrame();
 
-        if (gridOn && !penUp) {
+        if (gridOn) {
             drawGrid();
         }
 
         if (statusOn) {
             drawStatus();
         }
+
+        displayError(error);
 
         drawPath();
         // TODO: Move turtle to end location (get from Model)
@@ -84,34 +86,57 @@ public class Canvas extends JGEngine {
     public void drawStatus () {
         int offset = 5;
         // TODO: Get data from Model
-        drawString("X: " + (turtle.x-Constants.CANVAS_WIDTH/2), 5, offset, -1, new JGFont("arial", 0, 12),
+        drawString("X: " + (turtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5, offset, -1,
+                   new JGFont("arial", 0, 12),
                    penColor);
-        drawString("Y: " + -(turtle.y-Constants.CANVAS_HEIGHT/2), 5, offset += 13, -1, new JGFont("arial", 0, 12),
+        drawString("Y: " + (-turtle.getOffsetY() + Constants.CANVAS_HEIGHT / 2), 5, offset += 13,
+                   -1,
+                   new JGFont("arial", 0, 12),
                    penColor);
         drawString("Heading: " + heading, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                    penColor);
+    }
+
+    public void isTurtleVisible (boolean visible) {
+        if (visible != this.visible) {
+            if (visible) {
+                turtle.resume();
+            }
+
+            else {
+                turtle.suspend();
+            }
+        }
+
+        this.visible = visible;
     }
 
     /**
      * Method that draws the turtle's path from Model's stored list of paths
      */
     public void drawPath () {
-        for (int i = 0; i < pointList.size() - 1; i++) {
-            Point2D start = pointList.get(i);
-            Point2D end = pointList.get(i + 1);
-            drawLine(start.getX(), start.getY(), end.getX(), end.getY(), 2, penColor);
+        for (int i = 0; i < pointList.size(); i++) {
+            Path toDraw = ((ArrayList<Path>) pointList).get(i);
+            drawLine(toDraw.getX1() + Constants.CANVAS_WIDTH / 2, -toDraw.getY1() +
+                                                                  Constants.CANVAS_WIDTH / 2,
+                     toDraw.getX2() + Constants.CANVAS_WIDTH / 2, -toDraw.getY2() +
+                                                                  Constants.CANVAS_WIDTH / 2, 2,
+                     penColor);
         }
     }
 
     /**
-     * Method to convert JGame coordinates to SLogo defined coordinates
+     * Method to display error
      * 
-     * @param coordinate coordinate in form of Point2D
+     * @param error
      */
-    public Point2D convertCoordinates (Point2D coordinate) {
-        coordinate.setLocation(coordinate.getX() - Constants.GUI_WIDTH, coordinate.getY() -
-                                                                        Constants.GUI_HEIGHT);
-        return coordinate;
+    public void displayError (String error) {
+        drawString(error, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT * .95, 0,
+                   new JGFont("arial", 0, 12), JGColor.red);
+    }
+
+    public void setError (String error) {
+        this.error = error;
     }
 
     /**
@@ -120,35 +145,9 @@ public class Canvas extends JGEngine {
      * @param imageName name of image
      */
     public void changeTurtleImage (String imageName) {
+        this.imageName = imageName;
         defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50, 50);
-    }
-
-    /**
-     * Method that checks to see if new turtle coordinates are within the bounds of the canvas and
-     * fixes them accordingly if so
-     * 
-     * @param x x position
-     * @param y y position
-     * @return Vector containing modular x and y coordinates
-     */
-    public Vec2 forceWithinBounds (double x, double y) {
-        if (x > Constants.CANVAS_WIDTH) {
-            x = x % Constants.CANVAS_WIDTH;
-        }
-
-        else if (x < 0) {
-            x = Constants.CANVAS_WIDTH - (Math.abs(x) % Constants.CANVAS_WIDTH);
-        }
-
-        if (y > Constants.CANVAS_HEIGHT) {
-            y = y % Constants.CANVAS_HEIGHT;
-        }
-
-        else if (y < 0) {
-            y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
-        }
-
-        return new Vec2((float) x, (float) y);
+        adjustImageAngle(this.heading);
     }
 
     /**
@@ -158,9 +157,9 @@ public class Canvas extends JGEngine {
      * @param y new y location of turtle
      */
     public void moveTurtle (double x, double y) {
-        turtle.setPos(x, y);
+        turtle.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
     }
-
 
     /**
      * Changes color of canvas background
@@ -216,7 +215,7 @@ public class Canvas extends JGEngine {
      * 
      * @param list new ArrayList of points
      */
-    public void setPaths (ArrayList<Point2D.Double> list) {
+    public void setPaths (Collection<Path> list) {
         pointList = list;
     }
 
@@ -224,7 +223,36 @@ public class Canvas extends JGEngine {
      * Sets heading of turtle
      */
     public void setHeading (double newHeading) {
+
+        if (this.heading != newHeading) {
+            
+            adjustImageAngle(newHeading);
+           
+        }
+
         this.heading = newHeading;
+
+    }
+    
+    public void adjustImageAngle(double heading){
+        if (heading >= 45 && heading < 135) {
+            imageName = imageName.substring(0, 11);
+        }
+
+        else if (heading >= 135 && heading < 225) {
+            imageName = imageName.substring(0, 7) + "_2.gif";
+        }
+
+        else if (heading >= 225 && heading < 315) {
+            imageName = imageName.substring(0, 7) + "_3.gif";
+        }
+
+        else if (heading >= 315 || heading < 45) {
+            imageName = imageName.substring(0, 7) + "_4.gif";
+        }
+        
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50,
+                    50);
     }
 
     /**
@@ -233,6 +261,10 @@ public class Canvas extends JGEngine {
     public void moveToOrigin () {
         turtle.setPos(Constants.CANVAS_WIDTH / 2,
                       Constants.CANVAS_HEIGHT / 2);
+    }
+
+    public String getImageName () {
+        return imageName;
     }
 
 }

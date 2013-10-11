@@ -12,7 +12,7 @@ public class InstructionHEADING extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         double ret = Model.getTurtle().getAngle();
         return new InstructionConstant(ret, null);
     }

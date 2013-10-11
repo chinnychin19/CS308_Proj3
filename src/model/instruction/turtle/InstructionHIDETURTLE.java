@@ -12,7 +12,7 @@ public class InstructionHIDETURTLE extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Model.getTurtle().setVisible(false);
         return new InstructionConstant(0, null);
     }

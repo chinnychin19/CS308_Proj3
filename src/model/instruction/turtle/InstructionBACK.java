@@ -12,7 +12,7 @@ public class InstructionBACK extends Instruction {
     }
 
     @Override
-    public Instruction eval () {
+    public Instruction eval () throws Exception {
         Instruction ret = getChildren().get(0).eval();
         double pixels = ((InstructionConstant) ret).getValue();
         Model.getTurtle().doRelativeMove(-pixels); // - makes it go backwards
