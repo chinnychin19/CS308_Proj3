@@ -51,7 +51,7 @@ public class View extends JFrame {
         final JPanel sidebarPanel = new SidebarPanel(textbox);
 
         final JPanel inputPanel = new InputPanel();
-        RunButton runbutton = new RunButton("RUN", textbox, (SidebarPanel) sidebarPanel);
+        RunButton runbutton = new RunButton("RUN", textbox, (SidebarPanel) sidebarPanel, this);
         inputPanel.add(new JScrollPane(textbox));
         inputPanel.add(runbutton);
 
@@ -80,6 +80,12 @@ public class View extends JFrame {
 
         Model.initModel();
 
+    }
+
+    public void updateCanvasData () {
+        viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
+        // viewCanvas.setHeading(0);
+        // viewCanvas.setPaths();
     }
 
     private JButton penColorChooser () {
