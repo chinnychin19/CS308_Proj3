@@ -26,7 +26,7 @@ public class UserCommandTest {
     public void testNested () {
         Model.initModel();
         Model.parseInput("TO rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
-        Model.parseInput("TO secondMove [ :step :rotate ] [ rookMove :step fd :step rt :rotate fd :step lt :rotate ]");
+        Model.parseInput("TO secondMove [ :stepd :rotate ] [ rookMove :stepd fd :stepd rt :rotate fd :stepd lt :rotate ]");
         // TODO: if variable name same as before, will call original value. If new name, will use
         // original :step value when calling rookMove
         Model.processNextInstruction();
@@ -41,6 +41,18 @@ public class UserCommandTest {
         assertEquals(19, Model.getTurtle().getY(), DELTA);
         assertEquals(11, Model.getTurtle().getX(), DELTA);
         assertEquals(false, Model.hasNextInstruction());
+    }
+
+    @Test
+    public void testNoParams () {
+        Model.initModel();
+        Model.parseInput("TO square [  ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
+        Model.processNextInstruction();
+        Model.parseInput("square");
+        Model.processNextInstruction();
+        assertEquals(0, Model.getTurtle().getX(), DELTA);
+        assertEquals(0, Model.getTurtle().getY(), DELTA);
+        assertEquals(90, Model.getTurtle().getAngle(), DELTA);
     }
 
     @Test

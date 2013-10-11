@@ -27,6 +27,7 @@ public class Interpreter {
     public List<Instruction> getInstructions (String input) {
         Parser parser = new Parser(input);
         List<Instruction> instructions = new ArrayList<Instruction>();
+        if (!parser.hasNext()) { return instructions; }
         Instruction root = InstructionFactory.getInstruction(parser.nextWord(), null);
         Instruction cur = root;
         while (parser.hasNext()) {

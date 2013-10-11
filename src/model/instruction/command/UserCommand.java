@@ -59,6 +59,7 @@ public class UserCommand extends Instruction {
     }
 
     public String getBody () {
-        return "TO " + myName + " \n" + myParamNames.toString() + " \n" + myDefinitionString;
+        return "TO " + myName + " \n" + myParamNames.toString().replaceAll(",", "") + " \n" +
+               myDefinitionString;
     }
 }
