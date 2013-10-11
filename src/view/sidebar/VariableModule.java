@@ -3,6 +3,7 @@ package view.sidebar;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import model.Model;
 import view.input.Textbox;
@@ -13,12 +14,14 @@ public class VariableModule extends Module {
 
     public VariableModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
-        this.add(new JLabel("Variable Module"));
+        // this.add(new JLabel("Variable Module"));
+        this.add(new JButton("Edit"));
     }
 
     public VariableModule (Textbox textbox) {
         super(textbox);
         this.add(new JLabel("Variable Module"));
+        this.add(new JButton("Edit"));
     }
 
     @Override
