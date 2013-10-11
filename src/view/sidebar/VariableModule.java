@@ -43,6 +43,7 @@ public class VariableModule extends Module {
             listModel.remove(index);
            
             listModel.add(index, new ModuleData("updated","updatedvalue"));
+//            Model.putVariable(key, value)
             int size = listModel.getSize();
 
             if (size == 0) { //Nobody's left, disable firing.
