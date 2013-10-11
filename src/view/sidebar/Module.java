@@ -20,8 +20,8 @@ import view.input.Textbox;
 public abstract class Module extends JPanel implements ContentContainer {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
-    private JList list;
-    private DefaultListModel listModel;
+    protected JList list;
+    protected DefaultListModel listModel;
     private Textbox textbox;
 
     public Module (Textbox textbox) {
