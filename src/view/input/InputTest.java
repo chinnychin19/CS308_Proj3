@@ -9,7 +9,6 @@ import org.junit.Test;
 import view.Constants;
 import view.View;
 import view.sidebar.SidebarPanel;
-import dataType.DataType;
 
 
 public class InputTest {

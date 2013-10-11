@@ -10,7 +10,7 @@ public class InstructionConstant extends Instruction {
 
     @Override
     public Instruction eval () {
-        return this;
+        return new InstructionConstant(myValue, null);
     }
 
     public double getValue () {

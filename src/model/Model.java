@@ -1,8 +1,9 @@
 package model;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import model.command.Command;
+import model.instruction.command.UserCommand;
 
 
 public class Model {
@@ -58,16 +59,20 @@ public class Model {
         return myInstructionQueue.hasNextInstruction();
     }
 
-    public static int getTurtleX () {
+    public static double getTurtleX () {
         return myTurtle.getX();
     }
 
-    public static int getTurtleY () {
+    public static double getTurtleY () {
         return myTurtle.getY();
     }
 
-    public static int getTurtleAngle () {
+    public static double getTurtleAngle () {
         return myTurtle.getAngle();
+    }
+
+    public static Collection<Path> getTurtlePaths () {
+        return myTurtle.getPaths();
     }
 
     // public static boolean isTurtleDrawing () {
@@ -94,7 +99,7 @@ public class Model {
         return myCommandCache.getAllCommands();
     }
 
-    public static void putCommand (String key, Command value) {
+    public static void putCommand (String key, UserCommand value) {
         myCommandCache.put(key, value);
     }
 

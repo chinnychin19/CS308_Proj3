@@ -2,7 +2,6 @@ package model;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import dataType.DataType;
 import model.instruction.Instruction;
 
 
@@ -14,11 +13,7 @@ public class InstructionQueue {
     }
 
     protected String processNextInstruction () {
-        String s = "" + myQueue.poll().eval();
-        while (Model.getTurtle().hasNextMove()) {
-            Model.getTurtle().doNextMove();
-        }
-        return s;
+        return "" + myQueue.poll().eval();
     }
 
     protected void add (Instruction inst) {
