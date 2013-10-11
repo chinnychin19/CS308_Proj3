@@ -47,15 +47,20 @@ public class Model {
         return myCommandHistory;
     }
 
-    public static void parseInput (String s) {
+    public static String parseInput (String s) {
+        String ret = "";
         myInterpreter.parseInput(s);
+        while (hasNextInstruction()) {
+            ret = processNextInstruction();
+        }
+        return ret; // ret will be non-empty i.f.f. there is an error
     }
 
-    public static String processNextInstruction () {
+    protected static String processNextInstruction () {
         return myInstructionQueue.processNextInstruction();
     }
 
-    public static boolean hasNextInstruction () {
+    protected static boolean hasNextInstruction () {
         return myInstructionQueue.hasNextInstruction();
     }
 
@@ -71,20 +76,20 @@ public class Model {
         return myTurtle.getAngle();
     }
 
+    public static boolean isTurtleVisible () {
+        return myTurtle.isVisible();
+    }
+
+    public static boolean isTurtleDrawing () {
+        return myTurtle.isDrawing();
+    }
+
     public static Collection<Path> getTurtlePaths () {
         return myTurtle.getPaths();
     }
 
-    // public static boolean isTurtleDrawing () {
-    // return myTurtle.isDrawing();
-    // }
-    //
-    // public static boolean isTurtleVisible () {
-    // return myTurtle.isVisible();
-    // }
-
-    public static void putVariable (String key, String value) {
-        myVariableCache.put(key, value);
+    public static String putVariable (String key, String value) {
+        return myVariableCache.put(key, value); // returns non-empty string if error
     }
 
     public static Map<String, String> getAllVariables () {
@@ -114,12 +119,4 @@ public class Model {
     public static void clearHistory () {
         myCommandHistory.clear();
     }
-
-    // public static void processNextTurtleMove () {
-    // myTurtle.doNextMove();
-    // }
-    //
-    // public static boolean hasNextTurtleMove () {
-    // return myTurtle.hasNextMove();
-    // }
 }

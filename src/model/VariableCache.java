@@ -2,6 +2,7 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
+import dataType.DataTypeChecker;
 
 
 public class VariableCache {
@@ -21,9 +22,13 @@ public class VariableCache {
         myMap.put(key, value);
     }
 
-    protected void put (String key, String value) {
-        double val = Double.parseDouble(value);
-        put(key, val);
+    protected String put (String key, String value) {
+        if (DataTypeChecker.isDouble(value)) {
+            double val = Double.parseDouble(value);
+            put(key, val);
+            return "";
+        }
+        return "Value provided needs to be a double!";
     }
 
     protected Map<String, String> getKeyValuePairs () {
