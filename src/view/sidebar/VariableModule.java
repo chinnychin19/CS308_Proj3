@@ -64,7 +64,7 @@ public class VariableModule extends Module {
                 String putStatus = Model.putVariable(selected.getDisplay(), newValue);
                 updateVariable(index, selected, putStatus);
             }
-            else{
+            else {
                 JOptionPane.showMessageDialog(null,
                                               "Select a variable");
             }
@@ -72,15 +72,14 @@ public class VariableModule extends Module {
 
         private void displayInputError (String putStatus) {
             JOptionPane.showMessageDialog(null,
-                    putStatus);
-           
+                                          putStatus);
 
         }
 
         @SuppressWarnings("unchecked")
         private void updateVariable (int index, ModuleData selected, String putStatus) {
             if (putStatus.equals("")) {
-                
+
                 listModel.remove(index);
                 listModel.add(index, selected);
                 list.setSelectedIndex(index);
@@ -99,7 +98,7 @@ public class VariableModule extends Module {
         Collection<ModuleData> variableCollection = new ArrayList<ModuleData>();
         Map<String, String> variableMap = Model.getAllVariables();
         for (String key : variableMap.keySet()) {
-            
+
             variableCollection.add(new ModuleData(key, key));
         }
         return variableCollection;
