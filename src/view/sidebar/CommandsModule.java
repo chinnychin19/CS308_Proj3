@@ -12,12 +12,12 @@ public class CommandsModule extends Module {
 
     private static final String MODULE_NAME = "Commands Module";
 
-    public CommandsModule (int width, int height, Textbox textbox) {
+    protected CommandsModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
 
     }
 
-    public CommandsModule (Textbox textbox) {
+    protected CommandsModule (Textbox textbox) {
         super(textbox);
 
     }

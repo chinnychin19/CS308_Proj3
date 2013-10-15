@@ -9,10 +9,10 @@ import view.input.Textbox;
 
 
 @SuppressWarnings("serial")
-public class SidebarPanel extends JPanel {
+public class ModulePanel extends JPanel {
     private List<Module> Modules;
 
-    public SidebarPanel (Textbox textbox) {
+    public ModulePanel (Textbox textbox) {
         super();
         Modules = new ArrayList<Module>();
 

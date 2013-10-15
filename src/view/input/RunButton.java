@@ -4,17 +4,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import view.View;
-import view.sidebar.SidebarPanel;
+import view.sidebar.ModulePanel;
 import model.Model;
 
 
 public class RunButton extends JButton {
     Textbox textbox;
-    SidebarPanel sidebar;
+    ModulePanel sidebar;
     private MouseListener myMouseListener;
     private View view;
 
-    public RunButton (String title, Textbox textbox, SidebarPanel sidebar, View view) {
+    public RunButton (String title, Textbox textbox, ModulePanel sidebar, View view) {
         super(title);
         this.view = view;
         this.textbox = textbox;

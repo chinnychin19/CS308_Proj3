@@ -22,7 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import jgame.JGColor;
 import model.Model;
-import view.sidebar.SidebarPanel;
+import view.sidebar.ModulePanel;
 import view.display.Canvas;
 import view.display.ViewUpdater;
 import view.input.InputPanel;
@@ -48,12 +48,11 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
         Textbox textbox = new Textbox(Constants.FIELD_SIZE);
-        final JPanel sidebarPanel = new SidebarPanel(textbox);
 
-        final JPanel inputPanel = new InputPanel();
-        RunButton runbutton = new RunButton("RUN", textbox, (SidebarPanel) sidebarPanel, this);
-        inputPanel.add(new JScrollPane(textbox));
-        inputPanel.add(runbutton);
+        final JPanel sidebarPanel = new ModulePanel(textbox);
+
+        RunButton runbutton = new RunButton("RUN", textbox, (ModulePanel) sidebarPanel, this);
+        final JPanel inputPanel = new InputPanel(textbox, runbutton);
 
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));

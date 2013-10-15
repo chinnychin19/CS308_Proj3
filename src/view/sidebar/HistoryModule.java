@@ -11,12 +11,14 @@ import model.Model;
 @SuppressWarnings("serial")
 public class HistoryModule extends Module {
 
-    public HistoryModule (int width, int height, Textbox textbox) {
+    private static final String MODULE_NAME = "History Module";
+
+    protected HistoryModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
 
     }
 
-    public HistoryModule (Textbox textbox) {
+    protected HistoryModule (Textbox textbox) {
         super(textbox);
 
     }
@@ -34,7 +36,7 @@ public class HistoryModule extends Module {
     @Override
     protected String getModuleName () {
 
-        return "History Module";
+        return MODULE_NAME;
     }
 
 }

@@ -8,19 +8,19 @@ import org.junit.Before;
 import org.junit.Test;
 import view.Constants;
 import view.View;
-import view.sidebar.SidebarPanel;
+import view.sidebar.ModulePanel;
 
 
 public class InputTest {
     Textbox textbox;
     RunButton runButton;
-    SidebarPanel sidebarPanel;
+    ModulePanel sidebarPanel;
     View view;
 
     @Before
     public void setUp () throws Exception {
         textbox = new Textbox(50);
-        sidebarPanel = new SidebarPanel(textbox);
+        sidebarPanel = new ModulePanel(textbox);
         runButton = new RunButton("RUN", textbox, sidebarPanel, view);
 
     }

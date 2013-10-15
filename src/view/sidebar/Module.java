@@ -25,40 +25,87 @@ public abstract class Module extends JPanel {
     protected DefaultListModel listModel;
     private Textbox textbox;
 
-    public Module (Textbox textbox) {
+    protected Module (Textbox textbox) {
 
         super();
-        setModuleName(getModuleName());
+        setModuleName();
         this.textbox = textbox;
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         initializeModuleDisplay();
     }
 
-    public Module (int width, int height, Textbox textbox) {
+    protected Module (int width, int height, Textbox textbox) {
 
         super();
-        setModuleName(getModuleName());
+        setModuleName();
         this.textbox = textbox;
         setPreferredSize(new Dimension(width, height));
         initializeModuleDisplay();
 
     }
 
-    public void updateContent () {
+    /**
+     * Initializes settings relevant to display
+     */
+    private void initializeModuleDisplay () {
+        setBackground(Color.white);
+        initializeModuleContents();
+    }
+
+    /**
+     * Adds JLabel of Module Name to Module
+     * to set up display title
+     */
+    private void setModuleName () {
+        this.add(new JLabel(getModuleName()));
+
+    }
+
+    /**
+     * @return Name of Module
+     */
+    protected abstract String getModuleName ();
+
+    /**
+     * retrieves the stored information relevant to Module from
+     * backend
+     * 
+     * @return Collection of Model data converted encapsulated as ModuleData
+     *         objects
+     */
+    protected abstract Collection<ModuleData> getStoredModelInformation ();
+
+    /**
+     * Updates the content of JList options
+     */
+    protected void updateContent () {
         Collection<ModuleData> listData = getStoredModelInformation();
-
         listModel.clear();
-
         for (ModuleData moduleData : listData) {
             listModel.addElement(moduleData);
 
         }
     }
 
-    protected void initializeModuleContents () {
-        //
+    /**
+     * Initlizes JList contents and adds
+     */
+    private void initializeModuleContents () {
         listModel = new DefaultListModel();
         list = new JList(listModel);
+        addSelectionListener(list);
+
+        JScrollPane listScrollPane = new JScrollPane(list);
+        add(listScrollPane);
+
+    }
+
+    /**
+     * Adds a selection listener to a JList
+     * 
+     * @param list Jlist selection listener needs to be added to
+     */
+    private void addSelectionListener (final JList list) {
         list.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged (ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
@@ -70,23 +117,6 @@ public abstract class Module extends JPanel {
             }
 
         });
-        JScrollPane listScrollPane = new JScrollPane(list);
-        add(listScrollPane);
-
     }
-
-    private void setModuleName (String moduleName) {
-        this.add(new JLabel(moduleName));
-
-    }
-
-    protected abstract String getModuleName ();
-
-    private void initializeModuleDisplay () {
-        setBackground(Color.white);
-        initializeModuleContents();
-    }
-
-    protected abstract Collection<ModuleData> getStoredModelInformation ();
 
 }

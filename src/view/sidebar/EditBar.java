@@ -17,10 +17,10 @@ public class EditBar extends JPanel {
     private static final int TEXTBOX_COLUMNS = 15;
     JButton edit;
     TextField textfield;
-    JList list;
+    JList<ModuleData> list;
     DefaultListModel listModel;
 
-    public EditBar (JList list, DefaultListModel listModel) {
+    public EditBar (JList<ModuleData> list, DefaultListModel listModel) {
         this.list = list;
         this.listModel = listModel;
         JPanel bottomPane = new JPanel();
@@ -28,6 +28,12 @@ public class EditBar extends JPanel {
         bottomPane.add(addEditButton());
         this.add(bottomPane, BorderLayout.NORTH);
 
+    }
+
+    private TextField addTextBox () {
+        textfield = new TextField();
+        textfield.setColumns(TEXTBOX_COLUMNS);
+        return textfield;
     }
 
     private JButton addEditButton () {
@@ -75,9 +81,4 @@ public class EditBar extends JPanel {
         return edit;
     }
 
-    private TextField addTextBox () {
-        textfield = new TextField();
-        textfield.setColumns(TEXTBOX_COLUMNS);
-        return textfield;
-    }
 }
