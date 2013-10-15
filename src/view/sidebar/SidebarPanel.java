@@ -16,9 +16,10 @@ public class SidebarPanel extends JPanel {
         super();
         Modules = new ArrayList<Module>();
 
-        addModule(new HistoryModule(textbox));
-        addModule(new CommandsModule(textbox));
-        addModule(new VariableModule(textbox));
+        addModule(ModuleFactory.createModule("history", textbox));
+        addModule(ModuleFactory.createModule("command", textbox));
+        addModule(ModuleFactory.createModule("variable", textbox));
+
         setLayout(new GridLayout(Modules.size(), 1));
     }
 

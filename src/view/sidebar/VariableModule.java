@@ -1,96 +1,27 @@
 package view.sidebar;
 
-import java.awt.BorderLayout;
-import java.awt.TextField;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import model.Model;
 import view.input.Textbox;
 
 
 @SuppressWarnings("serial")
 public class VariableModule extends Module {
-    JButton edit;
-    TextField textfield;
+    private EditBar editBar;
 
     public VariableModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
-        initialize();
+        editBar = new EditBar(list, listModel);
+        this.add(editBar);
 
     }
 
     public VariableModule (Textbox textbox) {
         super(textbox);
-        initialize();
-
-    }
-
-    private void initialize () {
-
-        JPanel bottomPane = new JPanel();
-        bottomPane.add(addTextBox());
-        bottomPane.add(addEditButton());
-        this.add(bottomPane, BorderLayout.NORTH);
-
-    }
-
-    private JButton addEditButton () {
-        edit = new JButton("Edit");
-        edit.addActionListener(new EditListener());
-        return edit;
-
-    }
-
-    private TextField addTextBox () {
-        textfield = new TextField();
-        textfield.setColumns(6);
-        return textfield;
-    }
-
-    class EditListener implements ActionListener {
-        public void actionPerformed (ActionEvent e) {
-
-            int index = list.getSelectedIndex();
-            if (index != -1) {
-
-                ModuleData selected = (ModuleData) listModel.get(index);
-                String newValue = textfield.getText();
-                String putStatus = Model.putVariable(selected.getDisplay(), newValue);
-                updateVariable(index, selected, putStatus);
-            }
-            else {
-                JOptionPane.showMessageDialog(null,
-                                              "Select a variable");
-            }
-        }
-
-        private void displayInputError (String putStatus) {
-            JOptionPane.showMessageDialog(null,
-                                          putStatus);
-
-        }
-
-        @SuppressWarnings("unchecked")
-        private void updateVariable (int index, ModuleData selected, String putStatus) {
-            if (putStatus.equals("")) {
-
-                listModel.remove(index);
-                listModel.add(index, selected);
-                list.setSelectedIndex(index);
-                list.ensureIndexIsVisible(index);
-            }
-            else {
-                displayInputError(putStatus);
-                textfield.setText("");
-            }
-
-        }
+        editBar = new EditBar(list, listModel);
+        this.add(editBar);
     }
 
     @Override
@@ -99,7 +30,7 @@ public class VariableModule extends Module {
         Map<String, String> variableMap = Model.getAllVariables();
         for (String key : variableMap.keySet()) {
 
-            variableCollection.add(new ModuleData(key, key));
+            variableCollection.add(new ModuleData(key, variableMap.get(key)));
         }
         return variableCollection;
     }

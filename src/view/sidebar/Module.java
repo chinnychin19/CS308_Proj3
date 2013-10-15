@@ -62,12 +62,13 @@ public abstract class Module extends JPanel {
         list.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged (ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
-                    ModuleData md = (ModuleData) list.getSelectedValue();
-                    textbox.setText(md.content);
+                    ModuleData selected = (ModuleData) list.getSelectedValue();
+                    textbox.setText(selected.content);
 
                 }
 
             }
+
         });
         JScrollPane listScrollPane = new JScrollPane(list);
         add(listScrollPane);
