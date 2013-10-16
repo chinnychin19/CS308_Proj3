@@ -1,3 +1,5 @@
+package view.inputPanel;
+
 // package view.input;
 //
 // import static org.junit.Assert.*;

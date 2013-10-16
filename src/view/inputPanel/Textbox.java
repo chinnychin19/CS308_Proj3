@@ -1,14 +1,14 @@
-package view.input;
+package view.inputPanel;
 
 import javax.swing.JTextArea;
 
 
+@SuppressWarnings("serial")
 public class Textbox extends JTextArea {
 
     public Textbox (int fieldSize) {
         super();
         final int ROWS = 5;
-
         this.setRows(ROWS);
 
     }
@@ -22,7 +22,7 @@ public class Textbox extends JTextArea {
         return this.getText();
     }
 
-    public void addInput (String input) {
+    protected void addInput (String input) {
         String newInput = getInput() + input + " ";
         this.setText(newInput);
     }

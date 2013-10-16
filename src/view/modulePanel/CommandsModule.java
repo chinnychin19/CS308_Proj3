@@ -1,22 +1,23 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import javax.swing.JLabel;
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 import model.Model;
 
 
 @SuppressWarnings("serial")
 public class CommandsModule extends Module {
 
-    public CommandsModule (int width, int height, Textbox textbox) {
+    private static final String MODULE_NAME = "Commands Module";
+
+    protected CommandsModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
 
     }
 
-    public CommandsModule (Textbox textbox) {
+    protected CommandsModule (Textbox textbox) {
         super(textbox);
 
     }
@@ -33,8 +34,7 @@ public class CommandsModule extends Module {
 
     @Override
     protected String getModuleName () {
-
-        return "Commands Module";
+        return MODULE_NAME;
     }
 
 }
