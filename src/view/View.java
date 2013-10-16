@@ -57,22 +57,17 @@ public class View extends JFrame {
         paramaters.put("runbutton", runbutton);
         JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
 
-        final JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new GridLayout(1, 0));
+        // final JPanel optionsPanel = new JPanel();
+        // optionsPanel.setLayout(new GridLayout(1, 0));
 
         viewCanvas = new Canvas();
-
-        optionsPanel.add(makeGridCheckbox());
-
-        // optionsPanel.add(makeTurtleCheckBox());
-        optionsPanel.add(makeStatusCheckBox());
-
-
-        // optionsPanel.add(new Checkbox("Pen Down", null, true));
-        optionsPanel.add(penColorChooser());
-        optionsPanel.add(makeBackgroundChooser());
-        optionsPanel.add(makeImageChooserButton());
-        optionsPanel.add(makeHelpButton());
+        paramaters.put("pen", penColorChooser());
+        paramaters.put("bg", makeBackgroundChooser());
+        paramaters.put("status", makeStatusCheckBox());
+        paramaters.put("image", makeImageChooserButton());
+        paramaters.put("grid", makeGridCheckbox());
+        paramaters.put("help", makeHelpButton());
+        JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
 
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
@@ -135,7 +130,6 @@ public class View extends JFrame {
         });
         return result;
     }
-
 
     /**
      * Checkbox for status
@@ -210,7 +204,7 @@ public class View extends JFrame {
      * 
      * @return button with label "Help Me"
      */
-    private JComponent makeHelpButton () {
+    private JButton makeHelpButton () {
         JButton result = new JButton("Help Me");
         result.addActionListener(new ActionListener() {
 
