@@ -50,7 +50,6 @@ public class View extends JFrame {
         paramaters.put("runbutton", runbutton);
         JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
 
-
         viewCanvas = new Canvas();
         paramaters.put("pen", penColorChooser());
         paramaters.put("bg", makeBackgroundChooser());

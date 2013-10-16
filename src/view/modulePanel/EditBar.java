@@ -15,14 +15,14 @@ import model.Model;
 @SuppressWarnings("serial")
 public class EditBar extends JPanel {
     private static final int TEXTBOX_COLUMNS = 15;
-    JButton edit;
-    TextField textfield;
-    JList<ModuleData> list;
-    DefaultListModel<ModuleData> listModel;
+    JButton myEdit;
+    TextField myTextfield;
+    JList<ModuleData> myList;
+    DefaultListModel<ModuleData> myListModel;
 
     public EditBar (JList<ModuleData> list, DefaultListModel<ModuleData> listModel) {
-        this.list = list;
-        this.listModel = listModel;
+        myList = list;
+        myListModel = listModel;
         JPanel bottomPane = new JPanel();
         bottomPane.add(addTextBox());
         bottomPane.add(addEditButton());
@@ -31,21 +31,21 @@ public class EditBar extends JPanel {
     }
 
     private TextField addTextBox () {
-        textfield = new TextField();
-        textfield.setColumns(TEXTBOX_COLUMNS);
-        return textfield;
+        myTextfield = new TextField();
+        myTextfield.setColumns(TEXTBOX_COLUMNS);
+        return myTextfield;
     }
 
     private JButton addEditButton () {
-        edit = new JButton("Edit");
-        edit.addActionListener(new ActionListener() {
+        myEdit = new JButton("Edit");
+        myEdit.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
 
-                int index = list.getSelectedIndex();
+                int index = myList.getSelectedIndex();
                 if (index != -1) {
 
-                    ModuleData selected = (ModuleData) listModel.get(index);
-                    String newValue = textfield.getText();
+                    ModuleData selected = (ModuleData) myListModel.get(index);
+                    String newValue = myTextfield.getText();
                     String putStatus = Model.putVariable(selected.getDisplay(), newValue);
                     updateVariable(index, selected, putStatus);
                 }
@@ -64,20 +64,20 @@ public class EditBar extends JPanel {
             private void updateVariable (int index, ModuleData selected, String putStatus) {
                 if (putStatus.equals("")) {
 
-                    listModel.remove(index);
-                    listModel.add(index, selected);
-                    list.setSelectedIndex(index);
-                    list.ensureIndexIsVisible(index);
+                    myListModel.remove(index);
+                    myListModel.add(index, selected);
+                    myList.setSelectedIndex(index);
+                    myList.ensureIndexIsVisible(index);
                 }
                 else {
                     displayInputError(putStatus);
-                    textfield.setText("");
+                    myTextfield.setText("");
                 }
 
             }
         });
 
-        return edit;
+        return myEdit;
     }
 
 }
