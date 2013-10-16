@@ -1,4 +1,4 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 
 
 /**
@@ -21,8 +21,8 @@ import view.input.Textbox;
 public abstract class Module extends JPanel {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
-    protected JList list;
-    protected DefaultListModel listModel;
+    protected JList<ModuleData> list;
+    protected DefaultListModel<ModuleData> listModel;
     private Textbox textbox;
 
     protected Module (Textbox textbox) {
@@ -91,8 +91,8 @@ public abstract class Module extends JPanel {
      * Initlizes JList contents and adds
      */
     private void initializeModuleContents () {
-        listModel = new DefaultListModel();
-        list = new JList(listModel);
+        listModel = new DefaultListModel<ModuleData>();
+        list = new JList<ModuleData>(listModel);
         addSelectionListener(list);
 
         JScrollPane listScrollPane = new JScrollPane(list);
@@ -105,7 +105,7 @@ public abstract class Module extends JPanel {
      * 
      * @param list Jlist selection listener needs to be added to
      */
-    private void addSelectionListener (final JList list) {
+    private void addSelectionListener (final JList<ModuleData> list) {
         list.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged (ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {

@@ -1,9 +1,9 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 import model.Model;
 
 

@@ -1,4 +1,4 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.awt.BorderLayout;
 import java.awt.TextField;
@@ -18,9 +18,9 @@ public class EditBar extends JPanel {
     JButton edit;
     TextField textfield;
     JList<ModuleData> list;
-    DefaultListModel listModel;
+    DefaultListModel<ModuleData> listModel;
 
-    public EditBar (JList<ModuleData> list, DefaultListModel listModel) {
+    public EditBar (JList<ModuleData> list, DefaultListModel<ModuleData> listModel) {
         this.list = list;
         this.listModel = listModel;
         JPanel bottomPane = new JPanel();
@@ -61,7 +61,6 @@ public class EditBar extends JPanel {
 
             }
 
-            @SuppressWarnings("unchecked")
             private void updateVariable (int index, ModuleData selected, String putStatus) {
                 if (putStatus.equals("")) {
 

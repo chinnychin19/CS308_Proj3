@@ -1,13 +1,14 @@
-package view.input;
+package view.inputPanel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
 import view.View;
-import view.sidebar.ModulePanel;
+import view.modulePanel.ModulePanel;
 import model.Model;
 
 
+@SuppressWarnings("serial")
 public class RunButton extends JButton {
     Textbox textbox;
     ModulePanel sidebar;
@@ -67,7 +68,7 @@ public class RunButton extends JButton {
         String input = textbox.getInput();
 
         if (input.trim().equals("")) { return ""; }
-        view.displayError(Model.parseInput(input)); // Errors need to be implemented on Model side
+        view.displayError(Model.parseInput(input));
         textbox.clear();
         return input;
 

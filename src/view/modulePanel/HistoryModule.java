@@ -1,10 +1,8 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-import javax.swing.JLabel;
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 import model.Model;
 
 
@@ -35,7 +33,6 @@ public class HistoryModule extends Module {
 
     @Override
     protected String getModuleName () {
-
         return MODULE_NAME;
     }
 

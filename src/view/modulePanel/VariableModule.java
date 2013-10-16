@@ -1,10 +1,10 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import model.Model;
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 
 
 @SuppressWarnings("serial")

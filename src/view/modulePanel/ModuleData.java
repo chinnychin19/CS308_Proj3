@@ -1,4 +1,4 @@
-package view.sidebar;
+package view.modulePanel;
 
 import javax.swing.JComponent;
 

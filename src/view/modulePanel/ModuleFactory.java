@@ -1,6 +1,6 @@
-package view.sidebar;
+package view.modulePanel;
 
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 
 
 public class ModuleFactory {

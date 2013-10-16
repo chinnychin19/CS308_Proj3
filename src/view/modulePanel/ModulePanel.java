@@ -1,11 +1,11 @@
-package view.sidebar;
+package view.modulePanel;
 
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
-import view.input.Textbox;
+import view.inputPanel.Textbox;
 
 
 @SuppressWarnings("serial")
