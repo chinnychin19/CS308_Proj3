@@ -11,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
@@ -20,22 +22,19 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import jgame.JGColor;
 import model.Model;
-import view.sidebar.SidebarPanel;
 import view.display.Canvas;
 import view.display.ViewUpdater;
-import view.input.InputPanel;
-import view.input.RunButton;
-import view.input.Textbox;
+import view.inputPanel.InputPanel;
+import view.inputPanel.RunButton;
+import view.inputPanel.Textbox;
+import view.modulePanel.ModulePanel;
 
 
 public class View extends JFrame {
     protected ViewUpdater myViewUpdater;
-
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String USER_DIR = "user.dir";
-    private static final int FIELD_SIZE = 30;
 
     private static Canvas viewCanvas;
 
@@ -47,13 +46,16 @@ public class View extends JFrame {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
-        Textbox textbox = new Textbox(Constants.FIELD_SIZE);
-        final JPanel sidebarPanel = new SidebarPanel(textbox);
 
-        final JPanel inputPanel = new InputPanel();
-        RunButton runbutton = new RunButton("RUN", textbox, (SidebarPanel) sidebarPanel, this);
-        inputPanel.add(new JScrollPane(textbox));
-        inputPanel.add(runbutton);
+        Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
+
+        Textbox textbox = new Textbox(Constants.FIELD_SIZE);
+
+        paramaters.put("textbox", textbox);
+        JPanel modulePanel = PanelFactory.makePanel("module", paramaters);
+        RunButton runbutton = new RunButton("RUN", textbox, (ModulePanel) modulePanel, this);
+        paramaters.put("runbutton", runbutton);
+        JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
 
         final JPanel optionsPanel = new JPanel();
         optionsPanel.setLayout(new GridLayout(1, 0));
@@ -65,13 +67,14 @@ public class View extends JFrame {
         // optionsPanel.add(makeTurtleCheckBox());
         optionsPanel.add(makeStatusCheckBox());
 
+
         // optionsPanel.add(new Checkbox("Pen Down", null, true));
         optionsPanel.add(penColorChooser());
         optionsPanel.add(makeBackgroundChooser());
         optionsPanel.add(makeImageChooserButton());
         optionsPanel.add(makeHelpButton());
 
-        this.getContentPane().add(sidebarPanel, BorderLayout.EAST);
+        this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
         this.getContentPane().add(viewCanvas, BorderLayout.CENTER);
