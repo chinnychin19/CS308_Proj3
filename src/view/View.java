@@ -62,8 +62,8 @@ public class View extends JFrame {
 
         optionsPanel.add(makeGridCheckbox());
 
-        //optionsPanel.add(makeTurtleCheckBox());
-        optionsPanel.add(statusCheckBox());
+        // optionsPanel.add(makeTurtleCheckBox());
+        optionsPanel.add(makeStatusCheckBox());
 
         // optionsPanel.add(new Checkbox("Pen Down", null, true));
         optionsPanel.add(penColorChooser());
@@ -95,18 +95,8 @@ public class View extends JFrame {
 
     private JButton penColorChooser () {
         JButton result = new JButton("Change Pen Color");
-        result.addActionListener(penColorListener());
-        return result;
-    }
 
-    /**
-     * Method that creates ActionListener for backgroundChooser button
-     * 
-     * @return ActionListener for backgroundListener
-     */
-    private ActionListener penColorListener () {
-        ActionListener listener = new ActionListener() {
-
+        result.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
                 Color newColor =
@@ -116,9 +106,9 @@ public class View extends JFrame {
                                                               .getBlue()));
             }
 
-        };
+        });
 
-        return listener;
+        return result;
     }
 
     /**
@@ -128,17 +118,7 @@ public class View extends JFrame {
      */
     private JButton makeBackgroundChooser () {
         JButton result = new JButton("Change BG Color");
-        result.addActionListener(backgroundListener());
-        return result;
-    }
-
-    /**
-     * Method that creates ActionListener for backgroundChooser button
-     * 
-     * @return ActionLitener for backgroundListener
-     */
-    private ActionListener backgroundListener () {
-        ActionListener listener = new ActionListener() {
+        result.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -149,57 +129,19 @@ public class View extends JFrame {
                                                                      .getBlue()));
             }
 
-        };
-
-        return listener;
-    }
-
-    /**
-     * Method that returns checkbox to toggle if turtle is visible
-     * 
-     * @return
-     */
-    private JCheckBox makeTurtleCheckBox () {
-        JCheckBox result = new JCheckBox("Turtle on Screen?", null, true);
-        result.addItemListener(turtleListener());
+        });
         return result;
     }
 
-    /**
-     * Listener to check if turtle is on screen
-     */
-    private ItemListener turtleListener () {
-        ItemListener listener = new ItemListener() {
-
-            public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    // TODO: Make this less hardcoded
-                    viewCanvas.changeTurtleImage("Turtle1.gif");
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    viewCanvas.changeTurtleImage("Invisible.gif");
-                }
-            }
-
-        };
-
-        return listener;
-    }
 
     /**
      * Checkbox for status
      * 
      * @return
      */
-    private JCheckBox statusCheckBox () {
+    private JCheckBox makeStatusCheckBox () {
         JCheckBox result = new JCheckBox("Turtle Status", null, true);
-        result.addItemListener(statusListener());
-
-        return result;
-    }
-
-    private ItemListener statusListener () {
-        ItemListener listener = new ItemListener() {
+        result.addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -210,9 +152,9 @@ public class View extends JFrame {
                 }
             }
 
-        };
+        });
 
-        return listener;
+        return result;
     }
 
     /**
@@ -222,19 +164,7 @@ public class View extends JFrame {
      */
     private JCheckBox makeGridCheckbox () {
         JCheckBox result = new JCheckBox("Grid", null, false);
-        result.addItemListener(gridListener());
-
-        return result;
-    }
-
-    /**
-     * Method that returns an ItemListener meant to be used with the Grid Checkbox. If the
-     * checkbox is toggled, the status of the grid is toggled within the canvas class
-     * 
-     * @return
-     */
-    private ItemListener gridListener () {
-        ItemListener listener = new ItemListener() {
+        result.addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -245,9 +175,9 @@ public class View extends JFrame {
                 }
             }
 
-        };
+        });
 
-        return listener;
+        return result;
     }
 
     /**
@@ -258,18 +188,7 @@ public class View extends JFrame {
     private JComboBox<?> makeImageChooserButton () {
         String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
         JComboBox<?> result = new JComboBox(turtleOptions);
-        result.addActionListener(imageListener());
-
-        return result;
-    }
-
-    /**
-     * Action Listener for image dropdown box
-     * 
-     * @return
-     */
-    private ActionListener imageListener () {
-        ActionListener listener = new ActionListener() {
+        result.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -278,9 +197,9 @@ public class View extends JFrame {
                 viewCanvas.changeTurtleImage(turtleSelection);
             }
 
-        };
+        });
 
-        return listener;
+        return result;
     }
 
     /**
@@ -290,17 +209,7 @@ public class View extends JFrame {
      */
     private JComponent makeHelpButton () {
         JButton result = new JButton("Help Me");
-        result.addActionListener(helpListener());
-        return result;
-    }
-
-    /**
-     * Method that creates action listener for help button
-     * 
-     * @return
-     */
-    private ActionListener helpListener () {
-        ActionListener listener = new ActionListener() {
+        result.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed (ActionEvent e) {
@@ -315,23 +224,13 @@ public class View extends JFrame {
                 }
             }
 
-        };
-
-        return listener;
+        });
+        return result;
     }
-
-    // private JComponent makeDisplay () {
-    // JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    // return display;
-    // }
 
     protected void sendInput () {
         String input = "";
         Model.parseInput(input);
-    }
-
-    private void updateSidebar () {
-
     }
 
     private void updateDisplay () {
