@@ -21,15 +21,15 @@ import view.inputPanel.Textbox;
 public abstract class Module extends JPanel {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
-    protected JList<ModuleData> list;
-    protected DefaultListModel<ModuleData> listModel;
-    private Textbox textbox;
+    protected JList<ModuleData> myList;
+    protected DefaultListModel<ModuleData> myListModel;
+    private Textbox myTextbox;
 
     protected Module (Textbox textbox) {
 
         super();
         setModuleName();
-        this.textbox = textbox;
+        this.myTextbox = textbox;
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         initializeModuleDisplay();
     }
@@ -38,7 +38,7 @@ public abstract class Module extends JPanel {
 
         super();
         setModuleName();
-        this.textbox = textbox;
+        this.myTextbox = textbox;
         setPreferredSize(new Dimension(width, height));
         initializeModuleDisplay();
 
@@ -80,9 +80,9 @@ public abstract class Module extends JPanel {
      */
     protected void updateContent () {
         Collection<ModuleData> listData = getStoredModelInformation();
-        listModel.clear();
+        myListModel.clear();
         for (ModuleData moduleData : listData) {
-            listModel.addElement(moduleData);
+            myListModel.addElement(moduleData);
 
         }
     }
@@ -91,11 +91,11 @@ public abstract class Module extends JPanel {
      * Initlizes JList contents and adds
      */
     private void initializeModuleContents () {
-        listModel = new DefaultListModel<ModuleData>();
-        list = new JList<ModuleData>(listModel);
-        addSelectionListener(list);
+        myListModel = new DefaultListModel<ModuleData>();
+        myList = new JList<ModuleData>(myListModel);
+        addSelectionListener(myList);
 
-        JScrollPane listScrollPane = new JScrollPane(list);
+        JScrollPane listScrollPane = new JScrollPane(myList);
         add(listScrollPane);
 
     }
@@ -110,7 +110,7 @@ public abstract class Module extends JPanel {
             public void valueChanged (ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
                     ModuleData selected = (ModuleData) list.getSelectedValue();
-                    textbox.setText(selected.content);
+                    myTextbox.setText(selected.myContent);
 
                 }
 

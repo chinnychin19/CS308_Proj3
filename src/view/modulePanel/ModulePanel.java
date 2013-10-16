@@ -10,27 +10,27 @@ import view.inputPanel.Textbox;
 
 @SuppressWarnings("serial")
 public class ModulePanel extends JPanel {
-    private List<Module> Modules;
+    private List<Module> myModules;
 
     public ModulePanel (Textbox textbox) {
         super();
-        Modules = new ArrayList<Module>();
+        myModules = new ArrayList<Module>();
 
         addModule(ModuleFactory.createModule("history", textbox));
         addModule(ModuleFactory.createModule("command", textbox));
         addModule(ModuleFactory.createModule("variable", textbox));
 
-        setLayout(new GridLayout(Modules.size(), 1));
+        setLayout(new GridLayout(myModules.size(), 1));
     }
 
     public void updateModules () {
-        for (Module module : Modules) {
+        for (Module module : myModules) {
             module.updateContent();
         }
     }
 
     private void addModule (Module module) {
-        Modules.add(module);
+        myModules.add(module);
         add((Component) module);
     }
 }

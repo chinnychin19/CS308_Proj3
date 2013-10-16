@@ -9,19 +9,19 @@ import view.inputPanel.Textbox;
 
 @SuppressWarnings("serial")
 public class VariableModule extends Module {
-    private EditBar editBar;
+    private EditBar myEditBar;
 
     public VariableModule (int width, int height, Textbox textbox) {
         super(width, height, textbox);
-        editBar = new EditBar(list, listModel);
-        this.add(editBar);
+        myEditBar = new EditBar(myList, myListModel);
+        this.add(myEditBar);
 
     }
 
     public VariableModule (Textbox textbox) {
         super(textbox);
-        editBar = new EditBar(list, listModel);
-        this.add(editBar);
+        myEditBar = new EditBar(myList, myListModel);
+        this.add(myEditBar);
     }
 
     @Override

@@ -6,6 +6,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
+
+@SuppressWarnings("serial")
 public class OptionsPanel extends JPanel {
 
     public OptionsPanel (JButton penColorChooser, JButton bgColorChooser,

@@ -10,16 +10,16 @@ import model.Model;
 
 @SuppressWarnings("serial")
 public class RunButton extends JButton {
-    Textbox textbox;
-    ModulePanel sidebar;
+    Textbox myTextbox;
+    ModulePanel mySidebar;
     private MouseListener myMouseListener;
-    private View view;
+    private View myView;
 
     public RunButton (String title, Textbox textbox, ModulePanel sidebar, View view) {
         super(title);
-        this.view = view;
-        this.textbox = textbox;
-        this.sidebar = sidebar;
+        myView = view;
+        myTextbox = textbox;
+        mySidebar = sidebar;
         Model.initModel();
         myMouseListener = new MouseListener() {
 
@@ -58,18 +58,18 @@ public class RunButton extends JButton {
     protected void executeRunCycle () {
 
         sendUserInput();
-        view.updateCanvasData();
-        sidebar.updateModules();
+        myView.updateCanvasData();
+        mySidebar.updateModules();
 
     }
 
     protected String sendUserInput () {
 
-        String input = textbox.getInput();
+        String input = myTextbox.getInput();
 
         if (input.trim().equals("")) { return ""; }
-        view.displayError(Model.parseInput(input));
-        textbox.clear();
+        myView.displayError(Model.parseInput(input));
+        myTextbox.clear();
         return input;
 
     }
