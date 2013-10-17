@@ -25,10 +25,10 @@ public class CommandsModule extends Module {
     @Override
     protected Collection<ModuleData> getStoredModelInformation () {
         Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
-        Map<String, String> commandMap = Model.getAllCommands();
-        for (String key : commandMap.keySet()) {
-            commandCollection.add(new ModuleData(key, commandMap.get(key)));
-        }
+//        Map<String, String> commandMap = Model.getAllCommands();
+//        for (String key : commandMap.keySet()) {
+//            commandCollection.add(new ModuleData(key, commandMap.get(key)));
+//        }
         return commandCollection;
     }
 

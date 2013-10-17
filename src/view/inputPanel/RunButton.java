@@ -20,13 +20,13 @@ public class RunButton extends JButton {
         myView = view;
         myTextbox = textbox;
         mySidebar = sidebar;
-        Model.initModel();
+        
         myMouseListener = new MouseListener() {
 
             @Override
             public void mouseClicked (MouseEvent e) {
 
-                executeRunCycle();
+                
 
             }
 
@@ -56,10 +56,10 @@ public class RunButton extends JButton {
     }
 
     protected void executeRunCycle () {
-
-        sendUserInput();
-        myView.updateCanvasData();
-        mySidebar.updateModules();
+//
+//        sendUserInput();
+//        myView.updateCanvasData();
+//        mySidebar.updateModules();
 
     }
 
@@ -67,9 +67,9 @@ public class RunButton extends JButton {
 
         String input = myTextbox.getInput();
 
-        if (input.trim().equals("")) { return ""; }
-        myView.displayError(Model.parseInput(input));
-        myTextbox.clear();
+//        if (input.trim().equals("")) { return ""; }
+//        myView.displayError(Model.parseInput(input));
+//        myTextbox.clear();
         return input;
 
     }
