@@ -7,16 +7,16 @@ import model.instruction.InstructionConstant;
 
 public class InstructionSETHEADING extends Instruction {
 
-    public InstructionSETHEADING (Instruction parent) {
-        super(1, parent);
+    public InstructionSETHEADING (Instruction parent, Model m) {
+        super(1, parent, m);
     }
 
     @Override
     public Instruction eval () throws Exception {
         Instruction param = getChildren().get(0).eval();
         double angle = ((InstructionConstant) param).getValue();
-        double deltaAngle = Model.getTurtle().doAbsoluteRotate(angle);
-        return new InstructionConstant(deltaAngle, null);
+        double deltaAngle = getModel().getTurtle().doAbsoluteRotate(angle);
+        return new InstructionConstant(deltaAngle, null, getModel());
     }
 
 }

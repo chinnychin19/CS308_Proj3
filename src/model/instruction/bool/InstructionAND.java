@@ -1,13 +1,14 @@
 package model.instruction.bool;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionAND extends Instruction {
 
-    public InstructionAND (Instruction parent) {
-        super(2, parent); // And takes two parameters
+    public InstructionAND (Instruction parent, Model m) {
+        super(2, parent, m); // And takes two parameters
     }
 
     @Override
@@ -16,7 +17,7 @@ public class InstructionAND extends Instruction {
         double b = ((InstructionConstant) getChildren().get(1).eval()).getValue();
         double c = a != 0 && b != 0 ? 1 : 0;
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 
 }

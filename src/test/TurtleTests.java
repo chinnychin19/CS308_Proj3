@@ -10,97 +10,97 @@ public class TurtleTests {
 
     @Test
     public void testFD () {
-        Model.initModel();
-        Model.parseInput("fd 10");
-        assertEquals(10, Model.getTurtle().getY(), DELTA);
+        Model model = new Model();
+        model.parseInput("fd 10");
+        assertEquals(10, model.getTurtle().getY(), DELTA);
     }
 
     @Test
     public void testBK () {
-        Model.initModel();
-        Model.parseInput("bk 10");
-        assertEquals(-10, Model.getTurtle().getY(), DELTA);
+        Model model = new Model();
+        model.parseInput("bk 10");
+        assertEquals(-10, model.getTurtle().getY(), DELTA);
     }
 
     @Test
     public void testLT () {
-        Model.initModel();
-        Model.parseInput("lt 10");
-        assertEquals(100, Model.getTurtle().getAngle(), DELTA);
+        Model model = new Model();
+        model.parseInput("lt 10");
+        assertEquals(100, model.getTurtle().getAngle(), DELTA);
     }
 
     @Test
     public void testRT () {
-        Model.initModel();
-        Model.parseInput("rt 10");
-        assertEquals(80, Model.getTurtle().getAngle(), DELTA);
+        Model model = new Model();
+        model.parseInput("rt 10");
+        assertEquals(80, model.getTurtle().getAngle(), DELTA);
     }
 
     @Test
     public void testSETH () {
-        Model.initModel();
-        Model.parseInput("seth 10");
-        assertEquals(10, Model.getTurtle().getAngle(), DELTA);
+        Model model = new Model();
+        model.parseInput("seth 10");
+        assertEquals(10, model.getTurtle().getAngle(), DELTA);
     }
 
     @Test
     public void testTOWARDS () {
-        Model.initModel();
-        Model.parseInput("towards -10 10");
-        assertEquals(135, Model.getTurtle().getAngle(), DELTA);
+        Model model = new Model();
+        model.parseInput("towards -10 10");
+        assertEquals(135, model.getTurtle().getAngle(), DELTA);
     }
 
     @Test
     public void testGOTO () {
-        Model.initModel();
-        Model.parseInput("goto -10 10");
-        assertEquals(-10, Model.getTurtle().getX(), DELTA);
-        assertEquals(10, Model.getTurtle().getY(), DELTA);
+        Model model = new Model();
+        model.parseInput("goto -10 10");
+        assertEquals(-10, model.getTurtle().getX(), DELTA);
+        assertEquals(10, model.getTurtle().getY(), DELTA);
     }
 
     @Test
     public void testPENUPDOWN () {
-        Model.initModel();
-        Model.parseInput("pd");
-        assertEquals(true, Model.getTurtle().isDrawing());
-        Model.parseInput("pu");
-        assertEquals(false, Model.getTurtle().isDrawing());
+        Model model = new Model();
+        model.parseInput("pd");
+        assertEquals(true, model.getTurtle().isDrawing());
+        model.parseInput("pu");
+        assertEquals(false, model.getTurtle().isDrawing());
     }
 
     @Test
     public void testSHOWHIDE () {
-        Model.initModel();
-        Model.parseInput("st");
-        assertEquals(true, Model.getTurtle().isVisible());
-        Model.parseInput("ht");
-        assertEquals(false, Model.getTurtle().isVisible());
+        Model model = new Model();
+        model.parseInput("st");
+        assertEquals(true, model.getTurtle().isVisible());
+        model.parseInput("ht");
+        assertEquals(false, model.getTurtle().isVisible());
     }
 
     @Test
     public void testHOME () {
-        Model.initModel();
-        Model.parseInput("fd 100 lt 90 fd 100");
+        Model model = new Model();
+        model.parseInput("fd 100 lt 90 fd 100");
         // go 100, turn left, go 100
-        assertEquals(-100, Model.getTurtle().getX(), DELTA);
-        assertEquals(100, Model.getTurtle().getY(), DELTA);
+        assertEquals(-100, model.getTurtle().getX(), DELTA);
+        assertEquals(100, model.getTurtle().getY(), DELTA);
 
-        Model.parseInput("home");
-        assertEquals(0, Model.getTurtle().getX(), DELTA);
-        assertEquals(0, Model.getTurtle().getY(), DELTA);
+        model.parseInput("home");
+        assertEquals(0, model.getTurtle().getX(), DELTA);
+        assertEquals(0, model.getTurtle().getY(), DELTA);
     }
 
     @Test
     public void testCS () {
-        Model.initModel();
-        Model.parseInput("fd 100 lt 90 pu fd 50 pd fd 50");
+        Model model = new Model();
+        model.parseInput("fd 100 lt 90 pu fd 50 pd fd 50");
         // go 100 w/ drawing, turn left, go 50 w/o drawing, then 50 w/ drawing
-        assertEquals(2, Model.getTurtlePaths().size());
-        assertEquals(-100, Model.getTurtle().getX(), DELTA);
-        assertEquals(100, Model.getTurtle().getY(), DELTA);
+        assertEquals(2, model.getTurtlePaths().size());
+        assertEquals(-100, model.getTurtle().getX(), DELTA);
+        assertEquals(100, model.getTurtle().getY(), DELTA);
 
-        Model.parseInput("cs");
-        assertEquals(0, Model.getTurtlePaths().size());
-        assertEquals(0, Model.getTurtle().getX(), DELTA);
-        assertEquals(0, Model.getTurtle().getY(), DELTA);
+        model.parseInput("cs");
+        assertEquals(0, model.getTurtlePaths().size());
+        assertEquals(0, model.getTurtle().getX(), DELTA);
+        assertEquals(0, model.getTurtle().getY(), DELTA);
     }
 }

@@ -1,12 +1,13 @@
 package model.instruction.conditional;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionIF extends InstructionConditional {
-    public InstructionIF (Instruction parent) {
-        super(2, parent);
+    public InstructionIF (Instruction parent, Model m) {
+        super(2, parent, m);
     }
 
     @Override
@@ -17,7 +18,7 @@ public class InstructionIF extends InstructionConditional {
                     .eval();
         }
         else {
-            return new InstructionConstant(0, null);
+            return new InstructionConstant(0, null, getModel());
         }
     }
 }

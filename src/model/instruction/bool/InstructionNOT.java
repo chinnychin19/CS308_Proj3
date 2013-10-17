@@ -1,13 +1,14 @@
 package model.instruction.bool;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionNOT extends Instruction {
 
-    public InstructionNOT (Instruction parent) {
-        super(1, parent); // Not takes one parameter
+    public InstructionNOT (Instruction parent, Model m) {
+        super(1, parent, m); // Not takes one parameter
     }
 
     @Override
@@ -15,7 +16,7 @@ public class InstructionNOT extends Instruction {
         double a = ((InstructionConstant) getChildren().get(0).eval()).getValue();
         a = a == 0 ? 1 : 0;
 
-        return new InstructionConstant(a, null);
+        return new InstructionConstant(a, null, getModel());
     }
 
 }

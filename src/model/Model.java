@@ -3,51 +3,58 @@ package model;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import model.instruction.InstructionFactory;
 import model.instruction.command.UserCommand;
 
 
 public class Model {
-    protected static Interpreter myInterpreter;
-    protected static CommandCache myCommandCache;
-    protected static VariableCache myVariableCache;
-    protected static InstructionQueue myInstructionQueue;
-    protected static Turtle myTurtle = new Turtle();
-    protected static CommandHistory myCommandHistory;
+    private Interpreter myInterpreter;
+    private CommandCache myCommandCache;
+    private VariableCache myVariableCache;
+    private InstructionQueue myInstructionQueue;
+    private Turtle myTurtle = new Turtle();
+    private CommandHistory myCommandHistory;
+    private InstructionFactory myInstructionFactory;
 
-    public static void initModel () {
-        myInterpreter = new Interpreter();
+    public Model () {
+        myInterpreter = new Interpreter(this);
         myCommandCache = new CommandCache();
         myVariableCache = new VariableCache();
         myInstructionQueue = new InstructionQueue();
         myTurtle = new Turtle();
         myCommandHistory = new CommandHistory();
+        myInstructionFactory = new InstructionFactory(this);
     }
 
-    public static Interpreter getInterpreter () {
+    public InstructionFactory getInstructionFactory () {
+        return myInstructionFactory;
+    }
+
+    public Interpreter getInterpreter () {
         return myInterpreter;
     }
 
-    public static CommandCache getCommandCache () {
+    public CommandCache getCommandCache () {
         return myCommandCache;
     }
 
-    public static VariableCache getVariableCache () {
+    public VariableCache getVariableCache () {
         return myVariableCache;
     }
 
-    public static InstructionQueue getInstructionQueue () {
+    public InstructionQueue getInstructionQueue () {
         return myInstructionQueue;
     }
 
-    public static Turtle getTurtle () {
+    public Turtle getTurtle () {
         return myTurtle;
     }
 
-    public static CommandHistory getCommandHistory () {
+    public CommandHistory getCommandHistory () {
         return myCommandHistory;
     }
 
-    public static String parseInput (String s) {
+    public String parseInput (String s) {
         String ret = myInterpreter.parseInput(s);
         // while (hasNextInstruction()) {
         // ret = processNextInstruction();
@@ -55,67 +62,67 @@ public class Model {
         return ret; // ret will be non-empty i.f.f. there is an error
     }
 
-    protected static String processNextInstruction () {
+    protected String processNextInstruction () {
         return myInstructionQueue.processNextInstruction();
     }
 
-    protected static boolean hasNextInstruction () {
+    protected boolean hasNextInstruction () {
         return myInstructionQueue.hasNextInstruction();
     }
 
-    public static double getTurtleX () {
+    public double getTurtleX () {
         return myTurtle.getX();
     }
 
-    public static double getTurtleY () {
+    public double getTurtleY () {
         return myTurtle.getY();
     }
 
-    public static double getTurtleAngle () {
+    public double getTurtleAngle () {
         return myTurtle.getAngle();
     }
 
-    public static boolean isTurtleVisible () {
+    public boolean isTurtleVisible () {
         return myTurtle.isVisible();
     }
 
-    public static boolean isTurtleDrawing () {
+    public boolean isTurtleDrawing () {
         return myTurtle.isDrawing();
     }
 
-    public static Collection<Path> getTurtlePaths () {
+    public Collection<Path> getTurtlePaths () {
         return myTurtle.getPaths();
     }
 
-    public static String putVariable (String key, String value) {
+    public String putVariable (String key, String value) {
         return myVariableCache.put(key, value); // returns non-empty string if error
     }
 
-    public static Map<String, String> getAllVariables () {
+    public Map<String, String> getAllVariables () {
         return myVariableCache.getKeyValuePairs();
     }
 
-    public static void clearVariables () {
+    public void clearVariables () {
         myVariableCache.clear();
     }
 
-    public static Map<String, String> getAllCommands () {
+    public Map<String, String> getAllCommands () {
         return myCommandCache.getAllCommands();
     }
 
-    public static void putCommand (String key, UserCommand value) {
+    public void putCommand (String key, UserCommand value) {
         myCommandCache.put(key, value);
     }
 
-    public static void clearCommands () {
+    public void clearCommands () {
         myCommandCache.clear();
     }
 
-    public static List<String> getHistory () {
+    public List<String> getHistory () {
         return myCommandHistory.getHistory();
     }
 
-    public static void clearHistory () {
+    public void clearHistory () {
         myCommandHistory.clear();
     }
 }

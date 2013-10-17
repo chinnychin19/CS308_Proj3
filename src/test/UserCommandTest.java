@@ -11,52 +11,52 @@ public class UserCommandTest {
 
     @Test
     public void testSimple () {
-        Model.initModel();
-        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
-        assertEquals(0, Model.getTurtle().getY(), DELTA);
-        Model.parseInput("rookMove 5");
-        assertEquals(10, Model.getTurtle().getY(), DELTA);
-        assertEquals(5, Model.getTurtle().getX(), DELTA);
+        Model model = new Model();
+        model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+        assertEquals(0, model.getTurtle().getY(), DELTA);
+        model.parseInput("rookMove 5");
+        assertEquals(10, model.getTurtle().getY(), DELTA);
+        assertEquals(5, model.getTurtle().getX(), DELTA);
     }
 
     @Test
     public void testNested () {
-        Model.initModel();
-        Model.parseInput("to rookMove [ :step ] [ fd :step fd :step ]");
-        Model.parseInput("to secondMove [ :step :rotate ] [ rookMove :step rt :rotate rookMove :step ]");
+        Model model = new Model();
+        model.parseInput("to rookMove [ :step ] [ fd :step fd :step ]");
+        model.parseInput("to secondMove [ :step :rotate ] [ rookMove :step rt :rotate rookMove :step ]");
         // TODO: if variable name same as before, will call original value. If new name, will use
         // original :step value when calling rookMove
-        Model.parseInput("rookMove 5");
-        assertEquals(10, Model.getTurtle().getY(), DELTA);
-        Model.parseInput("secondMove 3 90");
-        assertEquals(16, Model.getTurtle().getY(), DELTA);
-        assertEquals(6, Model.getTurtle().getX(), DELTA);
+        model.parseInput("rookMove 5");
+        assertEquals(10, model.getTurtle().getY(), DELTA);
+        model.parseInput("secondMove 3 90");
+        assertEquals(16, model.getTurtle().getY(), DELTA);
+        assertEquals(6, model.getTurtle().getX(), DELTA);
     }
 
     @Test
     public void testNoParams () {
-        Model.initModel();
-        Model.parseInput("to square [  ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
-        Model.parseInput("square");
-        assertEquals(0, Model.getTurtle().getX(), DELTA);
-        assertEquals(0, Model.getTurtle().getY(), DELTA);
-        assertEquals(90, Model.getTurtle().getAngle(), DELTA);
+        Model model = new Model();
+        model.parseInput("to square [  ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
+        model.parseInput("square");
+        assertEquals(0, model.getTurtle().getX(), DELTA);
+        assertEquals(0, model.getTurtle().getY(), DELTA);
+        assertEquals(90, model.getTurtle().getAngle(), DELTA);
     }
 
     @Test
     public void testCallImmediately () {
-        Model.initModel();
-        Model.parseInput("to simpleMove [ :step ] [ fd :step ] simpleMove 2");
-        assertEquals(2, Model.getTurtle().getY(), DELTA);
+        Model model = new Model();
+        model.parseInput("to simpleMove [ :step ] [ fd :step ] simpleMove 2");
+        assertEquals(2, model.getTurtle().getY(), DELTA);
     }
 
     // @Test
     // public void testCommandInLoop () {
-    // Model.initModel();
-    // Model.parseInput("to fun [ :f ] [ repeat 5 [ fd :f rt 36 ] ]");
-    // Model.parseInput("repeat 10 [ fun * :repcount 10 ]");
-    // assertNotEquals(0, Model.getTurtle().getX(), DELTA);
-    // assertNotEquals(0, Model.getTurtle().getY(), DELTA);
+    // Model2 model = new Model2();
+    // model.parseInput("to fun [ :f ] [ repeat 5 [ fd :f rt 36 ] ]");
+    // model.parseInput("repeat 10 [ fun * :repcount 10 ]");
+    // assertNotEquals(0, model.getTurtle().getX(), DELTA);
+    // assertNotEquals(0, model.getTurtle().getY(), DELTA);
     // }
 
 }

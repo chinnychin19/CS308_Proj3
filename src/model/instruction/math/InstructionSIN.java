@@ -1,5 +1,6 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -8,8 +9,8 @@ public class InstructionSIN extends Instruction {
 
     private static final int PI_DEGREES = 180;
 
-    public InstructionSIN (Instruction parent) {
-        super(1, parent); // Sine takes one parameter
+    public InstructionSIN (Instruction parent, Model m) {
+        super(1, parent, m); // Sine takes one parameter
     }
 
     @Override
@@ -18,7 +19,7 @@ public class InstructionSIN extends Instruction {
         double radians = degrees * Math.PI / PI_DEGREES;
         double ret = Math.sin(radians);
 
-        return new InstructionConstant(ret, null);
+        return new InstructionConstant(ret, null, getModel());
     }
 
 }

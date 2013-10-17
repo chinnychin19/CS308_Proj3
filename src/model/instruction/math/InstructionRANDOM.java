@@ -1,5 +1,6 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.error.NonPositiveRandom;
@@ -7,8 +8,8 @@ import model.instruction.error.NonPositiveRandom;
 
 public class InstructionRANDOM extends Instruction {
 
-    public InstructionRANDOM (Instruction parent) {
-        super(1, parent); // Random takes one parameter
+    public InstructionRANDOM (Instruction parent, Model m) {
+        super(1, parent, m); // Random takes one parameter
     }
 
     @Override
@@ -17,7 +18,7 @@ public class InstructionRANDOM extends Instruction {
         if (a <= 0) { throw new NonPositiveRandom(); }
         a = (int) (a * Math.random());
 
-        return new InstructionConstant(a, null);
+        return new InstructionConstant(a, null, getModel());
     }
 
 }

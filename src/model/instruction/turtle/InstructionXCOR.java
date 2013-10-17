@@ -7,14 +7,14 @@ import model.instruction.InstructionConstant;
 
 public class InstructionXCOR extends Instruction {
 
-    public InstructionXCOR (Instruction parent) {
-        super(0, parent);
+    public InstructionXCOR (Instruction parent, Model m) {
+        super(0, parent, m);
     }
 
     @Override
     public Instruction eval () throws Exception {
-        double ret = Model.getTurtle().getX();
-        return new InstructionConstant(ret, null);
+        double ret = getModel().getTurtle().getX();
+        return new InstructionConstant(ret, null, getModel());
     }
 
 }

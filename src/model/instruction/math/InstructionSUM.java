@@ -1,13 +1,14 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionSUM extends Instruction {
 
-    public InstructionSUM (Instruction parent) {
-        super(2, parent); // Sum takes two parameters
+    public InstructionSUM (Instruction parent, Model m) {
+        super(2, parent, m); // Sum takes two parameters
     }
 
     @Override
@@ -16,6 +17,6 @@ public class InstructionSUM extends Instruction {
         double b = ((InstructionConstant) getChildren().get(1).eval()).getValue();
         double c = a + b;
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 }

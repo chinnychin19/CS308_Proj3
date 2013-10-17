@@ -17,14 +17,14 @@ public class UserCommand extends Instruction {
     public UserCommand (Instruction parent,
                         String name,
                         List<String> paramNames,
-                        String commandBody) {
-        super(paramNames.size(), parent);
+                        String commandBody, Model m) {
+        super(paramNames.size(), parent, m);
         myParamNames = paramNames;
         myDefinitionString = commandBody;
         commandBody = commandBody.substring(1, commandBody.length() - 1).trim();
         // chop off brackets
-        List<Instruction> commandList = Model.getInterpreter().getInstructions(commandBody);
-        myRootCommand = new InstructionListNode(null);
+        List<Instruction> commandList = getModel().getInterpreter().getInstructions(commandBody);
+        myRootCommand = new InstructionListNode(null, getModel());
         for (Instruction instr : commandList) {
             myRootCommand.addChild(instr);
         }

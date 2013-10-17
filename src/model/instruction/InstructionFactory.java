@@ -10,185 +10,191 @@ import dataType.DataTypeChecker;
 
 
 public class InstructionFactory {
-    public static Instruction getInstruction (String s, Instruction parent) {
+    private Model myModel;
+
+    public InstructionFactory (Model m) {
+        myModel = m;
+    }
+
+    public Instruction getInstruction (String s, Instruction parent) {
         if (DataTypeChecker.isString(s)) {
             // User variables
-            if (s.charAt(0) == ':') { return new InstructionVariable(s, parent); }
+            if (s.charAt(0) == ':') { return new InstructionVariable(s, parent, myModel); }
 
             // Setters
             if (s.equalsIgnoreCase("MAKE") || s.equalsIgnoreCase("SET")) {
                 return new InstructionMAKE(
-                                           parent);
+                                           parent, myModel);
             }
-            else if (s.equalsIgnoreCase("TO")) { return new InstructionTO(parent); }
+            else if (s.equalsIgnoreCase("TO")) { return new InstructionTO(parent, myModel); }
 
             // Control Structures
             if (s.equalsIgnoreCase("FOR")) {
-                return new InstructionFOR(parent);
+                return new InstructionFOR(parent, myModel);
             }
             else if (s.equalsIgnoreCase("DOTIMES")) {
-                return new InstructionDOTIMES(parent);
+                return new InstructionDOTIMES(parent, myModel);
             }
             else if (s.equalsIgnoreCase("REPEAT")) {
-                return new InstructionREPEAT(parent);
+                return new InstructionREPEAT(parent, myModel);
             }
             else if (s.equalsIgnoreCase("IF")) {
-                return new InstructionIF(parent);
+                return new InstructionIF(parent, myModel);
             }
-            else if (s.equalsIgnoreCase("IFELSE")) { return new InstructionIFELSE(parent); }
+            else if (s.equalsIgnoreCase("IFELSE")) { return new InstructionIFELSE(parent, myModel); }
 
             // Turtle operations
             if (s.equalsIgnoreCase("FD") || s.equalsIgnoreCase("FORWARD")) {
                 return new InstructionFORWARD(
-                                              parent);
+                                              parent, myModel);
             }
             else if (s.equalsIgnoreCase("BK") || s.equalsIgnoreCase("BACK")) {
                 return new InstructionBACK(
-                                           parent);
+                                           parent, myModel);
             }
             else if (s.equalsIgnoreCase("LT") || s.equalsIgnoreCase("LEFT")) {
                 return new InstructionLEFT(
-                                           parent);
+                                           parent, myModel);
             }
             else if (s.equalsIgnoreCase("RT") || s.equalsIgnoreCase("RIGHT")) {
                 return new InstructionRIGHT(
-                                            parent);
+                                            parent, myModel);
             }
             else if (s.equalsIgnoreCase("SETH") || s.equalsIgnoreCase("SETHEADING")) {
                 return new InstructionSETHEADING(
-                                                 parent);
+                                                 parent, myModel);
             }
             else if (s.equalsIgnoreCase("TOWARDS")) {
-                return new InstructionTOWARDS(parent);
+                return new InstructionTOWARDS(parent, myModel);
             }
             else if (s.equalsIgnoreCase("GOTO") || s.equalsIgnoreCase("SETXY")) {
                 return new InstructionSETXY(
-                                            parent);
+                                            parent, myModel);
             }
             else if (s.equalsIgnoreCase("PD") || s.equalsIgnoreCase("PENDOWN")) {
                 return new InstructionPENDOWN(
-                                              parent);
+                                              parent, myModel);
             }
             else if (s.equalsIgnoreCase("PU") || s.equalsIgnoreCase("PENUP")) {
                 return new InstructionPENUP(
-                                            parent);
+                                            parent, myModel);
             }
             else if (s.equalsIgnoreCase("ST") || s.equalsIgnoreCase("SHOWTURTLE")) {
                 return new InstructionSHOWTURTLE(
-                                                 parent);
+                                                 parent, myModel);
             }
             else if (s.equalsIgnoreCase("HT") || s.equalsIgnoreCase("HIDETURTLE")) {
                 return new InstructionHIDETURTLE(
-                                                 parent);
+                                                 parent, myModel);
             }
             else if (s.equalsIgnoreCase("HOME")) {
-                return new InstructionHOME(parent);
+                return new InstructionHOME(parent, myModel);
             }
             else if (s.equalsIgnoreCase("CS") || s.equalsIgnoreCase("CLEARSCREEN")) {
                 return new InstructionCLEARSCREEN(
-                                                  parent);
+                                                  parent, myModel);
             }
 
             // Turtle queries
             else if (s.equalsIgnoreCase("XCOR")) {
-                return new InstructionXCOR(parent);
+                return new InstructionXCOR(parent, myModel);
             }
             else if (s.equalsIgnoreCase("YCOR")) {
-                return new InstructionYCOR(parent);
+                return new InstructionYCOR(parent, myModel);
             }
             else if (s.equalsIgnoreCase("HEADING")) {
-                return new InstructionHEADING(parent);
+                return new InstructionHEADING(parent, myModel);
             }
             else if (s.equalsIgnoreCase("PENDOWN?") || s.equalsIgnoreCase("PENDOWNP")) {
                 return new InstructionPENDOWNP(
-                                               parent);
+                                               parent, myModel);
             }
             else if (s.equalsIgnoreCase("SHOWNG?") || s.equalsIgnoreCase("SHOWINGP")) {
                 return new InstructionSHOWINGP(
-                                               parent);
+                                               parent, myModel);
             }
 
             // Math operations
             else if (s.equalsIgnoreCase("+") || s.equalsIgnoreCase("SUM")) {
                 return new InstructionSUM(
-                                          parent);
+                                          parent, myModel);
             }
             else if (s.equalsIgnoreCase("-") || s.equalsIgnoreCase("DIFFERENCE")) {
                 return new InstructionDIFFERENCE(
-                                                 parent);
+                                                 parent, myModel);
             }
             else if (s.equalsIgnoreCase("*") || s.equalsIgnoreCase("PRODUCT")) {
                 return new InstructionPRODUCT(
-                                              parent);
+                                              parent, myModel);
             }
             else if (s.equalsIgnoreCase("/") || s.equalsIgnoreCase("QUOTIENT")) {
                 return new InstructionQUOTIENT(
-                                               parent);
+                                               parent, myModel);
             }
             else if (s.equalsIgnoreCase("%") || s.equalsIgnoreCase("REMAINDER")) {
                 return new InstructionREMAINDER(
-                                                parent);
+                                                parent, myModel);
             }
             else if (s.equalsIgnoreCase("~") || s.equalsIgnoreCase("MINUS")) {
                 return new InstructionMINUS(
-                                            parent);
+                                            parent, myModel);
             }
             else if (s.equalsIgnoreCase("RANDOM")) {
-                return new InstructionRANDOM(parent);
+                return new InstructionRANDOM(parent, myModel);
             }
             else if (s.equalsIgnoreCase("SIN")) {
-                return new InstructionSIN(parent);
+                return new InstructionSIN(parent, myModel);
             }
             else if (s.equalsIgnoreCase("COS")) {
-                return new InstructionCOS(parent);
+                return new InstructionCOS(parent, myModel);
             }
             else if (s.equalsIgnoreCase("TAN")) {
-                return new InstructionTAN(parent);
+                return new InstructionTAN(parent, myModel);
             }
             else if (s.equalsIgnoreCase("ATAN")) {
-                return new InstructionATAN(parent);
+                return new InstructionATAN(parent, myModel);
             }
             else if (s.equalsIgnoreCase("LOG")) {
-                return new InstructionLOG(parent);
+                return new InstructionLOG(parent, myModel);
             }
             else if (s.equalsIgnoreCase("POW")) {
-                return new InstructionPOW(parent);
+                return new InstructionPOW(parent, myModel);
             }
 
             // Bool operations
             else if (s.equalsIgnoreCase("LESS?") || s.equalsIgnoreCase("LESSP")) {
                 return new InstructionLESS(
-                                           parent);
+                                           parent, myModel);
             }
             else if (s.equalsIgnoreCase("GREATER?") || s.equalsIgnoreCase("GREATERP")) {
                 return new InstructionGREATER(
-                                              parent);
+                                              parent, myModel);
             }
             else if (s.equalsIgnoreCase("EQUAL?") || s.equalsIgnoreCase("EQUALP")) {
                 return new InstructionEQUAL(
-                                            parent);
+                                            parent, myModel);
             }
             else if (s.equalsIgnoreCase("NOTEQUAL?") || s.equalsIgnoreCase("NOTEQUALP")) {
                 return new InstructionNOTEQUAL(
-                                               parent);
+                                               parent, myModel);
             }
             else if (s.equalsIgnoreCase("AND")) {
                 return new InstructionAND(
-                                          parent);
+                                          parent, myModel);
             }
             else if (s.equalsIgnoreCase("OR")) {
                 return new InstructionOR(
-                                         parent);
+                                         parent, myModel);
             }
             else if (s.equalsIgnoreCase("NOT")) {
                 return new InstructionNOT(
-                                          parent);
+                                          parent, myModel);
             }
 
             // Unrecognized
             else {
-                if (Model.getCommandCache().contains(s)) {
-                    return Model.getCommandCache().get(s);
+                if (myModel.getCommandCache().contains(s)) {
+                    return myModel.getCommandCache().get(s);
                 }
                 else {
                     return null;
@@ -196,7 +202,7 @@ public class InstructionFactory {
             }
         }
         else { // is a number
-            return new InstructionConstant(Double.parseDouble(s), parent);
+            return new InstructionConstant(Double.parseDouble(s), parent, myModel);
         }
     }
 }
