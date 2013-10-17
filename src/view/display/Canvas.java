@@ -9,6 +9,7 @@ import jgame.JGFont;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
 
+
 /**
  * Class that displays the turtle sprite(s) within the canvas. Grid can be turned on or off
  * 
@@ -24,7 +25,10 @@ public class Canvas extends JGEngine {
     private JGColor myPenColor = JGColor.red;
     private boolean myGridOn = false;
     private boolean myStatusOn = true;
-    private boolean myVisible = true;    
+    private boolean myVisible = true;
+    private boolean myMouseClicked = false;
+    private ArrayList<TurtleSprite> myTurtleList = new ArrayList<TurtleSprite>();
+    private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
 
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
@@ -58,7 +62,26 @@ public class Canvas extends JGEngine {
                 new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                                  Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET, 1,
                                  "turtleGif");
-        // dbgShowBoundingBox (true);
+        dbgShowBoundingBox(true);
+    }
+    
+    @Override
+    public void doFrame(){
+        handleMouseClick();
+    }
+    
+    /**
+     * Sends coordinates of mouse clicking
+     */
+    public void handleMouseClick(){
+        if (getMouseButton(1)){     
+            myMouseClicked=true;
+            System.out.println(getMouseX() + " " + getMouseY()); //How to ensure only once?
+        }
+        
+        else if (!getMouseButton(1) && myMouseClicked){
+            myMouseClicked=false;
+        }
     }
 
     @Override
@@ -79,7 +102,7 @@ public class Canvas extends JGEngine {
     }
 
     public void drawStatus () {
-        int offset = 5;  
+        int offset = 5;
         drawString("X: " + (myTurtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5, offset, -1,
                    new JGFont("arial", 0, 12),
                    myPenColor);
@@ -124,7 +147,8 @@ public class Canvas extends JGEngine {
      * @param error
      */
     public void displayError (String error) {
-        drawString(error, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT * .95, 0,
+        drawString(error, Constants.CANVAS_WIDTH / 2, Constants.CANVAS_HEIGHT *
+                                                      Constants.ERROR_MESSAGE_OFFSET, 0,
                    new JGFont("arial", 0, 12), JGColor.red);
     }
 
@@ -151,7 +175,7 @@ public class Canvas extends JGEngine {
      */
     public void moveTurtle (double x, double y) {
         myTurtle.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+                        -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
     }
 
     /**
@@ -226,6 +250,32 @@ public class Canvas extends JGEngine {
         myHeading = newHeading;
 
     }
+    
+    /**
+     * 
+     * @param pathPiece Part of path to be examined
+     * @return altered path pieces (what?)
+     */
+//    public Path forceWithinBounds (Path pathPiece) {
+//        if (pathPiece.getX2() > Constants.CANVAS_WIDTH) {
+//            x = x % Constants.CANVAS_WIDTH;
+//        }
+//
+//        else if (x.getX2() < 0) {
+//            x = Constants.CANVAS_WIDTH - (Math.abs(x) % Constants.CANVAS_WIDTH);
+//        }
+//
+//        if (y > Constants.CANVAS_HEIGHT) {
+//            y = y % Constants.CANVAS_HEIGHT;
+//        }
+//
+//        else if (y < 0) {
+//            y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
+//        }
+//
+//        return new Path((float) x, (float) y);
+//    }
+    
 
     public void adjustImageAngle (double angle) {
         if (angle >= 45 && angle < 135) {

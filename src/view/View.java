@@ -7,15 +7,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
+import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import jgame.JGColor;
 import model.Model;
@@ -56,9 +63,10 @@ public class View extends JFrame {
         paramaters.put("status", makeStatusCheckBox());
         paramaters.put("image", makeImageChooserButton());
         paramaters.put("grid", makeGridCheckbox());
-        paramaters.put("help", makeHelpButton());
+        //paramaters.put("help", makeHelpButton());
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
 
+        this.menu();
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
@@ -189,15 +197,72 @@ public class View extends JFrame {
         return result;
     }
 
-    /**
-     * Method that creates button to open html help page
-     * 
-     * @return button with label "Help Me"
-     */
-    private JButton makeHelpButton () {
-        JButton result = new JButton("Help Me");
-        result.addActionListener(new ActionListener() {
+//    /**
+//     * Method that creates button to open html help page
+//     * 
+//     * @return button with label "Help Me"
+//     */
+//    private JButton makeHelpButton () {
+//        JButton result = new JButton("Help Me");
+//        result.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed (ActionEvent e) {
+//                String helpPage =
+//                        "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
+//                try {
+//                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
+//                }
+//                catch (IOException e1) {
+//                    // TODO Auto-generated catch block
+//                    e1.printStackTrace();
+//                }
+//            }
+//
+//        });
+//        return result;
+//    }
 
+    protected void sendInput () {
+        String input = "";
+        Model.parseInput(input);
+    }
+
+//    private void updateDisplay () {
+//        myViewUpdater.displayOutput();
+//    }
+    
+    private void menu(){
+        JMenuBar bar = new JMenuBar();
+        bar.add(fileMenu());
+        bar.add(helpMenu());
+        setJMenuBar(bar);
+    }
+    
+    private JMenu fileMenu(){
+        JMenu result = new JMenu("File");
+        
+        result.add(new AbstractAction("Open"){
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // TODO Auto-generated method stub                
+            }                       
+        });
+        
+        result.add(new AbstractAction("Save"){
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // TODO Auto-generated method stub                
+            }                       
+        });
+        
+        return result;
+    }
+    
+    private JMenu helpMenu(){
+        JMenu result = new JMenu("Help");
+        
+        result.add(new AbstractAction("Part 2 Help"){
             @Override
             public void actionPerformed (ActionEvent e) {
                 String helpPage =
@@ -209,19 +274,27 @@ public class View extends JFrame {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-            }
-
+                          
+            }                       
         });
+        
+        result.add(new AbstractAction("Part 3 Help"){
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                String helpPage =
+                        "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands2.php";
+                try {
+                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
+                }
+                catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+                          
+            }                       
+        });
+        
         return result;
-    }
-
-    protected void sendInput () {
-        String input = "";
-        Model.parseInput(input);
-    }
-
-    private void updateDisplay () {
-        myViewUpdater.displayOutput();
     }
 
     public static void main (String[] args) {
