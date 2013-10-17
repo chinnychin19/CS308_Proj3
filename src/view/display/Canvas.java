@@ -61,8 +61,7 @@ public class Canvas extends JGEngine {
         myTurtle =
                 new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                                  Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET, 1,
-                                 "turtleGif");
-        dbgShowBoundingBox(true);
+                                 "turtleGif", 1);
     }
     
     @Override
