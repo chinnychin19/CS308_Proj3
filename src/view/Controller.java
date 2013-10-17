@@ -40,7 +40,7 @@ class Controller {
         myView.update();
     }
 
-    void executeCommand () {
+    protected void executeCommand () {
         currentModel.parseInput(myTextbox.getText());
         myView.update();
     }

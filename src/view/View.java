@@ -87,6 +87,10 @@ public class View extends JFrame {
 
     }
 
+    public void runCommand () {
+        myController.executeCommand();
+    }
+
     // SUSAN BEGIN COMPLETING METHODS
 
     protected void update () {
@@ -110,7 +114,11 @@ public class View extends JFrame {
     }
 
     protected void updateCanvasPanel () {
-        // TODO
+        // SUSAN FIX THE INDEX VALUES PLEASE :)
+        myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
+        myCanvas.setHeading(myModel.getTurtleAngle(1));
+        myCanvas.setPaths(myModel.getTurtlePaths());
+        myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
     }
 
     protected void updateOptionsPanel () {
