@@ -12,7 +12,9 @@ public class OptionsPanel extends JPanel {
 
     public OptionsPanel (JButton penColorChooser, JButton bgColorChooser,
                          JCheckBox statusCheckBox, JCheckBox gridCheckBox,
-                         JComboBox<?> imageChooserButton, JButton helpMeButton) {
+                         JComboBox<?> imageChooserButton){
+        //, JButton helpMeButton) {
+    
         super();
         this.setLayout(new GridLayout(1, 0));
         this.add(statusCheckBox);
@@ -20,7 +22,7 @@ public class OptionsPanel extends JPanel {
         this.add(penColorChooser);
         this.add(bgColorChooser);
         this.add(imageChooserButton);
-        this.add(helpMeButton);
+        //this.add(helpMeButton);
 
     }
 

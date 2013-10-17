@@ -12,7 +12,7 @@ import jgame.JGColor;
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 60;
     public static final int GUI_WIDTH = 900;
-    public static final int GUI_HEIGHT = 735;
+    public static final int GUI_HEIGHT = 758;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
 
@@ -20,6 +20,8 @@ public interface Constants {
 
     public static final int GRID_CID = 2;
     public static final int TURTLE_CID = 0;
+    
+    public static final double ERROR_MESSAGE_OFFSET = 0.95;
 
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
