@@ -64,23 +64,23 @@ public class Canvas extends JGEngine {
                                  "turtleGif");
         dbgShowBoundingBox(true);
     }
-    
+
     @Override
-    public void doFrame(){
+    public void doFrame () {
         handleMouseClick();
     }
-    
+
     /**
      * Sends coordinates of mouse clicking
      */
-    public void handleMouseClick(){
-        if (getMouseButton(1)){     
-            myMouseClicked=true;
-            System.out.println(getMouseX() + " " + getMouseY()); //How to ensure only once?
+    public void handleMouseClick () {
+        if (getMouseButton(1)) {
+            myMouseClicked = true;
+            System.out.println(getMouseX() + " " + getMouseY()); // How to ensure only once?
         }
-        
-        else if (!getMouseButton(1) && myMouseClicked){
-            myMouseClicked=false;
+
+        else if (!getMouseButton(1) && myMouseClicked) {
+            myMouseClicked = false;
         }
     }
 
@@ -250,32 +250,31 @@ public class Canvas extends JGEngine {
         myHeading = newHeading;
 
     }
-    
+
     /**
      * 
      * @param pathPiece Part of path to be examined
      * @return altered path pieces (what?)
      */
-//    public Path forceWithinBounds (Path pathPiece) {
-//        if (pathPiece.getX2() > Constants.CANVAS_WIDTH) {
-//            x = x % Constants.CANVAS_WIDTH;
-//        }
-//
-//        else if (x.getX2() < 0) {
-//            x = Constants.CANVAS_WIDTH - (Math.abs(x) % Constants.CANVAS_WIDTH);
-//        }
-//
-//        if (y > Constants.CANVAS_HEIGHT) {
-//            y = y % Constants.CANVAS_HEIGHT;
-//        }
-//
-//        else if (y < 0) {
-//            y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
-//        }
-//
-//        return new Path((float) x, (float) y);
-//    }
-    
+    // public Path forceWithinBounds (Path pathPiece) {
+    // if (pathPiece.getX2() > Constants.CANVAS_WIDTH) {
+    // x = x % Constants.CANVAS_WIDTH;
+    // }
+    //
+    // else if (x.getX2() < 0) {
+    // x = Constants.CANVAS_WIDTH - (Math.abs(x) % Constants.CANVAS_WIDTH);
+    // }
+    //
+    // if (y > Constants.CANVAS_HEIGHT) {
+    // y = y % Constants.CANVAS_HEIGHT;
+    // }
+    //
+    // else if (y < 0) {
+    // y = Constants.CANVAS_HEIGHT - (Math.abs(y) % Constants.CANVAS_HEIGHT);
+    // }
+    //
+    // return new Path((float) x, (float) y);
+    // }
 
     public void adjustImageAngle (double angle) {
         if (angle >= 45 && angle < 135) {

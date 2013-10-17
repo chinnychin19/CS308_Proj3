@@ -13,10 +13,12 @@ import view.modulePanel.ModulePanel;
 import view.optionsPanel.OptionsPanel;
 
 
-/**Factory to create the different panels in the 
+/**
+ * Factory to create the different panels in the
  * GUI
+ * 
  * @author lalitamaraj
- *
+ * 
  */
 public class PanelFactory {
     public static JPanel makePanel (String panel, Map<String, JComponent> parameters) {
@@ -29,7 +31,7 @@ public class PanelFactory {
                                                               (JCheckBox) parameters.get("grid"),
                                                               (JComboBox<?>) parameters
                                                                       .get("image"));
-        ///,(JButton) parameters.get("help"));
+        // /,(JButton) parameters.get("help"));
 
         }
         return null;
