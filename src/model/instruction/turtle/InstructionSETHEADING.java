@@ -1,6 +1,7 @@
 package model.instruction.turtle;
 
 import model.Model;
+import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -15,7 +16,10 @@ public class InstructionSETHEADING extends Instruction {
     public Instruction eval () throws Exception {
         Instruction param = getChildren().get(0).eval();
         double angle = ((InstructionConstant) param).getValue();
-        double deltaAngle = getModel().getTurtle().doAbsoluteRotate(angle);
+        double deltaAngle = 0;
+        for (Turtle t : getModel().getActiveTurtles()) {
+            deltaAngle = t.doAbsoluteRotate(angle);
+        }
         return new InstructionConstant(deltaAngle, null, getModel());
     }
 
