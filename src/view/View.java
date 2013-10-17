@@ -64,7 +64,6 @@ public class View extends JFrame {
         paramaters.put("status", makeStatusCheckBox());
         paramaters.put("image", makeImageChooserButton());
         paramaters.put("grid", makeGridCheckbox());
-        // paramaters.put("help", makeHelpButton());
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
 
         setJMenuBar(new MenuBar());
