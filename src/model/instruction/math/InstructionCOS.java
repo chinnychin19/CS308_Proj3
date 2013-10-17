@@ -1,5 +1,6 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -8,8 +9,8 @@ public class InstructionCOS extends Instruction {
 
     private static final int PI_DEGREES = 180;
 
-    public InstructionCOS (Instruction parent) {
-        super(1, parent); // Cos takes one parameter
+    public InstructionCOS (Instruction parent, Model m) {
+        super(1, parent, m); // Cos takes one parameter
     }
 
     @Override
@@ -18,7 +19,7 @@ public class InstructionCOS extends Instruction {
         double radians = degrees * Math.PI / PI_DEGREES;
         double ret = Math.cos(radians);
 
-        return new InstructionConstant(ret, null);
+        return new InstructionConstant(ret, null, getModel());
     }
 
 }

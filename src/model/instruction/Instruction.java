@@ -2,20 +2,27 @@ package model.instruction;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Model;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.error.*;
 import model.instruction.error.InternalError;
 
 
 public abstract class Instruction {
-    protected List<Instruction> myChildren;
+    private List<Instruction> myChildren;
     private int myParamCount;
-    protected Instruction myParent;
+    private Instruction myParent;
+    private Model myModel;
 
-    public Instruction (int paramCount, Instruction parent) {
+    public Instruction (int paramCount, Instruction parent, Model m) {
         myParamCount = paramCount;
         myChildren = new ArrayList<Instruction>();
         myParent = parent;
+        myModel = m;
+    }
+
+    public Model getModel () {
+        return myModel;
     }
 
     public int getNumParams () {
