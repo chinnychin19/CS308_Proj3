@@ -1,5 +1,6 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.error.DivideByZero;
 import model.instruction.error.ErrorInstruction;
@@ -8,8 +9,8 @@ import model.instruction.InstructionConstant;
 
 public class InstructionQUOTIENT extends Instruction {
 
-    public InstructionQUOTIENT (Instruction parent) {
-        super(2, parent); // Quotient takes two parameters
+    public InstructionQUOTIENT (Instruction parent, Model m) {
+        super(2, parent, m); // Quotient takes two parameters
     }
 
     @Override
@@ -19,7 +20,7 @@ public class InstructionQUOTIENT extends Instruction {
         if (b == 0) { throw new DivideByZero(); }
         double c = (int) (a / b);
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 
 }

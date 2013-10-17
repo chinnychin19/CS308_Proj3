@@ -1,10 +1,13 @@
 package model.instruction.error;
 
+import model.Model;
+
+
 public class InvalidCommandInstruction extends ErrorInstruction {
     public static final String MESSAGE = "Invalid command";
 
-    public InvalidCommandInstruction () {
-        super(MESSAGE);
+    public InvalidCommandInstruction (Model m) {
+        super(MESSAGE, m);
     }
 
 }

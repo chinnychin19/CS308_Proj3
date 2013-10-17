@@ -1,5 +1,6 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.error.DivideByZero;
@@ -7,8 +8,8 @@ import model.instruction.error.DivideByZero;
 
 public class InstructionREMAINDER extends Instruction {
 
-    public InstructionREMAINDER (Instruction parent) {
-        super(2, parent); // Remainder takes two parameters
+    public InstructionREMAINDER (Instruction parent, Model m) {
+        super(2, parent, m); // Remainder takes two parameters
     }
 
     @Override
@@ -18,7 +19,7 @@ public class InstructionREMAINDER extends Instruction {
         if (b == 0) { throw new DivideByZero(); }
         double c = (int) (a % b);
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 
 }

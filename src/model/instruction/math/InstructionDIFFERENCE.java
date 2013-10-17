@@ -1,13 +1,14 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionDIFFERENCE extends Instruction {
 
-    public InstructionDIFFERENCE (Instruction parent) {
-        super(2, parent); // Difference takes two parameters
+    public InstructionDIFFERENCE (Instruction parent, Model m) {
+        super(2, parent, m); // Difference takes two parameters
     }
 
     @Override
@@ -16,7 +17,7 @@ public class InstructionDIFFERENCE extends Instruction {
         double b = ((InstructionConstant) getChildren().get(1).eval()).getValue();
         double c = a - b;
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 
 }

@@ -8,9 +8,9 @@ public class ParserTests {
 
     @Test
     public void testBasic () {
-        Model.initModel();
+        Model model = new Model();
         String input = "fd 10 fd 10 fd 10";
-        Parser p = new Parser(input);
+        Parser p = new Parser(input, model);
         assertEquals("fd", p.nextWord());
         assertEquals("10", p.nextWord());
         assertEquals("fd", p.nextWord());
@@ -21,9 +21,9 @@ public class ParserTests {
 
     @Test
     public void testBrackets () {
-        Model.initModel();
+        Model model = new Model();
         String input = "repeat 5 [fd 10 fd 10]";
-        Parser p = new Parser(input);
+        Parser p = new Parser(input, model);
         assertEquals("repeat", p.nextWord());
         assertEquals("5", p.nextExpression());
         assertEquals("[fd 10 fd 10]", p.nextList());
@@ -32,9 +32,9 @@ public class ParserTests {
 
     @Test
     public void testNestedBrackets () {
-        Model.initModel();
+        Model model = new Model();
         String input = "repeat dotimes [ :var 5 ] [ sum :var 17 ] [ 10 fd 10 ]";
-        Parser p = new Parser(input);
+        Parser p = new Parser(input, model);
         assertEquals("repeat", p.nextWord());
         assertEquals("dotimes [ :var 5 ] [ sum :var 17 ]", p.nextExpression());
         assertEquals("[ 10 fd 10 ]", p.nextList());
@@ -43,9 +43,9 @@ public class ParserTests {
 
     @Test
     public void testRepeatExpression () {
-        Model.initModel();
+        Model model = new Model();
         String input = "repeat sum 3 3 [ 10 fd 10 ]";
-        Parser p = new Parser(input);
+        Parser p = new Parser(input, model);
         assertEquals("repeat", p.nextWord());
         assertEquals("sum 3 3", p.nextExpression());
         assertEquals("[ 10 fd 10 ]", p.nextList());

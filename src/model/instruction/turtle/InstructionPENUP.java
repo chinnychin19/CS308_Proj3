@@ -7,14 +7,14 @@ import model.instruction.InstructionConstant;
 
 public class InstructionPENUP extends Instruction {
 
-    public InstructionPENUP (Instruction parent) {
-        super(0, parent);
+    public InstructionPENUP (Instruction parent, Model m) {
+        super(0, parent, m);
     }
 
     @Override
     public Instruction eval () throws Exception {
-        Model.getTurtle().setDrawing(false);
-        return new InstructionConstant(0, null);
+        getModel().getTurtle().setDrawing(false);
+        return new InstructionConstant(0, null, getModel());
     }
 
 }

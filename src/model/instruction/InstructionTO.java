@@ -8,8 +8,8 @@ import model.instruction.command.UserCommand;
 
 public class InstructionTO extends Instruction {
 
-    public InstructionTO (Instruction parent) {
-        super(3, parent);
+    public InstructionTO (Instruction parent, Model m) {
+        super(3, parent, m);
     }
 
     @Override
@@ -23,9 +23,9 @@ public class InstructionTO extends Instruction {
             pList.add(param);
         }
         String commands = ((InstructionString) getChildren().get(2)).getString().trim();
-        UserCommand newCommand = new UserCommand(null, name, pList, commands);
-        Model.getCommandCache().put(name, newCommand);
-        return new InstructionConstant(1, null);
+        UserCommand newCommand = new UserCommand(null, name, pList, commands, getModel());
+        getModel().getCommandCache().put(name, newCommand);
+        return new InstructionConstant(1, null, getModel());
     }
 
 }

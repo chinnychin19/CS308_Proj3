@@ -10,8 +10,8 @@ import model.instruction.error.ErrorInstruction;
 public class InstructionREPEAT extends InstructionLoop {
     private boolean hasBadParamaters;
 
-    public InstructionREPEAT (Instruction parent) {
-        super(parent);
+    public InstructionREPEAT (Instruction parent, Model m) {
+        super(parent, m);
         hasBadParamaters = false;
     }
 
@@ -20,7 +20,7 @@ public class InstructionREPEAT extends InstructionLoop {
         try {
             // parameters will not be in brackets, it will just be an expression
             parameters = parameters.trim(); // chop off potential white space
-            List<Instruction> paramNodes = Model.getInterpreter().getInstructions(parameters);
+            List<Instruction> paramNodes = getModel().getInterpreter().getInstructions(parameters);
             // Parameters: variable, limit (end + 1)
             setEnd(((InstructionConstant) paramNodes.get(0).eval()).getValue());
             setStart(1); // hard coded for REPEAT
@@ -34,7 +34,8 @@ public class InstructionREPEAT extends InstructionLoop {
 
     @Override
     public Instruction eval () throws Exception {
-        if (hasBadParamaters) { return new ErrorInstruction("REPEAT loop had bad parameters"); }
+        if (hasBadParamaters) { return new ErrorInstruction("REPEAT loop had bad parameters",
+                                                            getModel()); }
         return super.eval();
     }
 

@@ -1,13 +1,14 @@
 package model.instruction.conditional;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionIFELSE extends InstructionConditional {
 
-    public InstructionIFELSE (Instruction parent) {
-        super(3, parent);
+    public InstructionIFELSE (Instruction parent, Model m) {
+        super(3, parent, m);
     }
 
     @Override
