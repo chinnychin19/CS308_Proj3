@@ -62,7 +62,7 @@ public class View extends JFrame {
 
         optionsPanel.add(makeGridCheckbox());
 
-        //optionsPanel.add(makeTurtleCheckBox());
+        // optionsPanel.add(makeTurtleCheckBox());
         optionsPanel.add(statusCheckBox());
 
         // optionsPanel.add(new Checkbox("Pen Down", null, true));

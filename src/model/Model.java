@@ -170,8 +170,8 @@ public class Model {
     }
 
     public String setLanguage (String language) {
-        // TODO
-        return null;
+        myInstructionFactory.setLanguage(language);
+        return null; // TODO
     }
 
     public boolean canUndo () {
