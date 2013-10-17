@@ -12,7 +12,8 @@ import jgame.platform.JGEngine;
  * 
  */
 public class TurtleSprite extends JGObject {
-
+    private JGEngine myEngine;
+    private Integer myID;
     /**
      * Constructor for TurtleSprite class
      * 
@@ -21,15 +22,23 @@ public class TurtleSprite extends JGObject {
      * @param y initial y position of TurtleSprite
      * @param CID Collision ID of TurtleSprite
      */
-    public TurtleSprite (JGEngine engine, double x, double y, int CID, String imgsrc) {
+    public TurtleSprite (JGEngine engine, double x, double y, int CID, String imgsrc, int turtleID) {
         super("turtle", true, x, y, CID, imgsrc, 0, 0, 0, 0, -1);
+        myEngine = engine;
+        myID=turtleID;
+        
     }
-
-    // Temporarily here for testing
-    public TurtleSprite (double x, double y, int CID) {
-        super("turtle", true, x, y, CID, "turtleGif", 0, 0, 0, 0, -1);
+    
+    public void toggleStatus(boolean active){
+        myEngine.dbgShowBoundingBox(active);
+        
     }
-
+    
+    public int getID(){
+        return myID;
+    }
+    
+   
     public double getOffsetX () {
         return this.x + Constants.TURTLE_OFFSET;
     }

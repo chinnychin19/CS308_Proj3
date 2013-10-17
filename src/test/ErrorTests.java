@@ -16,88 +16,88 @@ public class ErrorTests {
 
     @Test
     public void testSimpleDBZ () {
-        Model.initModel();
-        String ret = Model.parseInput("/ 5 0");
+        Model model = new Model();
+        String ret = model.parseInput("/ 5 0");
         assertEquals(DivideByZero.MESSAGE, ret);
-        ret = Model.parseInput("% 5 0");
+        ret = model.parseInput("% 5 0");
         assertEquals(DivideByZero.MESSAGE, ret);
     }
 
     @Test
     public void testComplexDBZ () {
-        Model.initModel();
-        String ret = Model.parseInput("sum 3 / 5 0");
+        Model model = new Model();
+        String ret = model.parseInput("sum 3 / 5 0");
         assertEquals(DivideByZero.MESSAGE, ret);
-        ret = Model.parseInput("sum 3 % 5 0");
+        ret = model.parseInput("sum 3 % 5 0");
         assertEquals(DivideByZero.MESSAGE, ret);
     }
 
     @Test
     public void testSimpleLogZero () {
-        Model.initModel();
-        String ret = Model.parseInput("log 0");
+        Model model = new Model();
+        String ret = model.parseInput("log 0");
         assertEquals(LogOfZero.MESSAGE, ret);
     }
 
     @Test
     public void testComplexLogZero () {
-        Model.initModel();
-        String ret = Model.parseInput("log log sum -8 sum 3 5");
+        Model model = new Model();
+        String ret = model.parseInput("log log sum -8 sum 3 5");
         assertEquals(LogOfZero.MESSAGE, ret);
     }
 
     @Test
     public void testSimpleTanNinety () {
-        Model.initModel();
-        String ret = Model.parseInput("tan 90");
+        Model model = new Model();
+        String ret = model.parseInput("tan 90");
         assertEquals(TanOfNinety.MESSAGE, ret);
     }
 
     @Test
     public void testComplexTanNinety () {
-        Model.initModel();
-        String ret = Model.parseInput("log log sum 3 tan sum 45 45");
+        Model model = new Model();
+        String ret = model.parseInput("log log sum 3 tan sum 45 45");
         assertEquals(TanOfNinety.MESSAGE, ret);
     }
 
     @Test
     public void testSimpleNegativeRandom () {
-        Model.initModel();
-        String ret = Model.parseInput("random -3");
+        Model model = new Model();
+        String ret = model.parseInput("random -3");
         assertEquals(NonPositiveRandom.MESSAGE, ret);
-        ret = Model.parseInput("random 0");
+        ret = model.parseInput("random 0");
         assertEquals(NonPositiveRandom.MESSAGE, ret);
     }
 
     @Test
     public void testComplexNegativeRandom () {
-        Model.initModel();
-        String ret = Model.parseInput("+ 5 + random -5 random -5");
+        Model model = new Model();
+        String ret = model.parseInput("+ 5 + random -5 random -5");
         assertEquals(NonPositiveRandom.MESSAGE, ret);
     }
 
     @Test
     public void testInvalidCommand () {
-        Model.initModel();
-        String ret = Model.parseInput("hakuna 17");
+        Model model = new Model();
+        String ret = model.parseInput("hakuna 17");
         assertEquals(InvalidCommandInstruction.MESSAGE, ret);
     }
 
     @Test
     public void testTooFewParameters () {
-        Model.initModel();
-        String ret = Model.parseInput("sum sum sum 3 4");
+        Model model = new Model();
+        String ret = model.parseInput("sum sum sum 3 4");
         assertEquals(TooFewParametersInstruction.MESSAGE, ret);
     }
 
     @Test
     public void testInfiniteLoop () {
-        Model.initModel();
-        String ret = Model.parseInput("for [ :v 0 1 0 ] [ fd 10 ]");
+        Model model = new Model();
+        String ret = model.parseInput("for [ :v 0 1 0 ] [ fd 10 ]");
         assertEquals(InfiniteLoop.MESSAGE, ret);
-        ret = Model.parseInput("for [ :v 0 1 -1 ] [ fd 10 ]");
+        ret = model.parseInput("for [ :v 0 1 -1 ] [ fd 10 ]");
         assertEquals(InfiniteLoop.MESSAGE, ret);
-        ret = Model.parseInput("for [ :v 1 0 1 ] [ fd 10 ]");
+        ret = model.parseInput("for [ :v 1 0 1 ] [ fd 10 ]");
         assertEquals(InfiniteLoop.MESSAGE, ret);
     }
 

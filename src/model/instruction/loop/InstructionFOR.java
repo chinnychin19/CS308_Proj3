@@ -9,15 +9,15 @@ import model.instruction.InstructionVariable;
 
 public class InstructionFOR extends InstructionLoop {
 
-    public InstructionFOR (Instruction parent) {
-        super(parent);
+    public InstructionFOR (Instruction parent, Model m) {
+        super(parent, m);
     }
 
     @Override
     public void setParameters (String parameters) {
         parameters = parameters.trim(); // chop off potential white space
         parameters = parameters.substring(1, parameters.length() - 1);// chop off brackets
-        List<Instruction> paramNodes = Model.getInterpreter().getInstructions(parameters);
+        List<Instruction> paramNodes = getModel().getInterpreter().getInstructions(parameters);
         // Parameters: variable, start, end, incremement
         setVariable(((InstructionVariable) paramNodes.get(0)).getName());
         setStart(((InstructionConstant) paramNodes.get(1)).getValue());

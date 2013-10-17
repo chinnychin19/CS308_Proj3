@@ -1,5 +1,6 @@
 package model.instruction.error;
 
+import model.Model;
 import model.instruction.Instruction;
 
 
@@ -7,8 +8,8 @@ public class ErrorInstruction extends Instruction {
 
     private String myMessage;
 
-    public ErrorInstruction (String message) {
-        super(0, null);
+    public ErrorInstruction (String message, Model m) {
+        super(0, null, m);
         myMessage = message;
     }
 

@@ -7,14 +7,14 @@ import model.instruction.InstructionConstant;
 
 public class InstructionPENDOWNP extends Instruction {
 
-    public InstructionPENDOWNP (Instruction parent) {
-        super(0, parent);
+    public InstructionPENDOWNP (Instruction parent, Model m) {
+        super(0, parent, m);
     }
 
     @Override
     public Instruction eval () throws Exception {
-        double ret = Model.getTurtle().isDrawing() ? 1 : 0;
-        return new InstructionConstant(ret, null);
+        double ret = getModel().getTurtle().isDrawing() ? 1 : 0;
+        return new InstructionConstant(ret, null, getModel());
     }
 
 }

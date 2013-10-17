@@ -1,13 +1,14 @@
 package model.instruction.math;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionPRODUCT extends Instruction {
 
-    public InstructionPRODUCT (Instruction parent) {
-        super(2, parent); // Product takes two parameters
+    public InstructionPRODUCT (Instruction parent, Model m) {
+        super(2, parent, m); // Product takes two parameters
     }
 
     @Override
@@ -16,7 +17,7 @@ public class InstructionPRODUCT extends Instruction {
         double b = ((InstructionConstant) getChildren().get(1).eval()).getValue();
         double c = a * b;
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 
 }

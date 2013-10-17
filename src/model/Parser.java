@@ -8,11 +8,13 @@ import model.instruction.loop.InstructionLoop;
 
 public class Parser {
     private String myInput;
+    private Model myModel;
     private final static char SPACE = ' ';
 
-    protected Parser (String input) {
+    protected Parser (String input, Model m) {
         input.replaceAll("\\s+", SPACE + "");
         myInput = input.trim();
+        myModel = m;
     }
 
     public boolean hasNext () {
@@ -64,7 +66,7 @@ public class Parser {
         StringBuilder expression = new StringBuilder();
         String firstWord = nextWord();
         expression.append(firstWord + " ");
-        Instruction root = InstructionFactory.getInstruction(firstWord, null);
+        Instruction root = myModel.getInstructionFactory().getInstruction(firstWord, null);
         Instruction cur = root;
         while (hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
@@ -79,7 +81,8 @@ public class Parser {
                 else { // Normal instruction
                     String nextInstruction = nextWord();
                     expression.append(nextInstruction + " ");
-                    Instruction temp = InstructionFactory.getInstruction(nextInstruction, cur);
+                    Instruction temp =
+                            myModel.getInstructionFactory().getInstruction(nextInstruction, cur);
                     cur.addChild(temp);
                     cur = temp;
                 }

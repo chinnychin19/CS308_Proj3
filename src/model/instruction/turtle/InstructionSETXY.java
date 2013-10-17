@@ -7,8 +7,8 @@ import model.instruction.InstructionConstant;
 
 public class InstructionSETXY extends Instruction {
 
-    public InstructionSETXY (Instruction parent) {
-        super(2, parent);
+    public InstructionSETXY (Instruction parent, Model m) {
+        super(2, parent, m);
     }
 
     @Override
@@ -17,8 +17,8 @@ public class InstructionSETXY extends Instruction {
         double x = ((InstructionConstant) param1).getValue();
         Instruction param2 = getChildren().get(1).eval();
         double y = ((InstructionConstant) param2).getValue();
-        double dist = Model.getTurtle().doAbsoluteMove(x, y);
-        return new InstructionConstant(dist, null);
+        double dist = getModel().getTurtle().doAbsoluteMove(x, y);
+        return new InstructionConstant(dist, null, getModel());
     }
 
 }

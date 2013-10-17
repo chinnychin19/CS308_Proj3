@@ -1,13 +1,14 @@
 package model.instruction.bool;
 
+import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
 public class InstructionNOTEQUAL extends Instruction {
 
-    public InstructionNOTEQUAL (Instruction parent) {
-        super(2, parent); // Not equal takes two parameters
+    public InstructionNOTEQUAL (Instruction parent, Model m) {
+        super(2, parent, m); // Not equal takes two parameters
     }
 
     @Override
@@ -16,7 +17,7 @@ public class InstructionNOTEQUAL extends Instruction {
         double b = ((InstructionConstant) getChildren().get(1).eval()).getValue();
         double c = a != b ? 1 : 0;
 
-        return new InstructionConstant(c, null);
+        return new InstructionConstant(c, null, getModel());
     }
 
 }
