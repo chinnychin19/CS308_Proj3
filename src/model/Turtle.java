@@ -8,26 +8,42 @@ public class Turtle {
     private double myX, myY, myAngle;
     private boolean fDrawing, fVisible;
     private Collection<Path> myPaths;
+    private Collection<Stamp> myStamps;
+    private int myID;
 
-    protected Turtle () {
+    protected Turtle (int id) {
+        myID = id;
         myX = 0;
         myY = 0;
         fDrawing = true;
         fVisible = true;
         myAngle = Math.PI / 2; // only internally stored in radians
         myPaths = new ArrayList<Path>();
+        myStamps = new ArrayList<Stamp>();
+    }
+
+    protected int getID () {
+        return myID;
     }
 
     protected Collection<Path> getPaths () {
         return myPaths;
     }
 
+    protected Collection<Stamp> getStamps () {
+        return myStamps;
+    }
+
     private void addPath (double x1, double y1, double x2, double y2) {
         myPaths.add(new Path(x1, y1, x2, y2));
     }
 
-    public void clearPaths () {
+    protected void clearPaths () {
         myPaths.clear();
+    }
+
+    protected void clearStamps () {
+        myStamps.clear();
     }
 
     public double getX () {

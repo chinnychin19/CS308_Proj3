@@ -1,6 +1,7 @@
 package model.instruction.turtle;
 
 import model.Model;
+import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -13,8 +14,12 @@ public class InstructionCLEARSCREEN extends Instruction {
 
     @Override
     public Instruction eval () throws Exception {
-        double dist = getModel().getTurtle().doAbsoluteMove(0, 0);
-        getModel().getTurtle().clearPaths();
+        double dist = 0;
+        for (Turtle t : getModel().getActiveTurtles()) {
+            dist = t.doAbsoluteMove(0, 0);
+            t.doAbsoluteRotate(90);
+        }
+        getModel().clearPaths();
         return new InstructionConstant(dist, null, getModel());
     }
 

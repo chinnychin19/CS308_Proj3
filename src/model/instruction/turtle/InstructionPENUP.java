@@ -1,6 +1,7 @@
 package model.instruction.turtle;
 
 import model.Model;
+import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -13,7 +14,9 @@ public class InstructionPENUP extends Instruction {
 
     @Override
     public Instruction eval () throws Exception {
-        getModel().getTurtle().setDrawing(false);
+        for (Turtle t : getModel().getActiveTurtles()) {
+            t.setDrawing(false);
+        }
         return new InstructionConstant(0, null, getModel());
     }
 
