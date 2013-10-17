@@ -23,8 +23,8 @@ public class PanelFactory {
                                                               (JCheckBox) parameters.get("status"),
                                                               (JCheckBox) parameters.get("grid"),
                                                               (JComboBox<?>) parameters
-                                                                      .get("image"),
-                                                              (JButton) parameters.get("help"));
+                                                                      .get("image"));
+        ///,(JButton) parameters.get("help"));
 
         }
         return null;
