@@ -1,6 +1,7 @@
 package model.instruction.turtle;
 
 import model.Model;
+import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -17,7 +18,10 @@ public class InstructionTOWARDS extends Instruction {
         double x = ((InstructionConstant) param1).getValue();
         Instruction param2 = getChildren().get(1).eval();
         double y = ((InstructionConstant) param2).getValue();
-        double deltaAngle = getModel().getTurtle().doRotateTowards(x, y);
+        double deltaAngle = 0;
+        for (Turtle t : getModel().getActiveTurtles()) {
+            deltaAngle = t.doRotateTowards(x, y);
+        }
         return new InstructionConstant(deltaAngle, null, getModel());
     }
 

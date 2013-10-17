@@ -1,6 +1,7 @@
 package model.instruction.turtle;
 
 import model.Model;
+import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -13,7 +14,10 @@ public class InstructionXCOR extends Instruction {
 
     @Override
     public Instruction eval () throws Exception {
-        double ret = getModel().getTurtle().getX();
+        double ret = 0;
+        for (Turtle t : getModel().getActiveTurtles()) {
+            ret = t.getX();
+        }
         return new InstructionConstant(ret, null, getModel());
     }
 

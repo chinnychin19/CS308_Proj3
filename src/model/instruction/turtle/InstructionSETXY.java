@@ -1,6 +1,7 @@
 package model.instruction.turtle;
 
 import model.Model;
+import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
@@ -17,7 +18,10 @@ public class InstructionSETXY extends Instruction {
         double x = ((InstructionConstant) param1).getValue();
         Instruction param2 = getChildren().get(1).eval();
         double y = ((InstructionConstant) param2).getValue();
-        double dist = getModel().getTurtle().doAbsoluteMove(x, y);
+        double dist = 0;
+        for (Turtle t : getModel().getActiveTurtles()) {
+            t.doAbsoluteMove(x, y);
+        }
         return new InstructionConstant(dist, null, getModel());
     }
 
