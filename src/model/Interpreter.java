@@ -27,7 +27,6 @@ public class Interpreter {
         input = input.replaceAll("\\s+", " "); // all white space becames a ' ' (space character)
         input = input.trim();
         if (input.isEmpty()) { return ""; }
-        myModel.getCommandHistory().add(input);
         List<Instruction> instructions = getInstructions(input);
         for (Instruction instr : instructions) {
             // Model.getInstructionQueue().add(instr);
