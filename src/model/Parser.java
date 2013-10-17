@@ -2,7 +2,6 @@ package model;
 
 import java.util.Stack;
 import model.instruction.Instruction;
-import model.instruction.InstructionFactory;
 import model.instruction.loop.InstructionLoop;
 
 
