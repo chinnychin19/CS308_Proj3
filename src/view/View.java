@@ -32,12 +32,18 @@ import view.display.ViewUpdater;
 import view.inputPanel.RunButton;
 import view.inputPanel.Textbox;
 import view.modulePanel.ModulePanel;
+import view.optionsPanel.BackgroundColorChooser;
+import view.optionsPanel.GridCheckBox;
+import view.optionsPanel.ImageChooser;
+import view.optionsPanel.OptionsPanel;
+import view.optionsPanel.PenColorChooser;
+import view.optionsPanel.StatusCheckBox;
 
 
 public class View extends JFrame {
     protected ViewUpdater myViewUpdater;
 
-    private static Canvas viewCanvas;
+    private static Canvas myCanvas;
 
     /**
      * Constructor for View Class
@@ -58,20 +64,22 @@ public class View extends JFrame {
         paramaters.put("runbutton", runbutton);
         JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
 
-        viewCanvas = new Canvas();
-        paramaters.put("pen", penColorChooser());
-        paramaters.put("bg", makeBackgroundChooser());
-        paramaters.put("status", makeStatusCheckBox());
-        paramaters.put("image", makeImageChooserButton());
-        paramaters.put("grid", makeGridCheckbox());
-        // paramaters.put("help", makeHelpButton());
+
+        myCanvas = new Canvas();
+        paramaters.put("pen", new PenColorChooser(this));
+        paramaters.put("bg", new BackgroundColorChooser(this));
+        paramaters.put("status", new StatusCheckBox(this));
+        paramaters.put("image", new ImageChooser(this));
+        paramaters.put("grid", new GridCheckBox(this));
+        
+
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        this.getContentPane().add(viewCanvas, BorderLayout.CENTER);
+        this.getContentPane().add(myCanvas, BorderLayout.CENTER);
 
         setVisible(true);
 
@@ -80,123 +88,20 @@ public class View extends JFrame {
     }
 
     public void updateCanvasData () {
-        viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
-        viewCanvas.setHeading(Model.getTurtleAngle());
-        viewCanvas.setPaths(Model.getTurtlePaths());
-        viewCanvas.isTurtleVisible(Model.isTurtleVisible());
+        myCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
+        myCanvas.setHeading(Model.getTurtleAngle());
+        myCanvas.setPaths(Model.getTurtlePaths());
+        myCanvas.isTurtleVisible(Model.isTurtleVisible());
     }
 
     public void displayError (String error) {
-        viewCanvas.setError(error);
+        myCanvas.setError(error);
+    }
+    
+    public Canvas getCanvas(){
+        return myCanvas;
     }
 
-    private JButton penColorChooser () {
-        JButton result = new JButton("Change Pen Color");
-
-        result.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                Color newColor =
-                        JColorChooser.showDialog(null, "Choose a new pen color", Color.red);
-                viewCanvas.changePenColor(new JGColor(newColor.getRed(),
-                                                      newColor.getGreen(), newColor
-                                                              .getBlue()));
-            }
-
-        });
-
-        return result;
-    }
-
-    /**
-     * Creates button to pop up color choosing dialogue
-     * 
-     * @return JButton with label "Change Color"
-     */
-    private JButton makeBackgroundChooser () {
-        JButton result = new JButton("Change BG Color");
-        result.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                Color newColor =
-                        JColorChooser.showDialog(null, "Choose a new background color", Color.red);
-                viewCanvas.changeBackgroundColor(new JGColor(newColor.getRed(),
-                                                             newColor.getGreen(), newColor
-                                                                     .getBlue()));
-            }
-
-        });
-        return result;
-    }
-
-    /**
-     * Checkbox for status
-     * 
-     * @return
-     */
-    private JCheckBox makeStatusCheckBox () {
-        JCheckBox result = new JCheckBox("Turtle Status", null, true);
-        result.addItemListener(new ItemListener() {
-
-            public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    viewCanvas.toggleStatus();
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    viewCanvas.toggleStatus();
-                }
-            }
-
-        });
-
-        return result;
-    }
-
-    /**
-     * Class that makes checkbox for Grid
-     * 
-     * @return Checkbox that toggles grid
-     */
-    private JCheckBox makeGridCheckbox () {
-        JCheckBox result = new JCheckBox("Grid", null, false);
-        result.addItemListener(new ItemListener() {
-
-            public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    viewCanvas.toggleGrid();
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    viewCanvas.toggleGrid();
-                }
-            }
-
-        });
-
-        return result;
-    }
-
-    /**
-     * Dropdown box for choosing image
-     * 
-     * @return
-     */
-    private JComboBox<?> makeImageChooserButton () {
-        String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
-        JComboBox<?> result = new JComboBox(turtleOptions);
-        result.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                JComboBox<?> cb = (JComboBox) e.getSource();
-                String turtleSelection = (String) cb.getSelectedItem();
-                viewCanvas.changeTurtleImage(turtleSelection);
-            }
-
-        });
-
-        return result;
-    }
 
     public static void main (String[] args) {
         new View();
