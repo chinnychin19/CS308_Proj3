@@ -5,9 +5,9 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
-public class InstructionEQUAL extends Instruction {
+public class InstructionEQUALP extends Instruction {
 
-    public InstructionEQUAL (Instruction parent, Model m) {
+    public InstructionEQUALP (Instruction parent, Model m) {
         super(2, parent, m); // Equal takes two parameters
     }
 
