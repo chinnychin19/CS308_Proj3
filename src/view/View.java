@@ -73,7 +73,9 @@ public class View extends JFrame {
         paramaters.put("image", new ImageChooser(this));
         paramaters.put("grid", new GridCheckBox(this));
 
+
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
+
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);

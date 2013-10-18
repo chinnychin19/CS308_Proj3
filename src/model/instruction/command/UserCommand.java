@@ -11,7 +11,7 @@ import model.instruction.InstructionListNode;
 public class UserCommand extends Instruction {
     private List<String> myParamNames;
     private String myName;
-    private String myDefinitionString;
+    private String myDefinitionString; // includes brackets
     private InstructionListNode myRootCommand;
 
     public UserCommand (Instruction parent,
@@ -63,7 +63,7 @@ public class UserCommand extends Instruction {
     }
 
     public String getBody () {
-        return "TO " + myName + " \n" + myParamNames.toString().replaceAll(",", "") + " \n" +
+        return "TO " + myName + " \n[ " + myParamNames.toString().replaceAll(",", "") + " ] \n" +
                myDefinitionString;
     }
 }
