@@ -120,7 +120,7 @@ public class Canvas extends JGEngine {
 
         for (int ID : myActiveTurtleIDs) {
             TurtleSprite currentTurtle = myTurtleMap.get(ID);
-            
+
             drawString("Turtle " + ID, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                        myPenColor);
             drawString("X: " + (currentTurtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5,
@@ -133,7 +133,8 @@ public class Canvas extends JGEngine {
                        -1,
                        new JGFont("arial", 0, 12),
                        myPenColor);
-            drawString("Heading: " + currentTurtle.getHeading(), 5, offset += 13, -1, new JGFont("arial", 0, 12),
+            drawString("Heading: " + currentTurtle.getHeading(), 5, offset += 13, -1,
+                       new JGFont("arial", 0, 12),
                        myPenColor);
         }
 
@@ -281,7 +282,7 @@ public class Canvas extends JGEngine {
      */
     public void setHeading (int ID, double newHeading) {
 
-        if (myTurtleMap.get(ID).getHeading()!=newHeading){
+        if (myTurtleMap.get(ID).getHeading() != newHeading) {
             myTurtleMap.get(ID).setHeading(newHeading);
         }
 

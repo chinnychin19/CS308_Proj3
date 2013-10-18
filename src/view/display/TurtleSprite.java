@@ -6,7 +6,7 @@ import jgame.platform.JGEngine;
 
 
 /**
- * Class that represents Turtle 
+ * Class that represents Turtle
  * 
  * @author susanzhang93
  * 
@@ -14,6 +14,7 @@ import jgame.platform.JGEngine;
 public class TurtleSprite extends JGObject {
     private JGEngine myEngine;
     private double myHeading = 90;
+
     /**
      * Constructor for TurtleSprite class
      * 
@@ -31,12 +32,12 @@ public class TurtleSprite extends JGObject {
     public void toggleStatus (boolean active) {
         myEngine.dbgShowBoundingBox(active);
     }
-   
-    public void setHeading(double heading) {
+
+    public void setHeading (double heading) {
         myHeading = heading;
     }
-    
-    public double getHeading(){
+
+    public double getHeading () {
         return myHeading;
     }
 

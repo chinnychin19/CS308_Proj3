@@ -8,15 +8,18 @@ import java.util.Map;
 import view.modulePanel.ModuleData;
 import model.Model;
 
+
 public class Subject {
     List<Observer> observers;
-    Model myCurrentModel; 
+    Model myCurrentModel;
     View myView;
-    public Subject(Model model,View view){
+
+    public Subject (Model model, View view) {
         myCurrentModel = model;
         myView = view;
         observers = new ArrayList<Observer>();
     }
+
     public Map<String, Collection<ModuleData>> getModelInformation (Model currentModel) {
         Map<String, Collection<ModuleData>> ret = new HashMap<String, Collection<ModuleData>>();
         ret.put("variable", getStoredVariables(currentModel));
@@ -54,21 +57,23 @@ public class Subject {
         }
         return commandCollection;
     }
+
     public void notifyObservers (String error, String updateVariable) {
-        Map<String, Collection<ModuleData>> moduleMap = getModelInformation (myCurrentModel);
-        for (Observer observer : observers){
-            observer.update(error,updateVariable,moduleMap );
+        Map<String, Collection<ModuleData>> moduleMap = getModelInformation(myCurrentModel);
+        for (Observer observer : observers) {
+            observer.update(error, updateVariable, moduleMap);
         }
-        
+
     }
-    private void getTurtleData(){
-//        myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
-//        myCanvas.setHeading(myModel.getTurtleAngle(1));
-//        myCanvas.setPaths(myModel.getTurtlePaths());
-//        myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
+
+    private void getTurtleData () {
+        // myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
+        // myCanvas.setHeading(myModel.getTurtleAngle(1));
+        // myCanvas.setPaths(myModel.getTurtlePaths());
+        // myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
     }
-    
-    protected void addObservers(Observer observer){
+
+    protected void addObservers (Observer observer) {
         observers.add(observer);
     }
 

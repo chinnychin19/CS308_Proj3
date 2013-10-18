@@ -16,14 +16,17 @@ import view.Observer;
 
 
 @SuppressWarnings("serial")
-public class EditBar extends JPanel implements Observer{
+public class EditBar extends JPanel implements Observer {
     private static final int TEXTBOX_COLUMNS = 15;
     JButton myEdit;
     TextField myTextfield;
     JList<ModuleData> myList;
     DefaultListModel<ModuleData> myListModel;
     Controller myController;
-    public EditBar (JList<ModuleData> list, DefaultListModel<ModuleData> listModel, Controller controller) {
+
+    public EditBar (JList<ModuleData> list,
+                    DefaultListModel<ModuleData> listModel,
+                    Controller controller) {
         myController = controller;
         myList = list;
         myListModel = listModel;
@@ -51,7 +54,9 @@ public class EditBar extends JPanel implements Observer{
                     ModuleData selected = (ModuleData) myListModel.get(index);
                     String newValue = myTextfield.getText();
                     myTextfield.setText("");
-                    String status = ((ModulePanelController) myController).updateVariable(selected.getDisplay(), newValue);
+                    String status =
+                            ((ModulePanelController) myController).updateVariable(selected
+                                    .getDisplay(), newValue);
                     displayInputError(status);
                 }
                 else {
@@ -60,13 +65,11 @@ public class EditBar extends JPanel implements Observer{
                 }
             }
 
-       
             private void displayInputError (String putStatus) {
-                if (!putStatus.equals("")){
+                if (!putStatus.equals("")) {
                     JOptionPane.showMessageDialog(null,
                                                   putStatus);
                 }
-               
 
             }
 
@@ -74,15 +77,13 @@ public class EditBar extends JPanel implements Observer{
 
         return myEdit;
     }
-    
-    
-    ///ADD EDIT BAR
+
+    // /ADD EDIT BAR
     @Override
     public void update (String error,
                         String updateVariable,
                         Map<String, Collection<ModuleData>> moduleMap) {
-        
-        
+
     }
 
 }
