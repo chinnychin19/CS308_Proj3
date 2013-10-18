@@ -360,23 +360,26 @@ public class Canvas extends JGEngine implements Observer {
     @Override
     public void update (String error,
                         String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap) {
-        // LALITA WILL GIVE YOU AN ACTIVETURTLE LIST
-        // ArrayList<Integer> activeTurtleList = new ArrayList<Integer>();
-        // //myModel.getActiveTurtleIDs ();
-        // activeTurtleList.add(1);
-        // myCanvas.setActiveTurtles(activeTurtleList);
+                        Map<String, Collection<ModuleData>> moduleMap,
+                        ArrayList<Integer> activeTurtleList,
+                        Map<Integer, Double> turtleXMap,
+                        Map<Integer, Double> turtleYMap,
+                        Map<Integer, Double> turtleAngleMap,
+                        Map<Integer, Boolean> turtleVisibilityMap,
+                        Collection<Path> paths) {
 
-        // System.out.println(activeTurtleList);
+        setActiveTurtles(activeTurtleList);
 
-        // for (Integer ID: activeTurtleList){
-        // myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
-        // myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
-        // myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
-        // }
+        System.out.println(activeTurtleList);
+
+        for (Integer ID : activeTurtleList) {
+            moveTurtle(ID, turtleXMap.get(ID), turtleYMap.get(ID));
+            setHeading(ID, turtleAngleMap.get(ID));
+            changeTurtleVisiblity(turtleVisibilityMap.get(ID));
+        }
         //
         //
-        // myCanvas.setPaths(myModel.getTurtlePaths());
+        setPaths(paths);
         //
         // }
     }
