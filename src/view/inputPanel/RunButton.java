@@ -3,6 +3,7 @@ package view.inputPanel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JButton;
+import view.Controller;
 import view.View;
 import view.modulePanel.ModulePanel;
 import model.Model;
@@ -11,22 +12,23 @@ import model.Model;
 @SuppressWarnings("serial")
 public class RunButton extends JButton {
     Textbox myTextbox;
-    ModulePanel mySidebar;
+
     private MouseListener myMouseListener;
-    private View myView;
+    private Controller myController;
 
-    public RunButton (String title, Textbox textbox, ModulePanel sidebar, View view) {
+    public RunButton (String title, Textbox textbox, Controller controller) {
         super(title);
-        myView = view;
+        myController  = controller;
+        
+    
         myTextbox = textbox;
-        mySidebar = sidebar;
-
+       
         myMouseListener = new MouseListener() {
 
             @Override
             public void mouseClicked (MouseEvent e) {
-                myView.runCommand();
-
+                
+                sendUserInput ();
             }
 
             @Override
@@ -66,9 +68,10 @@ public class RunButton extends JButton {
 
         String input = myTextbox.getInput();
 
-        // if (input.trim().equals("")) { return ""; }
-        // myView.displayError(Model.parseInput(input));
-        // myTextbox.clear();
+         if (input.trim().equals("")) { return ""; }
+         ((InputController) myController).executeCommand(input);
+//         myView.displayError(Model.parseInput(input));
+         myTextbox.clear();
         return input;
 
     }

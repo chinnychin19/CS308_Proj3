@@ -18,13 +18,13 @@ public class ModuleData extends JComponent {
 
     }
 
-    public String getDisplay () {
+    protected String getDisplay () {
         String displayCopy = myDisplay;
         return displayCopy;
 
     }
 
-    public String getContent () {
+    protected String getContent () {
         String contentCopy = myContent;
         return contentCopy;
     }
