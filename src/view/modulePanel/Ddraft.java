@@ -50,8 +50,9 @@ public class Ddraft {
         }
         return commandCollection;
     }
-    protected String editVariable(String key,String newValue){
-//        Model.putVariable(key, newValue);
+
+    protected String editVariable (String key, String newValue) {
+        // Model.putVariable(key, newValue);
         return "";
     }
 

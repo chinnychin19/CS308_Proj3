@@ -11,7 +11,7 @@ public class VariableModule extends Module {
 
     public VariableModule (Textbox textbox, String name, Controller controller) {
         super(textbox, name, controller);
-        myEditBar = new EditBar(myList, myListModel,controller);
+        myEditBar = new EditBar(myList, myListModel, controller);
         this.add(myEditBar);
     }
 

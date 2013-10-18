@@ -20,9 +20,9 @@ public class ModulePanel extends JPanel implements Observer {
         super();
         myModules = new ArrayList<Module>();
 
-        addModule(ModuleFactory.createModule("history", textbox,controller));
-        addModule(ModuleFactory.createModule("command", textbox,controller));
-        addModule(ModuleFactory.createModule("variable", textbox,controller));
+        addModule(ModuleFactory.createModule("history", textbox, controller));
+        addModule(ModuleFactory.createModule("command", textbox, controller));
+        addModule(ModuleFactory.createModule("variable", textbox, controller));
 
         setLayout(new GridLayout(myModules.size(), 1));
     }
@@ -43,11 +43,10 @@ public class ModulePanel extends JPanel implements Observer {
     public void update (String error,
                         String updateVariable,
                         Map<String, Collection<ModuleData>> moduleMap) {
-        myModules.get(0).updateContent( moduleMap.get("history"));
-        myModules.get(1).updateContent( moduleMap.get("command"));
-        myModules.get(2).updateContent( moduleMap.get("variable"));
-        
+        myModules.get(0).updateContent(moduleMap.get("history"));
+        myModules.get(1).updateContent(moduleMap.get("command"));
+        myModules.get(2).updateContent(moduleMap.get("variable"));
+
     }
 
-   
 }

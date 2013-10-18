@@ -21,8 +21,11 @@ import view.optionsPanel.OptionsPanel;
  * 
  */
 public class PanelFactory {
-    public static JPanel makePanel (String panel, Map<String, JComponent> parameters,Controller controller) {
-        if (panel.equals("module")) { return new ModulePanel((Textbox) parameters.get("textbox"),controller); }
+    public static JPanel makePanel (String panel,
+                                    Map<String, JComponent> parameters,
+                                    Controller controller) {
+        if (panel.equals("module")) { return new ModulePanel((Textbox) parameters.get("textbox"),
+                                                             controller); }
         if (panel.equals("input")) { return new InputPanel((Textbox) parameters.get("textbox"),
                                                            (RunButton) parameters.get("runbutton")); }
         if (panel.equals("option")) { return new OptionsPanel((JButton) parameters.get("pen"),
