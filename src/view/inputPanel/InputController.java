@@ -1,5 +1,6 @@
 package view.inputPanel;
 
+import javax.swing.JButton;
 import model.Model;
 import view.Controller;
 import view.Subject;
@@ -7,9 +8,9 @@ import view.Subject;
 
 public class InputController extends Controller {
 
-    public InputController (Subject subject, Model model) {
+    public InputController (Subject subject, Model model ) {
         super(subject, model);
-        // TODO Auto-generated constructor stub
+        
     }
 
     public void executeCommand (String input) {
