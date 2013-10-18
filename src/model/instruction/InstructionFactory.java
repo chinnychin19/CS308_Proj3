@@ -38,7 +38,7 @@ public class InstructionFactory {
                     continue; // ignore these lines
                 }
                 String[] arr = line.split("\\s+");
-                myMap.put(arr[0], arr[1]);
+                myMap.put(arr[0].toUpperCase(), arr[1]);
             }
         }
         catch (Exception e) {
@@ -48,18 +48,14 @@ public class InstructionFactory {
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
     public Instruction getInstruction (String s, Instruction parent) {
-        s = s.toUpperCase();
         if (DataTypeChecker.isString(s)) {
             // User variables
             if (s.charAt(0) == ':') { return new InstructionVariable(s, parent, myModel); }
 
             try {
-                String className = myMap.get(s);
-                System.out.println(className);
+                String className = myMap.get(s.toUpperCase());
                 Class theClass = Class.forName(className);
-                System.out.println("forName successful");
                 Constructor con = theClass.getConstructor(Instruction.class, Model.class);
-                System.out.println("constructor received");
                 return (Instruction) (con.newInstance(parent, myModel));
             }
             catch (Exception e) {
@@ -68,6 +64,7 @@ public class InstructionFactory {
                     return myModel.getCommandCache().get(s);
                 }
                 else {
+                    System.out.println("null returned for " + s);
                     return null;
                 }
             }
