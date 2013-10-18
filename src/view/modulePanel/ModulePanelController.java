@@ -1,6 +1,5 @@
 package view.modulePanel;
 
-import javax.swing.JButton;
 import model.Model;
 import view.Controller;
 import view.Subject;
