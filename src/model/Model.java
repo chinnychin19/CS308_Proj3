@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -24,6 +25,10 @@ public class Model {
     private CommandHistory myCommandHistory;
     private InstructionFactory myInstructionFactory;
     private String myLanguage;
+    private int myBGColorIndex;
+    private int myPenColorIndex;
+    private int myPenSize;
+    private List<Color> myAvailableColors;
 
     public Model () {
         myInterpreter = new Interpreter(this);
@@ -36,6 +41,17 @@ public class Model {
         myActiveTurtleIDs.add(1); // by default, initial turtle is active
         myCommandHistory = new CommandHistory();
         myInstructionFactory = new InstructionFactory(this);
+        myLanguage = "English";
+        myPenSize = 5;
+        initializeColors();
+    }
+
+    private void initializeColors () {
+        myBGColorIndex = 0;
+        myPenColorIndex = 1;
+        myAvailableColors = new ArrayList<Color>();
+        myAvailableColors.add(myBGColorIndex, Color.black);
+        myAvailableColors.add(myPenColorIndex, Color.red);
     }
 
     public InstructionFactory getInstructionFactory () {
@@ -112,6 +128,18 @@ public class Model {
             list.add(myTurtles.get(id));
         }
         return list;
+    }
+
+    public String setPalette (int index, int r, int g, int b) {
+        if (index < 0 || index > myAvailableColors.size()) { return "Index is out of range"; }
+        if (index < myAvailableColors.size()) { // edit pre-existing
+            myAvailableColors.remove(index);
+            myAvailableColors.add(index, new Color(r, g, b));
+        }
+        else {
+            myAvailableColors.add(new Color(r, g, b));
+        }
+        return "";
     }
 
     // View functions:
@@ -239,27 +267,37 @@ public class Model {
     }
 
     public String setBGColor (int colorIndex) {
-        return null; // TODO
+        if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
+        myBGColorIndex = colorIndex;
+        return "";
     }
 
-    public int[] getBGColor () {
-        return null; // TODO
+    public Color getBGColor () {
+        return myAvailableColors.get(myBGColorIndex);
     }
 
     public String setPenColor (int colorIndex) {
-        return null; // TODO
+        if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
+        myPenColorIndex = colorIndex;
+        return "";
     }
 
-    public int[] getPenColor () {
-        return null; // TODO
+    public Color getPenColor () {
+        return myAvailableColors.get(myPenColorIndex);
     }
 
     public String setPenSize (int pixels) {
-        return null; // TODO
+        if (pixels < 0) { return "Pen size must be non-negative"; }
+        myPenSize = pixels;
+        return "";
     }
 
     public int getPenSize () {
-        return 0; // TODO
+        return myPenSize;
+    }
+
+    public List<Color> getAvailableColors () {
+        return myAvailableColors;
     }
 
     public String keyPressed (int k) {
