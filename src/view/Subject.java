@@ -25,7 +25,7 @@ public class Subject {
         return ret;
     }
 
-    public Collection<ModuleData> getStoredVariables (Model currentModel) {
+    private Collection<ModuleData> getStoredVariables (Model currentModel) {
         Collection<ModuleData> variableCollection = new ArrayList<ModuleData>();
         Map<String, String> variableMap = currentModel.getAllVariables();
         for (String key : variableMap.keySet()) {
@@ -35,7 +35,7 @@ public class Subject {
         return variableCollection;
     }
 
-    public Collection<ModuleData> getStoredHistory (Model currentModel) {
+    private Collection<ModuleData> getStoredHistory (Model currentModel) {
         Collection<ModuleData> historyCollection = new ArrayList<ModuleData>();
 
         for (String history : currentModel.getHistory()) {
@@ -45,7 +45,7 @@ public class Subject {
 
     }
 
-    public Collection<ModuleData> getStoredCommand (Model currentModel) {
+    private Collection<ModuleData> getStoredCommand (Model currentModel) {
         Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
 
         Map<String, String> commandMap = currentModel.getAllCommands();
@@ -60,6 +60,12 @@ public class Subject {
             observer.update(error,updateVariable,moduleMap );
         }
         
+    }
+    private void getTurtleData(){
+//        myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
+//        myCanvas.setHeading(myModel.getTurtleAngle(1));
+//        myCanvas.setPaths(myModel.getTurtlePaths());
+//        myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
     }
     
     protected void addObservers(Observer observer){

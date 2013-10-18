@@ -13,7 +13,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import view.Controller;
 import view.Observer;
-import model.Model;
 
 
 @SuppressWarnings("serial")
