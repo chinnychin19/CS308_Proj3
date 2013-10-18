@@ -20,6 +20,7 @@ public interface Constants {
 
     public static final int GRID_CID = 2;
     public static final int TURTLE_CID = 0;
+    public static final int STAMP_CID = -2;
 
     public static final double ERROR_MESSAGE_OFFSET = 0.95;
 
