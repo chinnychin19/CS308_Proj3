@@ -5,9 +5,9 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
-public class InstructionGREATER extends Instruction {
+public class InstructionGREATERP extends Instruction {
 
-    public InstructionGREATER (Instruction parent, Model m) {
+    public InstructionGREATERP (Instruction parent, Model m) {
         super(2, parent, m); // Greater takes two parameters
     }
 
