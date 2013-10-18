@@ -50,10 +50,10 @@ class ControllerDraft {
     }
 
     protected void executeCommand () {
-        currentModel.parseInput(myTextbox.getText());
-        myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
-        myView.updateCanvasPanel();
-        myView.updateOptionsPanel();
+//        currentModel.parseInput(myTextbox.getText());
+//        myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
+////        myView.updateCanvasPanel();
+//        myView.updateOptionsPanel();
     }
 
     void editVariable () {

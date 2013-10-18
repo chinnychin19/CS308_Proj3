@@ -30,10 +30,12 @@ import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
 import view.display.ViewUpdater;
+import view.inputPanel.InputController;
 import view.inputPanel.RunButton;
 import view.inputPanel.Textbox;
 import view.modulePanel.ModuleData;
 import view.modulePanel.ModulePanel;
+import view.modulePanel.ModulePanelController;
 import view.optionsPanel.BackgroundColorChooser;
 import view.optionsPanel.GridCheckBox;
 import view.optionsPanel.ImageChooser;
@@ -66,12 +68,13 @@ public class View extends JFrame {
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
 
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
-
+        Controller moduleController = new ModulePanelController(null, model);
         paramaters.put("textbox", textbox);
-        modulePanel = PanelFactory.makePanel("module", paramaters);
-        runbutton = new RunButton("RUN", textbox, (ModulePanel) modulePanel, this);
+        modulePanel = PanelFactory.makePanel("module", paramaters,moduleController);
+        Controller inputController = new InputController(null, model);
+        runbutton = new RunButton("RUN", textbox,inputController);
         paramaters.put("runbutton", runbutton);
-        inputPanel = PanelFactory.makePanel("input", paramaters);
+        inputPanel = PanelFactory.makePanel("input", paramaters,moduleController);
 
         myCanvas = new Canvas();
         paramaters.put("pen", new PenColorChooser(this));
@@ -80,7 +83,7 @@ public class View extends JFrame {
         paramaters.put("image", new ImageChooser(this));
         paramaters.put("grid", new GridCheckBox(this));
 
-       optionsPanel = PanelFactory.makePanel("option", paramaters);
+       optionsPanel = PanelFactory.makePanel("option", paramaters,moduleController);
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);

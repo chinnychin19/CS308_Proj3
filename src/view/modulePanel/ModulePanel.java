@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
+import view.Controller;
 import view.inputPanel.Textbox;
 
 
@@ -14,13 +15,13 @@ import view.inputPanel.Textbox;
 public class ModulePanel extends JPanel {
     private List<Module> myModules;
 
-    public ModulePanel (Textbox textbox) {
+    public ModulePanel (Textbox textbox, Controller controller) {
         super();
         myModules = new ArrayList<Module>();
 
-        addModule(ModuleFactory.createModule("history", textbox));
-        addModule(ModuleFactory.createModule("command", textbox));
-        addModule(ModuleFactory.createModule("variable", textbox));
+        addModule(ModuleFactory.createModule("history", textbox,controller));
+        addModule(ModuleFactory.createModule("command", textbox,controller));
+        addModule(ModuleFactory.createModule("variable", textbox,controller));
 
         setLayout(new GridLayout(myModules.size(), 1));
     }

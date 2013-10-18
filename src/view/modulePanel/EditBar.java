@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import view.Controller;
 import model.Model;
 
 
@@ -19,8 +20,9 @@ public class EditBar extends JPanel {
     TextField myTextfield;
     JList<ModuleData> myList;
     DefaultListModel<ModuleData> myListModel;
-
-    public EditBar (JList<ModuleData> list, DefaultListModel<ModuleData> listModel) {
+    Controller myController;
+    public EditBar (JList<ModuleData> list, DefaultListModel<ModuleData> listModel, Controller controller) {
+        myController = controller;
         myList = list;
         myListModel = listModel;
         JPanel bottomPane = new JPanel();
@@ -47,8 +49,9 @@ public class EditBar extends JPanel {
                     ModuleData selected = (ModuleData) myListModel.get(index);
                     String newValue = myTextfield.getText();
                     String putStatus = "";
+                    ((ModulePanelController) myController).updateVariable(selected.getDisplay(), newValue);
                     // Model.putVariable(selected.getDisplay(), newValue);
-                    updateVariable(index, selected, putStatus);
+//                    updateVariable(index, selected, putStatus);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,

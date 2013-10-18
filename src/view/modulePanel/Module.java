@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import view.Controller;
 import view.inputPanel.Textbox;
 
 
@@ -26,7 +27,7 @@ public class Module extends JPanel {
     private Textbox myTextbox;
     private String MODULE_NAME;
 
-    protected Module (Textbox textbox, String name) {
+    protected Module (Textbox textbox, String name, Controller controller) {
 
         super();
         setModuleName();
