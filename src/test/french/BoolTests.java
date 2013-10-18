@@ -13,9 +13,9 @@ public class BoolTests {
     public void testINFERIEURP () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd inferieur? 1 2");
+        model.parseInput("dev inferieur? 1 2");
         assertEquals(1, model.getTurtleY(1), DELTA);
-        model.parseInput("fd inferieurp 2 1");
+        model.parseInput("dev inferieurp 2 1");
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 
@@ -23,9 +23,9 @@ public class BoolTests {
     public void testSUPERIEURP () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd superieur? 1 2");
+        model.parseInput("dev superieur? 1 2");
         assertEquals(0, model.getTurtleY(1), DELTA);
-        model.parseInput("fd superieurp 2 1");
+        model.parseInput("dev superieurp 2 1");
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 
@@ -33,9 +33,9 @@ public class BoolTests {
     public void testEGALP () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd egal? 1 2");
+        model.parseInput("dev egal? 1 2");
         assertEquals(0, model.getTurtleY(1), DELTA);
-        model.parseInput("fd egalp 2 2");
+        model.parseInput("dev egalp 2 2");
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 
@@ -43,9 +43,9 @@ public class BoolTests {
     public void testDIFFERENTP () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd different? 1 2");
+        model.parseInput("dev different? 1 2");
         assertEquals(1, model.getTurtleY(1), DELTA);
-        model.parseInput("fd differentp 2 2");
+        model.parseInput("dev differentp 2 2");
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 
@@ -53,9 +53,9 @@ public class BoolTests {
     public void testET () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd et 1 2");
+        model.parseInput("dev et 1 2");
         assertEquals(1, model.getTurtleY(1), DELTA);
-        model.parseInput("fd et 1 0");
+        model.parseInput("dev et 1 0");
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 
@@ -63,11 +63,11 @@ public class BoolTests {
     public void testOU () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd ou 1 2");
+        model.parseInput("dev ou 1 2");
         assertEquals(1, model.getTurtleY(1), DELTA);
-        model.parseInput("fd ou 1 0");
+        model.parseInput("dev ou 1 0");
         assertEquals(2, model.getTurtleY(1), DELTA);
-        model.parseInput("fd ou 0 0");
+        model.parseInput("dev ou 0 0");
         assertEquals(2, model.getTurtleY(1), DELTA);
     }
 
@@ -75,9 +75,9 @@ public class BoolTests {
     public void testNON () {
         Model model = new Model();
         model.setLanguage("French");
-        model.parseInput("fd non 1");
+        model.parseInput("dev non 1");
         assertEquals(0, model.getTurtleY(1), DELTA);
-        model.parseInput("fd non 0");
+        model.parseInput("dev non 0");
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 }

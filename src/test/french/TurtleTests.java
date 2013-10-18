@@ -9,96 +9,139 @@ public class TurtleTests {
     private static final double DELTA = 0.001;
 
     @Test
-    public void testFD () {
+    public void testDEVANT () {
         Model model = new Model();
-        model.parseInput("fd 10");
+        model.setLanguage("French");
+        model.parseInput("devant 10");
         assertEquals(10, model.getTurtleY(1), DELTA);
+        model.parseInput("dev 10");
+        assertEquals(20, model.getTurtleY(1), DELTA);
     }
 
     @Test
-    public void testBK () {
+    public void testDERRIERE () {
         Model model = new Model();
-        model.parseInput("bk 10");
+        model.setLanguage("French");
+        model.parseInput("derriere 10");
         assertEquals(-10, model.getTurtleY(1), DELTA);
+        model.parseInput("der 10");
+        assertEquals(-20, model.getTurtleY(1), DELTA);
     }
 
     @Test
-    public void testLT () {
+    public void testGAUCHE () {
         Model model = new Model();
-        model.parseInput("lt 10");
+        model.setLanguage("French");
+        model.parseInput("gauche 10");
         assertEquals(100, model.getTurtleAngle(1), DELTA);
+        model.parseInput("gc 10");
+        assertEquals(110, model.getTurtleAngle(1), DELTA);
     }
 
     @Test
-    public void testRT () {
+    public void testDROITE () {
         Model model = new Model();
-        model.parseInput("rt 10");
+        model.setLanguage("French");
+        model.parseInput("droite 10");
         assertEquals(80, model.getTurtleAngle(1), DELTA);
+        model.parseInput("dr 10");
+        assertEquals(70, model.getTurtleAngle(1), DELTA);
     }
 
     @Test
-    public void testSETH () {
+    public void testDEFINIRENTETE () {
         Model model = new Model();
-        model.parseInput("seth 10");
+        model.setLanguage("French");
+        model.parseInput("definirentete 10");
         assertEquals(10, model.getTurtleAngle(1), DELTA);
+        model.parseInput("defett 20");
+        assertEquals(20, model.getTurtleAngle(1), DELTA);
     }
 
     @Test
-    public void testTOWARDS () {
+    public void testVERS () {
         Model model = new Model();
-        model.parseInput("towards -10 10");
+        model.setLanguage("French");
+        model.parseInput("vers -10 10");
         assertEquals(135, model.getTurtleAngle(1), DELTA);
     }
 
     @Test
-    public void testGOTO () {
+    public void testPOSITIONEXY () {
         Model model = new Model();
-        model.parseInput("goto -10 10");
+        model.setLanguage("French");
+        model.parseInput("positionexy -10 10");
         assertEquals(-10, model.getTurtleX(1), DELTA);
         assertEquals(10, model.getTurtleY(1), DELTA);
+        model.parseInput("aller -20 20");
+        assertEquals(-20, model.getTurtleX(1), DELTA);
+        assertEquals(20, model.getTurtleY(1), DELTA);
     }
 
     @Test
-    public void testPENUPDOWN () {
+    public void testSTYLOACTIFINACTIF () {
         Model model = new Model();
-        model.parseInput("pd");
+        model.setLanguage("French");
+        model.parseInput("styloactif");
         assertEquals(true, model.isTurtleDrawing(1));
-        model.parseInput("pu");
+        model.parseInput("styloinactif");
+        assertEquals(false, model.isTurtleDrawing(1));
+        model.parseInput("sac");
+        assertEquals(true, model.isTurtleDrawing(1));
+        model.parseInput("sic");
         assertEquals(false, model.isTurtleDrawing(1));
     }
 
     @Test
-    public void testSHOWHIDE () {
+    public void testMONTRERCACHER () {
         Model model = new Model();
-        model.parseInput("st");
+        model.setLanguage("French");
+        model.parseInput("montrertortue");
         assertEquals(true, model.isTurtleVisible(1));
-        model.parseInput("ht");
+        model.parseInput("cachertortue");
+        assertEquals(false, model.isTurtleVisible(1));
+        model.parseInput("mt");
+        assertEquals(true, model.isTurtleVisible(1));
+        model.parseInput("ct");
         assertEquals(false, model.isTurtleVisible(1));
     }
 
     @Test
-    public void testHOME () {
+    public void testMAISON () {
         Model model = new Model();
-        model.parseInput("fd 100 lt 90 fd 100");
+        model.setLanguage("French");
+        model.parseInput("dev 100 gauche 90 dev 100");
         // go 100, turn left, go 100
         assertEquals(-100, model.getTurtleX(1), DELTA);
         assertEquals(100, model.getTurtleY(1), DELTA);
 
-        model.parseInput("home");
+        model.parseInput("maison");
         assertEquals(0, model.getTurtleX(1), DELTA);
         assertEquals(0, model.getTurtleY(1), DELTA);
     }
 
     @Test
-    public void testCS () {
+    public void testEFFACERECRAN () {
         Model model = new Model();
-        model.parseInput("fd 100 lt 90 pu fd 50 pd fd 50");
+        model.setLanguage("French");
+        model.parseInput("dev 100 gauche 90 styloinactif dev 50 styloactif dev 50");
         // go 100 w/ drawing, turn left, go 50 w/o drawing, then 50 w/ drawing
         assertEquals(2, model.getTurtlePaths().size());
         assertEquals(-100, model.getTurtleX(1), DELTA);
         assertEquals(100, model.getTurtleY(1), DELTA);
 
-        model.parseInput("cs");
+        model.parseInput("effacerecran");
+        assertEquals(0, model.getTurtlePaths().size());
+        assertEquals(0, model.getTurtleX(1), DELTA);
+        assertEquals(0, model.getTurtleY(1), DELTA);
+
+        model.parseInput("dev 100 gauche 90 styloinactif dev 50 styloactif dev 50");
+        // go 100 w/ drawing, turn left, go 50 w/o drawing, then 50 w/ drawing
+        assertEquals(2, model.getTurtlePaths().size());
+        assertEquals(-100, model.getTurtleX(1), DELTA);
+        assertEquals(100, model.getTurtleY(1), DELTA);
+
+        model.parseInput("ee");
         assertEquals(0, model.getTurtlePaths().size());
         assertEquals(0, model.getTurtleX(1), DELTA);
         assertEquals(0, model.getTurtleY(1), DELTA);
