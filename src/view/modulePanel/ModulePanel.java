@@ -3,7 +3,9 @@ package view.modulePanel;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import javax.swing.JPanel;
 import view.inputPanel.Textbox;
 
@@ -23,10 +25,11 @@ public class ModulePanel extends JPanel {
         setLayout(new GridLayout(myModules.size(), 1));
     }
 
-    public void updateModules () {
-        for (Module module : myModules) {
-            module.updateContent();
-        }
+    public void updateModules (Map<String, Collection<ModuleData>> map) {
+        myModules.get(0).updateContent(map.get("history"));
+        myModules.get(1).updateContent(map.get("command"));
+        myModules.get(2).updateContent(map.get("variable"));
+
     }
 
     private void addModule (Module module) {

@@ -10,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -31,6 +32,7 @@ import view.display.Canvas;
 import view.display.ViewUpdater;
 import view.inputPanel.RunButton;
 import view.inputPanel.Textbox;
+import view.modulePanel.ModuleData;
 import view.modulePanel.ModulePanel;
 import view.optionsPanel.BackgroundColorChooser;
 import view.optionsPanel.GridCheckBox;
@@ -46,6 +48,7 @@ public class View extends JFrame {
     private static Canvas myCanvas;
     private Model myModel;
     private Controller myController;
+    JPanel modulePanel;
 
     /**
      * Constructor for View Class
@@ -61,7 +64,7 @@ public class View extends JFrame {
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
 
         paramaters.put("textbox", textbox);
-        JPanel modulePanel = PanelFactory.makePanel("module", paramaters);
+        modulePanel = PanelFactory.makePanel("module", paramaters);
         RunButton runbutton = new RunButton("RUN", textbox, (ModulePanel) modulePanel, this);
         paramaters.put("runbutton", runbutton);
         JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
@@ -73,9 +76,7 @@ public class View extends JFrame {
         paramaters.put("image", new ImageChooser(this));
         paramaters.put("grid", new GridCheckBox(this));
 
-
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
-
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
@@ -96,9 +97,9 @@ public class View extends JFrame {
     // SUSAN BEGIN COMPLETING METHODS
 
     protected void update () {
-        updateModulePanel();
-        updateCanvasPanel();
-        updateOptionsPanel();
+        // modulePanel.updateModulePanel();
+        // updateCanvasPanel();
+        // updateOptionsPanel();
     }
 
     protected void changeWorkSpace () {
@@ -111,8 +112,8 @@ public class View extends JFrame {
 
     }
 
-    protected void updateModulePanel () {
-        // TODO lalita
+    protected void updateModulePanel (Map<String, Collection<ModuleData>> map) {
+        ((ModulePanel) modulePanel).updateModules(map);
     }
 
     protected void updateCanvasPanel () {

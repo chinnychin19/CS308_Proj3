@@ -1,10 +1,6 @@
 package view.modulePanel;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 import view.inputPanel.Textbox;
-import model.Model;
 
 
 @SuppressWarnings("serial")
@@ -20,17 +16,6 @@ public class CommandsModule extends Module {
     protected CommandsModule (Textbox textbox) {
         super(textbox);
 
-    }
-
-    @Override
-    protected Collection<ModuleData> getStoredModelInformation () {
-        Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
-        commandCollection.add(new ModuleData("test", "test2"));
-        // Map<String, String> commandMap = Model.getAllCommands();
-        // for (String key : commandMap.keySet()) {
-        // commandCollection.add(new ModuleData(key, commandMap.get(key)));
-        // }
-        return commandCollection;
     }
 
     @Override

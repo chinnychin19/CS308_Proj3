@@ -11,6 +11,7 @@ class Controller {
     private Model currentModel;
     private View myView;
     private Textbox myTextbox;
+    private ModuleController myModuleController;
 
     protected Controller (Model model, View view, Textbox textbox) {
         myTextbox = textbox;
@@ -18,6 +19,7 @@ class Controller {
         myModels = new ArrayList<Model>();
         currentModel = model;
         myModels.add(currentModel);
+        myModuleController = new ModuleController();
     }
 
     void selectModel (int modelNumber) {
@@ -31,7 +33,7 @@ class Controller {
     void setBackground (int colorIndex) {
         currentModel.setBGColor(colorIndex);
         myView.updateBGColor();
-        myView.updateModulePanel();
+        myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
 
     }
 
@@ -42,7 +44,9 @@ class Controller {
 
     protected void executeCommand () {
         currentModel.parseInput(myTextbox.getText());
-        myView.update();
+        myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
+        myView.updateCanvasPanel();
+        myView.updateOptionsPanel();
     }
 
     void editVariable () {
