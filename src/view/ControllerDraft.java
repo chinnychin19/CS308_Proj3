@@ -31,7 +31,6 @@ class ControllerDraft {
         myView.updateCanvasPanel();
         myView.updateOptionsPanel();
 
-
     }
 
     void setBackground (int colorIndex) {
@@ -46,14 +45,14 @@ class ControllerDraft {
         myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
         myView.updateCanvasPanel();
         myView.updateOptionsPanel();
-        
+
     }
 
     protected void executeCommand () {
-//        currentModel.parseInput(myTextbox.getText());
-//        myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
-////        myView.updateCanvasPanel();
-//        myView.updateOptionsPanel();
+        // currentModel.parseInput(myTextbox.getText());
+        // myView.updateModulePanel(myModuleController.getModelInformation(currentModel));
+        // // myView.updateCanvasPanel();
+        // myView.updateOptionsPanel();
     }
 
     void editVariable () {

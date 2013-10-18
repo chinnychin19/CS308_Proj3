@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -46,7 +45,7 @@ import view.optionsPanel.PenColorChooser;
 import view.optionsPanel.StatusCheckBox;
 
 
-public class View extends JFrame implements Observer{
+public class View extends JFrame implements Observer {
     protected ViewUpdater myViewUpdater;
 
     private static Canvas myCanvas;
@@ -55,7 +54,7 @@ public class View extends JFrame implements Observer{
     JPanel modulePanel;
     Textbox textbox;
     RunButton runbutton;
-    JPanel inputPanel ;
+    JPanel inputPanel;
     JPanel optionsPanel;
 
     /**
@@ -68,18 +67,18 @@ public class View extends JFrame implements Observer{
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
-        
+
         Subject subject = new Subject(model, this);
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         Controller moduleController = new ModulePanelController(subject, model);
         paramaters.put("textbox", textbox);
-        modulePanel = PanelFactory.makePanel("module", paramaters,moduleController);
+        modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
         subject.addObservers((Observer) modulePanel);
         subject.addObservers((Observer) this);
         Controller inputController = new InputController(subject, model);
-        runbutton = new RunButton("RUN", textbox,inputController);
+        runbutton = new RunButton("RUN", textbox, inputController);
         paramaters.put("runbutton", runbutton);
-        inputPanel = PanelFactory.makePanel("input", paramaters,moduleController);
+        inputPanel = PanelFactory.makePanel("input", paramaters, moduleController);
 
         myCanvas = new Canvas();
         paramaters.put("pen", new PenColorChooser(this));
@@ -88,7 +87,7 @@ public class View extends JFrame implements Observer{
         paramaters.put("image", new ImageChooser(this, myCanvas));
         paramaters.put("grid", new GridCheckBox(this));
 
-       optionsPanel = PanelFactory.makePanel("option", paramaters,moduleController);
+        optionsPanel = PanelFactory.makePanel("option", paramaters, moduleController);
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
@@ -108,8 +107,6 @@ public class View extends JFrame implements Observer{
 
     // SUSAN BEGIN COMPLETING METHODS
 
-
-
     protected void changeWorkSpace () {
         // TODO
         // CLEAR Textbox and everything else
@@ -126,22 +123,22 @@ public class View extends JFrame implements Observer{
 
     protected void updateCanvasPanel () {
         // SUSAN FIX THE INDEX VALUES PLEASE :)
-        
-        ArrayList<Integer> activeTurtleList = new ArrayList<Integer>(); //myModel.getActiveTurtleIDs ();
-        activeTurtleList.add(1);   
+
+        ArrayList<Integer> activeTurtleList = new ArrayList<Integer>(); // myModel.getActiveTurtleIDs
+                                                                        // ();
+        activeTurtleList.add(1);
         myCanvas.setActiveTurtles(activeTurtleList);
-        
-        //System.out.println(activeTurtleList);
-        
-        for (Integer ID: activeTurtleList){
-           myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
-           myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
-           myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
+
+        // System.out.println(activeTurtleList);
+
+        for (Integer ID : activeTurtleList) {
+            myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
+            myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
+            myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
         }
 
-        
         myCanvas.setPaths(myModel.getTurtlePaths());
-        
+
     }
 
     protected void updateOptionsPanel () {
@@ -153,8 +150,7 @@ public class View extends JFrame implements Observer{
     protected void changeModel (Model newModel) {
         myModel = newModel;
     }
- 
-    
+
     public void displayError (String error) {
         myCanvas.setError(error);
     }
@@ -168,7 +164,7 @@ public class View extends JFrame implements Observer{
                         String updateVariable,
                         Map<String, Collection<ModuleData>> moduleMap) {
         displayError(error);
-        
+
     }
 
 }

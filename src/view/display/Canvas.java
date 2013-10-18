@@ -8,6 +8,8 @@ import java.util.Map;
 import model.Model;
 import model.Path;
 import view.Constants;
+import view.Observer;
+import view.modulePanel.ModuleData;
 import jgame.JGColor;
 import jgame.JGFont;
 import jgame.JGPoint;
@@ -20,7 +22,7 @@ import jgame.platform.JGEngine;
  * @author susanzhang93
  * 
  */
-public class Canvas extends JGEngine {
+public class Canvas extends JGEngine implements Observer {
     private TurtleSprite myTurtle;
     private String myImageName = "Turtle1.gif";
     private String myError = "";
@@ -120,7 +122,7 @@ public class Canvas extends JGEngine {
 
         for (int ID : myActiveTurtleIDs) {
             TurtleSprite currentTurtle = myTurtleMap.get(ID);
-            
+
             drawString("Turtle " + ID, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                        myPenColor);
             drawString("X: " + (currentTurtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5,
@@ -133,7 +135,8 @@ public class Canvas extends JGEngine {
                        -1,
                        new JGFont("arial", 0, 12),
                        myPenColor);
-            drawString("Heading: " + currentTurtle.getHeading(), 5, offset += 13, -1, new JGFont("arial", 0, 12),
+            drawString("Heading: " + currentTurtle.getHeading(), 5, offset += 13, -1,
+                       new JGFont("arial", 0, 12),
                        myPenColor);
         }
 
@@ -281,7 +284,7 @@ public class Canvas extends JGEngine {
      */
     public void setHeading (int ID, double newHeading) {
 
-        if (myTurtleMap.get(ID).getHeading()!=newHeading){
+        if (myTurtleMap.get(ID).getHeading() != newHeading) {
             myTurtleMap.get(ID).setHeading(newHeading);
         }
 
@@ -354,4 +357,27 @@ public class Canvas extends JGEngine {
                     50);
     }
 
+    @Override
+    public void update (String error,
+                        String updateVariable,
+                        Map<String, Collection<ModuleData>> moduleMap) {
+        // LALITA WILL GIVE YOU AN ACTIVETURTLE LIST
+        // ArrayList<Integer> activeTurtleList = new ArrayList<Integer>();
+        // //myModel.getActiveTurtleIDs ();
+        // activeTurtleList.add(1);
+        // myCanvas.setActiveTurtles(activeTurtleList);
+
+        // System.out.println(activeTurtleList);
+
+        // for (Integer ID: activeTurtleList){
+        // myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
+        // myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
+        // myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
+        // }
+        //
+        //
+        // myCanvas.setPaths(myModel.getTurtlePaths());
+        //
+        // }
+    }
 }

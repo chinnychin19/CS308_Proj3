@@ -18,17 +18,16 @@ public class RunButton extends JButton {
 
     public RunButton (String title, Textbox textbox, Controller controller) {
         super(title);
-        myController  = controller;
-        
-    
+        myController = controller;
+
         myTextbox = textbox;
-       
+
         myMouseListener = new MouseListener() {
 
             @Override
             public void mouseClicked (MouseEvent e) {
-                
-                sendUserInput ();
+
+                sendUserInput();
             }
 
             @Override
@@ -68,10 +67,10 @@ public class RunButton extends JButton {
 
         String input = myTextbox.getInput();
 
-         if (input.trim().equals("")) { return ""; }
-         ((InputController) myController).executeCommand(input);
-//         myView.displayError(Model.parseInput(input));
-         myTextbox.clear();
+        if (input.trim().equals("")) { return ""; }
+        ((InputController) myController).executeCommand(input);
+        // myView.displayError(Model.parseInput(input));
+        myTextbox.clear();
         return input;
 
     }
