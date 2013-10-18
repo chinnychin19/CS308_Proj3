@@ -31,7 +31,7 @@ public class InstructionFactory {
         Scanner sc = null;
         try {
             sc =
-                    new Scanner(getClass().getResourceAsStream("/languages/" + language +
+                    new Scanner(getClass().getResourceAsStream("/model/resources/" + language +
                                                                ".properties"));
             while (sc.hasNextLine()) {
                 String line = sc.nextLine();
