@@ -47,16 +47,20 @@ public class View extends JFrame {
 
     private static Canvas myCanvas;
     private Model myModel;
-    private Controller myController;
+    private ControllerDraft myController;
     JPanel modulePanel;
+    Textbox textbox;
+    RunButton runbutton;
+    JPanel inputPanel ;
+    JPanel optionsPanel;
 
     /**
      * Constructor for View Class
      */
     public View (Model model) {
         myModel = model;
-        Textbox textbox = new Textbox(Constants.FIELD_SIZE);
-        myController = new Controller(myModel, this, textbox);
+        textbox = new Textbox(Constants.FIELD_SIZE);
+        myController = new ControllerDraft(myModel, this, textbox);
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
@@ -65,9 +69,9 @@ public class View extends JFrame {
 
         paramaters.put("textbox", textbox);
         modulePanel = PanelFactory.makePanel("module", paramaters);
-        RunButton runbutton = new RunButton("RUN", textbox, (ModulePanel) modulePanel, this);
+        runbutton = new RunButton("RUN", textbox, (ModulePanel) modulePanel, this);
         paramaters.put("runbutton", runbutton);
-        JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
+        inputPanel = PanelFactory.makePanel("input", paramaters);
 
         myCanvas = new Canvas();
         paramaters.put("pen", new PenColorChooser(this));
@@ -76,7 +80,7 @@ public class View extends JFrame {
         paramaters.put("image", new ImageChooser(this));
         paramaters.put("grid", new GridCheckBox(this));
 
-        JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
+       optionsPanel = PanelFactory.makePanel("option", paramaters);
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
@@ -96,11 +100,7 @@ public class View extends JFrame {
 
     // SUSAN BEGIN COMPLETING METHODS
 
-    protected void update () {
-        // modulePanel.updateModulePanel();
-        // updateCanvasPanel();
-        // updateOptionsPanel();
-    }
+
 
     protected void changeWorkSpace () {
         // TODO

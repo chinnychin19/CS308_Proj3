@@ -1,20 +1,19 @@
-package view;
+package view.modulePanel;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import model.Model;
-import view.modulePanel.ModuleData;
 
 
-public class ModuleController {
+public class Ddraft {
 
-    public ModuleController () {
+    public Ddraft () {
 
     }
 
-    protected Map<String, Collection<ModuleData>> getModelInformation (Model currentModel) {
+    public Map<String, Collection<ModuleData>> getModelInformation (Model currentModel) {
         Map<String, Collection<ModuleData>> ret = new HashMap<String, Collection<ModuleData>>();
         ret.put("variable", getStoredVariables(currentModel));
         ret.put("history", getStoredHistory(currentModel));
@@ -22,7 +21,7 @@ public class ModuleController {
         return ret;
     }
 
-    protected Collection<ModuleData> getStoredVariables (Model currentModel) {
+    public Collection<ModuleData> getStoredVariables (Model currentModel) {
         Collection<ModuleData> variableCollection = new ArrayList<ModuleData>();
         Map<String, String> variableMap = currentModel.getAllVariables();
         for (String key : variableMap.keySet()) {
@@ -32,7 +31,7 @@ public class ModuleController {
         return variableCollection;
     }
 
-    protected Collection<ModuleData> getStoredHistory (Model currentModel) {
+    public Collection<ModuleData> getStoredHistory (Model currentModel) {
         Collection<ModuleData> historyCollection = new ArrayList<ModuleData>();
 
         for (String history : currentModel.getHistory()) {
@@ -42,7 +41,7 @@ public class ModuleController {
 
     }
 
-    protected Collection<ModuleData> getStoredCommand (Model currentModel) {
+    public Collection<ModuleData> getStoredCommand (Model currentModel) {
         Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
 
         Map<String, String> commandMap = currentModel.getAllCommands();
@@ -50,6 +49,10 @@ public class ModuleController {
             commandCollection.add(new ModuleData(key, commandMap.get(key)));
         }
         return commandCollection;
+    }
+    protected String editVariable(String key,String newValue){
+//        Model.putVariable(key, newValue);
+        return "";
     }
 
 }
