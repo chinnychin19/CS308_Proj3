@@ -1,7 +1,7 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
+
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,7 +11,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.AbstractAction;
@@ -83,7 +85,7 @@ public class View extends JFrame implements Observer{
         paramaters.put("pen", new PenColorChooser(this));
         paramaters.put("bg", new BackgroundColorChooser(this));
         paramaters.put("status", new StatusCheckBox(this));
-        paramaters.put("image", new ImageChooser(this));
+        paramaters.put("image", new ImageChooser(this, myCanvas));
         paramaters.put("grid", new GridCheckBox(this));
 
        optionsPanel = PanelFactory.makePanel("option", paramaters,moduleController);
@@ -124,10 +126,22 @@ public class View extends JFrame implements Observer{
 
     protected void updateCanvasPanel () {
         // SUSAN FIX THE INDEX VALUES PLEASE :)
-        myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
-        myCanvas.setHeading(myModel.getTurtleAngle(1));
+        
+        ArrayList<Integer> activeTurtleList = new ArrayList<Integer>(); //myModel.getActiveTurtleIDs ();
+        activeTurtleList.add(1);   
+        myCanvas.setActiveTurtles(activeTurtleList);
+        
+        //System.out.println(activeTurtleList);
+        
+        for (Integer ID: activeTurtleList){
+           myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
+           myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
+           myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
+        }
+
+        
         myCanvas.setPaths(myModel.getTurtlePaths());
-        myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
+        
     }
 
     protected void updateOptionsPanel () {
@@ -139,14 +153,8 @@ public class View extends JFrame implements Observer{
     protected void changeModel (Model newModel) {
         myModel = newModel;
     }
-
-    // public void updateCanvasData () {
-    // myCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
-    // myCanvas.setHeading(Model.getTurtleAngle());
-    // myCanvas.setPaths(Model.getTurtlePaths());
-    // myCanvas.isTurtleVisible(Model.isTurtleVisible());
-    // }
-
+ 
+    
     public void displayError (String error) {
         myCanvas.setError(error);
     }

@@ -2,6 +2,10 @@ package view.display;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import model.Model;
 import model.Path;
 import view.Constants;
 import jgame.JGColor;
@@ -17,7 +21,7 @@ import jgame.platform.JGEngine;
  * 
  */
 public class Canvas extends JGEngine {
-    private TurtleSprite myTurtle = null;
+    private TurtleSprite myTurtle;
     private String myImageName = "Turtle1.gif";
     private String myError = "";
     private Collection<Path> myPointList = new ArrayList<Path>();
@@ -27,8 +31,9 @@ public class Canvas extends JGEngine {
     private boolean myStatusOn = true;
     private boolean myVisible = true;
     private boolean myMouseClicked = false;
-    private ArrayList<TurtleSprite> myTurtleList = new ArrayList<TurtleSprite>();
+    private Map<Integer, TurtleSprite> myTurtleMap = new HashMap<Integer, TurtleSprite>();
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
+    private int stampCounter = 0;
 
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
@@ -57,11 +62,13 @@ public class Canvas extends JGEngine {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
         defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
         // turtleGif is name of image within JGEngine, imageName is the actual name of image
-
-        myTurtle =
-                new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                                 Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET, 1,
-                                 "turtleGif", 1);
+        myTurtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 -
+                                          Constants.TURTLE_OFFSET,
+                                    Constants.CANVAS_HEIGHT / 2 -
+                                            Constants.TURTLE_OFFSET, 1,
+                                    "turtleGif");
+        myTurtleMap.put(1, myTurtle);
+        myActiveTurtleIDs.add(1);
     }
 
     @Override
@@ -97,33 +104,55 @@ public class Canvas extends JGEngine {
 
         displayError(myError);
 
+        if (getKey('S')) {
+            Stamp();
+        }
+
+        if (getKey('C')) {
+            clearStamps();
+        }
+
         drawPath();
     }
 
     public void drawStatus () {
-        int offset = 5;
-        drawString("X: " + (myTurtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5, offset, -1,
-                   new JGFont("arial", 0, 12),
-                   myPenColor);
-        drawString("Y: " + (-myTurtle.getOffsetY() + Constants.CANVAS_HEIGHT / 2), 5, offset += 13,
-                   -1,
-                   new JGFont("arial", 0, 12),
-                   myPenColor);
-        drawString("Heading: " + myHeading, 5, offset += 13, -1, new JGFont("arial", 0, 12),
-                   myPenColor);
+        int offset = 0;
+
+        for (int ID : myActiveTurtleIDs) {
+            TurtleSprite currentTurtle = myTurtleMap.get(ID);
+            
+            drawString("Turtle " + ID, 5, offset += 13, -1, new JGFont("arial", 0, 12),
+                       myPenColor);
+            drawString("X: " + (currentTurtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5,
+                       offset += 13, -1,
+                       new JGFont("arial", 0, 12),
+                       myPenColor);
+            drawString("Y: " + (-currentTurtle.getOffsetY() + Constants.CANVAS_HEIGHT / 2),
+                       5, offset +=
+                               13,
+                       -1,
+                       new JGFont("arial", 0, 12),
+                       myPenColor);
+            drawString("Heading: " + currentTurtle.getHeading(), 5, offset += 13, -1, new JGFont("arial", 0, 12),
+                       myPenColor);
+        }
+
     }
 
-    public void isTurtleVisible (boolean visible) {
+    public void changeTurtleVisiblity (boolean visible) {
         if (visible != myVisible) {
-            if (visible) {
-                myTurtle.resume();
-            }
+            for (int ID : myTurtleMap.keySet()) {
 
-            else {
-                myTurtle.suspend();
+                if (visible) {
+                    myTurtleMap.get(ID).resume();
+                }
+
+                else {
+                    myTurtleMap.get(ID).suspend();
+                }
             }
+            myVisible = visible;
         }
-        myVisible = visible;
     }
 
     /**
@@ -166,15 +195,27 @@ public class Canvas extends JGEngine {
         adjustImageAngle(myHeading);
     }
 
+    public void moveTurtle (int ID, double x, double y) {
+        if (myTurtleMap.containsKey(ID)) {
+            TurtleSprite toMove = myTurtleMap.get(ID);
+            toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                          -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+        }
+        else {
+            System.out.println("fail");
+        }
+    }
+
     /**
      * Moves turtle sprite, and draws line between displacement
      * 
      * @param x new x location of turtle
      * @param y new y location of turtle
      */
+    @Deprecated
     public void moveTurtle (double x, double y) {
-        myTurtle.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                        -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+        myTurtleMap.get(1).setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                                  -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
     }
 
     /**
@@ -238,15 +279,11 @@ public class Canvas extends JGEngine {
     /**
      * Sets heading of turtle
      */
-    public void setHeading (double newHeading) {
+    public void setHeading (int ID, double newHeading) {
 
-        if (myHeading != newHeading) {
-
-            adjustImageAngle(newHeading);
-
+        if (myTurtleMap.get(ID).getHeading()!=newHeading){
+            myTurtleMap.get(ID).setHeading(newHeading);
         }
-
-        myHeading = newHeading;
 
     }
 
@@ -275,24 +312,45 @@ public class Canvas extends JGEngine {
     // return new Path((float) x, (float) y);
     // }
 
+    public void setActiveTurtles (ArrayList<Integer> turtleList) {
+        myActiveTurtleIDs = turtleList;
+    }
+
+    public void clearStamps () {
+        removeObjects(null, Constants.STAMP_CID);
+        stampCounter = 0;
+    }
+
+    public void Stamp () {
+        for (int ID : myTurtleMap.keySet()) {
+            TurtleSprite tempTurtle = myTurtleMap.get(ID);
+            String temp = "test" + stampCounter;
+            defineImage(temp, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+            new TurtleSprite(this, tempTurtle.x, tempTurtle.y, Constants.STAMP_CID,
+                             temp);
+        }
+
+        stampCounter++;
+    }
+
     public void adjustImageAngle (double angle) {
         if (angle >= 45 && angle < 135) {
-            myImageName = myImageName.substring(0, 7);
+            myImageName = myImageName.substring(0, 7) + ".gif";
         }
 
         else if (angle >= 135 && angle < 225) {
-            myImageName = myImageName.substring(0, 7) + "_2";
+            myImageName = myImageName.substring(0, 7) + "_2.gif";
         }
 
         else if (angle >= 225 && angle < 315) {
-            myImageName = myImageName.substring(0, 7) + "_3";
+            myImageName = myImageName.substring(0, 7) + "_3.gif";
         }
 
         else if (angle >= 315 || angle < 45) {
-            myImageName = myImageName.substring(0, 7) + "_4";
+            myImageName = myImageName.substring(0, 7) + "_4.gif";
         }
 
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName + ".gif", "-", 0, 0, 50,
+        defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50,
                     50);
     }
 
