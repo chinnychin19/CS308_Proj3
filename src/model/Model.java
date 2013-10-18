@@ -1,12 +1,17 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import model.instruction.InstructionFactory;
 import model.instruction.command.UserCommand;
+import model.instruction.error.FileNotFound;
 
 
 public class Model {
@@ -18,6 +23,7 @@ public class Model {
     private List<Integer> myActiveTurtleIDs;
     private CommandHistory myCommandHistory;
     private InstructionFactory myInstructionFactory;
+    private String myLanguage;
 
     public Model () {
         myInterpreter = new Interpreter(this);
@@ -160,18 +166,52 @@ public class Model {
     }
 
     public String readLibrary (String filename) {
-        // TODO
+        String oldLanguage = myLanguage;
+        try {
+            Scanner sc = new Scanner(new File(filename));
+            setLanguage("English"); // file must be read in English
+            String toBeParsed = "";
+            while (sc.hasNext()) {
+                toBeParsed = toBeParsed + sc.next() + " ";
+            }
+            sc.close();
+            parseInput(toBeParsed);
+            setLanguage(oldLanguage); // reset language to what it was before
+        }
+        catch (Exception e) {
+            return FileNotFound.MESSAGE;
+        }
         return null;
     }
 
     public String saveLibrary (String filename) {
-        // TODO
-        return null;
+        if (myLanguage != "English") { return "Only English library files may be saved."; }
+        try {
+            PrintStream out = new PrintStream(new File(filename));
+            Map<String, String> variables = myVariableCache.getKeyValuePairs();
+            for (String name : variables.keySet()) {
+                String line = "MAKE " + name + " " + variables.get(name);
+                out.println(line);
+            }
+            Map<String, String> commands = myCommandCache.getAllCommands();
+            for (String name : commands.keySet()) {
+                String line = commands.get(name);
+                out.println(line);
+            }
+            out.close();
+            return "";
+        }
+        catch (FileNotFoundException e) {
+            return e.getMessage();
+        }
     }
 
     public String setLanguage (String language) {
-        myInstructionFactory.setLanguage(language);
-        return null; // TODO
+        String ret = myInstructionFactory.setLanguage(language);
+        if (ret.isEmpty()) {
+            myLanguage = language;
+        }
+        return ret;
     }
 
     public boolean canUndo () {

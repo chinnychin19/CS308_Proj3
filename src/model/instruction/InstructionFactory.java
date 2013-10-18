@@ -12,6 +12,7 @@ import model.instruction.loop.*;
 import model.instruction.math.*;
 import model.instruction.bool.*;
 import model.instruction.conditional.*;
+import model.instruction.error.LanguageNotFound;
 import dataType.DataTypeChecker;
 
 
@@ -25,7 +26,7 @@ public class InstructionFactory {
         setLanguage("English");
     }
 
-    public void setLanguage (String language) {
+    public String setLanguage (String language) {
         myMap.clear();
         Scanner sc = null;
         try {
@@ -40,9 +41,11 @@ public class InstructionFactory {
                 String[] arr = line.split("\\s+");
                 myMap.put(arr[0].toUpperCase(), arr[1]);
             }
+            sc.close();
+            return "";
         }
         catch (Exception e) {
-            e.printStackTrace();
+            return LanguageNotFound.MESSAGE;
         }
     }
 
