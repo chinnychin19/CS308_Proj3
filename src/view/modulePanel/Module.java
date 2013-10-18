@@ -73,13 +73,12 @@ public abstract class Module extends JPanel {
      * @return Collection of Model data converted encapsulated as ModuleData
      *         objects
      */
-    protected abstract Collection<ModuleData> getStoredModelInformation ();
+    // protected abstract Collection<ModuleData> getStoredModelInformation ();
 
     /**
      * Updates the content of JList options
      */
-    protected void updateContent () {
-        Collection<ModuleData> listData = getStoredModelInformation();
+    protected void updateContent (Collection<ModuleData> listData) {
         myListModel.clear();
         for (ModuleData moduleData : listData) {
             myListModel.addElement(moduleData);
