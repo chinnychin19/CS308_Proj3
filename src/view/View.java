@@ -29,6 +29,7 @@ import javax.swing.JPanel;
 import jgame.JGColor;
 import menuBar.MenuBar;
 import model.Model;
+import model.Path;
 import view.display.Canvas;
 import view.display.ViewUpdater;
 import view.inputPanel.InputController;
@@ -81,6 +82,7 @@ public class View extends JFrame implements Observer {
         inputPanel = PanelFactory.makePanel("input", paramaters, moduleController);
 
         myCanvas = new Canvas();
+        subject.addObservers((Observer) myCanvas);
         paramaters.put("pen", new PenColorChooser(this));
         paramaters.put("bg", new BackgroundColorChooser(this));
         paramaters.put("status", new StatusCheckBox(this));
@@ -162,7 +164,13 @@ public class View extends JFrame implements Observer {
     @Override
     public void update (String error,
                         String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap) {
+                        Map<String, Collection<ModuleData>> moduleMap,
+                        ArrayList<Integer> activeTurtleList,
+                        Map<Integer, Double> turtleXMap,
+                        Map<Integer, Double> turtleYMap,
+                        Map<Integer, Double> turtleAngleMap,
+                        Map<Integer, Boolean> turtleVisibilityMap,
+                        Collection<Path> paths) {
         displayError(error);
 
     }
