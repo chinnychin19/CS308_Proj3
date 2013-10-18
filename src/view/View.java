@@ -30,10 +30,12 @@ import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
 import view.display.ViewUpdater;
+import view.inputPanel.InputController;
 import view.inputPanel.RunButton;
 import view.inputPanel.Textbox;
 import view.modulePanel.ModuleData;
 import view.modulePanel.ModulePanel;
+import view.modulePanel.ModulePanelController;
 import view.optionsPanel.BackgroundColorChooser;
 import view.optionsPanel.GridCheckBox;
 import view.optionsPanel.ImageChooser;
@@ -42,32 +44,40 @@ import view.optionsPanel.PenColorChooser;
 import view.optionsPanel.StatusCheckBox;
 
 
-public class View extends JFrame {
+public class View extends JFrame implements Observer{
     protected ViewUpdater myViewUpdater;
 
     private static Canvas myCanvas;
     private Model myModel;
-    private Controller myController;
+    private ControllerDraft myController;
     JPanel modulePanel;
+    Textbox textbox;
+    RunButton runbutton;
+    JPanel inputPanel ;
+    JPanel optionsPanel;
 
     /**
      * Constructor for View Class
      */
     public View (Model model) {
         myModel = model;
-        Textbox textbox = new Textbox(Constants.FIELD_SIZE);
-        myController = new Controller(myModel, this, textbox);
+        textbox = new Textbox(Constants.FIELD_SIZE);
+        myController = new ControllerDraft(myModel, this, textbox);
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
-
+        
+        Subject subject = new Subject(model, this);
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
-
+        Controller moduleController = new ModulePanelController(subject, model);
         paramaters.put("textbox", textbox);
-        modulePanel = PanelFactory.makePanel("module", paramaters);
-        RunButton runbutton = new RunButton("RUN", textbox, (ModulePanel) modulePanel, this);
+        modulePanel = PanelFactory.makePanel("module", paramaters,moduleController);
+        subject.addObservers((Observer) modulePanel);
+        subject.addObservers((Observer) this);
+        Controller inputController = new InputController(subject, model);
+        runbutton = new RunButton("RUN", textbox,inputController);
         paramaters.put("runbutton", runbutton);
-        JPanel inputPanel = PanelFactory.makePanel("input", paramaters);
+        inputPanel = PanelFactory.makePanel("input", paramaters,moduleController);
 
         myCanvas = new Canvas();
         paramaters.put("pen", new PenColorChooser(this));
@@ -76,7 +86,7 @@ public class View extends JFrame {
         paramaters.put("image", new ImageChooser(this));
         paramaters.put("grid", new GridCheckBox(this));
 
-        JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
+       optionsPanel = PanelFactory.makePanel("option", paramaters,moduleController);
 
         setJMenuBar(new MenuBar());
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
@@ -96,11 +106,7 @@ public class View extends JFrame {
 
     // SUSAN BEGIN COMPLETING METHODS
 
-    protected void update () {
-        // modulePanel.updateModulePanel();
-        // updateCanvasPanel();
-        // updateOptionsPanel();
-    }
+
 
     protected void changeWorkSpace () {
         // TODO
@@ -147,6 +153,14 @@ public class View extends JFrame {
 
     public Canvas getCanvas () {
         return myCanvas;
+    }
+
+    @Override
+    public void update (String error,
+                        String updateVariable,
+                        Map<String, Collection<ModuleData>> moduleMap) {
+        displayError(error);
+        
     }
 
 }
