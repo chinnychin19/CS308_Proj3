@@ -9,17 +9,18 @@ import view.display.Canvas;
 
 public class ImageChooser extends JComboBox {
     private Canvas myCanvas;
-    private static String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
+    private static final String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
 
-    public ImageChooser (View view) {
+    @SuppressWarnings("unchecked")
+    public ImageChooser (View view, Canvas canvas) {
         super(turtleOptions);
-
+        myCanvas = canvas;
         addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed (ActionEvent e) {
-                JComboBox<?> cb = (JComboBox) e.getSource();
+                JComboBox<?> cb = (JComboBox<?>) e.getSource();
                 String turtleSelection = (String) cb.getSelectedItem();
+                System.out.println(turtleSelection);
                 myCanvas.changeTurtleImage(turtleSelection);
             }
 

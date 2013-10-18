@@ -10,7 +10,9 @@ import java.awt.event.ItemListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import javax.swing.AbstractAction;
@@ -70,7 +72,7 @@ public class View extends JFrame {
         paramaters.put("pen", new PenColorChooser(this));
         paramaters.put("bg", new BackgroundColorChooser(this));
         paramaters.put("status", new StatusCheckBox(this));
-        paramaters.put("image", new ImageChooser(this));
+        paramaters.put("image", new ImageChooser(this, myCanvas));
         paramaters.put("grid", new GridCheckBox(this));
 
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters);
@@ -115,10 +117,20 @@ public class View extends JFrame {
 
     protected void updateCanvasPanel () {
         // SUSAN FIX THE INDEX VALUES PLEASE :)
-        myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
+        
+        ArrayList<Integer> activeTurtleList = new ArrayList<Integer>(); //myModel.getActiveTurtleIDs ();
+        activeTurtleList.add(1);   
+        myCanvas.setActiveTurtles(activeTurtleList);
+        
+        System.out.println(activeTurtleList);
+        
+        for (Integer ID: activeTurtleList){
+           myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
+        }
+
         myCanvas.setHeading(myModel.getTurtleAngle(1));
         myCanvas.setPaths(myModel.getTurtlePaths());
-        myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
+        myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
     }
 
     protected void updateOptionsPanel () {
@@ -130,14 +142,8 @@ public class View extends JFrame {
     protected void changeModel (Model newModel) {
         myModel = newModel;
     }
-
-    // public void updateCanvasData () {
-    // myCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
-    // myCanvas.setHeading(Model.getTurtleAngle());
-    // myCanvas.setPaths(Model.getTurtlePaths());
-    // myCanvas.isTurtleVisible(Model.isTurtleVisible());
-    // }
-
+ 
+    
     public void displayError (String error) {
         myCanvas.setError(error);
     }
