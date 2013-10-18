@@ -27,7 +27,7 @@ public class Canvas extends JGEngine {
     private boolean myStatusOn = true;
     private boolean myVisible = true;
     private boolean myMouseClicked = false;
-    private ArrayList<TurtleSprite> myTurtleList = new ArrayList<TurtleSprite>();
+    private ArrayList<TurtleSprite> myActiveTurtleList = new ArrayList<TurtleSprite>();
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
 
     public static void main (String[] args) {
@@ -164,6 +164,12 @@ public class Canvas extends JGEngine {
         myImageName = imageName;
         defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
         adjustImageAngle(myHeading);
+    }
+    
+    public void moveActiveTurtles(){
+        for (TurtleSprite t: myActiveTurtleList){
+            t.setPos(1, 1); //TODO Deal with real coordinates
+        }
     }
 
     /**
