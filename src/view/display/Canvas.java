@@ -367,20 +367,25 @@ public class Canvas extends JGEngine implements Observer {
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
                         Collection<Path> paths) {
+        adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
+                     paths);
+        setError(error);
+    }
 
+    private void adjustTurtle (ArrayList<Integer> activeTurtleList,
+                               Map<Integer, Double> turtleXMap,
+                               Map<Integer, Double> turtleYMap,
+                               Map<Integer, Double> turtleAngleMap,
+                               Map<Integer, Boolean> turtleVisibilityMap,
+                               Collection<Path> paths) {
         setActiveTurtles(activeTurtleList);
-
-        System.out.println(activeTurtleList);
 
         for (Integer ID : activeTurtleList) {
             moveTurtle(ID, turtleXMap.get(ID), turtleYMap.get(ID));
             setHeading(ID, turtleAngleMap.get(ID));
             changeTurtleVisiblity(turtleVisibilityMap.get(ID));
         }
-        //
-        //
+
         setPaths(paths);
-        //
-        // }
     }
 }

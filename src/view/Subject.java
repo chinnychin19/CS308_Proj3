@@ -81,17 +81,13 @@ public class Subject {
         return activeTurtleList;
     }
 
-    // myCanvas.moveTurtle(myModel.getTurtleX(1), myModel.getTurtleY(1));
-    // myCanvas.setHeading(myModel.getTurtleAngle(1));
-    // myCanvas.setPaths(myModel.getTurtlePaths());
-    // myCanvas.isTurtleVisible(myModel.isTurtleVisible(1));
     private Map<Integer, Double> getTurtleX () {
         Map<Integer, Double> turtleXMap = new HashMap<Integer, Double>();
         ArrayList<Integer> activeTurtleList = getActiveTurtles();
         for (Integer ID : activeTurtleList) {
             turtleXMap.put(ID, myCurrentModel.getTurtleX(ID));
         }
-        System.out.println(turtleXMap.toString());
+
         return turtleXMap;
 
     }
