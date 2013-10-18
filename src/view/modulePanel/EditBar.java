@@ -46,7 +46,8 @@ public class EditBar extends JPanel {
 
                     ModuleData selected = (ModuleData) myListModel.get(index);
                     String newValue = myTextfield.getText();
-                    String putStatus = Model.putVariable(selected.getDisplay(), newValue);
+                    String putStatus = "";
+                    // Model.putVariable(selected.getDisplay(), newValue);
                     updateVariable(index, selected, putStatus);
                 }
                 else {

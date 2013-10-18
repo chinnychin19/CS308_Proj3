@@ -24,9 +24,10 @@ public class HistoryModule extends Module {
     @Override
     protected Collection<ModuleData> getStoredModelInformation () {
         Collection<ModuleData> historyCollection = new ArrayList<ModuleData>();
-        for (String history : Model.getHistory()) {
-            historyCollection.add(new ModuleData(history, history));
-        }
+        historyCollection.add(new ModuleData("test", "test2"));
+        // for (String history : Model.getHistory()) {
+        // historyCollection.add(new ModuleData(history, history));
+        // }
         return historyCollection;
 
     }

@@ -30,10 +30,11 @@ public class MenuBar extends JMenuBar {
             }
         });
         result.addSeparator();
+        // TO DO FIND A WAY TO DYNAMICALLY ADD LANGUAGES
+        // /WANT TO AVOID HARDCODING
         JMenu submenu = new JMenu("A submenu");
-        submenu.add("English");
-        submenu.add("French");
-        // submenu.setMnemonic(KeyEvent.VK_S);
+        submenu.add(new LanguageOption("English"));
+        submenu.add(new LanguageOption("French"));
         result.add(submenu);
 
         return result;
@@ -45,15 +46,8 @@ public class MenuBar extends JMenuBar {
         result.add(new AbstractAction("Part 2 Help") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                String helpPage =
-                        "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
-                try {
-                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
-                }
-                catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+
+                goToHelpPage("http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php");
 
             }
         });
@@ -61,19 +55,23 @@ public class MenuBar extends JMenuBar {
         result.add(new AbstractAction("Part 3 Help") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                String helpPage =
-                        "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands2.php";
-                try {
-                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
-                }
-                catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
+                goToHelpPage("http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands2.php");
 
             }
         });
 
         return result;
+    }
+
+    private void goToHelpPage (String helpPage) {
+
+        try {
+            java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
+        }
+        catch (IOException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+
     }
 }
