@@ -119,19 +119,21 @@ public class Canvas extends JGEngine {
         int offset = 0;
 
         for (int ID : myActiveTurtleIDs) {
+            TurtleSprite currentTurtle = myTurtleMap.get(ID);
+            
             drawString("Turtle " + ID, 5, offset += 13, -1, new JGFont("arial", 0, 12),
                        myPenColor);
-            drawString("X: " + (myTurtleMap.get(ID).getOffsetX() - Constants.CANVAS_WIDTH / 2), 5,
+            drawString("X: " + (currentTurtle.getOffsetX() - Constants.CANVAS_WIDTH / 2), 5,
                        offset += 13, -1,
                        new JGFont("arial", 0, 12),
                        myPenColor);
-            drawString("Y: " + (-myTurtleMap.get(ID).getOffsetY() + Constants.CANVAS_HEIGHT / 2),
+            drawString("Y: " + (-currentTurtle.getOffsetY() + Constants.CANVAS_HEIGHT / 2),
                        5, offset +=
                                13,
                        -1,
                        new JGFont("arial", 0, 12),
                        myPenColor);
-            drawString("Heading: " + myHeading, 5, offset += 13, -1, new JGFont("arial", 0, 12),
+            drawString("Heading: " + currentTurtle.getHeading(), 5, offset += 13, -1, new JGFont("arial", 0, 12),
                        myPenColor);
         }
 
@@ -277,15 +279,11 @@ public class Canvas extends JGEngine {
     /**
      * Sets heading of turtle
      */
-    public void setHeading (double newHeading) {
+    public void setHeading (int ID, double newHeading) {
 
-        if (myHeading != newHeading) {
-
-            adjustImageAngle(newHeading);
-
+        if (myTurtleMap.get(ID).getHeading()!=newHeading){
+            myTurtleMap.get(ID).setHeading(newHeading);
         }
-
-        myHeading = newHeading;
 
     }
 

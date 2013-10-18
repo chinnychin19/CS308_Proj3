@@ -122,15 +122,17 @@ public class View extends JFrame {
         activeTurtleList.add(1);   
         myCanvas.setActiveTurtles(activeTurtleList);
         
-        System.out.println(activeTurtleList);
+        //System.out.println(activeTurtleList);
         
         for (Integer ID: activeTurtleList){
            myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
+           myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
+           myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
         }
 
-        myCanvas.setHeading(myModel.getTurtleAngle(1));
+        
         myCanvas.setPaths(myModel.getTurtlePaths());
-        myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
+        
     }
 
     protected void updateOptionsPanel () {
