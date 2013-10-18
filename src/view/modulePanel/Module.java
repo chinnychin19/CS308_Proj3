@@ -18,28 +18,21 @@ import view.inputPanel.Textbox;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class Module extends JPanel {
+public class Module extends JPanel {
     private static final int DISPLAY_HEIGHT = 100;
     private static final int DISPLAY_WIDTH = 300;
     protected JList<ModuleData> myList;
     protected DefaultListModel<ModuleData> myListModel;
     private Textbox myTextbox;
+    private String MODULE_NAME;
 
-    protected Module (Textbox textbox) {
+    protected Module (Textbox textbox, String name) {
 
         super();
         setModuleName();
         this.myTextbox = textbox;
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
-        initializeModuleDisplay();
-    }
-
-    protected Module (int width, int height, Textbox textbox) {
-
-        super();
-        setModuleName();
-        this.myTextbox = textbox;
-        setPreferredSize(new Dimension(width, height));
+        MODULE_NAME = name;
         initializeModuleDisplay();
 
     }
@@ -49,6 +42,7 @@ public abstract class Module extends JPanel {
      */
     private void initializeModuleDisplay () {
         setBackground(Color.white);
+        setModuleName();
         initializeModuleContents();
     }
 
@@ -57,23 +51,9 @@ public abstract class Module extends JPanel {
      * to set up display title
      */
     private void setModuleName () {
-        this.add(new JLabel(getModuleName()));
+        this.add(new JLabel(MODULE_NAME));
 
     }
-
-    /**
-     * @return Name of Module
-     */
-    protected abstract String getModuleName ();
-
-    /**
-     * retrieves the stored information relevant to Module from
-     * backend
-     * 
-     * @return Collection of Model data converted encapsulated as ModuleData
-     *         objects
-     */
-    // protected abstract Collection<ModuleData> getStoredModelInformation ();
 
     /**
      * Updates the content of JList options
