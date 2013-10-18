@@ -4,17 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Collection;
+import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import view.Controller;
+import view.Observer;
 import model.Model;
 
 
 @SuppressWarnings("serial")
-public class EditBar extends JPanel {
+public class EditBar extends JPanel implements Observer{
     private static final int TEXTBOX_COLUMNS = 15;
     JButton myEdit;
     TextField myTextfield;
@@ -48,10 +51,9 @@ public class EditBar extends JPanel {
 
                     ModuleData selected = (ModuleData) myListModel.get(index);
                     String newValue = myTextfield.getText();
-                    String putStatus = "";
-                    ((ModulePanelController) myController).updateVariable(selected.getDisplay(), newValue);
-                    // Model.putVariable(selected.getDisplay(), newValue);
-//                    updateVariable(index, selected, putStatus);
+                    myTextfield.setText("");
+                    String status = ((ModulePanelController) myController).updateVariable(selected.getDisplay(), newValue);
+                    displayInputError(status);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
@@ -59,29 +61,29 @@ public class EditBar extends JPanel {
                 }
             }
 
+       
             private void displayInputError (String putStatus) {
-                JOptionPane.showMessageDialog(null,
-                                              putStatus);
+                if (!putStatus.equals("")){
+                    JOptionPane.showMessageDialog(null,
+                                                  putStatus);
+                }
+               
 
             }
 
-            private void updateVariable (int index, ModuleData selected, String putStatus) {
-                if (putStatus.equals("")) {
-
-                    myListModel.remove(index);
-                    myListModel.add(index, selected);
-                    myList.setSelectedIndex(index);
-                    myList.ensureIndexIsVisible(index);
-                }
-                else {
-                    displayInputError(putStatus);
-                    myTextfield.setText("");
-                }
-
-            }
         });
 
         return myEdit;
+    }
+    
+    
+    ///ADD EDIT BAR
+    @Override
+    public void update (String error,
+                        String updateVariable,
+                        Map<String, Collection<ModuleData>> moduleMap) {
+        
+        
     }
 
 }

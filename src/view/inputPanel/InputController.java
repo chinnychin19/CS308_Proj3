@@ -12,7 +12,8 @@ public class InputController extends Controller{
     }
 
    public void executeCommand(String input){
-       
+       String inputError = myCurrentModel.parseInput(input);
+       mySubject.notifyObservers(inputError,"");
    }
 
 }

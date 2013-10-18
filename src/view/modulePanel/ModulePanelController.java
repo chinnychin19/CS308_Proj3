@@ -11,15 +11,13 @@ public class ModulePanelController extends Controller {
         // TODO Auto-generated constructor stub
     }
 
-    private Model myCurrentModel;
-    private Subject mySubject;
-
     
 
     
     public String updateVariable(String key, String value){
-        mySubject.update();
+        
         String updateVariable = myCurrentModel.putVariable(key,value);
+        mySubject.notifyObservers("",updateVariable);
         return updateVariable;
         
     }

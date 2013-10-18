@@ -44,7 +44,7 @@ import view.optionsPanel.PenColorChooser;
 import view.optionsPanel.StatusCheckBox;
 
 
-public class View extends JFrame {
+public class View extends JFrame implements Observer{
     protected ViewUpdater myViewUpdater;
 
     private static Canvas myCanvas;
@@ -66,12 +66,15 @@ public class View extends JFrame {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
-
+        
+        Subject subject = new Subject(model, this);
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
-        Controller moduleController = new ModulePanelController(null, model);
+        Controller moduleController = new ModulePanelController(subject, model);
         paramaters.put("textbox", textbox);
         modulePanel = PanelFactory.makePanel("module", paramaters,moduleController);
-        Controller inputController = new InputController(null, model);
+        subject.addObservers((Observer) modulePanel);
+        subject.addObservers((Observer) this);
+        Controller inputController = new InputController(subject, model);
         runbutton = new RunButton("RUN", textbox,inputController);
         paramaters.put("runbutton", runbutton);
         inputPanel = PanelFactory.makePanel("input", paramaters,moduleController);
@@ -150,6 +153,14 @@ public class View extends JFrame {
 
     public Canvas getCanvas () {
         return myCanvas;
+    }
+
+    @Override
+    public void update (String error,
+                        String updateVariable,
+                        Map<String, Collection<ModuleData>> moduleMap) {
+        displayError(error);
+        
     }
 
 }
