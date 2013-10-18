@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public class Turtle {
     private double myX, myY, myAngle;
-    private boolean fDrawing, fVisible;
+    private boolean isDrawing, isVisible, isActive;
     private Collection<Path> myPaths;
     private Collection<Stamp> myStamps;
     private int myID;
@@ -15,8 +15,9 @@ public class Turtle {
         myID = id;
         myX = 0;
         myY = 0;
-        fDrawing = true;
-        fVisible = true;
+        isDrawing = true;
+        isVisible = true;
+        isActive = true;
         myAngle = Math.PI / 2; // only internally stored in radians
         myPaths = new ArrayList<Path>();
         myStamps = new ArrayList<Stamp>();
@@ -59,19 +60,27 @@ public class Turtle {
     }
 
     public boolean isDrawing () {
-        return fDrawing;
+        return isDrawing;
     }
 
     public boolean isVisible () {
-        return fVisible;
+        return isVisible;
+    }
+
+    public boolean isActive () {
+        return isActive;
     }
 
     public void setDrawing (boolean drawing) {
-        fDrawing = drawing;
+        isDrawing = drawing;
     }
 
     public void setVisible (boolean visible) {
-        fVisible = visible;
+        isVisible = visible;
+    }
+
+    public void setActive (boolean active) {
+        isActive = active;
     }
 
     public double doRelativeMove (double pixels) {

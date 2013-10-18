@@ -20,7 +20,6 @@ public class Model {
     private VariableCache myVariableCache;
     private InstructionQueue myInstructionQueue;
     private Map<Integer, Turtle> myTurtles;
-    private List<Integer> myActiveTurtleIDs;
     private CommandHistory myCommandHistory;
     private InstructionFactory myInstructionFactory;
     private String myLanguage;
@@ -31,9 +30,7 @@ public class Model {
         myVariableCache = new VariableCache();
         myInstructionQueue = new InstructionQueue();
         myTurtles = new HashMap<Integer, Turtle>();
-        myActiveTurtleIDs = new ArrayList<Integer>();
         myTurtles.put(1, new Turtle(1)); // 1 turtle with ID=1 by default
-        myActiveTurtleIDs.add(1); // by default, initial turtle is active
         myCommandHistory = new CommandHistory();
         myInstructionFactory = new InstructionFactory(this);
     }
@@ -62,7 +59,6 @@ public class Model {
         if (myTurtles.keySet().contains(id)) { return myTurtles.get(id); }
         Turtle ret = new Turtle(id);
         myTurtles.put(id, ret);
-        myActiveTurtleIDs.add(id);
         return ret;
     }
 
@@ -108,7 +104,7 @@ public class Model {
 
     public Collection<Turtle> getActiveTurtles () {
         Collection<Turtle> list = new ArrayList<Turtle>();
-        for (int id : myActiveTurtleIDs) {
+        for (int id : getActiveTurtleIDs()) {
             list.add(myTurtles.get(id));
         }
         return list;
@@ -230,12 +226,22 @@ public class Model {
         return null; // TODO
     }
 
-    public List<Integer> getActiveTurtleIDs () {
-        return null; // TODO
+    public Collection<Integer> getActiveTurtleIDs () {
+        Collection<Integer> list = new ArrayList<Integer>();
+        for (int id : myTurtles.keySet()) {
+            if (myTurtles.get(id).isActive()) {
+                list.add(id);
+            }
+        }
+        return list;
     }
 
-    public List<Integer> getAllTurtleIDs () {
-        return null; // TODO
+    public Collection<Integer> getAllTurtleIDs () {
+        Collection<Integer> list = new ArrayList<Integer>();
+        for (int id : myTurtles.keySet()) {
+            list.add(id);
+        }
+        return list;
     }
 
     public String setBGColor (int colorIndex) {
