@@ -8,12 +8,13 @@ import javax.swing.JMenuBar;
 
 
 public class MenuBar extends JMenuBar {
-    private MenuBarController  myController;
+    private MenuBarController myController;
+
     public MenuBar (MenuBarController controller) {
         myController = controller;
         add(fileMenu());
         add(helpMenu());
-       
+
     }
 
     private JMenu fileMenu () {

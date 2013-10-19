@@ -52,7 +52,7 @@ public class View extends JFrame {
 
         Textbox textbox = new Textbox();
         addParameters(paramaters, myCanvas, textbox);
-        
+
         MenuBarController menuController = new MenuBarController(subject, myModel);
         controllers.add(menuController);
         setJMenuBar(new MenuBar(menuController));
@@ -70,7 +70,7 @@ public class View extends JFrame {
                              List<MasterSubject> subjects,
                              MasterSubject subject,
                              Textbox textbox) {
-        Controller moduleController = new ModulePanelController(subject, myModel);
+        Controller moduleController = new ModulePanelController(subject, myModel, textbox);
         controllers.add(moduleController);
 
         JPanel modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);

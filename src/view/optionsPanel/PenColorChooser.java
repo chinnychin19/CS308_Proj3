@@ -11,12 +11,10 @@ import view.display.Canvas;
 
 
 public class PenColorChooser extends JButton {
-  
 
     public PenColorChooser (final OptionsPanelController controller) {
         super("Change Pen Color");
 
-     
         addActionListener(new ActionListener() {
 
             @Override
@@ -24,9 +22,9 @@ public class PenColorChooser extends JButton {
                 Color newColor =
                         JColorChooser.showDialog(null, "Choose a new background color", Color.red);
                 controller.setBGColor(45);
-//                myCanvas.changePenColor(new JGColor(newColor.getRed(),
-//                                                    newColor.getGreen(), newColor
-//                                                            .getBlue()));
+                // myCanvas.changePenColor(new JGColor(newColor.getRed(),
+                // newColor.getGreen(), newColor
+                // .getBlue()));
             }
 
         });
