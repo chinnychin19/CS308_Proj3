@@ -74,7 +74,7 @@ public class View extends JFrame {
 
         optionsPanel = PanelFactory.makePanel("option", paramaters, null);
         selector = new WorkSpaceSelector(controllers, subjects, models);
-        JButton showItButton = new JButton("Show it!");
+        JButton showItButton = new JButton("Select Workspace");
         showItButton.addActionListener(new ActionListener() {
 
             @Override
