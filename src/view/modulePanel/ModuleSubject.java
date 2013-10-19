@@ -23,7 +23,7 @@ public class ModuleSubject implements Subject {
         observers.add(observer);
     }
 
-    public void notifyObservers () {
+    public void notifyObservers (String error) {
         Map<String, Collection<ModuleData>> moduleMap = getModelInformation(myCurrentModel);
 
         for (ModuleObserver observer : observers) {

@@ -14,7 +14,7 @@ public class ModulePanelController extends Controller {
     protected String updateVariable (String key, String value) {
 
         String updateVariable = myCurrentModel.putVariable(key, value);
-        mySubject.notifyObservers("", updateVariable);
+        mySubject.notifyObservers("");
         return updateVariable;
 
     }

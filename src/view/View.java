@@ -56,7 +56,7 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
 
-        MasterSubject subject = new MasterSubject(myModel, this);
+        MasterSubject subject = new MasterSubject(myModel);
 
         myCanvas = new Canvas();
         subjects.add(subject);

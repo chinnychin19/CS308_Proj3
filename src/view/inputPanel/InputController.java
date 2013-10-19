@@ -21,7 +21,7 @@ public class InputController extends Controller {
         if (input.trim().equals("")) { return; }
         String inputError = myCurrentModel.parseInput(input);
         myTextbox.clear();
-        mySubject.notifyObservers(inputError, "");
+        mySubject.notifyObservers(inputError);
     }
 
     protected MouseListener addExecuteListener () {
@@ -60,7 +60,8 @@ public class InputController extends Controller {
 
             @Override
             public void mouseClicked (MouseEvent e) {
-                myCurrentModel.undo();
+                String undoError = myCurrentModel.undo();
+                mySubject.notifyObservers(undoError);
             }
 
             @Override
@@ -91,7 +92,9 @@ public class InputController extends Controller {
 
             @Override
             public void mouseClicked (MouseEvent e) {
-                myCurrentModel.redo();
+                String redoError = myCurrentModel.redo();
+                mySubject.notifyObservers(redoError);
+
             }
 
             @Override

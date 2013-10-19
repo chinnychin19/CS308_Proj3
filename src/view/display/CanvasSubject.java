@@ -22,7 +22,7 @@ public class CanvasSubject implements Subject {
     }
 
     @Override
-    public void notifyObservers () {
+    public void notifyObservers (String error) {
         ArrayList<Integer> activeTurtleList = getActiveTurtles();
         Map<Integer, Double> turtleXMap = getTurtleX();
         Map<Integer, Double> turtleYMap = getTurtleY();
@@ -30,7 +30,7 @@ public class CanvasSubject implements Subject {
         Map<Integer, Boolean> turtleVisibilityMap = getTurtleVisibility();
         Collection<Path> paths = myCurrentModel.getTurtlePaths();
         for (CanvasObserver observer : observers) {
-            observer.update("", activeTurtleList, turtleXMap,
+            observer.update(error, activeTurtleList, turtleXMap,
                             turtleYMap, turtleAngleMap, turtleVisibilityMap, paths);
         }
 

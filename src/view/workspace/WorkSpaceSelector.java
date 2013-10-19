@@ -45,7 +45,7 @@ public class WorkSpaceSelector {
             }
             for (MasterSubject subject : mySubjects) {
                 subject.changeCurrentModel(myModels.get(choiceVal - 1));
-                subject.notifyObservers("", "");
+                subject.notifyObservers("");
             }
             String message = "You are now in work space " + choiceVal;
             JOptionPane.showMessageDialog(null,
@@ -61,7 +61,7 @@ public class WorkSpaceSelector {
             }
             for (MasterSubject subject : mySubjects) {
                 subject.changeCurrentModel(myModels.get(myModels.size() - 1));
-                subject.notifyObservers("", "");
+                subject.notifyObservers("");
             }
             String message =
                     "A new work space has been created. You are now in work space " +

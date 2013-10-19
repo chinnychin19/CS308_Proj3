@@ -17,6 +17,6 @@ public class OptionsPanelController extends Controller {
 
     protected void setBGColor (int colorIndex) {
         myCurrentModel.setBGColor(colorIndex);
-        mySubject.notifyObservers("", "");
+        mySubject.notifyObservers("");
     }
 }

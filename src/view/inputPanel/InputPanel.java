@@ -18,7 +18,8 @@ public class InputPanel extends JPanel {
         myController = controller;
         JButton run = new JButton("RUN");
         JButton undo = new JButton("UNDO");
-        JButton redo = new JButton("UNDO");
+
+        JButton redo = new JButton("REDO");
 
         run.addMouseListener(myController.addExecuteListener());
         undo.addMouseListener(myController.addUndoListener());

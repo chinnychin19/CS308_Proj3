@@ -16,11 +16,9 @@ public class MasterSubject {
     List<Subject> subjects = new ArrayList<Subject>();
 
     Model myCurrentModel;
-    View myView;
 
-    public MasterSubject (Model model, View view) {
+    public MasterSubject (Model model) {
         myCurrentModel = model;
-        myView = view;
 
     }
 
@@ -29,11 +27,10 @@ public class MasterSubject {
 
     }
 
-    public void notifyObservers (String error, String updateVariable) {
+    public void notifyObservers (String error) {
 
         for (Subject subject : subjects) {
-            subject.notifyObservers();
-
+            subject.notifyObservers(error);
         }
 
     }
