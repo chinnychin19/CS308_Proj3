@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
-import view.display.ViewUpdater;
 import view.inputPanel.InputController;
 import view.inputPanel.Textbox;
 import view.modulePanel.ModulePanelController;
@@ -24,7 +23,6 @@ import view.optionsPanel.StatusCheckBox;
 
 
 public class View extends JFrame {
-    protected ViewUpdater myViewUpdater;
 
     private Canvas myCanvas;
     private Model myModel;
