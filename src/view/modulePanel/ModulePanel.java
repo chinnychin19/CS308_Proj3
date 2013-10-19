@@ -54,7 +54,6 @@ public class ModulePanel extends JPanel implements Observer {
         myModules.get(0).updateContent(moduleMap.get("history"));
         myModules.get(1).updateContent(moduleMap.get("command"));
         myModules.get(2).updateContent(moduleMap.get("variable"));
-                        }
-
+    }
 
 }

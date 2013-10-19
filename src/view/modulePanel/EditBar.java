@@ -91,10 +91,8 @@ public class EditBar extends JPanel implements Observer {
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
                         Collection<Path> paths, Color bgColor) {
-                            
-                        }
 
-
+    }
 
     // /ADD EDIT BAR
 

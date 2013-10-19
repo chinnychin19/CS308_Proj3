@@ -387,9 +387,7 @@ public class Canvas extends JGEngine implements Observer {
         adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
                      paths);
         setError(error);
-                        }
-
-
+    }
 
     private void adjustTurtle (ArrayList<Integer> activeTurtleList,
                                Map<Integer, Double> turtleXMap,

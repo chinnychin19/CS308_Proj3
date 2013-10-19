@@ -23,7 +23,7 @@ public class PenColorChooser extends JButton {
             public void actionPerformed (ActionEvent e) {
                 Color newColor =
                         JColorChooser.showDialog(null, "Choose a new background color", Color.red);
-           
+
                 myCanvas.changePenColor(new JGColor(newColor.getRed(),
                                                     newColor.getGreen(), newColor
                                                             .getBlue()));
