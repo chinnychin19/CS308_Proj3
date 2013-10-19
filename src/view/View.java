@@ -40,10 +40,10 @@ public class View extends JFrame {
     /**
      * Constructor for View Class
      */
-    public View (Model model) {
+    public View () {
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         List<Model> models = new ArrayList<Model>();
-        myModel = model;
+        myModel = new Model();
         models.add(myModel);
 
         List<Controller> controllers = new ArrayList<Controller>();
@@ -53,7 +53,7 @@ public class View extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
 
-        Subject subject = new Subject(model, this);
+        Subject subject = new Subject(myModel, this);
 
         myCanvas = new Canvas();
         subject.addObservers((Observer) myCanvas);
@@ -62,13 +62,13 @@ public class View extends JFrame {
         textbox = new Textbox();
         addParameters(paramaters);
 
-        Controller moduleController = new ModulePanelController(subject, model);
+        Controller moduleController = new ModulePanelController(subject, myModel);
         controllers.add(moduleController);
 
         modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
         subject.addObservers((Observer) modulePanel);
 
-        Controller inputController = new InputController(subject, model, textbox);
+        Controller inputController = new InputController(subject, myModel, textbox);
         controllers.add(inputController);
         inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
 
