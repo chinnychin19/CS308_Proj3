@@ -8,14 +8,24 @@ import javax.swing.JScrollPane;
 
 @SuppressWarnings("serial")
 public class InputPanel extends JPanel {
+    private InputController myController;
 
-    public InputPanel (Textbox textbox, RunButton runbutton) {
+    public InputPanel (Textbox textbox, InputController controller) {
         super();
         this.setLayout(new GridLayout(1, 4));
+
         this.add(new JScrollPane(textbox));
-        this.add(runbutton);
-        this.add(new JButton("UNDO"));
-        this.add(new JButton("REDO"));
+        myController = controller;
+        JButton run = new JButton("RUN");
+        JButton undo = new JButton("UNDO");
+        JButton redo = new JButton("UNDO");
+
+        run.addMouseListener(myController.addExecuteListener());
+        undo.addMouseListener(myController.addUndoListener());
+        redo.addMouseListener(myController.addRedoListener());
+        this.add(run);
+        this.add(undo);
+        this.add(redo);
 
     }
 
