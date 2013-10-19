@@ -1,5 +1,6 @@
 package view.display;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,9 +30,11 @@ public class CanvasSubject implements Subject {
         Map<Integer, Double> turtleAngleMap = getTurtleAngle();
         Map<Integer, Boolean> turtleVisibilityMap = getTurtleVisibility();
         Collection<Path> paths = myCurrentModel.getTurtlePaths();
+        Color pen = myCurrentModel.getPenColor();
+        Color bg = myCurrentModel.getBGColor();
         for (CanvasObserver observer : observers) {
             observer.update(error, activeTurtleList, turtleXMap,
-                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths);
+                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, pen, bg);
         }
 
     }

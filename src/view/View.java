@@ -24,6 +24,7 @@ import view.modulePanel.ModuleSubject;
 import view.optionsPanel.BackgroundColorChooser;
 import view.optionsPanel.GridCheckBox;
 import view.optionsPanel.ImageChooser;
+import view.optionsPanel.OptionsPanelController;
 import view.optionsPanel.PenColorChooser;
 import view.optionsPanel.StatusCheckBox;
 import view.workspace.WorkSpaceSelector;
@@ -83,7 +84,9 @@ public class View extends JFrame {
         controllers.add(inputController);
         JPanel inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
 
-        JPanel optionsPanel = PanelFactory.makePanel("option", paramaters, null);
+        Controller optionsController = new OptionsPanelController(subject, myModel);
+        controllers.add(optionsController);
+        JPanel optionsPanel = PanelFactory.makePanel("option", paramaters, optionsController);
         selector = new WorkSpaceSelector(controllers, subjects, myModel);
         JButton showItButton = new JButton("Select Workspace");
         showItButton.addActionListener(new ActionListener() {
@@ -117,11 +120,11 @@ public class View extends JFrame {
 
     private void addParameters (Map<String, JComponent> paramaters, Canvas canvas, Textbox textbox) {
         paramaters.put("textbox", textbox);
-        paramaters.put("pen", new PenColorChooser(this, canvas));
-        paramaters.put("bg", new BackgroundColorChooser(this, canvas));
-        paramaters.put("status", new StatusCheckBox(this, canvas));
-        paramaters.put("image", new ImageChooser(this, canvas));
-        paramaters.put("grid", new GridCheckBox(this, canvas));
+        // paramaters.put("pen", new PenColorChooser(this, canvas));
+        // paramaters.put("bg", new BackgroundColorChooser(this, canvas));
+        // paramaters.put("status", new StatusCheckBox(this, canvas));
+        // paramaters.put("image", new ImageChooser(this, canvas));
+        // paramaters.put("grid", new GridCheckBox(this, canvas));
     }
 
     protected void changeModel (Model newModel) {
