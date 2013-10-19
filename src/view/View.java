@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import menuBar.MenuBar;
+import menuBar.MenuBarController;
 import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
@@ -51,8 +52,10 @@ public class View extends JFrame {
 
         Textbox textbox = new Textbox();
         addParameters(paramaters, myCanvas, textbox);
-
-        setJMenuBar(new MenuBar());
+        
+        MenuBarController menuController = new MenuBarController(subject, myModel);
+        controllers.add(menuController);
+        setJMenuBar(new MenuBar(menuController));
 
         initializeDisplaySettings();
 

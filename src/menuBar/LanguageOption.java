@@ -7,16 +7,17 @@ import javax.swing.AbstractAction;
 @SuppressWarnings("serial")
 public class LanguageOption extends AbstractAction {
     private String myLanguageValue;
-
-    protected LanguageOption (String value) {
+    private MenuBarController  myController;
+    protected LanguageOption (String value, MenuBarController controller) {
         super(value);
         myLanguageValue = value;
+        myController = controller;
     }
 
     @Override
     public void actionPerformed (ActionEvent e) {
-        System.out.println(myLanguageValue);
-        // Model.setLanguage(myLanguageValue);
+       
+        myController.changeLanguage(myLanguageValue);
 
     }
 
