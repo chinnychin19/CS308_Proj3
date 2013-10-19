@@ -30,6 +30,7 @@ public class View extends JFrame {
     private Textbox textbox;
     private JPanel inputPanel;
     private JPanel optionsPanel;
+    private List<Controller> controllers = new ArrayList<Controller>();
 
     /**
      * Constructor for View Class
@@ -52,13 +53,15 @@ public class View extends JFrame {
         addParameters(paramaters);
 
         Controller moduleController = new ModulePanelController(subject, model);
+        controllers.add(moduleController);
         modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
         subject.addObservers((Observer) modulePanel);
 
         Controller inputController = new InputController(subject, model, textbox);
+        controllers.add(inputController);
         inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
 
-        optionsPanel = PanelFactory.makePanel("option", paramaters, moduleController);
+        optionsPanel = PanelFactory.makePanel("option", paramaters, null);
 
         setJMenuBar(new MenuBar());
         addPanelsToLayout();
