@@ -28,8 +28,11 @@ public class Model {
     private int myPenColorIndex;
     private int myPenSize;
     private List<Color> myAvailableColors;
+    private List<String> myAvailableShapes; // TODO: choose a way to represent this
 
     public Model () {
+        initializeColors();
+        initializeShapes();
         myInterpreter = new Interpreter(this);
         myCommandCache = new CommandCache();
         myVariableCache = new VariableCache();
@@ -40,7 +43,11 @@ public class Model {
         myInstructionFactory = new InstructionFactory(this);
         myLanguage = "English";
         myPenSize = 5;
-        initializeColors();
+    }
+
+    private void initializeShapes () {// TODO: add shapes here
+        myAvailableShapes = new ArrayList<String>();
+        myAvailableShapes.add("some image name or java object");
     }
 
     private void initializeColors () {
@@ -128,6 +135,7 @@ public class Model {
 
     public String setPalette (int index, int r, int g, int b) {
         if (index < 0 || index > myAvailableColors.size()) { return "Index is out of range"; }
+        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) { return "RGB values must be in range 0-255"; }
         if (index < myAvailableColors.size()) { // edit pre-existing
             myAvailableColors.remove(index);
             myAvailableColors.add(index, new Color(r, g, b));
@@ -285,6 +293,9 @@ public class Model {
     public String setPenColor (int colorIndex) {
         if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
         myPenColorIndex = colorIndex;
+        for (Turtle t : getActiveTurtles()) {
+            t.setColor(myAvailableColors.get(colorIndex));
+        }
         return "";
     }
 
@@ -304,6 +315,14 @@ public class Model {
 
     public List<Color> getAvailableColors () {
         return myAvailableColors;
+    }
+
+    public String setShape (int shapeIndex) {
+        if (shapeIndex < 0 || shapeIndex >= myAvailableShapes.size()) { return "Index is out of range"; }
+        for (Turtle t : getActiveTurtles()) {
+            t.setShape(shapeIndex);
+        }
+        return "";
     }
 
     public String keyPressed (int k) {

@@ -1,7 +1,10 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import model.instruction.error.ColorNotFound;
 
 
 public class Turtle {
@@ -11,6 +14,8 @@ public class Turtle {
     private Collection<Stamp> myStamps;
     private int myID;
     private Model myModel;
+    private Color myColor;
+    private int myShapeIndex;
 
     protected Turtle (int id, Model m) {
         myID = id;
@@ -23,6 +28,33 @@ public class Turtle {
         myPaths = new ArrayList<Path>();
         myStamps = new ArrayList<Stamp>();
         myModel = m;
+        myColor = m.getPenColor();
+        myShapeIndex = 0; // by default
+    }
+
+    public int getShapeIndex () {
+        return myShapeIndex;
+    }
+
+    public void setShape (int shapeIndex) {
+        myShapeIndex = shapeIndex;
+    }
+
+    public Color getColor () {
+        return myColor;
+    }
+
+    public void setColor (Color color) {
+        myColor = color;
+    }
+
+    public int getColorIndex () throws Exception {
+        List<Color> list = myModel.getAvailableColors();
+        for (int i = 0; i < list.size(); i++) {
+            Color color = list.get(i);
+            if (myColor.equals(color)) { return i; }
+        }
+        throw new ColorNotFound();
     }
 
     protected int getID () {
@@ -37,8 +69,12 @@ public class Turtle {
         return myStamps;
     }
 
+    public void addStamp () {
+        myStamps.add(new Stamp(myX, myY, myAngle, myShapeIndex));
+    }
+
     private void addPath (double x1, double y1, double x2, double y2) {
-        myPaths.add(new Path(x1, y1, x2, y2, myModel.getPenColor()));
+        myPaths.add(new Path(x1, y1, x2, y2, myColor));
     }
 
     protected void clearPaths () {
