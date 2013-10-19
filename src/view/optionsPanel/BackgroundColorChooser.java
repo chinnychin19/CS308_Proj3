@@ -13,10 +13,10 @@ import view.display.Canvas;
 public class BackgroundColorChooser extends JButton {
     private Canvas myCanvas;
 
-    public BackgroundColorChooser (View view) {
+    public BackgroundColorChooser (View view, Canvas canvas) {
         super("Change BG Color");
 
-        myCanvas = view.getCanvas();
+        myCanvas = canvas;
         addActionListener(new ActionListener() {
 
             @Override

@@ -6,7 +6,7 @@ import javax.swing.JTextArea;
 @SuppressWarnings("serial")
 public class Textbox extends JTextArea {
 
-    public Textbox (int fieldSize) {
+    public Textbox () {
         super();
         final int ROWS = 5;
         this.setRows(ROWS);

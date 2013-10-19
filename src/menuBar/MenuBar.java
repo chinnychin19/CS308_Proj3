@@ -69,7 +69,7 @@ public class MenuBar extends JMenuBar {
             java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
         }
         catch (IOException e1) {
-            // TODO Auto-generated catch block
+
             e1.printStackTrace();
         }
 
