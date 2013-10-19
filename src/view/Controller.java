@@ -5,9 +5,9 @@ import model.Model;
 
 public class Controller {
     protected Model myCurrentModel;
-    protected Subject mySubject;
+    protected MasterSubject mySubject;
 
-    public Controller (Subject subject, Model model) {
+    public Controller (MasterSubject subject, Model model) {
         mySubject = subject;
         myCurrentModel = model;
 

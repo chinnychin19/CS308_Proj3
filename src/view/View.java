@@ -16,9 +16,12 @@ import javax.swing.JPanel;
 import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
+import view.display.CanvasSubject;
 import view.inputPanel.InputController;
 import view.inputPanel.Textbox;
+import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanelController;
+import view.modulePanel.ModuleSubject;
 import view.optionsPanel.BackgroundColorChooser;
 import view.optionsPanel.GridCheckBox;
 import view.optionsPanel.ImageChooser;
@@ -47,16 +50,15 @@ public class View extends JFrame {
         models.add(myModel);
 
         List<Controller> controllers = new ArrayList<Controller>();
-        List<Subject> subjects = new ArrayList<Subject>();
+        List<MasterSubject> subjects = new ArrayList<MasterSubject>();
 
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
 
-        Subject subject = new Subject(myModel, this);
+        MasterSubject subject = new MasterSubject(myModel, this);
 
         myCanvas = new Canvas();
-        subject.addObservers((Observer) myCanvas);
         subjects.add(subject);
 
         textbox = new Textbox();
@@ -66,7 +68,14 @@ public class View extends JFrame {
         controllers.add(moduleController);
 
         modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
-        subject.addObservers((Observer) modulePanel);
+
+        ModuleSubject myModuleSubject = new ModuleSubject(myModel);
+        myModuleSubject.addObservers((ModuleObserver) modulePanel);
+        subject.addSubject(myModuleSubject);
+
+        CanvasSubject myCanvasSubject = new CanvasSubject(myModel);
+        myCanvasSubject.addObservers(myCanvas);
+        subject.addSubject(myCanvasSubject);
 
         Controller inputController = new InputController(subject, myModel, textbox);
         controllers.add(inputController);

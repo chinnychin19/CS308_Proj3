@@ -2,14 +2,14 @@ package view.optionsPanel;
 
 import model.Model;
 import view.Controller;
-import view.Subject;
+import view.MasterSubject;
 import view.display.Canvas;
 
 
 public class OptionsPanelController extends Controller {
     private Canvas myCanvas;
 
-    public OptionsPanelController (Subject subject, Model model, Canvas canvas) {
+    public OptionsPanelController (MasterSubject subject, Model model, Canvas canvas) {
         super(subject, model);
         myCanvas = canvas;
 

@@ -4,17 +4,17 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import model.Model;
 import view.Controller;
-import view.Subject;
+import view.MasterSubject;
 
 
 public class WorkSpaceSelector {
 
     List<Controller> myControllers;
-    List<Subject> mySubjects;
+    List<MasterSubject> mySubjects;
     List<Model> myModels;
 
     public WorkSpaceSelector (List<Controller> controllers,
-                              List<Subject> subjects,
+                              List<MasterSubject> subjects,
                               List<Model> models) {
         myControllers = controllers;
         mySubjects = subjects;
@@ -43,7 +43,7 @@ public class WorkSpaceSelector {
             for (Controller controller : myControllers) {
                 controller.changeCurrentModel(myModels.get(choiceVal - 1));
             }
-            for (Subject subject : mySubjects) {
+            for (MasterSubject subject : mySubjects) {
                 subject.changeCurrentModel(myModels.get(choiceVal - 1));
                 subject.notifyObservers("", "");
             }
@@ -59,7 +59,7 @@ public class WorkSpaceSelector {
             for (Controller controller : myControllers) {
                 controller.changeCurrentModel(myModels.get(myModels.size() - 1));
             }
-            for (Subject subject : mySubjects) {
+            for (MasterSubject subject : mySubjects) {
                 subject.changeCurrentModel(myModels.get(myModels.size() - 1));
                 subject.notifyObservers("", "");
             }

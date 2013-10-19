@@ -15,11 +15,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Path;
 import view.Controller;
-import view.Observer;
 
 
 @SuppressWarnings("serial")
-public class EditBar extends JPanel implements Observer {
+public class EditBar extends JPanel {
     private static final int TEXTBOX_COLUMNS = 15;
     JButton myEdit;
     TextField myTextfield;
@@ -80,20 +79,5 @@ public class EditBar extends JPanel implements Observer {
 
         return myEdit;
     }
-
-    @Override
-    public void update (String error,
-                        String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap,
-                        ArrayList<Integer> activeTurtleList,
-                        Map<Integer, Double> turtleXMap,
-                        Map<Integer, Double> turtleYMap,
-                        Map<Integer, Double> turtleAngleMap,
-                        Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths, Color bgColor) {
-
-    }
-
-    // /ADD EDIT BAR
 
 }

@@ -4,13 +4,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import model.Model;
 import view.Controller;
-import view.Subject;
+import view.MasterSubject;
 
 
 public class InputController extends Controller {
     private Textbox myTextbox;
 
-    public InputController (Subject subject, Model model, Textbox textbox) {
+    public InputController (MasterSubject subject, Model model, Textbox textbox) {
         super(subject, model);
         myTextbox = textbox;
 
