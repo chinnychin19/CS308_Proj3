@@ -212,20 +212,19 @@ public class Canvas extends JGEngine implements Observer {
 
         myImageName = imageName;
         defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
-        
+
         for (int ID : myActiveTurtleIDs) {
             adjustImageAngle(ID, getTurtle(ID).getHeading());
         }
-        
+
     }
 
-    public void moveTurtle (int ID, double x, double y) {  
-            TurtleSprite toMove = getTurtle(ID);
-      
-            toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                          -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
-        
-      
+    public void moveTurtle (int ID, double x, double y) {
+        TurtleSprite toMove = getTurtle(ID);
+
+        toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                      -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+
     }
 
     /**
@@ -319,14 +318,14 @@ public class Canvas extends JGEngine implements Observer {
     //
     //
     // }
-    
-    public double forceWithinBounds(double x){
-        if (x > Constants.CANVAS_WIDTH/2){
-            x = (x % (Constants.CANVAS_WIDTH/2)) - (Constants.CANVAS_WIDTH/2) ;
+
+    public double forceWithinBounds (double x) {
+        if (x > Constants.CANVAS_WIDTH / 2) {
+            x = (x % (Constants.CANVAS_WIDTH / 2)) - (Constants.CANVAS_WIDTH / 2);
         }
-        
-        else if (x < -Constants.CANVAS_WIDTH/2){
-            x = Constants.CANVAS_WIDTH/2 - (Math.abs(x) % (Constants.CANVAS_WIDTH/2));
+
+        else if (x < -Constants.CANVAS_WIDTH / 2) {
+            x = Constants.CANVAS_WIDTH / 2 - (Math.abs(x) % (Constants.CANVAS_WIDTH / 2));
         }
         return x;
     }

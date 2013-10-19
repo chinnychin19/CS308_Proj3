@@ -129,4 +129,8 @@ public class Subject {
         observers.add(observer);
     }
 
+    public void changeCurrentModel (Model model) {
+        myCurrentModel = model;
+    }
+
 }

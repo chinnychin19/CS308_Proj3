@@ -13,7 +13,7 @@ public class Controller {
 
     }
 
-    protected void changeCurrentModel (Model model) {
+    public void changeCurrentModel (Model model) {
         myCurrentModel = model;
     }
 }
