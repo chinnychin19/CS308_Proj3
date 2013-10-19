@@ -12,7 +12,6 @@ import model.Model;
 import view.display.Canvas;
 import view.display.ViewUpdater;
 import view.inputPanel.InputController;
-import view.inputPanel.RunButton;
 import view.inputPanel.Textbox;
 import view.modulePanel.ModulePanelController;
 import view.optionsPanel.BackgroundColorChooser;
@@ -29,7 +28,6 @@ public class View extends JFrame {
     private Model myModel;
     JPanel modulePanel;
     Textbox textbox;
-    RunButton runbutton;
     JPanel inputPanel;
     JPanel optionsPanel;
 
@@ -38,7 +36,7 @@ public class View extends JFrame {
      */
     public View (Model model) {
         myModel = model;
-        textbox = new Textbox(Constants.FIELD_SIZE);
+        textbox = new Textbox();
 
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,10 +48,9 @@ public class View extends JFrame {
         paramaters.put("textbox", textbox);
         modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
         subject.addObservers((Observer) modulePanel);
-        
-        Controller inputController = new InputController(subject, model);
-        runbutton = new RunButton("RUN", textbox, inputController);
-        paramaters.put("runbutton", runbutton);
+
+        Controller inputController = new InputController(subject, model, textbox);
+
         inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
 
         myCanvas = new Canvas();
