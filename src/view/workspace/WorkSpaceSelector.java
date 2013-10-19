@@ -1,5 +1,6 @@
 package view.workspace;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import model.Model;
@@ -11,14 +12,14 @@ public class WorkSpaceSelector {
 
     List<Controller> myControllers;
     List<MasterSubject> mySubjects;
-    List<Model> myModels;
+    List<Model> myModels = new ArrayList<Model>();
 
     public WorkSpaceSelector (List<Controller> controllers,
                               List<MasterSubject> subjects,
-                              List<Model> models) {
+                              Model myModel) {
         myControllers = controllers;
         mySubjects = subjects;
-        myModels = models;
+        myModels.add(myModel);
     }
 
     public String NewWorkSpace () {

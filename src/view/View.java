@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import menuBar.MenuBar;
 import model.Model;
@@ -32,42 +31,45 @@ import view.workspace.WorkSpaceSelector;
 
 public class View extends JFrame {
 
-    private Canvas myCanvas;
     private Model myModel;
-    private JPanel modulePanel;
-    private Textbox textbox;
-    private JPanel inputPanel;
-    private JPanel optionsPanel;
+
     private WorkSpaceSelector selector;
 
     /**
      * Constructor for View Class
      */
     public View () {
+        Canvas myCanvas = new Canvas();
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
-        List<Model> models = new ArrayList<Model>();
         myModel = new Model();
-        models.add(myModel);
-
         List<Controller> controllers = new ArrayList<Controller>();
         List<MasterSubject> subjects = new ArrayList<MasterSubject>();
 
-        setTitle("SLogo");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
-
         MasterSubject subject = new MasterSubject(myModel);
-
-        myCanvas = new Canvas();
         subjects.add(subject);
 
-        textbox = new Textbox();
-        addParameters(paramaters);
+        Textbox textbox = new Textbox();
+        addParameters(paramaters, myCanvas, textbox);
 
+        setJMenuBar(new MenuBar());
+
+        initializeDisplaySettings();
+
+        makePanels(myCanvas, paramaters, controllers, subjects, subject, textbox);
+        setVisible(true);
+
+    }
+
+    private void makePanels (Canvas myCanvas,
+                             Map<String, JComponent> paramaters,
+                             List<Controller> controllers,
+                             List<MasterSubject> subjects,
+                             MasterSubject subject,
+                             Textbox textbox) {
         Controller moduleController = new ModulePanelController(subject, myModel);
         controllers.add(moduleController);
 
-        modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
+        JPanel modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
 
         ModuleSubject myModuleSubject = new ModuleSubject(myModel);
         myModuleSubject.addObservers((ModuleObserver) modulePanel);
@@ -79,10 +81,10 @@ public class View extends JFrame {
 
         Controller inputController = new InputController(subject, myModel, textbox);
         controllers.add(inputController);
-        inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
+        JPanel inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
 
-        optionsPanel = PanelFactory.makePanel("option", paramaters, null);
-        selector = new WorkSpaceSelector(controllers, subjects, models);
+        JPanel optionsPanel = PanelFactory.makePanel("option", paramaters, null);
+        selector = new WorkSpaceSelector(controllers, subjects, myModel);
         JButton showItButton = new JButton("Select Workspace");
         showItButton.addActionListener(new ActionListener() {
 
@@ -94,27 +96,32 @@ public class View extends JFrame {
 
         });
         optionsPanel.add(showItButton);
-        setJMenuBar(new MenuBar());
-        addPanelsToLayout();
-        setVisible(true);
 
+        addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
     }
 
-    private void addPanelsToLayout () {
+    private void initializeDisplaySettings () {
+        setTitle("SLogo");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
+    }
+
+    private void addPanelsToLayout (Canvas canvas, JPanel modulePanel, JPanel inputPanel,
+                                    JPanel optionsPanel) {
         this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        this.getContentPane().add(myCanvas, BorderLayout.CENTER);
+        this.getContentPane().add(canvas, BorderLayout.CENTER);
 
     }
 
-    private void addParameters (Map<String, JComponent> paramaters) {
+    private void addParameters (Map<String, JComponent> paramaters, Canvas canvas, Textbox textbox) {
         paramaters.put("textbox", textbox);
-        paramaters.put("pen", new PenColorChooser(this, myCanvas));
-        paramaters.put("bg", new BackgroundColorChooser(this, myCanvas));
-        paramaters.put("status", new StatusCheckBox(this, myCanvas));
-        paramaters.put("image", new ImageChooser(this, myCanvas));
-        paramaters.put("grid", new GridCheckBox(this, myCanvas));
+        paramaters.put("pen", new PenColorChooser(this, canvas));
+        paramaters.put("bg", new BackgroundColorChooser(this, canvas));
+        paramaters.put("status", new StatusCheckBox(this, canvas));
+        paramaters.put("image", new ImageChooser(this, canvas));
+        paramaters.put("grid", new GridCheckBox(this, canvas));
     }
 
     protected void changeModel (Model newModel) {
