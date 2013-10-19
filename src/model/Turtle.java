@@ -10,8 +10,9 @@ public class Turtle {
     private Collection<Path> myPaths;
     private Collection<Stamp> myStamps;
     private int myID;
+    private Model myModel;
 
-    protected Turtle (int id) {
+    protected Turtle (int id, Model m) {
         myID = id;
         myX = 0;
         myY = 0;
@@ -21,6 +22,7 @@ public class Turtle {
         myAngle = Math.PI / 2; // only internally stored in radians
         myPaths = new ArrayList<Path>();
         myStamps = new ArrayList<Stamp>();
+        myModel = m;
     }
 
     protected int getID () {
@@ -36,7 +38,7 @@ public class Turtle {
     }
 
     private void addPath (double x1, double y1, double x2, double y2) {
-        myPaths.add(new Path(x1, y1, x2, y2));
+        myPaths.add(new Path(x1, y1, x2, y2, myModel.getPenColor()));
     }
 
     protected void clearPaths () {

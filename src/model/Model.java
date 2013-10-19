@@ -35,7 +35,7 @@ public class Model {
         myVariableCache = new VariableCache();
         myInstructionQueue = new InstructionQueue();
         myTurtles = new HashMap<Integer, Turtle>();
-        myTurtles.put(1, new Turtle(1)); // 1 turtle with ID=1 by default
+        myTurtles.put(1, new Turtle(1, this)); // 1 turtle with ID=1 by default
         myCommandHistory = new CommandHistory();
         myInstructionFactory = new InstructionFactory(this);
         myLanguage = "English";
@@ -73,7 +73,7 @@ public class Model {
 
     public Turtle getTurtle (int id) {
         if (myTurtles.keySet().contains(id)) { return myTurtles.get(id); }
-        Turtle ret = new Turtle(id);
+        Turtle ret = new Turtle(id, this);
         myTurtles.put(id, ret);
         return ret;
     }
