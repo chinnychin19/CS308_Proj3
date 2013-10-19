@@ -18,7 +18,7 @@ public class OptionsPanel extends JPanel {
         this.setLayout(new GridLayout(1, 0));
         // this.add(new statusCheckBox());
         // this.add(gridCheckBox);
-        // this.add(penColorChooser);
+         this.add(new PenColorChooser(controller));
         this.add(new BackgroundColorChooser(controller));
         // this.add(imageChooserButton);
 
