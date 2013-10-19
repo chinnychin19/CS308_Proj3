@@ -15,7 +15,7 @@ import view.modulePanel.ModuleData;
 
 
 @SuppressWarnings("serial")
-public class OptionsPanel extends JPanel implements Observer {
+public class OptionsPanel extends JPanel {
     private Canvas myCanvas;
 
     public OptionsPanel (JButton penColorChooser, JButton bgColorChooser,
@@ -32,18 +32,5 @@ public class OptionsPanel extends JPanel implements Observer {
 
     }
 
-    @Override
-    public void update (String error,
-                        String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap,
-                        ArrayList<Integer> activeTurtleList,
-                        Map<Integer, Double> turtleXMap,
-                        Map<Integer, Double> turtleYMap,
-                        Map<Integer, Double> turtleAngleMap,
-                        Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths) {
-        // TODO Auto-generated method stub
-
-    }
 
 }
