@@ -1,17 +1,11 @@
 package view.optionsPanel;
 
 import java.awt.GridLayout;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
-import model.Path;
-import view.Observer;
 import view.display.Canvas;
-import view.modulePanel.ModuleData;
 
 
 @SuppressWarnings("serial")
