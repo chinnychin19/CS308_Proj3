@@ -1,18 +1,14 @@
-package view;
+package view.display;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import model.Path;
-import view.modulePanel.ModuleData;
 
 
-public interface Observer {
+public interface CanvasObserver {
 
-    public void update (String error,
-                        String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap,
-                        ArrayList<Integer> activeTurtleList,
+    public void update (String error, ArrayList<Integer> activeTurtleList,
                         Map<Integer, Double> turtleXMap,
                         Map<Integer, Double> turtleYMap,
                         Map<Integer, Double> turtleAngleMap,

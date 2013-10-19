@@ -4,21 +4,16 @@ import java.awt.BorderLayout;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import model.Path;
 import view.Controller;
-import view.Observer;
 
 
 @SuppressWarnings("serial")
-public class EditBar extends JPanel implements Observer {
+public class EditBar extends JPanel {
     private static final int TEXTBOX_COLUMNS = 15;
     JButton myEdit;
     TextField myTextfield;
@@ -79,21 +74,5 @@ public class EditBar extends JPanel implements Observer {
 
         return myEdit;
     }
-
-    @Override
-    public void update (String error,
-                        String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap,
-                        ArrayList<Integer> activeTurtleList,
-                        Map<Integer, Double> turtleXMap,
-                        Map<Integer, Double> turtleYMap,
-                        Map<Integer, Double> turtleAngleMap,
-                        Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths) {
-        // TODO Auto-generated method stub
-
-    }
-
-    // /ADD EDIT BAR
 
 }

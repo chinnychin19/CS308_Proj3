@@ -41,12 +41,12 @@ public class TurtleSprite extends JGObject {
     public double getHeading () {
         return myHeading;
     }
-    
-    public void setVisible(boolean visible){
-        isVisible=visible;
+
+    public void setVisible (boolean visible) {
+        isVisible = visible;
     }
-    
-    public boolean getVisible(){
+
+    public boolean getVisible () {
         return isVisible;
     }
 

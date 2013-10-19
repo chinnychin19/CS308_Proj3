@@ -3,13 +3,9 @@ package view.display;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import model.Model;
 import model.Path;
 import view.Constants;
-import view.Observer;
-import view.modulePanel.ModuleData;
 import jgame.JGColor;
 import jgame.JGFont;
 import jgame.JGPoint;
@@ -22,7 +18,7 @@ import jgame.platform.JGEngine;
  * @author susanzhang93
  * 
  */
-public class Canvas extends JGEngine implements Observer {
+public class Canvas extends JGEngine implements CanvasObserver {
     private String myImageName = "Turtle1.gif";
     private String myError = "";
     private Collection<Path> myPointList = new ArrayList<Path>();
@@ -212,20 +208,19 @@ public class Canvas extends JGEngine implements Observer {
 
         myImageName = imageName;
         defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
-        
+
         for (int ID : myActiveTurtleIDs) {
             adjustImageAngle(ID, getTurtle(ID).getHeading());
         }
-        
+
     }
 
-    public void moveTurtle (int ID, double x, double y) {  
-            TurtleSprite toMove = getTurtle(ID);
-      
-            toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                          -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
-        
-      
+    public void moveTurtle (int ID, double x, double y) {
+        TurtleSprite toMove = getTurtle(ID);
+
+        toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                      -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+
     }
 
     /**
@@ -319,14 +314,14 @@ public class Canvas extends JGEngine implements Observer {
     //
     //
     // }
-    
-    public double forceWithinBounds(double x){
-        if (x > Constants.CANVAS_WIDTH/2){
-            x = (x % (Constants.CANVAS_WIDTH/2)) - (Constants.CANVAS_WIDTH/2) ;
+
+    public double forceWithinBounds (double x) {
+        if (x > Constants.CANVAS_WIDTH / 2) {
+            x = (x % (Constants.CANVAS_WIDTH / 2)) - (Constants.CANVAS_WIDTH / 2);
         }
-        
-        else if (x < -Constants.CANVAS_WIDTH/2){
-            x = Constants.CANVAS_WIDTH/2 - (Math.abs(x) % (Constants.CANVAS_WIDTH/2));
+
+        else if (x < -Constants.CANVAS_WIDTH / 2) {
+            x = Constants.CANVAS_WIDTH / 2 - (Math.abs(x) % (Constants.CANVAS_WIDTH / 2));
         }
         return x;
     }
@@ -374,21 +369,6 @@ public class Canvas extends JGEngine implements Observer {
                     50);
     }
 
-    @Override
-    public void update (String error,
-                        String updateVariable,
-                        Map<String, Collection<ModuleData>> moduleMap,
-                        ArrayList<Integer> activeTurtleList,
-                        Map<Integer, Double> turtleXMap,
-                        Map<Integer, Double> turtleYMap,
-                        Map<Integer, Double> turtleAngleMap,
-                        Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths) {
-        adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
-                     paths);
-        setError(error);
-    }
-
     private void adjustTurtle (ArrayList<Integer> activeTurtleList,
                                Map<Integer, Double> turtleXMap,
                                Map<Integer, Double> turtleYMap,
@@ -404,5 +384,18 @@ public class Canvas extends JGEngine implements Observer {
         }
 
         setPaths(paths);
+    }
+
+    @Override
+    public void update (String error, ArrayList<Integer> activeTurtleList,
+                        Map<Integer, Double> turtleXMap,
+                        Map<Integer, Double> turtleYMap,
+                        Map<Integer, Double> turtleAngleMap,
+                        Map<Integer, Boolean> turtleVisibilityMap,
+                        Collection<Path> paths) {
+        adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
+                     paths);
+        setError(error);
+
     }
 }

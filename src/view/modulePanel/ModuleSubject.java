@@ -3,17 +3,36 @@ package view.modulePanel;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import view.Subject;
 import model.Model;
 
 
-public class Ddraft {
+public class ModuleSubject implements Subject {
+    List<ModuleObserver> observers;
+    Model myCurrentModel;
 
-    public Ddraft () {
+    public ModuleSubject (Model model) {
+        myCurrentModel = model;
+
+        observers = new ArrayList<ModuleObserver>();
+    }
+
+    public void addObservers (ModuleObserver observer) {
+        observers.add(observer);
+    }
+
+    public void notifyObservers (String error) {
+        Map<String, Collection<ModuleData>> moduleMap = getModelInformation(myCurrentModel);
+
+        for (ModuleObserver observer : observers) {
+            observer.update(moduleMap);
+        }
 
     }
 
-    public Map<String, Collection<ModuleData>> getModelInformation (Model currentModel) {
+    private Map<String, Collection<ModuleData>> getModelInformation (Model currentModel) {
         Map<String, Collection<ModuleData>> ret = new HashMap<String, Collection<ModuleData>>();
         ret.put("variable", getStoredVariables(currentModel));
         ret.put("history", getStoredHistory(currentModel));
@@ -21,7 +40,7 @@ public class Ddraft {
         return ret;
     }
 
-    public Collection<ModuleData> getStoredVariables (Model currentModel) {
+    private Collection<ModuleData> getStoredVariables (Model currentModel) {
         Collection<ModuleData> variableCollection = new ArrayList<ModuleData>();
         Map<String, String> variableMap = currentModel.getAllVariables();
         for (String key : variableMap.keySet()) {
@@ -31,7 +50,7 @@ public class Ddraft {
         return variableCollection;
     }
 
-    public Collection<ModuleData> getStoredHistory (Model currentModel) {
+    private Collection<ModuleData> getStoredHistory (Model currentModel) {
         Collection<ModuleData> historyCollection = new ArrayList<ModuleData>();
 
         for (String history : currentModel.getHistory()) {
@@ -41,7 +60,7 @@ public class Ddraft {
 
     }
 
-    public Collection<ModuleData> getStoredCommand (Model currentModel) {
+    private Collection<ModuleData> getStoredCommand (Model currentModel) {
         Collection<ModuleData> commandCollection = new ArrayList<ModuleData>();
 
         Map<String, String> commandMap = currentModel.getAllCommands();
@@ -51,9 +70,9 @@ public class Ddraft {
         return commandCollection;
     }
 
-    protected String editVariable (String key, String newValue) {
-        // Model.putVariable(key, newValue);
-        return "";
-    }
+    @Override
+    public void changeCurrentModel (Model model) {
+        myCurrentModel = model;
 
+    }
 }
