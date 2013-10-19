@@ -325,15 +325,18 @@ public class Model {
         return "";
     }
 
-    public String keyPressed (int k) {
-        return null; // TODO
+    public String keyPressed (int keyCode) {
+        if (myCommandCache.contains("ONKEY")) { return parseInput("ONKEY " + keyCode); }
+        return "";
     }
 
     public String mouseClicked (int x, int y) {
-        return null; // TODO
+        if (myCommandCache.contains("ONCLICK")) { return parseInput("ONCLICK " + x + " " + y); }
+        return "";
     }
 
     public String mouseMoved (int x, int y) {
-        return null; // TODO
+        if (myCommandCache.contains("ONMOVE")) { return parseInput("ONMOVE " + x + " " + y); }
+        return "";
     }
 }
