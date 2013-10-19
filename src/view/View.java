@@ -57,6 +57,7 @@ public class View extends JFrame {
         modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
         subject.addObservers((Observer) modulePanel);
 
+
         Controller inputController = new InputController(subject, model, textbox);
         controllers.add(inputController);
         inputPanel = PanelFactory.makePanel("input", paramaters, inputController);
