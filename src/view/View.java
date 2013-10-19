@@ -50,7 +50,7 @@ public class View extends JFrame {
         paramaters.put("textbox", textbox);
         modulePanel = PanelFactory.makePanel("module", paramaters, moduleController);
         subject.addObservers((Observer) modulePanel);
-        subject.addObservers((Observer) this);
+        //subject.addObservers((Observer) this);
         Controller inputController = new InputController(subject, model);
         runbutton = new RunButton("RUN", textbox, inputController);
         paramaters.put("runbutton", runbutton);
