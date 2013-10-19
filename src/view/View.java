@@ -123,26 +123,6 @@ public class View extends JFrame implements Observer {
         ((ModulePanel) modulePanel).updateModules(map);
     }
 
-    protected void updateCanvasPanel () {
-        // SUSAN FIX THE INDEX VALUES PLEASE :)
-
-        ArrayList<Integer> activeTurtleList = new ArrayList<Integer>(); // myModel.getActiveTurtleIDs
-                                                                        // ();
-        activeTurtleList.add(1);
-        myCanvas.setActiveTurtles(activeTurtleList);
-
-        // System.out.println(activeTurtleList);
-
-        for (Integer ID : activeTurtleList) {
-            myCanvas.moveTurtle(ID, myModel.getTurtleX(ID), myModel.getTurtleY(ID));
-            myCanvas.setHeading(ID, myModel.getTurtleAngle(ID));
-            myCanvas.changeTurtleVisiblity(myModel.isTurtleVisible(1));
-        }
-
-        myCanvas.setPaths(myModel.getTurtlePaths());
-
-    }
-
     protected void updateOptionsPanel () {
         // TODO
     }

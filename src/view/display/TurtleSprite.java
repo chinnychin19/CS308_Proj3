@@ -14,6 +14,7 @@ import jgame.platform.JGEngine;
 public class TurtleSprite extends JGObject {
     private JGEngine myEngine;
     private double myHeading = 90;
+    private boolean isVisible = true;
 
     /**
      * Constructor for TurtleSprite class
@@ -39,6 +40,14 @@ public class TurtleSprite extends JGObject {
 
     public double getHeading () {
         return myHeading;
+    }
+    
+    public void setVisible(boolean visible){
+        isVisible=visible;
+    }
+    
+    public boolean getVisible(){
+        return isVisible;
     }
 
     public double getOffsetX () {
