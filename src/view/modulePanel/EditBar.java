@@ -1,6 +1,7 @@
 package view.modulePanel;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -89,10 +90,11 @@ public class EditBar extends JPanel implements Observer {
                         Map<Integer, Double> turtleYMap,
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths) {
-        // TODO Auto-generated method stub
+                        Collection<Path> paths, Color bgColor) {
+                            
+                        }
 
-    }
+
 
     // /ADD EDIT BAR
 

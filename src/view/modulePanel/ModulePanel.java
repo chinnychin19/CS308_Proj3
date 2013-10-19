@@ -1,5 +1,6 @@
 package view.modulePanel;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.GridLayout;
 import java.util.ArrayList;
@@ -49,11 +50,11 @@ public class ModulePanel extends JPanel implements Observer {
                         Map<Integer, Double> turtleYMap,
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths) {
+                        Collection<Path> paths, Color bgColor) {
         myModules.get(0).updateContent(moduleMap.get("history"));
         myModules.get(1).updateContent(moduleMap.get("command"));
         myModules.get(2).updateContent(moduleMap.get("variable"));
+                        }
 
-    }
 
 }

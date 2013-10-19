@@ -69,7 +69,7 @@ public class Subject {
         Collection<Path> paths = myCurrentModel.getTurtlePaths();
         for (Observer observer : observers) {
             observer.update(error, updateVariable, moduleMap, activeTurtleList, turtleXMap,
-                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths);
+                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, null);
         }
 
     }

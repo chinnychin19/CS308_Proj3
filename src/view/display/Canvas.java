@@ -1,5 +1,6 @@
 package view.display;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -382,11 +383,13 @@ public class Canvas extends JGEngine implements Observer {
                         Map<Integer, Double> turtleYMap,
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths) {
+                        Collection<Path> paths, Color bgColor) {
         adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
                      paths);
         setError(error);
-    }
+                        }
+
+
 
     private void adjustTurtle (ArrayList<Integer> activeTurtleList,
                                Map<Integer, Double> turtleXMap,

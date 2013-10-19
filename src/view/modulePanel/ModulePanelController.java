@@ -11,7 +11,7 @@ public class ModulePanelController extends Controller {
         // TODO Auto-generated constructor stub
     }
 
-    public String updateVariable (String key, String value) {
+    protected String updateVariable (String key, String value) {
 
         String updateVariable = myCurrentModel.putVariable(key, value);
         mySubject.notifyObservers("", updateVariable);
