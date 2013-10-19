@@ -13,10 +13,10 @@ import view.display.Canvas;
 public class PenColorChooser extends JButton {
     private Canvas myCanvas;
 
-    public PenColorChooser (View view) {
+    public PenColorChooser (View view, Canvas canvas) {
         super("Change Pen Color");
 
-        myCanvas = view.getCanvas();
+        myCanvas = canvas;
         addActionListener(new ActionListener() {
 
             @Override

@@ -10,10 +10,9 @@ import view.display.Canvas;
 public class GridCheckBox extends JCheckBox {
     private Canvas myCanvas;
 
-    public GridCheckBox (View view) {
+    public GridCheckBox (View view, Canvas canvas) {
         super("Grid", null, false);
-        myCanvas = view.getCanvas();
-
+        myCanvas = canvas;
         addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {

@@ -10,9 +10,9 @@ import view.display.Canvas;
 public class StatusCheckBox extends JCheckBox {
     private Canvas myCanvas;
 
-    public StatusCheckBox (View view) {
+    public StatusCheckBox (View view, Canvas canvas) {
         super("Turtle Status", null, true);
-        myCanvas = view.getCanvas();
+        myCanvas = canvas;
 
         addItemListener(new ItemListener() {
 
