@@ -63,7 +63,7 @@ public class Parser {
         }
     }
 
-    public String nextExpression () {
+    public String nextExpression () throws Exception {
         StringBuilder expression = new StringBuilder();
         String firstWord = nextWord();
         expression.append(firstWord + " ");

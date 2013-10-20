@@ -2,16 +2,15 @@ package model.instruction.multiturtle;
 
 import java.util.Collection;
 import model.Model;
-import model.Turtle;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
 
 
-public class InstructionASK extends Instruction {
+public class InstructionASKWITH extends Instruction {
 
-    public InstructionASK (Instruction parent, Model m) {
-        super(Integer.MAX_VALUE, parent, m);
+    public InstructionASKWITH (Instruction parent, Model m) {
+        super(2, parent, m);
     }
 
     @Override
@@ -23,15 +22,17 @@ public class InstructionASK extends Instruction {
             getModel().getTurtle(id).setActive(false);
         }
 
-        for (int i = 0; i < getChildren().size() - 1; i++) { // last child is a list node of
-                                                             // commands
-            Instruction child = getChildren().get(i);
-            int id = (int) Math.round(((InstructionConstant) child.eval()).getValue());
+        double ret = 0;
+        Instruction condition = getChildren().get(0);
+        InstructionListNode commands = (InstructionListNode) getChildren().get(1);
+        for (int id : getModel().getAllTurtleIDs()) {
             getModel().getTurtle(id).setActive(true);
+            int boolValue = (int) Math.round(((InstructionConstant) condition.eval()).getValue());
+            if (boolValue == 1) {
+                ret = ((InstructionConstant) commands.eval()).getValue();
+            }
+            getModel().getTurtle(id).setActive(false);
         }
-        InstructionListNode commands =
-                (InstructionListNode) getChildren().get(getChildren().size() - 1);
-        InstructionConstant ret = (InstructionConstant) commands.eval();
 
         // reset original active IDs
         for (int id : getModel().getAllTurtleIDs()) {
@@ -42,7 +43,6 @@ public class InstructionASK extends Instruction {
                 getModel().getTurtle(id).setActive(false);
             }
         }
-
-        return new InstructionConstant(ret.getValue(), null, getModel());
+        return new InstructionConstant(ret, null, getModel());
     }
 }

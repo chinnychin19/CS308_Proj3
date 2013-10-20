@@ -19,7 +19,6 @@ public class Model {
     private Interpreter myInterpreter;
     private CommandCache myCommandCache;
     private VariableCache myVariableCache;
-    private InstructionQueue myInstructionQueue;
     private Map<Integer, Turtle> myTurtles;
     private CommandHistory myCommandHistory;
     private InstructionFactory myInstructionFactory;
@@ -36,7 +35,6 @@ public class Model {
         myInterpreter = new Interpreter(this);
         myCommandCache = new CommandCache();
         myVariableCache = new VariableCache();
-        myInstructionQueue = new InstructionQueue();
         myTurtles = new HashMap<Integer, Turtle>();
         myTurtles.put(1, new Turtle(1, this)); // 1 turtle with ID=1 by default
         myCommandHistory = new CommandHistory();
@@ -74,10 +72,6 @@ public class Model {
         return myVariableCache;
     }
 
-    public InstructionQueue getInstructionQueue () {
-        return myInstructionQueue;
-    }
-
     public Turtle getTurtle (int id) {
         if (myTurtles.keySet().contains(id)) { return myTurtles.get(id); }
         Turtle ret = new Turtle(id, this);
@@ -87,14 +81,6 @@ public class Model {
 
     public CommandHistory getCommandHistory () {
         return myCommandHistory;
-    }
-
-    protected String processNextInstruction () {
-        return myInstructionQueue.processNextInstruction();
-    }
-
-    protected boolean hasNextInstruction () {
-        return myInstructionQueue.hasNextInstruction();
     }
 
     public void clearVariables () {
@@ -281,6 +267,7 @@ public class Model {
     }
 
     public String setBGColor (int colorIndex) {
+        myCommandHistory.add("SETBG " + colorIndex);
         if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
         myBGColorIndex = colorIndex;
         return "";
@@ -291,6 +278,7 @@ public class Model {
     }
 
     public String setPenColor (int colorIndex) {
+        myCommandHistory.add("SETPC " + colorIndex);
         if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
         myPenColorIndex = colorIndex;
         for (Turtle t : getActiveTurtles()) {
@@ -304,6 +292,7 @@ public class Model {
     }
 
     public String setPenSize (int pixels) {
+        myCommandHistory.add("SETPS " + pixels);
         if (pixels < 0) { return "Pen size must be non-negative"; }
         myPenSize = pixels;
         return "";
@@ -318,6 +307,7 @@ public class Model {
     }
 
     public String setShape (int shapeIndex) {
+        myCommandHistory.add("SETSH " + shapeIndex);
         if (shapeIndex < 0 || shapeIndex >= myAvailableShapes.size()) { return "Index is out of range"; }
         for (Turtle t : getActiveTurtles()) {
             t.setShape(shapeIndex);
