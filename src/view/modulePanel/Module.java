@@ -24,14 +24,16 @@ public class Module extends JPanel {
     private static final int DISPLAY_WIDTH = 300;
     protected JList<ModuleData> myList;
     protected DefaultListModel<ModuleData> myListModel;
-    private Textbox myTextbox;
-    private String MODULE_NAME;
 
-    protected Module (Textbox textbox, String name, Controller controller) {
+    private String MODULE_NAME;
+    private ModulePanelController myController;
+
+    protected Module (String name, Controller controller) {
 
         super();
         setModuleName();
-        this.myTextbox = textbox;
+        myController = (ModulePanelController) controller;
+
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         MODULE_NAME = name;
         initializeModuleDisplay();
@@ -90,7 +92,7 @@ public class Module extends JPanel {
             public void valueChanged (ListSelectionEvent event) {
                 if (!event.getValueIsAdjusting() && list.getSelectedValue() != null) {
                     ModuleData selected = (ModuleData) list.getSelectedValue();
-                    myTextbox.setText(selected.myContent);
+                    myController.populateTextBox(selected.myContent);
 
                 }
 

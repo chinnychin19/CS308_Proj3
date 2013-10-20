@@ -11,6 +11,7 @@ import view.Controller;
 import view.inputPanel.Textbox;
 
 
+@SuppressWarnings("serial")
 public class ModulePanel extends JPanel implements ModuleObserver {
     private List<Module> myModules;
 

@@ -8,9 +8,13 @@ import javax.swing.JMenuBar;
 
 
 public class MenuBar extends JMenuBar {
-    public MenuBar () {
+    private MenuBarController myController;
+
+    public MenuBar (MenuBarController controller) {
+        myController = controller;
         add(fileMenu());
         add(helpMenu());
+
     }
 
     private JMenu fileMenu () {
@@ -32,9 +36,9 @@ public class MenuBar extends JMenuBar {
         result.addSeparator();
         // TO DO FIND A WAY TO DYNAMICALLY ADD LANGUAGES
         // /WANT TO AVOID HARDCODING
-        JMenu submenu = new JMenu("A submenu");
-        submenu.add(new LanguageOption("English"));
-        submenu.add(new LanguageOption("French"));
+        JMenu submenu = new JMenu("Select Language");
+        submenu.add(new LanguageOption("English", myController));
+        submenu.add(new LanguageOption("French", myController));
         result.add(submenu);
 
         return result;

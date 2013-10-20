@@ -12,9 +12,9 @@ public class ImageChooser extends JComboBox {
     private static final String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
 
     @SuppressWarnings("unchecked")
-    public ImageChooser (View view, Canvas canvas) {
+    public ImageChooser (final OptionsPanelController controller) {
         super(turtleOptions);
-        myCanvas = canvas;
+
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {

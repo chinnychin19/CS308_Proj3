@@ -8,23 +8,21 @@ import view.display.Canvas;
 
 
 public class GridCheckBox extends JCheckBox {
-    private Canvas myCanvas;
 
-    public GridCheckBox (View view, Canvas canvas) {
+    private OptionsPanelController myController;
+
+    public GridCheckBox (OptionsPanelController controller) {
+
         super("Grid", null, false);
-        myCanvas = canvas;
+        myController = controller;
         addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    myCanvas.toggleGrid();
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    myCanvas.toggleGrid();
-                }
+
+                myController.setGrid((e.getStateChange() == ItemEvent.SELECTED));
+
             }
 
         });
     }
-
 }

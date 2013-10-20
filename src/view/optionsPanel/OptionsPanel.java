@@ -12,17 +12,16 @@ import view.display.Canvas;
 public class OptionsPanel extends JPanel {
     private Canvas myCanvas;
 
-    public OptionsPanel (JButton penColorChooser, JButton bgColorChooser,
-                         JCheckBox statusCheckBox, JCheckBox gridCheckBox,
-                         JComboBox<?> imageChooserButton) {
+    public OptionsPanel (OptionsPanelController controller) {
 
         super();
         this.setLayout(new GridLayout(1, 0));
-        this.add(statusCheckBox);
-        this.add(gridCheckBox);
-        this.add(penColorChooser);
-        this.add(bgColorChooser);
-        this.add(imageChooserButton);
+        // NEED BACKEND TO SUPPORT THE COMMENDTED ITEMS
+        this.add(new StatusCheckBox(controller));
+        this.add(new GridCheckBox(controller));
+        this.add(new PenColorChooser(controller));
+        this.add(new BackgroundColorChooser(controller));
+        // this.add(imageChooserButton);
 
     }
 
