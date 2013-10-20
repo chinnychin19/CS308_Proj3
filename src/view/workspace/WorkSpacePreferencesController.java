@@ -67,13 +67,17 @@ public class WorkSpacePreferencesController extends Controller {
      * @param choice - String from view indicating user's workspace option
      */
     protected void setWorkSpace (String choice) {
-        if (!choice.equals("") && !choice.equals(Constants.CREATE_NEW_WORK_SPACE_OPTION)) {
+        if ((choice == null) || (choice.length() <= 0)) {
+
+        }
+        else if (!choice.equals(Constants.CREATE_NEW_WORK_SPACE_OPTION)) {
             switchWorkSpace(choice);
         }
-        else {
+        else if (choice.equals(Constants.CREATE_NEW_WORK_SPACE_OPTION)) {
             makeNewWorkSpace();
 
         }
+
     }
 
     /**
