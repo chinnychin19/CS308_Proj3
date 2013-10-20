@@ -31,7 +31,7 @@ public class Turtle {
         myModel = model;
         myColor = model.getPenColor();
         myShapeIndex = 0; // by default
-        myPenSize = m.getPenSize();
+        myPenSize = model.getPenSize();
     }
 
     public int getShapeIndex () {
