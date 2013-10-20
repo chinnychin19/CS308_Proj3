@@ -12,13 +12,13 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import menuBar.MenuBar;
 import menuBar.MenuBarController;
 import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
 import view.inputPanel.InputController;
-import view.inputPanel.Textbox;
 import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanelController;
 import view.modulePanel.ModuleSubject;
@@ -28,6 +28,8 @@ import view.workspace.WorkSpaceSelector;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
+
+   
 
     private Model myModel;
 
@@ -46,8 +48,10 @@ public class View extends JFrame {
         MasterSubject subject = new MasterSubject(myModel);
         subjects.add(subject);
 
-        Textbox textbox = new Textbox();
-        addParameters(paramaters, myCanvas, textbox);
+        JTextArea textbox = new JTextArea();
+        textbox.setRows(Constants.TEXTBOX_ROWS);
+        paramaters.put("textbox", textbox);
+       
 
         MenuBarController menuController = new MenuBarController(subject, myModel);
         controllers.add(menuController);
@@ -65,7 +69,7 @@ public class View extends JFrame {
                              List<Controller> controllers,
                              List<MasterSubject> subjects,
                              MasterSubject subject,
-                             Textbox textbox) {
+                             JTextArea textbox) {
         Controller moduleController = new ModulePanelController(subject, myModel, textbox);
         controllers.add(moduleController);
 
@@ -117,14 +121,7 @@ public class View extends JFrame {
 
     }
 
-    private void addParameters (Map<String, JComponent> paramaters, Canvas canvas, Textbox textbox) {
-        paramaters.put("textbox", textbox);
-        // paramaters.put("pen", new PenColorChooser(this, canvas));
-        // paramaters.put("bg", new BackgroundColorChooser(this, canvas));
-        // paramaters.put("status", new StatusCheckBox(this, canvas));
-        // paramaters.put("image", new ImageChooser(this, canvas));
-        // paramaters.put("grid", new GridCheckBox(this, canvas));
-    }
+
 
     protected void changeModel (Model newModel) {
         myModel = newModel;

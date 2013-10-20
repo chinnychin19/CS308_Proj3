@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import view.Controller;
-import view.inputPanel.Textbox;
 
 
 /**
