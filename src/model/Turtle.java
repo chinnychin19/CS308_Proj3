@@ -16,6 +16,7 @@ public class Turtle {
     private Model myModel;
     private Color myColor;
     private int myShapeIndex;
+    private int myPenSize;
 
     protected Turtle (int id, Model model) {
         myID = id;
@@ -30,6 +31,7 @@ public class Turtle {
         myModel = model;
         myColor = model.getPenColor();
         myShapeIndex = 0; // by default
+        myPenSize = m.getPenSize();
     }
 
     public int getShapeIndex () {
@@ -74,7 +76,7 @@ public class Turtle {
     }
 
     private void addPath (double x1, double y1, double x2, double y2) {
-        myPaths.add(new Path(x1, y1, x2, y2, myColor));
+        myPaths.add(new Path(x1, y1, x2, y2, myColor, myPenSize));
     }
 
     protected void clearPaths () {
@@ -95,6 +97,10 @@ public class Turtle {
 
     public double getAngle () {
         return radiansToDegrees(myAngle);
+    }
+
+    public int getPenSize () {
+        return myPenSize;
     }
 
     public boolean isDrawing () {
@@ -119,6 +125,10 @@ public class Turtle {
 
     public void setActive (boolean active) {
         isActive = active;
+    }
+
+    public void setPenSize (int penSize) {
+        myPenSize = penSize;
     }
 
     public double doRelativeMove (double pixels) {
