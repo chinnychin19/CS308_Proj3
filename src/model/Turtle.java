@@ -18,7 +18,7 @@ public class Turtle {
     private int myShapeIndex;
     private int myPenSize;
 
-    protected Turtle (int id, Model m) {
+    protected Turtle (int id, Model model) {
         myID = id;
         myX = 0;
         myY = 0;
@@ -28,10 +28,10 @@ public class Turtle {
         myAngle = Math.PI / 2; // only internally stored in radians
         myPaths = new ArrayList<Path>();
         myStamps = new ArrayList<Stamp>();
-        myModel = m;
-        myColor = m.getPenColor();
+        myModel = model;
+        myColor = model.getPenColor();
         myShapeIndex = 0; // by default
-        myPenSize = m.getPenSize();
+        myPenSize = model.getPenSize();
     }
 
     public int getShapeIndex () {
