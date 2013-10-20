@@ -8,21 +8,16 @@ import view.display.Canvas;
 
 
 public class StatusCheckBox extends JCheckBox {
-    private Canvas myCanvas;
+    private OptionsPanelController myController;
 
-    public StatusCheckBox (View view, Canvas canvas) {
+    public StatusCheckBox (OptionsPanelController controller) {
         super("Turtle Status", null, true);
-        myCanvas = canvas;
+        myController = controller;
 
         addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    myCanvas.toggleStatus();
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    myCanvas.toggleStatus();
-                }
+                myController.setStatus(e.getStateChange() == ItemEvent.SELECTED);
             }
 
         });

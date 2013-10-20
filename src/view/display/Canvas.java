@@ -388,12 +388,17 @@ public class Canvas extends JGEngine implements CanvasObserver {
     }
 
     @Override
-    public void update (String error, ArrayList<Integer> activeTurtleList,
+    public void update (String error,
+                        ArrayList<Integer> activeTurtleList,
                         Map<Integer, Double> turtleXMap,
                         Map<Integer, Double> turtleYMap,
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths, Color pen, Color bg) {
+                        Collection<Path> paths,
+                        Color pen,
+                        Color bg,
+                        Boolean gridStatus,
+                        Boolean turtleStatus) {
         adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
                      paths);
         setError(error);

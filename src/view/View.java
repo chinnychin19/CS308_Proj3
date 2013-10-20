@@ -22,15 +22,11 @@ import view.inputPanel.Textbox;
 import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanelController;
 import view.modulePanel.ModuleSubject;
-import view.optionsPanel.BackgroundColorChooser;
-import view.optionsPanel.GridCheckBox;
-import view.optionsPanel.ImageChooser;
 import view.optionsPanel.OptionsPanelController;
-import view.optionsPanel.PenColorChooser;
-import view.optionsPanel.StatusCheckBox;
 import view.workspace.WorkSpaceSelector;
 
 
+@SuppressWarnings("serial")
 public class View extends JFrame {
 
     private Model myModel;

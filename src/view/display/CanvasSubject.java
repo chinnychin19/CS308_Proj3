@@ -32,9 +32,13 @@ public class CanvasSubject implements Subject {
         Collection<Path> paths = myCurrentModel.getTurtlePaths();
         Color pen = myCurrentModel.getPenColor();
         Color bg = myCurrentModel.getBGColor();
+        Boolean gridStatus = true; // myCurrentModel.getGridStatus();
+        Boolean turtleStatus = true; // myCurrentModel.getTurtleStatus();
+
         for (CanvasObserver observer : observers) {
             observer.update(error, activeTurtleList, turtleXMap,
-                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, pen, bg);
+                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, pen, bg,
+                            gridStatus, turtleStatus);
         }
 
     }

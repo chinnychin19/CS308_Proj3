@@ -16,6 +16,8 @@ public interface CanvasObserver {
                         Map<Integer, Boolean> turtleVisibilityMap,
                         Collection<Path> paths,
                         Color penColor,
-                        Color bgColor);
+                        Color bgColor,
+                        Boolean gridStatus,
+                        Boolean turtleStatus);
 
 }
