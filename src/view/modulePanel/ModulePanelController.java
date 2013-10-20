@@ -3,12 +3,15 @@ package view.modulePanel;
 import model.Model;
 import view.Controller;
 import view.MasterSubject;
+import view.inputPanel.Textbox;
 
 
 public class ModulePanelController extends Controller {
-    public ModulePanelController (MasterSubject subject, Model model) {
+    private Textbox myTextbox;
+
+    public ModulePanelController (MasterSubject subject, Model model, Textbox textbox) {
         super(subject, model);
-        // TODO Auto-generated constructor stub
+        myTextbox = textbox;
     }
 
     protected String updateVariable (String key, String value) {
@@ -17,6 +20,10 @@ public class ModulePanelController extends Controller {
         mySubject.notifyObservers("");
         return updateVariable;
 
+    }
+
+    protected void populateTextBox (String clickedContent) {
+        myTextbox.setText(clickedContent);
     }
 
 }

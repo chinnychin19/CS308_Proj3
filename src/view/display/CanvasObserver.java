@@ -1,5 +1,6 @@
 package view.display;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
@@ -13,6 +14,10 @@ public interface CanvasObserver {
                         Map<Integer, Double> turtleYMap,
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
-                        Collection<Path> paths);
+                        Collection<Path> paths,
+                        Color penColor,
+                        Color bgColor,
+                        Boolean gridStatus,
+                        Boolean turtleStatus);
 
 }

@@ -11,6 +11,7 @@ import view.inputPanel.InputPanel;
 import view.inputPanel.Textbox;
 import view.modulePanel.ModulePanel;
 import view.optionsPanel.OptionsPanel;
+import view.optionsPanel.OptionsPanelController;
 
 
 /**
@@ -28,12 +29,7 @@ public class PanelFactory {
                                                              controller); }
         if (panel.equals("input")) { return new InputPanel((Textbox) parameters.get("textbox"),
                                                            (InputController) controller); }
-        if (panel.equals("option")) { return new OptionsPanel((JButton) parameters.get("pen"),
-                                                              (JButton) parameters.get("bg"),
-                                                              (JCheckBox) parameters.get("status"),
-                                                              (JCheckBox) parameters.get("grid"),
-                                                              (JComboBox<?>) parameters
-                                                                      .get("image"));
+        if (panel.equals("option")) { return new OptionsPanel((OptionsPanelController) controller);
         // /,(JButton) parameters.get("help"));
 
         }
