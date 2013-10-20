@@ -24,6 +24,7 @@ import view.modulePanel.ModulePanelController;
 import view.modulePanel.ModuleSubject;
 import view.optionsPanel.OptionsPanelController;
 import view.workspace.WorkSpaceSelector;
+import view.workspace.WorkSpaceSelectorController;
 
 
 @SuppressWarnings("serial")
@@ -32,6 +33,7 @@ public class View extends JFrame {
     private Model myModel;
 
     private WorkSpaceSelector selector;
+    private MasterSubject subject;
 
     /**
      * Constructor for View Class
@@ -43,16 +45,12 @@ public class View extends JFrame {
         List<Controller> controllers = new ArrayList<Controller>();
         List<MasterSubject> subjects = new ArrayList<MasterSubject>();
 
-        MasterSubject subject = new MasterSubject(myModel);
+        subject = new MasterSubject(myModel);
         subjects.add(subject);
 
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
-
-        MenuBarController menuController = new MenuBarController(subject, myModel);
-        controllers.add(menuController);
-        setJMenuBar(new MenuBar(menuController));
 
         initializeDisplaySettings();
 
@@ -87,18 +85,27 @@ public class View extends JFrame {
         Controller optionsController = new OptionsPanelController(subject, myModel);
         controllers.add(optionsController);
         JPanel optionsPanel = PanelFactory.makePanel("option", paramaters, optionsController);
-        selector = new WorkSpaceSelector(controllers, subjects, myModel);
-        JButton showItButton = new JButton("Select Workspace");
-        showItButton.addActionListener(new ActionListener() {
 
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                selector.NewWorkSpace();
+        WorkSpaceSelectorController wokspaceController =
+                new WorkSpaceSelectorController(subject, controllers, subjects, myModel);
+        selector = new WorkSpaceSelector(wokspaceController);
 
-            }
-
-        });
-        optionsPanel.add(showItButton);
+        MenuBarController menuController = new MenuBarController(subject, myModel);
+        controllers.add(menuController);
+        MenuBar menu = new MenuBar(menuController);
+        menu.add("selector", selector);
+        setJMenuBar(menu);
+        // JButton showItButton = new JButton("Select Workspace");
+        // showItButton.addActionListener(new ActionListener() {
+        //
+        // @Override
+        // public void actionPerformed (ActionEvent e) {
+        // selector.selectWorkSpace();
+        //
+        // }
+        //
+        // });
+        // optionsPanel.add(showItButton);
 
         addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
     }

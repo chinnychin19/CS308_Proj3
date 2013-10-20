@@ -42,4 +42,11 @@ public interface Constants {
 
     public static final int TEXTBOX_ROWS = 5;
 
+    public static final String CREATE_NEW_WORK_SPACE_OPTION = "Create New WorkSpace";
+    public static final String WORK_SPACE_MESSAGE = "Choose a Work Space";
+    public static final String WORK_SPACE_TITLE = "Work Space";
+    public static final String CHANGED_WORKSPACE_MESSAGE = "You are now in work space ";
+    public static final String NEW_WORKSPACE_MESSAGE =
+            "A new work space has been created. You are now in work space ";
+
 }

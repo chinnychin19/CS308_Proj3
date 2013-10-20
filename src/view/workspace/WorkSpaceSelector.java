@@ -1,77 +1,125 @@
 package view.workspace;
 
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.AbstractAction;
+import javax.swing.JMenu;
 import javax.swing.JOptionPane;
-import model.Model;
+import view.Constants;
 import view.Controller;
 import view.MasterSubject;
+import model.Model;
 
 
-public class WorkSpaceSelector {
+public class WorkSpaceSelector extends JMenu implements WorkSpaceSelectorObserver {
 
-    List<Controller> myControllers;
-    List<MasterSubject> mySubjects;
-    List<Model> myModels = new ArrayList<Model>();
+    WorkSpaceSelectorController myController;
 
-    public WorkSpaceSelector (List<Controller> controllers,
-                              List<MasterSubject> subjects,
-                              Model myModel) {
-        myControllers = controllers;
-        mySubjects = subjects;
-        myModels.add(myModel);
+    public WorkSpaceSelector (WorkSpaceSelectorController controller) {
+        super("Workspace Preferences");
+        myController = controller;
+        add(new AbstractAction("Change Workspace") {
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                selectWorkSpace();
+            }
+        });
+
     }
 
-    public String NewWorkSpace () {
-        int size = myModels.size() + 1;
-        Object[] possibilities = new Object[size];
-        int i;
-        for (i = 0; i < size - 1; i++) {
-            possibilities[i] = Integer.toString(i + 1);
-        }
-        possibilities[i] = "Create New WorkSpace";
+    public String toString () {
+        return "selectr";
+    }
+
+    private String selectWorkSpace () {
+
+        String choice = createAndDisplaySelector();
+        return choice;
+        // return changeWorkSpace(choice);
+
+    }
+
+    private String createAndDisplaySelector () {
+        String[] possibilities = createWorkSpaceOptions();
         String choice = (String) JOptionPane.showInputDialog(
                                                              null,
-                                                             "Choose a Work Space",
-                                                             "Work Space",
+                                                             Constants.WORK_SPACE_MESSAGE,
+                                                             Constants.WORK_SPACE_TITLE,
                                                              JOptionPane.PLAIN_MESSAGE,
                                                              null,
                                                              possibilities,
                                                              "1");
+        return choice;
+    }
 
-        if ((choice != null) && (choice.length() > 0) && !choice.equals("Create New WorkSpace")) {
-            Integer choiceVal = Integer.parseInt(choice);
-            for (Controller controller : myControllers) {
-                controller.changeCurrentModel(myModels.get(choiceVal - 1));
-            }
-            for (MasterSubject subject : mySubjects) {
-                subject.changeCurrentModel(myModels.get(choiceVal - 1));
-                subject.notifyObservers("");
-            }
-            String message = "You are now in work space " + choiceVal;
-            JOptionPane.showMessageDialog(null,
-                                          message);
+    // private String changeWorkSpace (String choice) {
+    // if (!choice.equals(Constants.CREATE_NEW_WORK_SPACE_OPTION)) {
+    // switchWorkSpace(choice);
+    // }
+    // else {
+    // makeNewWorkSpace();
+    //
+    // }
+    // return choice;
+    // }
 
-            return choice;
+    // private void switchWorkSpace (String choice) {
+    //
+    // Integer choiceVal = Integer.parseInt(choice);
+    // changeControllerModel(choiceVal - 1);
+    // changeSubjectModel(choiceVal - 1);
+    //
+    // String message = Constants.CHANGED_WORKSPACE_MESSAGE + choiceVal;
+    // displayMessage(message);
+    //
+    // }
+
+    // private void makeNewWorkSpace () {
+    // myModels.add(new Model());
+    // changeControllerModel(myModels.size() - 1);
+    // changeSubjectModel(myModels.size() - 1);
+    // String message =
+    // Constants.NEW_WORKSPACE_MESSAGE +
+    // myModels.size();
+    // displayMessage(message);
+    // }
+    //
+    // private void displayMessage (String message) {
+    //
+    // JOptionPane.showMessageDialog(null,
+    // message);
+    // }
+    //
+    // private void changeControllerModel (int modelIndex) {
+    // for (Controller controller : myControllers) {
+    // controller.changeCurrentModel(myModels.get(modelIndex));
+    // }
+    // }
+
+    private String[] createWorkSpaceOptions () {
+        int size = myController.getModelsSize();
+        String[] possibilities = new String[size];
+        int i;
+        for (i = 0; i < size - 1; i++) {
+            possibilities[i] = Integer.toString(i + 1);
         }
+        possibilities[i] = Constants.CREATE_NEW_WORK_SPACE_OPTION;
+        return possibilities;
 
-        else {
-            myModels.add(new Model());
-            for (Controller controller : myControllers) {
-                controller.changeCurrentModel(myModels.get(myModels.size() - 1));
-            }
-            for (MasterSubject subject : mySubjects) {
-                subject.changeCurrentModel(myModels.get(myModels.size() - 1));
-                subject.notifyObservers("");
-            }
-            String message =
-                    "A new work space has been created. You are now in work space " +
-                            myModels.size();
-            JOptionPane.showMessageDialog(null,
-                                          message);
+    }
 
-            return choice;
-        }
+    //
+    // private void changeSubjectModel (Integer masterIndex) {
+    // for (MasterSubject subject : mySubjects) {
+    // subject.changeCurrentModel(myModels.get(masterIndex));
+    // subject.notifyObservers("");
+    // }
+    // }
+
+    @Override
+    public void update (int numberModels, boolean displayStatus) {
+        // TODO Auto-generated method stub
 
     }
 

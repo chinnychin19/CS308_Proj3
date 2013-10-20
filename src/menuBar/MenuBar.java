@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import view.workspace.WorkSpaceSelector;
 
 
 public class MenuBar extends JMenuBar {
@@ -23,7 +24,7 @@ public class MenuBar extends JMenuBar {
         result.add(new AbstractAction("Open") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                // TODO Auto-generated method stub
+
             }
         });
 
