@@ -80,6 +80,6 @@ public class MultiturtleTests {
         model.parseInput("askwith [ lessp ycor 15 ] [ fd 15 ]");
 
         assertEquals(20, model.getTurtleY(1), DELTA);
-        assertEquals(25, model.getTurtleY(1), DELTA);
+        assertEquals(25, model.getTurtleY(2), DELTA);
     }
 }

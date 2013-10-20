@@ -157,7 +157,7 @@ public class Interpreter {
                     String conditionList = parser.nextList();
                     conditionList = conditionList.substring(1, conditionList.length() - 1).trim();
                     List<Instruction> conditions = getInstructions(conditionList);
-                    if (conditions.size() != 0) { throw new Exception(
+                    if (conditions.size() != 1) { throw new Exception(
                                                                       "Only one condition should be provided in ASKWITH"); }
                     cur.addChild(conditions.get(0)); // the only condition
                     String commandList = parser.nextList();
