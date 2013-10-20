@@ -10,6 +10,8 @@ public class Parser {
     private Model myModel;
     private final static char SPACE = ' ';
 
+    // TODO: methods should be throws exceptions
+
     protected Parser (String input, Model m) {
         input.replaceAll("\\s+", SPACE + "");
         myInput = input.trim();

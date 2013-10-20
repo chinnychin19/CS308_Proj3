@@ -10,6 +10,8 @@ import model.instruction.conditional.InstructionIF;
 import model.instruction.conditional.InstructionIFELSE;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.loop.InstructionREPEAT;
+import model.instruction.multiturtle.InstructionASK;
+import model.instruction.multiturtle.InstructionTELL;
 import model.instruction.error.ErrorInstruction;
 import model.instruction.error.InvalidCommandInstruction;
 import model.instruction.error.TooFewParametersInstruction;
@@ -41,7 +43,7 @@ public class Interpreter {
         return "";
     }
 
-    public List<Instruction> getInstructions (String input) {
+    public List<Instruction> getInstructions (String input) { // TODO: should be throws exception
         Parser parser = new Parser(input, myModel);
         List<Instruction> instructions = new ArrayList<Instruction>();
         if (!parser.hasNext()) { return instructions; }
@@ -138,7 +140,33 @@ public class Interpreter {
                         myModel.getVariableCache().put(paramNames.get(i),
                                                        getParamValue(param));
                     }
-
+                }
+                else if (cur instanceof InstructionTELL) {
+                    String idList = parser.nextList();
+                    idList = idList.substring(1, idList.length() - 1).trim();
+                    // TODO: bracket chopping should become a function
+                    List<Instruction> parameters = getInstructions(idList);
+                    for (Instruction child : parameters) {
+                        cur.addChild(child);
+                    }
+                    cur = cur.getParent();
+                }
+                else if (cur instanceof InstructionASK) {
+                    String idList = parser.nextList();
+                    idList = idList.substring(1, idList.length() - 1).trim();
+                    List<Instruction> parameters = getInstructions(idList);
+                    for (Instruction child : parameters) {
+                        cur.addChild(child);
+                    }
+                    String commandList = parser.nextList();
+                    commandList = commandList.substring(1, commandList.length() - 1).trim();
+                    List<Instruction> commands = getInstructions(commandList);
+                    InstructionListNode commandsNode = new InstructionListNode(cur, myModel);
+                    for (Instruction child : commands) {
+                        commandsNode.addChild(child);
+                    }
+                    cur.addChild(commandsNode);
+                    cur = cur.getParent();
                 }
                 else { // Normal instruction
                     Instruction temp =

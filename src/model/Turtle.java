@@ -57,7 +57,7 @@ public class Turtle {
         throw new ColorNotFound();
     }
 
-    protected int getID () {
+    public int getID () {
         return myID;
     }
 
