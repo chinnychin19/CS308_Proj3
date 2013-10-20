@@ -5,7 +5,7 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import view.workspace.WorkSpaceSelector;
+import view.workspace.WorkSpacePreferences;
 
 
 public class MenuBar extends JMenuBar {
