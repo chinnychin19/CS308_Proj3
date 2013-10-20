@@ -51,23 +51,15 @@ public class EditBar extends JPanel {
                     ModuleData selected = (ModuleData) myListModel.get(index);
                     String newValue = myTextfield.getText();
                     myTextfield.setText("");
-                    String status =
-                            ((ModulePanelController) myController).updateVariable(selected
-                                    .getDisplay(), newValue);
-                    displayInputError(status);
+
+                    ((ModulePanelController) myController).updateVariable(selected
+                            .getDisplay(), newValue);
+
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
                                                   "Select a variable");
                 }
-            }
-
-            private void displayInputError (String putStatus) {
-                if (!putStatus.equals("")) {
-                    JOptionPane.showMessageDialog(null,
-                                                  putStatus);
-                }
-
             }
 
         });
