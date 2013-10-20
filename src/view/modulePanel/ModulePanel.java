@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import view.Controller;
@@ -39,8 +40,12 @@ public class ModulePanel extends JPanel implements ModuleObserver {
     }
 
     @Override
-    public void update (Map<String, Collection<ModuleData>> moduleMap) {
+    public void update (Map<String, Collection<ModuleData>> moduleMap, String updateVariableError) {
         updateModules(moduleMap);
+        if (!updateVariableError.equals("")) {
+            JOptionPane.showMessageDialog(null,
+                                          updateVariableError);
+        }
 
     }
 

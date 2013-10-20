@@ -3,7 +3,6 @@ package view.modulePanel;
 import view.Controller;
 
 
-
 @SuppressWarnings("serial")
 public class VariableModule extends Module {
 

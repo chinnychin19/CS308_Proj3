@@ -26,9 +26,9 @@ public class PanelFactory {
                                     Map<String, JComponent> parameters,
                                     Controller controller) {
         if (panel.equals("module")) { return new ModulePanel(controller); }
-        if (panel.equals("input")) { return new InputPanel((JTextArea) parameters.get("textbox"), (InputController) controller); }
+        if (panel.equals("input")) { return new InputPanel((JTextArea) parameters.get("textbox"),
+                                                           (InputController) controller); }
         if (panel.equals("option")) { return new OptionsPanel((OptionsPanelController) controller);
-
 
         }
         return null;

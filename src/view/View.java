@@ -29,8 +29,6 @@ import view.workspace.WorkSpaceSelector;
 @SuppressWarnings("serial")
 public class View extends JFrame {
 
-   
-
     private Model myModel;
 
     private WorkSpaceSelector selector;
@@ -51,7 +49,6 @@ public class View extends JFrame {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
-       
 
         MenuBarController menuController = new MenuBarController(subject, myModel);
         controllers.add(menuController);
@@ -120,8 +117,6 @@ public class View extends JFrame {
         this.getContentPane().add(canvas, BorderLayout.CENTER);
 
     }
-
-
 
     protected void changeModel (Model newModel) {
         myModel = newModel;

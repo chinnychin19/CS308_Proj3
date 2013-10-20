@@ -39,7 +39,7 @@ public interface Constants {
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     public static final String USER_DIR = "user.dir";
     public static final int FIELD_SIZE = 30;
-    
+
     public static final int TEXTBOX_ROWS = 5;
 
 }

@@ -4,7 +4,7 @@ import view.Controller;
 
 
 public class ModuleFactory {
-    public static Module createModule (String module,  Controller controller) {
+    public static Module createModule (String module, Controller controller) {
         if (module.equals("history")) { return new Module("History", controller);
 
         }
