@@ -5,5 +5,5 @@ import java.util.Map;
 
 
 public interface ModuleObserver {
-    public void update (Map<String, Collection<ModuleData>> moduleMap);
+    public void update (Map<String, Collection<ModuleData>> moduleMap, String variableUpdateError);
 }

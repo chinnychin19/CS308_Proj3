@@ -1,7 +1,6 @@
 package view.modulePanel;
 
 import view.Controller;
-import view.inputPanel.Textbox;
 
 
 @SuppressWarnings("serial")

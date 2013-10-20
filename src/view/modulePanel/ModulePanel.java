@@ -6,22 +6,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import view.Controller;
-import view.inputPanel.Textbox;
 
 
 @SuppressWarnings("serial")
 public class ModulePanel extends JPanel implements ModuleObserver {
     private List<Module> myModules;
 
-    public ModulePanel (Textbox textbox, Controller controller) {
+    public ModulePanel (Controller controller) {
         super();
         myModules = new ArrayList<Module>();
 
-        addModule(ModuleFactory.createModule("history", textbox, controller));
-        addModule(ModuleFactory.createModule("command", textbox, controller));
-        addModule(ModuleFactory.createModule("variable", textbox, controller));
+        addModule(ModuleFactory.createModule("history", controller));
+        addModule(ModuleFactory.createModule("command", controller));
+        addModule(ModuleFactory.createModule("variable", controller));
 
         setLayout(new GridLayout(myModules.size(), 1));
     }
@@ -39,8 +40,12 @@ public class ModulePanel extends JPanel implements ModuleObserver {
     }
 
     @Override
-    public void update (Map<String, Collection<ModuleData>> moduleMap) {
+    public void update (Map<String, Collection<ModuleData>> moduleMap, String updateVariableError) {
         updateModules(moduleMap);
+        if (!updateVariableError.equals("")) {
+            JOptionPane.showMessageDialog(null,
+                                          updateVariableError);
+        }
 
     }
 

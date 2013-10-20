@@ -2,25 +2,26 @@ package view.inputPanel;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JTextArea;
 import model.Model;
 import view.Controller;
 import view.MasterSubject;
 
 
 public class InputController extends Controller {
-    private Textbox myTextbox;
+    private JTextArea myTextbox;
 
-    public InputController (MasterSubject subject, Model model, Textbox textbox) {
+    public InputController (MasterSubject subject, Model model, JTextArea textbox) {
         super(subject, model);
         myTextbox = textbox;
 
     }
 
     public void executeCommand () {
-        String input = myTextbox.getInput();
+        String input = myTextbox.getText();
         if (input.trim().equals("")) { return; }
         String inputError = myCurrentModel.parseInput(input);
-        myTextbox.clear();
+        myTextbox.setText("");
         mySubject.notifyObservers(inputError);
     }
 

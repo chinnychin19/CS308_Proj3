@@ -27,7 +27,7 @@ public class ModuleSubject implements Subject {
         Map<String, Collection<ModuleData>> moduleMap = getModelInformation(myCurrentModel);
 
         for (ModuleObserver observer : observers) {
-            observer.update(moduleMap);
+            observer.update(moduleMap, error);
         }
 
     }

@@ -1,11 +1,10 @@
 package view.modulePanel;
 
 import view.Controller;
-import view.inputPanel.Textbox;
 
 
 public class ModuleFactory {
-    public static Module createModule (String module, Textbox textbox, Controller controller) {
+    public static Module createModule (String module, Controller controller) {
         if (module.equals("history")) { return new Module("History", controller);
 
         }
