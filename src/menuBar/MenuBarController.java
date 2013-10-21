@@ -4,12 +4,15 @@ import java.util.Collection;
 import model.Model;
 import view.Controller;
 import view.MasterSubject;
+import view.Subject;
 
 
 public class MenuBarController extends Controller {
+    private MasterSubject mySubject;
 
     public MenuBarController (MasterSubject subject, Model model) {
         super(subject, model);
+        mySubject = subject;
 
     }
 
@@ -20,6 +23,15 @@ public class MenuBarController extends Controller {
 
     public Collection<String> getLanguages () {
         return myCurrentModel.getAvailableLanguages();
+    }
+    
+    protected void loadFile(String fileName){
+        myCurrentModel.readLibrary(fileName);
+        mySubject.notifyObservers("");
+    }
+    
+    protected void saveFile(String fileName){
+        myCurrentModel.saveLibrary(fileName);
     }
 
 }

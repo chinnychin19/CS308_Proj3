@@ -39,7 +39,7 @@ public class WorkSpacePreferencesController extends Controller {
     }
 
     private Model getCurrentModel () {
-        return myModels.get(myCurrentWorkSpace);
+        return myModels.get(myCurrentWorkSpace-1);
     }
 
     /**
@@ -153,5 +153,24 @@ public class WorkSpacePreferencesController extends Controller {
         // Talk the to the model
         mySubject.notifyObservers(""); // can pass an error string to notifyObsers
     }
+    
+    protected void setBGColor(int i){
+        getCurrentModel().setBGColor(i);
+        mySubject.notifyObservers("");
+    }
 
+    protected void setPenColor(int i){
+        getCurrentModel().setPenColor(i);
+        mySubject.notifyObservers("");
+    }
+    
+    protected void readFile(String fileName){
+        getCurrentModel().readLibrary(fileName);
+        mySubject.notifyObservers("");
+    }
+    
+    protected void changeImage(int i){
+        getCurrentModel().setShape(i);
+        mySubject.notifyObservers("");
+    }
 }

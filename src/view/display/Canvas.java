@@ -395,8 +395,10 @@ public class Canvas extends JGEngine implements CanvasObserver {
                      paths);
 
         myError = error;
-        System.out.println(shape);
-        changeTurtleImage(shape);       
+        if (!shape.equals(myImageName.substring(0, 7))) {
+            System.out.println(shape);
+            changeTurtleImage(shape);
+        }
         myTurtleStamps = stamps;
         changeBackgroundColor(colorToJGColor(bg));
         changePenColor(colorToJGColor(pen));
