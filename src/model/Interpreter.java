@@ -29,22 +29,27 @@ public class Interpreter {
         input = input.replaceAll("\\s+", " "); // all white space becames a ' ' (space character)
         input = input.trim();
         if (input.isEmpty()) { return ""; }
-        List<Instruction> instructions = null;
-        try {
-            instructions = getInstructions(input);
-        }
-        catch (Exception e) {
-            return e.getMessage();
+        List<Instruction> instructions = new ArrayList<Instruction>();
+        Parser parser = new Parser(input, myModel);
+        String ret = "";
+        while (parser.hasNext()) {
+            try {
+                List<Instruction> list = getInstructions(parser.nextExpression());
+                instructions.addAll(list);
+            }
+            catch (Exception e) {
+                ret = ret + e.getMessage() + "\n";
+            }
         }
         for (Instruction instr : instructions) {
             try {
                 instr.eval();
             }
             catch (Exception e) {
-                return e.getMessage();
+                ret = ret + e.getMessage() + "\n";
             }
         }
-        return "";
+        return ret;
     }
 
     public List<Instruction> getInstructions (String input) throws Exception {
@@ -82,7 +87,7 @@ public class Interpreter {
                             (cur instanceof InstructionIF) ? 1 :
                                                           (cur instanceof InstructionIFELSE) ? 2
                                                                                             : -1;
-                    // -1 should not happen
+                    // TODO: -1 should not happen, it should throw an error
                     for (int listIndex = 0; listIndex < numLists; listIndex++) {
                         String commandsInLoop = parser.nextList();
                         commandsInLoop =

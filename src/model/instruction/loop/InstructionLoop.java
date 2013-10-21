@@ -1,11 +1,12 @@
 package model.instruction.loop;
 
 import model.Model;
+import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
 import model.instruction.error.InfiniteLoop;
 
 
-public abstract class InstructionLoop extends Instruction {
+public abstract class InstructionLoop extends Instruction implements ComplexParameterInstruction {
     private String myVariable;
     private double myStart, myEnd, myIncrement;
 

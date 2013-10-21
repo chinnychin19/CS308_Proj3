@@ -2,11 +2,12 @@ package model.instruction.multiturtle;
 
 import model.Model;
 import model.Turtle;
+import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
-public class InstructionTELL extends Instruction {
+public class InstructionTELL extends Instruction implements ComplexParameterInstruction {
 
     public InstructionTELL (Instruction parent, Model m) {
         super(Integer.MAX_VALUE, parent, m);
@@ -23,6 +24,21 @@ public class InstructionTELL extends Instruction {
             getModel().getTurtle(id).setActive(true);
         }
         return new InstructionConstant(id, null, getModel());
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 0;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 1;
+    }
+
+    @Override
+    public int getNumWords () {
+        return 0;
     }
 
 }

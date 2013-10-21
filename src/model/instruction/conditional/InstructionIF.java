@@ -21,4 +21,19 @@ public class InstructionIF extends InstructionConditional {
             return new InstructionConstant(0, null, getModel());
         }
     }
+
+    @Override
+    public int getNumWords () {
+        return 0;
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 1;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 1;
+    }
 }

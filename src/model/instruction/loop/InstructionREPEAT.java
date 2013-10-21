@@ -39,4 +39,19 @@ public class InstructionREPEAT extends InstructionLoop {
         return super.eval();
     }
 
+    @Override
+    public int getNumWords () {
+        return 0;
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 1;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 1;
+    }
+
 }

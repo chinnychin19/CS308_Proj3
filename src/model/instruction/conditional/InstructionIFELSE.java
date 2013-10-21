@@ -17,4 +17,19 @@ public class InstructionIFELSE extends InstructionConditional {
         int index = Math.abs(condition) > InstructionConditional.EPSILON ? 1 : 2;
         return (InstructionConstant) getChildren().get(index).eval();
     }
+
+    @Override
+    public int getNumWords () {
+        return 0;
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 1;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 2;
+    }
 }
