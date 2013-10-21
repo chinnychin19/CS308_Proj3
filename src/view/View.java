@@ -80,7 +80,8 @@ public class View extends JFrame {
         controllers.add(inputController);
         JPanel inputPanel = new InputPanel(textbox, inputController);
 
-        OptionsPanelController optionsController = new OptionsPanelController(subject, myModel);
+        OptionsPanelController optionsController =
+                new OptionsPanelController(subject, myModel, myCanvas);
         controllers.add(optionsController);
         JPanel optionsPanel = new OptionsPanel(optionsController);
 

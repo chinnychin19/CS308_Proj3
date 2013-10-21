@@ -2,6 +2,7 @@ package menuBar;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.Collection;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -35,11 +36,12 @@ public class MenuBar extends JMenuBar {
             }
         });
         result.addSeparator();
-        // TO DO FIND A WAY TO DYNAMICALLY ADD LANGUAGES
-        // /WANT TO AVOID HARDCODING
         JMenu submenu = new JMenu("Select Language");
-        submenu.add(new LanguageOption("English", myController));
-        submenu.add(new LanguageOption("French", myController));
+        Collection<String> languages = myController.getLanguages();
+        for (String language : languages) {
+            submenu.add(new LanguageOption(language, myController));
+        }
+
         result.add(submenu);
 
         return result;
