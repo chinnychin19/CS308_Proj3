@@ -188,7 +188,7 @@ public class Interpreter {
                         for (Instruction child : parameters) {
                             multiParam.addChild(child);
                         }
-                        cur = cur.getParent();
+                        cur.addChild(multiParam);
                     }
                     else {
                         Instruction temp =
