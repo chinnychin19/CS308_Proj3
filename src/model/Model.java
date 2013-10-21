@@ -28,11 +28,13 @@ public class Model {
     private int myPenSize;
     private List<Color> myAvailableColors;
     private List<String> myAvailableShapes;
+    private List<String> myAvailableLanguages;
     private int myShapeIndex;
 
     public Model () {
         initializeColors();
         initializeShapes();
+        initializeLanguages();
         myInterpreter = new Interpreter(this);
         myCommandCache = new CommandCache();
         myVariableCache = new VariableCache();
@@ -43,6 +45,12 @@ public class Model {
         myLanguage = "English";
         myPenSize = 5;
         myShapeIndex = 0;
+    }
+
+    private void initializeLanguages () {
+        myAvailableLanguages = new ArrayList<String>();
+        myAvailableLanguages.add("English");
+        myAvailableLanguages.add("French");
     }
 
     private void initializeShapes () {
@@ -239,6 +247,10 @@ public class Model {
         catch (FileNotFoundException e) {
             return e.getMessage();
         }
+    }
+
+    public List<String> getAvailableLanguages () {
+        return myAvailableLanguages;
     }
 
     public String setLanguage (String language) {
