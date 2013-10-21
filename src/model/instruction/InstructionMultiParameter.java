@@ -12,6 +12,8 @@ public class InstructionMultiParameter extends Instruction {
     @Override
     public Instruction eval () throws Exception {
         Instruction command = getChildren().get(0);
+        if (command.getNumParams() != 2) { throw new Exception(
+                                                               "Multiple parameter expressions may only be applied to commands which take 2 parameters."); }
         while (getChildren().size() != 2) { // command and a single remaining parameter
             Instruction a = getChildren().remove(1).eval();
             Instruction b = getChildren().remove(1).eval();
