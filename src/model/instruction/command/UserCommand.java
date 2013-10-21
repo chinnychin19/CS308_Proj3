@@ -17,18 +17,24 @@ public class UserCommand extends Instruction {
     public UserCommand (Instruction parent,
                         String name,
                         List<String> paramNames,
-                        String commandBody, Model m) {
+                        String commandBody, Model m) throws Exception {
         super(paramNames.size(), parent, m);
+        myName = name;
         myParamNames = paramNames;
         myDefinitionString = commandBody;
         commandBody = commandBody.substring(1, commandBody.length() - 1).trim();
         // chop off brackets
-        List<Instruction> commandList = getModel().getInterpreter().getInstructions(commandBody);
+        List<Instruction> commandList = null;
+        try {
+            commandList = getModel().getInterpreter().getInstructions(commandBody);
+        }
+        catch (Exception e) {
+            throw new Exception("User defined commands could not be interpreted.");
+        }
         myRootCommand = new InstructionListNode(null, getModel());
         for (Instruction instr : commandList) {
             myRootCommand.addChild(instr);
         }
-        myName = name;
     }
 
     public List<String> getParamNames () {

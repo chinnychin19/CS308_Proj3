@@ -1,7 +1,10 @@
 package model;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import model.instruction.error.ColorNotFound;
 
 
 public class Turtle {
@@ -10,8 +13,12 @@ public class Turtle {
     private Collection<Path> myPaths;
     private Collection<Stamp> myStamps;
     private int myID;
+    private Model myModel;
+    private Color myColor;
+    private int myShapeIndex;
+    private int myPenSize;
 
-    protected Turtle (int id) {
+    protected Turtle (int id, Model model) {
         myID = id;
         myX = 0;
         myY = 0;
@@ -21,9 +28,38 @@ public class Turtle {
         myAngle = Math.PI / 2; // only internally stored in radians
         myPaths = new ArrayList<Path>();
         myStamps = new ArrayList<Stamp>();
+        myModel = model;
+        myColor = model.getPenColor();
+        myShapeIndex = 0; // by default
+        myPenSize = model.getPenSize();
     }
 
-    protected int getID () {
+    public int getShapeIndex () {
+        return myShapeIndex;
+    }
+
+    public void setShape (int shapeIndex) {
+        myShapeIndex = shapeIndex;
+    }
+
+    public Color getColor () {
+        return myColor;
+    }
+
+    public void setColor (Color color) {
+        myColor = color;
+    }
+
+    public int getColorIndex () throws Exception {
+        List<Color> list = myModel.getAvailableColors();
+        for (int i = 0; i < list.size(); i++) {
+            Color color = list.get(i);
+            if (myColor.equals(color)) { return i; }
+        }
+        throw new ColorNotFound();
+    }
+
+    public int getID () {
         return myID;
     }
 
@@ -35,8 +71,12 @@ public class Turtle {
         return myStamps;
     }
 
+    public void addStamp () {
+        myStamps.add(new Stamp(myX, myY, myAngle, myShapeIndex));
+    }
+
     private void addPath (double x1, double y1, double x2, double y2) {
-        myPaths.add(new Path(x1, y1, x2, y2));
+        myPaths.add(new Path(x1, y1, x2, y2, myColor, myPenSize));
     }
 
     protected void clearPaths () {
@@ -57,6 +97,10 @@ public class Turtle {
 
     public double getAngle () {
         return radiansToDegrees(myAngle);
+    }
+
+    public int getPenSize () {
+        return myPenSize;
     }
 
     public boolean isDrawing () {
@@ -81,6 +125,10 @@ public class Turtle {
 
     public void setActive (boolean active) {
         isActive = active;
+    }
+
+    public void setPenSize (int penSize) {
+        myPenSize = penSize;
     }
 
     public double doRelativeMove (double pixels) {
