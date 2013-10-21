@@ -54,8 +54,7 @@ public interface Constants {
     public static final String WORKSPACE_PREFERENCES_NAME = "Workspace Preferences";
     public static final String SAVE_WORKSPACE_PREFERENCES = "Save Workspace Preferences";
     public static final String LOAD_WORKSPACE_PREFERENCES = "Load Workspace Prefernces";
-    
-    
+
     public static final String SELECT_A_VARIABLE_MESSAGE = "Select a variable";
     public static final int TEXTBOX_COLUMNS = 15;
     public static final String EDIT_BUTTON_NAME = "Edit";
