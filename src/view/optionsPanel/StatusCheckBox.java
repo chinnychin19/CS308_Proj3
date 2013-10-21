@@ -17,7 +17,7 @@ public class StatusCheckBox extends JCheckBox {
         addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {
-                myController.setStatus(e.getStateChange() == ItemEvent.SELECTED);
+                myController.setTurtleStatus(e.getStateChange() == ItemEvent.SELECTED);
             }
 
         });

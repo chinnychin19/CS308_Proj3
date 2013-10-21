@@ -72,7 +72,8 @@ public class Turtle {
     }
 
     public void addStamp () {
-        myStamps.add(new Stamp(myX, myY, myAngle, myShapeIndex));
+        String shape = myModel.getTurtleShape(myID);
+        myStamps.add(new Stamp(myX, myY, myAngle, shape));
     }
 
     private void addPath (double x1, double y1, double x2, double y2) {

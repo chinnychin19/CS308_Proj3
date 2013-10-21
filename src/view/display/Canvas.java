@@ -423,4 +423,13 @@ public class Canvas extends JGEngine implements CanvasObserver {
         changePenColor(new JGColor(250, 0, 0));
 
     }
+
+    public void setGridStatus (boolean b) {
+        myGridStatus = b;
+
+    }
+
+    public void setTurtleStatus (boolean b) {
+        myTurtleStatus = b;
+    }
 }

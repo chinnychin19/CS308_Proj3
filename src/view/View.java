@@ -39,7 +39,7 @@ public class View extends JFrame {
      * Constructor for View Class
      */
     public View () {
-        
+
         Canvas myCanvas = new Canvas();
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
@@ -48,7 +48,6 @@ public class View extends JFrame {
 
         subject = new MasterSubject(myModel);
         subjects.add(subject);
-
 
         initializeDisplaySettings();
 
@@ -63,27 +62,28 @@ public class View extends JFrame {
                              List<MasterSubject> subjects,
                              MasterSubject subject)
 
-                             {
+    {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
         Controller moduleController = new ModulePanelController(subject, myModel, textbox);
         controllers.add(moduleController);
 
-        JPanel modulePanel =  new ModulePanel(moduleController);
+        JPanel modulePanel = new ModulePanel(moduleController);
         ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
         subject.addSubject(myModuleSubject);
 
-        CanvasSubject myCanvasSubject = new CanvasSubject(myModel,myCanvas);
+        CanvasSubject myCanvasSubject = new CanvasSubject(myModel, myCanvas);
         subject.addSubject(myCanvasSubject);
 
         InputController inputController = new InputController(subject, myModel, textbox);
         controllers.add(inputController);
-        JPanel inputPanel = new InputPanel(textbox,inputController);
+        JPanel inputPanel = new InputPanel(textbox, inputController);
 
-        OptionsPanelController optionsController = new OptionsPanelController(subject, myModel);
+        OptionsPanelController optionsController =
+                new OptionsPanelController(subject, myModel, myCanvas);
         controllers.add(optionsController);
-        JPanel optionsPanel = new OptionsPanel( optionsController);
+        JPanel optionsPanel = new OptionsPanel(optionsController);
 
         WorkSpacePreferencesController wokspaceController =
                 new WorkSpacePreferencesController(subject, controllers, subjects, myModel);

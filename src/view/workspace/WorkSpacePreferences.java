@@ -21,10 +21,7 @@ public class WorkSpacePreferences extends JMenu {
         add(new WorkSpaceSelector(myController));
         add(new WorkSpacePreferencesLoader(myController));
         add(new WorkSpacePreferencesSaver(myController));
-         
 
     }
-
-   
 
 }

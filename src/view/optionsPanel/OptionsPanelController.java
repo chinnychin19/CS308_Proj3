@@ -3,12 +3,15 @@ package view.optionsPanel;
 import model.Model;
 import view.Controller;
 import view.MasterSubject;
+import view.display.Canvas;
 
 
 public class OptionsPanelController extends Controller {
+    private Canvas myCanvas;
 
-    public OptionsPanelController (MasterSubject subject, Model model) {
+    public OptionsPanelController (MasterSubject subject, Model model, Canvas canvas) {
         super(subject, model);
+        myCanvas = canvas;
 
     }
 
@@ -18,12 +21,16 @@ public class OptionsPanelController extends Controller {
     }
 
     public void setGrid (boolean b) {
+        myCanvas.setGridStatus(b);
         mySubject.notifyObservers("");
 
     }
 
-    public void setStatus (boolean b) {
+
+    public void setTurtleStatus (boolean b) {
+        myCanvas.setTurtleStatus(b);
         mySubject.notifyObservers("");
 
     }
+
 }
