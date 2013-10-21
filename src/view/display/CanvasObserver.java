@@ -18,6 +18,7 @@ public interface CanvasObserver {
                         Color penColor,
                         Color bgColor,
                         Boolean gridStatus,
-                        Boolean turtleStatus);
+                        Boolean turtleStatus,
+                        Integer penSize);
 
 }

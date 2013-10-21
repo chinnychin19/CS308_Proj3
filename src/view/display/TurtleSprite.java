@@ -6,7 +6,7 @@ import jgame.platform.JGEngine;
 
 
 /**
- * Class that represents Turtle
+ * Class that represents Turtle in JGame
  * 
  * @author susanzhang93
  * 
@@ -14,7 +14,6 @@ import jgame.platform.JGEngine;
 public class TurtleSprite extends JGObject {
     private JGEngine myEngine;
     private double myHeading = 90;
-    private boolean isVisible = true;
 
     /**
      * Constructor for TurtleSprite class
@@ -27,7 +26,6 @@ public class TurtleSprite extends JGObject {
     public TurtleSprite (JGEngine engine, double x, double y, int CID, String imgsrc) {
         super("turtle", true, x, y, CID, imgsrc, 0, 0, 0, 0, -1);
         myEngine = engine;
-
     }
 
     public void toggleStatus (boolean active) {
@@ -40,14 +38,6 @@ public class TurtleSprite extends JGObject {
 
     public double getHeading () {
         return myHeading;
-    }
-
-    public void setVisible (boolean visible) {
-        isVisible = visible;
-    }
-
-    public boolean getVisible () {
-        return isVisible;
     }
 
     public double getOffsetX () {
