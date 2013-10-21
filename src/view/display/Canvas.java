@@ -11,6 +11,7 @@ import jgame.JGColor;
 import jgame.JGFont;
 import jgame.JGPoint;
 import jgame.platform.JGEngine;
+import model.Stamp;
 
 
 /**
@@ -32,7 +33,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
     // IMPLEMENTATION 2
     private Map<Integer, TurtleSprite> myTurtleMap = new HashMap<Integer, TurtleSprite>();
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
-    private int stampCounter = 0;
+    private Collection<Stamp> myTurtleStamps = new ArrayList<Stamp>();
     private String image = "turtleGif";
 
     public static void main (String[] args) {
@@ -66,6 +67,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
                                                  image + 1);
         myTurtleMap.put(1, myTurtle);
         myActiveTurtleIDs.add(1);
+
     }
 
     @Override
@@ -85,15 +87,9 @@ public class Canvas extends JGEngine implements CanvasObserver {
             drawStatus();
         }
 
+        drawStamps();
+
         displayError(myError);
-
-        if (getKey('S')) {
-            stamp();
-        }
-
-        if (getKey('C')) {
-            clearStamps();
-        }
 
         if (getKey('X')) {
             changeTurtleImage("Turtle2.gif");
@@ -175,10 +171,14 @@ public class Canvas extends JGEngine implements CanvasObserver {
                                                                   Constants.CANVAS_WIDTH / 2,
                      toDraw.getX2() + Constants.CANVAS_WIDTH / 2, -toDraw.getY2() +
                                                                   Constants.CANVAS_WIDTH / 2,
-                     myPenSize,
-                     myPenColor);
+                     toDraw.getPenSize(),
+                     colorToJGColor(toDraw.getColor()));
 
         }
+    }
+
+    private JGColor colorToJGColor (Color c) {
+        return new JGColor(c.getRed(), c.getGreen(), c.getBlue());
     }
 
     /**
@@ -198,12 +198,24 @@ public class Canvas extends JGEngine implements CanvasObserver {
      * @param imageName name of image
      */
     public void changeTurtleImage (String imageName) {
-
         myImageName = imageName;
-        // defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
 
         for (int ID : myActiveTurtleIDs) {
-            adjustImageAngle(ID, myTurtleMap.get(ID).getHeading());
+            adjustImageAngle(myTurtleMap.get(ID).getHeading());
+            defineImage(image + ID, myImageName);
+        }
+
+    }
+
+    /**
+     * Sets heading of turtle
+     */
+    public void setHeading (int ID, double newHeading) {
+
+        if (myTurtleMap.get(ID).getHeading() != newHeading) {
+            myTurtleMap.get(ID).setHeading(newHeading);
+            adjustImageAngle(newHeading);
+            defineImage(image + ID, myImageName);
         }
 
     }
@@ -217,6 +229,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
 
         toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                       -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+
     }
 
     /**
@@ -265,7 +278,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
                      Constants.CANVAS_HEIGHT * 2);
         }
     }
-    
 
     /**
      * Sets list of points
@@ -274,18 +286,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
      */
     public void setPaths (Collection<Path> list) {
         myPointList = list;
-    }
-
-    /**
-     * Sets heading of turtle
-     */
-    public void setHeading (int ID, double newHeading) {
-
-        if (myTurtleMap.get(ID).getHeading() != newHeading) {
-            myTurtleMap.get(ID).setHeading(newHeading);
-            adjustImageAngle(ID, newHeading);
-        }
-
     }
 
     // public void splitLine(Path p){
@@ -313,24 +313,18 @@ public class Canvas extends JGEngine implements CanvasObserver {
         myActiveTurtleIDs = turtleList;
     }
 
-    private void clearStamps () {
-        removeObjects(null, Constants.STAMP_CID);
-        stampCounter = 0;
-    }
-
-    private void stamp () { // TODO: Deal with workspace changint
-        for (int ID : myTurtleMap.keySet()) {
-            TurtleSprite tempTurtle = myTurtleMap.get(ID);
-            String temp = "test" + stampCounter;
-            defineImage(temp, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
-            new TurtleSprite(this, tempTurtle.x, tempTurtle.y, Constants.STAMP_CID,
-                             temp);
+    private void drawStamps () {
+        for (int i = 0; i < myTurtleStamps.size(); i++) {
+            Stamp s = ((ArrayList<Stamp>) myTurtleStamps).get(i);
+            adjustImageAngle(s.getAngle());
+            defineImage("" + i, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+            // System.out.println(s.getX()+ " " + s.getY() + " " + s.getAngle());
+            drawImage("" + i, s.getX() + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                      -s.getY() + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
         }
-
-        stampCounter++;
     }
 
-    private void highlightTurtle (int ID) {// TODO Implement this method!
+    private void highlightTurtle (int ID) {
         double x = myTurtleMap.get(ID).x;
         double y = myTurtleMap.get(ID).y;
         drawLine(x, y, x + 50, y, 1, JGColor.green);
@@ -339,35 +333,19 @@ public class Canvas extends JGEngine implements CanvasObserver {
         drawLine(x, y + 50, x, y, 1, JGColor.green);
     }
 
-    private void adjustImageAngle (int ID, double angle) { // TODO Make this cleaner/work
-        int index = 1;
+    private void adjustImageAngle (double angle) {
+        int index;
         if (angle < 45) {
             angle = 360 + angle;
         }
 
         index = (int) Math.floor((angle - 45) / 90 + 1);
 
-        System.out.println(angle + " " + index);
-
         myImageName = myImageName.substring(0, 7) + "_" + index + ".gif";
+    }
 
-        // if (angle >= 45 && angle < 135) {
-        // myImageName = myImageName.substring(0, 7) + "_1.gif";
-        // }
-        //
-        // else if (angle >= 135 && angle < 225) {
-        // myImageName = myImageName.substring(0, 7) + "_2.gif";
-        // }
-        //
-        // else if (angle >= 225 && angle < 315) {
-        // myImageName = myImageName.substring(0, 7) + "_3.gif";
-        // }
-        //
-        // else if (angle >= 315 || angle < 45) {
-        // myImageName = myImageName.substring(0, 7) + "_4.gif";
-        // }
-
-        defineImage("turtleGif" + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50,
+    private void defineImage (String name, String imageName) {
+        defineImage(name, "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50,
                     50);
     }
 
@@ -392,8 +370,8 @@ public class Canvas extends JGEngine implements CanvasObserver {
                 myTurtleMap.put(ID, myTurtle);
             }
 
-            moveTurtle(ID, turtleXMap.get(ID), turtleYMap.get(ID));
             setHeading(ID, turtleAngleMap.get(ID));
+            moveTurtle(ID, turtleXMap.get(ID), turtleYMap.get(ID));
             changeTurtleVisiblity(ID, turtleVisibilityMap.get(ID));
         }
 
@@ -408,19 +386,20 @@ public class Canvas extends JGEngine implements CanvasObserver {
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
                         Collection<Path> paths,
+                        Collection<Stamp> stamps,
                         Color pen,
                         Color bg,
-                        Boolean gridStatus,
-                        Boolean turtleStatus,
-                        Integer penSize) {
+                        Integer penSize,
+                        String shape) {
         adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
                      paths);
-        myGridStatus = gridStatus;
-        myTurtleStatus = turtleStatus;
+
         myError = error;
-        myPenSize = 1; // TODO: set to actual penSize;
-        changeBackgroundColor(new JGColor(0, 0, 0));
-        changePenColor(new JGColor(250, 0, 0));
+        System.out.println(shape);
+        changeTurtleImage(shape);       
+        myTurtleStamps = stamps;
+        changeBackgroundColor(colorToJGColor(bg));
+        changePenColor(colorToJGColor(pen));
 
     }
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import model.Path;
+import model.Stamp;
 
 
 public interface CanvasObserver {
@@ -15,10 +16,11 @@ public interface CanvasObserver {
                         Map<Integer, Double> turtleAngleMap,
                         Map<Integer, Boolean> turtleVisibilityMap,
                         Collection<Path> paths,
+                        Collection<Stamp> stamps,
                         Color penColor,
                         Color bgColor,
-                        Boolean gridStatus,
-                        Boolean turtleStatus,
-                        Integer penSize);
+                        Integer penSize,
+                        String shape);
+
 
 }
