@@ -42,11 +42,4 @@ public class MultipleParameterTests {
         model.parseInput("fd ( sum 3 4 ( sum 2 3 4 ) )");
         assertEquals(16, model.getTurtleY(1), DELTA);
     }
-    
-    @Test
-    public void garbageTest() {
-        Model model = new Model();
-        String ret = model.parseInput("( sum 1 2 )");
-        System.out.println(ret);
-    }
 }

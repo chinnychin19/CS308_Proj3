@@ -14,7 +14,6 @@ import model.instruction.multiturtle.InstructionASK;
 import model.instruction.multiturtle.InstructionASKWITH;
 import model.instruction.multiturtle.InstructionTELL;
 import model.instruction.error.ErrorInstruction;
-import model.instruction.error.InvalidCommandInstruction;
 import model.instruction.error.TooFewParametersInstruction;
 
 
@@ -54,10 +53,6 @@ public class Interpreter {
         if (!parser.hasNext()) { return instructions; }
         Instruction root = myModel.getInstructionFactory().getInstruction(parser.nextWord(), null);
         Instruction cur = root;
-        if (root == null) {
-            instructions.add(new InvalidCommandInstruction(myModel));
-            return instructions;
-        }
         while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
                 if (cur instanceof InstructionLoop) {
@@ -172,30 +167,10 @@ public class Interpreter {
                 }
                 else { // Normal instruction or multi parameter command
                     String nextWord = parser.nextWord();
-                    if (nextWord.startsWith("(")) { // it is a multi parameter command
-                        // chop off parentheses
-                        nextWord = nextWord.substring(1, nextWord.length() - 1).trim();
-                        String[] tokens = nextWord.split("\\s");
-                        String commandString = tokens[0];
-                        String paramString = nextWord.substring(commandString.length()).trim();
-
-                        InstructionMultiParameter multiParam =
-                                new InstructionMultiParameter(cur, myModel);
-                        Instruction command = myModel.getInstructionFactory()
-                                .getInstruction(commandString, null);
-                        List<Instruction> parameters = getInstructions(paramString);
-                        multiParam.addChild(command); // command is first child
-                        for (Instruction child : parameters) {
-                            multiParam.addChild(child);
-                        }
-                        cur.addChild(multiParam);
-                    }
-                    else {
-                        Instruction temp =
-                                myModel.getInstructionFactory().getInstruction(nextWord, cur);
-                        cur.addChild(temp);
-                        cur = temp;
-                    }
+                    Instruction temp =
+                            myModel.getInstructionFactory().getInstruction(nextWord, cur);
+                    cur.addChild(temp);
+                    cur = temp;
                 }
             }
             else {
@@ -206,10 +181,6 @@ public class Interpreter {
                 if (parser.hasNext()) {
                     root = myModel.getInstructionFactory().getInstruction(parser.nextWord(), null);
                     cur = root;
-                    if (root == null) {
-                        instructions.add(new InvalidCommandInstruction(myModel));
-                        return instructions;
-                    }
                 }
                 else {
                     return instructions;
@@ -219,7 +190,8 @@ public class Interpreter {
 
         // make sure all instructions have correct number of parameters in last branch
         while (cur != null) {
-            if (cur.getChildren().size() != cur.getNumParams()) {
+            if (!(cur instanceof InstructionMultiParameter) &&
+                cur.getChildren().size() != cur.getNumParams()) {
                 instructions.add(new TooFewParametersInstruction(myModel));
                 return instructions;
             }
