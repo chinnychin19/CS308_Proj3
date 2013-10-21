@@ -19,7 +19,6 @@ public class Model {
     private Interpreter myInterpreter;
     private CommandCache myCommandCache;
     private VariableCache myVariableCache;
-    private InstructionQueue myInstructionQueue;
     private Map<Integer, Turtle> myTurtles;
     private CommandHistory myCommandHistory;
     private InstructionFactory myInstructionFactory;
@@ -28,19 +27,25 @@ public class Model {
     private int myPenColorIndex;
     private int myPenSize;
     private List<Color> myAvailableColors;
+    private List<String> myAvailableShapes; // TODO: choose a way to represent this
 
     public Model () {
+        initializeColors();
+        initializeShapes();
         myInterpreter = new Interpreter(this);
         myCommandCache = new CommandCache();
         myVariableCache = new VariableCache();
-        myInstructionQueue = new InstructionQueue();
         myTurtles = new HashMap<Integer, Turtle>();
-        myTurtles.put(1, new Turtle(1)); // 1 turtle with ID=1 by default
+        myTurtles.put(1, new Turtle(1, this)); // 1 turtle with ID=1 by default
         myCommandHistory = new CommandHistory();
         myInstructionFactory = new InstructionFactory(this);
         myLanguage = "English";
         myPenSize = 5;
-        initializeColors();
+    }
+
+    private void initializeShapes () {// TODO: add shapes here
+        myAvailableShapes = new ArrayList<String>();
+        myAvailableShapes.add("some image name or java object");
     }
 
     private void initializeColors () {
@@ -67,27 +72,15 @@ public class Model {
         return myVariableCache;
     }
 
-    public InstructionQueue getInstructionQueue () {
-        return myInstructionQueue;
-    }
-
     public Turtle getTurtle (int id) {
         if (myTurtles.keySet().contains(id)) { return myTurtles.get(id); }
-        Turtle ret = new Turtle(id);
+        Turtle ret = new Turtle(id, this);
         myTurtles.put(id, ret);
         return ret;
     }
 
     public CommandHistory getCommandHistory () {
         return myCommandHistory;
-    }
-
-    protected String processNextInstruction () {
-        return myInstructionQueue.processNextInstruction();
-    }
-
-    protected boolean hasNextInstruction () {
-        return myInstructionQueue.hasNextInstruction();
     }
 
     public void clearVariables () {
@@ -128,6 +121,7 @@ public class Model {
 
     public String setPalette (int index, int r, int g, int b) {
         if (index < 0 || index > myAvailableColors.size()) { return "Index is out of range"; }
+        if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) { return "RGB values must be in range 0-255"; }
         if (index < myAvailableColors.size()) { // edit pre-existing
             myAvailableColors.remove(index);
             myAvailableColors.add(index, new Color(r, g, b));
@@ -273,6 +267,7 @@ public class Model {
     }
 
     public String setBGColor (int colorIndex) {
+        myCommandHistory.add("SETBG " + colorIndex);
         if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
         myBGColorIndex = colorIndex;
         return "";
@@ -283,8 +278,12 @@ public class Model {
     }
 
     public String setPenColor (int colorIndex) {
+        myCommandHistory.add("SETPC " + colorIndex);
         if (colorIndex < 0 || colorIndex >= myAvailableColors.size()) { return "Index is out of range"; }
         myPenColorIndex = colorIndex;
+        for (Turtle t : getActiveTurtles()) {
+            t.setColor(myAvailableColors.get(colorIndex));
+        }
         return "";
     }
 
@@ -293,6 +292,7 @@ public class Model {
     }
 
     public String setPenSize (int pixels) {
+        myCommandHistory.add("SETPS " + pixels);
         if (pixels < 0) { return "Pen size must be non-negative"; }
         myPenSize = pixels;
         return "";
@@ -306,15 +306,27 @@ public class Model {
         return myAvailableColors;
     }
 
-    public String keyPressed (int k) {
-        return null; // TODO
+    public String setShape (int shapeIndex) {
+        myCommandHistory.add("SETSH " + shapeIndex);
+        if (shapeIndex < 0 || shapeIndex >= myAvailableShapes.size()) { return "Index is out of range"; }
+        for (Turtle t : getActiveTurtles()) {
+            t.setShape(shapeIndex);
+        }
+        return "";
+    }
+
+    public String keyPressed (int keyCode) {
+        if (myCommandCache.contains("ONKEY")) { return parseInput("ONKEY " + keyCode); }
+        return "";
     }
 
     public String mouseClicked (int x, int y) {
-        return null; // TODO
+        if (myCommandCache.contains("ONCLICK")) { return parseInput("ONCLICK " + x + " " + y); }
+        return "";
     }
 
     public String mouseMoved (int x, int y) {
-        return null; // TODO
+        if (myCommandCache.contains("ONMOVE")) { return parseInput("ONMOVE " + x + " " + y); }
+        return "";
     }
 }

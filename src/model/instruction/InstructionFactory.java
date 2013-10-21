@@ -67,7 +67,6 @@ public class InstructionFactory {
                     return myModel.getCommandCache().get(s);
                 }
                 else {
-                    System.out.println("null returned for " + s);
                     return null;
                 }
             }

@@ -14,6 +14,7 @@ public class CommandCache {
     }
 
     public UserCommand get (String key) {
+        key = key.toUpperCase();
         if (!myMap.containsKey(key)) { return null; }
         // delete previous command parameters before returning, but maintain root command node
         UserCommand ret = myMap.get(key);
@@ -23,10 +24,12 @@ public class CommandCache {
     }
 
     public boolean contains (String name) {
+        name = name.toUpperCase();
         return myMap.containsKey(name);
     }
 
     public void put (String name, UserCommand command) {
+        name = name.toUpperCase();
         myMap.put(name, command);
     }
 

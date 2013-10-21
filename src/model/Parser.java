@@ -10,6 +10,8 @@ public class Parser {
     private Model myModel;
     private final static char SPACE = ' ';
 
+    // TODO: methods should be throws exceptions
+
     protected Parser (String input, Model m) {
         input.replaceAll("\\s+", SPACE + "");
         myInput = input.trim();
@@ -22,6 +24,27 @@ public class Parser {
     }
 
     public String nextWord () {
+        if (myInput.charAt(0) == '(') {
+            // Return the string encased in the outer brackets
+            Stack<Character> stack = new Stack<Character>();
+            stack.push('[');
+            int stoppingPoint = -1;
+            for (int i = 1; i < myInput.length(); i++) {
+                if (myInput.charAt(i) == '(') {
+                    stack.push('(');
+                }
+                else if (myInput.charAt(i) == ')') {
+                    stack.pop();
+                    if (stack.isEmpty()) {
+                        stoppingPoint = i;
+                        break;
+                    }
+                }
+            }
+            String ret = myInput.substring(0, stoppingPoint + 1); // stores (...)
+            myInput = myInput.substring(stoppingPoint + 1).trim();
+            return ret.trim();
+        }
         if (myInput.contains(SPACE + "")) {
             String ret = myInput.substring(0, myInput.indexOf(SPACE));
             myInput = myInput.substring(myInput.indexOf(SPACE)).trim();
@@ -61,7 +84,7 @@ public class Parser {
         }
     }
 
-    public String nextExpression () {
+    public String nextExpression () throws Exception {
         StringBuilder expression = new StringBuilder();
         String firstWord = nextWord();
         expression.append(firstWord + " ");
