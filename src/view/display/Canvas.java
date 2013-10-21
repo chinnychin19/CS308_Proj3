@@ -57,15 +57,15 @@ public class Canvas extends JGEngine implements CanvasObserver {
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
         setPFWrap(true, true, 0, 0);
-        // defineImage(image + 1, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
-        //
-        // TurtleSprite myTurtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 -
-        // Constants.TURTLE_OFFSET,
-        // Constants.CANVAS_HEIGHT / 2 -
-        // Constants.TURTLE_OFFSET, 1,
-        // image + 1);
-        // myTurtleMap.put(1, myTurtle);
-        // myActiveTurtleIDs.add(1);
+        defineImage(image + 1, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+
+        TurtleSprite myTurtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 -
+                                                       Constants.TURTLE_OFFSET,
+                                                 Constants.CANVAS_HEIGHT / 2 -
+                                                         Constants.TURTLE_OFFSET, 1,
+                                                 image + 1);
+        myTurtleMap.put(1, myTurtle);
+        myActiveTurtleIDs.add(1);
     }
 
     @Override
@@ -94,9 +94,9 @@ public class Canvas extends JGEngine implements CanvasObserver {
         if (getKey('C')) {
             clearStamps();
         }
-        
-        if (getKey('X')){
-            changeTurtleImage ("Turtle2.gif");
+
+        if (getKey('X')) {
+            changeTurtleImage("Turtle2.gif");
         }
 
         for (int ID : myActiveTurtleIDs) {
@@ -200,7 +200,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
     public void changeTurtleImage (String imageName) {
 
         myImageName = imageName;
-        //defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+        // defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
 
         for (int ID : myActiveTurtleIDs) {
             adjustImageAngle(ID, myTurtleMap.get(ID).getHeading());
@@ -211,9 +211,10 @@ public class Canvas extends JGEngine implements CanvasObserver {
     private void moveTurtle (int ID, double x, double y) {
         TurtleSprite toMove = myTurtleMap.get(ID);
 
-//        toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-//                      -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
-        
+        // toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
+        // Constants.TURTLE_OFFSET,
+        // -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+
         toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                       -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
     }
@@ -338,34 +339,32 @@ public class Canvas extends JGEngine implements CanvasObserver {
     }
 
     private void adjustImageAngle (int ID, double angle) { // TODO Make this cleaner/work
-        int index=1;
-        if (angle < 45){
-            angle=360+angle;
+        int index = 1;
+        if (angle < 45) {
+            angle = 360 + angle;
         }
-        
-        
-            index = (int) Math.floor((angle-45)/90 + 1);
-        
-        
-        System.out.println(angle + " "+ index);
-       
+
+        index = (int) Math.floor((angle - 45) / 90 + 1);
+
+        System.out.println(angle + " " + index);
+
         myImageName = myImageName.substring(0, 7) + "_" + index + ".gif";
-        
-//        if (angle >= 45 && angle < 135) {
-//            myImageName = myImageName.substring(0, 7) + "_1.gif";
-//        }
-//
-//        else if (angle >= 135 && angle < 225) {
-//            myImageName = myImageName.substring(0, 7) + "_2.gif";
-//        }
-//
-//        else if (angle >= 225 && angle < 315) {
-//            myImageName = myImageName.substring(0, 7) + "_3.gif";
-//        }
-//
-//        else if (angle >= 315 || angle < 45) {
-//            myImageName = myImageName.substring(0, 7) + "_4.gif";
-//        }
+
+        // if (angle >= 45 && angle < 135) {
+        // myImageName = myImageName.substring(0, 7) + "_1.gif";
+        // }
+        //
+        // else if (angle >= 135 && angle < 225) {
+        // myImageName = myImageName.substring(0, 7) + "_2.gif";
+        // }
+        //
+        // else if (angle >= 225 && angle < 315) {
+        // myImageName = myImageName.substring(0, 7) + "_3.gif";
+        // }
+        //
+        // else if (angle >= 315 || angle < 45) {
+        // myImageName = myImageName.substring(0, 7) + "_4.gif";
+        // }
 
         defineImage("turtleGif" + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50,
                     50);

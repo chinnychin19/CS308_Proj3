@@ -1,0 +1,11 @@
+<preferences>
+    <nodes>
+        <background bgIndex="1"/>
+        <turtles number="1"/>
+        <file filename="temp"/>
+        <turtleimage imageName="Turtle2_1.gif"/>
+        <grid gridStatus="true"/>
+        <status turtleStatus="true"/>
+    </nodes>
+    
+</preferences>
