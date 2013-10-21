@@ -19,19 +19,23 @@ public class InputPanel extends JPanel implements InputObserver {
 
         this.add(new JScrollPane(jTextArea));
         myController = controller;
-        JButton run = new JButton("RUN");
-        undo = new JButton("UNDO");
+        addButtons();
+    }
 
-        redo = new JButton("REDO");
+    /**
+     * Helper method to add the buttons to the InputPanel
+     */
+    private void addButtons () {
+        JButton run = new RunButton(myController);
+        undo = new UndoButton(myController);
+        redo = new RedoButton(myController);
+
         undo.setEnabled(false);
         redo.setEnabled(false);
-        run.addMouseListener(myController.addExecuteListener());
-        undo.addMouseListener(myController.addUndoListener());
-        redo.addMouseListener(myController.addRedoListener());
+
         this.add(run);
         this.add(undo);
         this.add(redo);
-
     }
 
     @Override
