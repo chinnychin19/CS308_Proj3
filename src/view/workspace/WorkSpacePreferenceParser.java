@@ -13,12 +13,11 @@ import org.xml.sax.SAXException;
 import org.w3c.dom.Node;
 
 
-public class Parser {
+public class WorkSpacePreferenceParser {
 
-    private static final JFileChooser INPUT_CHOOSER =
-            new JFileChooser(System.getProperties().getProperty("user.dir"));
+  
     
-    public Parser () {
+    public WorkSpacePreferenceParser () {
         // TODO Auto-generated constructor stub
     }
 
@@ -97,7 +96,7 @@ public class Parser {
     }
 
     public static void main (String[] args) {
-        Parser p = new Parser();
+        WorkSpacePreferenceParser p = new WorkSpacePreferenceParser();
         File f = new File("pref.xml");
         p.loadPreferences(f);
     }
