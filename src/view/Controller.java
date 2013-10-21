@@ -3,10 +3,6 @@ package view;
 import model.Model;
 
 
-/**Responsible for sending GUI information to the Model
- * @author lalitamaraj
- *
- */
 public class Controller {
     protected Model myCurrentModel;
     protected MasterSubject mySubject;

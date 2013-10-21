@@ -1,5 +1,7 @@
 package view.inputPanel;
 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import javax.swing.JTextArea;
 import model.Model;
 import view.Controller;
@@ -15,11 +17,7 @@ public class InputController extends Controller {
 
     }
 
-    /**
-     * Method to execute textbox commands. Sends
-     * typed input to Model
-     */
-    protected void executeCommand () {
+    public void executeCommand () {
         String input = myTextbox.getText();
         if (input.trim().equals("")) { return; }
         String inputError = myCurrentModel.parseInput(input);
@@ -27,20 +25,99 @@ public class InputController extends Controller {
         mySubject.notifyObservers(inputError);
     }
 
-    /**
-     * Sends undo command to Model
-     */
-    protected void undo () {
-        String undoError = myCurrentModel.undo();
-        mySubject.notifyObservers(undoError);
+    protected MouseListener addExecuteListener () {
+        return new MouseListener() {
+
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                executeCommand();
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e) {
+
+            }
+
+        };
     }
 
-    /**
-     * Sends redo command to model
-     */
-    protected void redo () {
-        String redoError = myCurrentModel.redo();
-        mySubject.notifyObservers(redoError);
+    protected MouseListener addUndoListener () {
+        return new MouseListener() {
+
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                String undoError = myCurrentModel.undo();
+                mySubject.notifyObservers(undoError);
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e) {
+
+            }
+
+        };
     }
 
+    protected MouseListener addRedoListener () {
+        return new MouseListener() {
+
+            @Override
+            public void mouseClicked (MouseEvent e) {
+                String redoError = myCurrentModel.redo();
+                mySubject.notifyObservers(redoError);
+
+            }
+
+            @Override
+            public void mousePressed (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered (MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited (MouseEvent e) {
+
+            }
+
+        };
+    }
 }
