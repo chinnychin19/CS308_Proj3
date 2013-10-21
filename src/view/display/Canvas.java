@@ -265,6 +265,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
                      Constants.CANVAS_HEIGHT * 2);
         }
     }
+    
 
     /**
      * Sets list of points

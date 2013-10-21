@@ -18,13 +18,11 @@ public class OptionsPanelController extends Controller {
     }
 
     public void setGrid (boolean b) {
-        // myCurrentModel.setGrid(b);
         mySubject.notifyObservers("");
 
     }
 
     public void setStatus (boolean b) {
-        // myCurrentModel.setStatus(b);
         mySubject.notifyObservers("");
 
     }
