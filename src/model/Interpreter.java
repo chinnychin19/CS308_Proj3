@@ -170,11 +170,32 @@ public class Interpreter {
                     cur.addChild(commandsNode);
                     cur = cur.getParent();
                 }
-                else { // Normal instruction
-                    Instruction temp =
-                            myModel.getInstructionFactory().getInstruction(parser.nextWord(), cur);
-                    cur.addChild(temp);
-                    cur = temp;
+                else { // Normal instruction or multi parameter command
+                    String nextWord = parser.nextWord();
+                    if (nextWord.startsWith("(")) { // it is a multi parameter command
+                        // chop off parentheses
+                        nextWord = nextWord.substring(1, nextWord.length() - 1).trim();
+                        String[] tokens = nextWord.split("\\s");
+                        String commandString = tokens[0];
+                        String paramString = nextWord.substring(commandString.length()).trim();
+
+                        InstructionMultiParameter multiParam =
+                                new InstructionMultiParameter(cur, myModel);
+                        Instruction command = myModel.getInstructionFactory()
+                                .getInstruction(commandString, null);
+                        List<Instruction> parameters = getInstructions(paramString);
+                        multiParam.addChild(command); // command is first child
+                        for (Instruction child : parameters) {
+                            multiParam.addChild(child);
+                        }
+                        cur = cur.getParent();
+                    }
+                    else {
+                        Instruction temp =
+                                myModel.getInstructionFactory().getInstruction(nextWord, cur);
+                        cur.addChild(temp);
+                        cur = temp;
+                    }
                 }
             }
             else {
