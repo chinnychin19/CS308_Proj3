@@ -20,7 +20,7 @@ import jgame.platform.JGEngine;
  * 
  */
 public class Canvas extends JGEngine implements CanvasObserver {
-    private String myImageName = "Turtle1.gif";
+    private String myImageName = "Turtle1_1.gif";
     private String myError = "";
     private Collection<Path> myPointList = new ArrayList<Path>();
     private JGColor myPenColor = JGColor.red;
@@ -93,6 +93,10 @@ public class Canvas extends JGEngine implements CanvasObserver {
 
         if (getKey('C')) {
             clearStamps();
+        }
+        
+        if (getKey('X')){
+            changeTurtleImage ("Turtle2.gif");
         }
 
         for (int ID : myActiveTurtleIDs) {
@@ -196,7 +200,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
     public void changeTurtleImage (String imageName) {
 
         myImageName = imageName;
-        defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+        //defineImage("turtleGif", "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
 
         for (int ID : myActiveTurtleIDs) {
             adjustImageAngle(ID, myTurtleMap.get(ID).getHeading());
@@ -334,22 +338,34 @@ public class Canvas extends JGEngine implements CanvasObserver {
     }
 
     private void adjustImageAngle (int ID, double angle) { // TODO Make this cleaner/work
-
-        if (angle >= 45 && angle < 135) {
-            myImageName = myImageName.substring(0, 7) + ".gif";
+        int index=1;
+        if (angle < 45){
+            angle=360+angle;
         }
-
-        else if (angle >= 135 && angle < 225) {
-            myImageName = myImageName.substring(0, 7) + "_2.gif";
-        }
-
-        else if (angle >= 225 && angle < 315) {
-            myImageName = myImageName.substring(0, 7) + "_3.gif";
-        }
-
-        else if (angle >= 315 || angle < 45) {
-            myImageName = myImageName.substring(0, 7) + "_4.gif";
-        }
+        
+        
+            index = (int) Math.floor((angle-45)/90 + 1);
+        
+        
+        System.out.println(angle + " "+ index);
+       
+        myImageName = myImageName.substring(0, 7) + "_" + index + ".gif";
+        
+//        if (angle >= 45 && angle < 135) {
+//            myImageName = myImageName.substring(0, 7) + "_1.gif";
+//        }
+//
+//        else if (angle >= 135 && angle < 225) {
+//            myImageName = myImageName.substring(0, 7) + "_2.gif";
+//        }
+//
+//        else if (angle >= 225 && angle < 315) {
+//            myImageName = myImageName.substring(0, 7) + "_3.gif";
+//        }
+//
+//        else if (angle >= 315 || angle < 45) {
+//            myImageName = myImageName.substring(0, 7) + "_4.gif";
+//        }
 
         defineImage("turtleGif" + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50,
                     50);
