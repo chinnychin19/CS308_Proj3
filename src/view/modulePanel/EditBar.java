@@ -15,8 +15,7 @@ import view.Controller;
 
 @SuppressWarnings("serial")
 public class EditBar extends JPanel {
-   
-    
+
     JButton myEdit;
     TextField myTextfield;
     JList<ModuleData> myList;

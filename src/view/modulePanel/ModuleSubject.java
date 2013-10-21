@@ -15,9 +15,9 @@ public class ModuleSubject implements Subject {
 
     public ModuleSubject (Model model, ModuleObserver moduleObserver) {
         myCurrentModel = model;
-       
+
         observers = new ArrayList<ModuleObserver>();
-        addObservers( moduleObserver);
+        addObservers(moduleObserver);
     }
 
     public void addObservers (ModuleObserver observer) {

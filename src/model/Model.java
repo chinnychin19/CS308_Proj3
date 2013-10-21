@@ -27,7 +27,8 @@ public class Model {
     private int myPenColorIndex;
     private int myPenSize;
     private List<Color> myAvailableColors;
-    private List<String> myAvailableShapes; // TODO: choose a way to represent this
+    private List<String> myAvailableShapes;
+    private int myShapeIndex;
 
     public Model () {
         initializeColors();
@@ -41,11 +42,14 @@ public class Model {
         myInstructionFactory = new InstructionFactory(this);
         myLanguage = "English";
         myPenSize = 5;
+        myShapeIndex = 0;
     }
 
-    private void initializeShapes () {// TODO: add shapes here
+    private void initializeShapes () {
         myAvailableShapes = new ArrayList<String>();
-        myAvailableShapes.add("some image name or java object");
+        myAvailableShapes.add("Turtle1");
+        myAvailableShapes.add("Turtle2");
+        myAvailableShapes.add("Turtle3");
     }
 
     private void initializeColors () {
@@ -54,6 +58,7 @@ public class Model {
         myAvailableColors = new ArrayList<Color>();
         myAvailableColors.add(myBGColorIndex, Color.black);
         myAvailableColors.add(myPenColorIndex, Color.red);
+
     }
 
     public InstructionFactory getInstructionFactory () {
@@ -151,6 +156,10 @@ public class Model {
         return getTurtle(id).getAngle();
     }
 
+    public String getTurtleShape (int id) {
+        return myAvailableShapes.get(getTurtle(id).getShapeIndex());
+    }
+
     public boolean isTurtleVisible (int id) {
         return getTurtle(id).isVisible();
     }
@@ -163,6 +172,14 @@ public class Model {
         Collection<Path> list = new ArrayList<Path>();
         for (int id : myTurtles.keySet()) {
             list.addAll(myTurtles.get(id).getPaths());
+        }
+        return list;
+    }
+
+    public Collection<Stamp> getTurtleStamps () {
+        Collection<Stamp> list = new ArrayList<Stamp>();
+        for (int id : myTurtles.keySet()) {
+            list.addAll(myTurtles.get(id).getStamps());
         }
         return list;
     }
@@ -304,6 +321,10 @@ public class Model {
 
     public List<Color> getAvailableColors () {
         return myAvailableColors;
+    }
+
+    public String getShape () {
+        return myAvailableShapes.get(myShapeIndex);
     }
 
     public String setShape (int shapeIndex) {

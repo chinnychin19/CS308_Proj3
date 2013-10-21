@@ -5,18 +5,21 @@ import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import view.Constants;
 
+
 public class WorkSpaceSelector extends AbstractAction {
     private WorkSpacePreferencesController myController;
 
-    protected WorkSpaceSelector(WorkSpacePreferencesController controller){
+    protected WorkSpaceSelector (WorkSpacePreferencesController controller) {
         super(Constants.CHANGE_WORKSPACE_NAME);
         myController = controller;
     }
+
     @Override
     public void actionPerformed (ActionEvent e) {
         selectWorkSpace();
-        
+
     }
+
     /**
      * Method that is called when a user wants to select a workspace
      */
