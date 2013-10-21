@@ -27,6 +27,24 @@ public class WorkSpacePreferences extends JMenu {
                 selectWorkSpace();
             }
         });
+        add(new AbstractAction(Constants.SAVE_WORKSPACE_PREFERENCES) {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+        add(new AbstractAction(Constants.LOAD_WORKSPACE_PREFERENCES) {
+
+            @Override
+            public void actionPerformed (ActionEvent e) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
 
     }
 
