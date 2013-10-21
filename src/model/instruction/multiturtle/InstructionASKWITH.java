@@ -2,12 +2,13 @@ package model.instruction.multiturtle;
 
 import java.util.Collection;
 import model.Model;
+import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
 
 
-public class InstructionASKWITH extends Instruction {
+public class InstructionASKWITH extends Instruction implements ComplexParameterInstruction {
 
     public InstructionASKWITH (Instruction parent, Model m) {
         super(2, parent, m);
@@ -44,5 +45,20 @@ public class InstructionASKWITH extends Instruction {
             }
         }
         return new InstructionConstant(ret, null, getModel());
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 0;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 2;
+    }
+
+    @Override
+    public int getNumWords () {
+        return 0;
     }
 }

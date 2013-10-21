@@ -33,4 +33,19 @@ public class InstructionDOTIMES extends InstructionLoop {
         }
     }
 
+    @Override
+    public int getNumWords () {
+        return 0;
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 0;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 2;
+    }
+
 }

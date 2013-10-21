@@ -6,7 +6,7 @@ import model.Model;
 import model.instruction.command.UserCommand;
 
 
-public class InstructionTO extends Instruction {
+public class InstructionTO extends Instruction implements ComplexParameterInstruction {
 
     public InstructionTO (Instruction parent, Model m) {
         super(3, parent, m);
@@ -26,6 +26,21 @@ public class InstructionTO extends Instruction {
         UserCommand newCommand = new UserCommand(null, name, pList, commands, getModel());
         getModel().getCommandCache().put(name, newCommand);
         return new InstructionConstant(1, null, getModel());
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 0;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 2;
+    }
+
+    @Override
+    public int getNumWords () {
+        return 1; // this is the only time this is non-zero
     }
 
 }
