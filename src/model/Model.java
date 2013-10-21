@@ -352,6 +352,10 @@ public class Model {
         return "";
     }
 
+    public List<String> getAvailableShapes () {
+        return myAvailableShapes;
+    }
+
     public String keyPressed (int keyCode) {
         if (myCommandCache.contains("ONKEY")) { return parseInput("ONKEY " + keyCode); }
         return "";
