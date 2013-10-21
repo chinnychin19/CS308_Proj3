@@ -7,7 +7,6 @@ import model.instruction.*;
 import model.instruction.command.UserCommand;
 import model.instruction.conditional.InstructionConditional;
 import model.instruction.conditional.InstructionIF;
-import model.instruction.conditional.InstructionIFELSE;
 import model.instruction.loop.InstructionLoop;
 import model.instruction.loop.InstructionREPEAT;
 import model.instruction.multiturtle.InstructionASK;
@@ -18,7 +17,6 @@ import model.instruction.error.TooFewParametersInstruction;
 
 
 public class Interpreter {
-    // TODO: when complete, refactor out repeated code for interpreting lists
     private Model myModel;
 
     public Interpreter (Model m) {
@@ -71,7 +69,6 @@ public class Interpreter {
                     }
                     String commandsInLoop = parser.nextList();
                     commandsInLoop = removeBrackets(commandsInLoop);
-                    // chop of brackets
                     List<Instruction> listCommands = getInstructions(commandsInLoop);
                     InstructionListNode node = new InstructionListNode(cur, myModel);
                     for (Instruction instr : listCommands) {
@@ -82,11 +79,7 @@ public class Interpreter {
                 else if (cur instanceof InstructionConditional) {
                     String strCondition = parser.nextExpression();
                     cur.addChild(getInstructions(strCondition).get(0));
-                    int numLists =
-                            (cur instanceof InstructionIF) ? 1 :
-                                                          (cur instanceof InstructionIFELSE) ? 2
-                                                                                            : -1;
-                    // TODO: -1 should not happen, it should throw an error
+                    int numLists = (cur instanceof InstructionIF) ? 1 : 2;
                     for (int listIndex = 0; listIndex < numLists; listIndex++) {
                         String commandsInLoop = parser.nextList();
                         commandsInLoop = removeBrackets(commandsInLoop);

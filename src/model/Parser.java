@@ -3,12 +3,6 @@ package model;
 import java.util.Stack;
 import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
-import model.instruction.InstructionString;
-import model.instruction.InstructionTO;
-import model.instruction.conditional.InstructionConditional;
-import model.instruction.conditional.InstructionIF;
-import model.instruction.loop.InstructionLoop;
-import model.instruction.loop.InstructionREPEAT;
 
 
 public class Parser {
