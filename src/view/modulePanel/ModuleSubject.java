@@ -13,10 +13,11 @@ public class ModuleSubject implements Subject {
     List<ModuleObserver> observers;
     Model myCurrentModel;
 
-    public ModuleSubject (Model model) {
+    public ModuleSubject (Model model, ModuleObserver moduleObserver) {
         myCurrentModel = model;
-
+       
         observers = new ArrayList<ModuleObserver>();
+        addObservers( moduleObserver);
     }
 
     public void addObservers (ModuleObserver observer) {
