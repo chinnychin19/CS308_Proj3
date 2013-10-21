@@ -37,7 +37,9 @@ public class WorkSpacePreferencesController extends Controller {
 
         return myModels.size();
     }
-
+    private Model getCurrentModel(){
+        return myModels.get(myCurrentWorkSpace);
+    }
     /**
      * Update the controllers of the new Model
      * 
