@@ -52,5 +52,7 @@ public interface Constants {
 
     public static final String CHANGE_WORKSPACE_NAME = "Change Workspace";
     public static final String WORKSPACE_PREFERENCES_NAME = "Workspace Preferences";
+    public static final String SAVE_WORKSPACE_PREFERENCES = "Save Workspace Preferences";
+    public static final String LOAD_WORKSPACE_PREFERENCES = "Load Workspace Prefernces";
 
 }

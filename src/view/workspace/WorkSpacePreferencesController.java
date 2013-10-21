@@ -15,6 +15,7 @@ public class WorkSpacePreferencesController extends Controller {
     private List<MasterSubject> mySubjects;
     private List<Model> myModels = new ArrayList<Model>();
     private int myCurrentWorkSpace = 1;
+    private MasterSubject mySubject;
 
     public WorkSpacePreferencesController (MasterSubject subject, List<Controller> controllers,
                                            List<MasterSubject> subjects,
@@ -24,6 +25,7 @@ public class WorkSpacePreferencesController extends Controller {
         myControllers.add(this);
         mySubjects = subjects;
         myModels.add(model);
+        mySubject = subject;
 
     }
 
@@ -35,7 +37,9 @@ public class WorkSpacePreferencesController extends Controller {
 
         return myModels.size();
     }
-
+    private Model getCurrentModel(){
+        return myModels.get(myCurrentWorkSpace);
+    }
     /**
      * Update the controllers of the new Model
      * 
@@ -136,6 +140,16 @@ public class WorkSpacePreferencesController extends Controller {
      */
     protected int getCurrentWorkSpace () {
         return myCurrentWorkSpace;
+    }
+
+    protected void parseWorkSpacePreferences (String filenmae) {
+        // Talk the to the model
+        mySubject.notifyObservers(""); // can pass an error string to notifyObsers
+    }
+
+    protected void saveWorkSpacePreferences (String filenmae) {
+        // Talk the to the model
+        mySubject.notifyObservers(""); // can pass an error string to notifyObsers
     }
 
 }
