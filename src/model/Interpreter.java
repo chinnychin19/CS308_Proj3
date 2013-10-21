@@ -70,8 +70,7 @@ public class Interpreter {
                         ((InstructionLoop) cur).setParameters(parameters);
                     }
                     String commandsInLoop = parser.nextList();
-                    commandsInLoop =
-                            commandsInLoop.substring(1, commandsInLoop.length() - 1).trim();
+                    commandsInLoop = removeBrackets(commandsInLoop);
                     // chop of brackets
                     List<Instruction> listCommands = getInstructions(commandsInLoop);
                     InstructionListNode node = new InstructionListNode(cur, myModel);
@@ -90,9 +89,7 @@ public class Interpreter {
                     // TODO: -1 should not happen, it should throw an error
                     for (int listIndex = 0; listIndex < numLists; listIndex++) {
                         String commandsInLoop = parser.nextList();
-                        commandsInLoop =
-                                commandsInLoop.substring(1, commandsInLoop.length() - 1).trim();
-                        // chop of brackets
+                        commandsInLoop = removeBrackets(commandsInLoop);
                         List<Instruction> listCommands = getInstructions(commandsInLoop);
                         InstructionListNode node = new InstructionListNode(cur, myModel);
                         for (Instruction instr : listCommands) {
@@ -128,8 +125,7 @@ public class Interpreter {
                 }
                 else if (cur instanceof InstructionTELL) {
                     String idList = parser.nextList();
-                    idList = idList.substring(1, idList.length() - 1).trim();
-                    // TODO: bracket chopping should become a function
+                    idList = removeBrackets(idList);
                     List<Instruction> parameters = getInstructions(idList);
                     for (Instruction child : parameters) {
                         cur.addChild(child);
@@ -138,13 +134,13 @@ public class Interpreter {
                 }
                 else if (cur instanceof InstructionASK) {
                     String idList = parser.nextList();
-                    idList = idList.substring(1, idList.length() - 1).trim();
+                    idList = removeBrackets(idList);
                     List<Instruction> parameters = getInstructions(idList);
                     for (Instruction child : parameters) {
                         cur.addChild(child);
                     }
                     String commandList = parser.nextList();
-                    commandList = commandList.substring(1, commandList.length() - 1).trim();
+                    commandList = removeBrackets(commandList);
                     List<Instruction> commands = getInstructions(commandList);
                     InstructionListNode commandsNode = new InstructionListNode(cur, myModel);
                     for (Instruction child : commands) {
@@ -155,13 +151,13 @@ public class Interpreter {
                 }
                 else if (cur instanceof InstructionASKWITH) {
                     String conditionList = parser.nextList();
-                    conditionList = conditionList.substring(1, conditionList.length() - 1).trim();
+                    conditionList = removeBrackets(conditionList);
                     List<Instruction> conditions = getInstructions(conditionList);
                     if (conditions.size() != 1) { throw new Exception(
                                                                       "Only one condition should be provided in ASKWITH"); }
                     cur.addChild(conditions.get(0)); // the only condition
                     String commandList = parser.nextList();
-                    commandList = commandList.substring(1, commandList.length() - 1).trim();
+                    commandList = removeBrackets(commandList);
                     List<Instruction> commands = getInstructions(commandList);
                     InstructionListNode commandsNode = new InstructionListNode(cur, myModel);
                     for (Instruction child : commands) {
@@ -210,5 +206,9 @@ public class Interpreter {
     private double getParamValue (String paramString) {
         if (DataTypeChecker.isNumber(paramString)) { return Double.parseDouble(paramString); }
         return myModel.getVariableCache().get(paramString);
+    }
+
+    private static String removeBrackets (String s) {
+        return s.substring(1, s.length() - 1).trim();
     }
 }
