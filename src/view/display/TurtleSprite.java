@@ -6,12 +6,14 @@ import jgame.platform.JGEngine;
 
 
 /**
- * Class that
+ * Class that represents Turtle in JGame
  * 
  * @author susanzhang93
  * 
  */
 public class TurtleSprite extends JGObject {
+    private JGEngine myEngine;
+    private double myHeading = 90;
 
     /**
      * Constructor for TurtleSprite class
@@ -23,11 +25,19 @@ public class TurtleSprite extends JGObject {
      */
     public TurtleSprite (JGEngine engine, double x, double y, int CID, String imgsrc) {
         super("turtle", true, x, y, CID, imgsrc, 0, 0, 0, 0, -1);
+        myEngine = engine;
     }
 
-    // Temporarily here for testing
-    public TurtleSprite (double x, double y, int CID) {
-        super("turtle", true, x, y, CID, "turtleGif", 0, 0, 0, 0, -1);
+    public void toggleStatus (boolean active) {
+        myEngine.dbgShowBoundingBox(active);
+    }
+
+    public void setHeading (double heading) {
+        myHeading = heading;
+    }
+
+    public double getHeading () {
+        return myHeading;
     }
 
     public double getOffsetX () {

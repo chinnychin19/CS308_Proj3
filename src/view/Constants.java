@@ -12,7 +12,7 @@ import jgame.JGColor;
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 60;
     public static final int GUI_WIDTH = 900;
-    public static final int GUI_HEIGHT = 735;
+    public static final int GUI_HEIGHT = 758;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
 
@@ -20,6 +20,9 @@ public interface Constants {
 
     public static final int GRID_CID = 2;
     public static final int TURTLE_CID = 0;
+    public static final int STAMP_CID = -2;
+
+    public static final double ERROR_MESSAGE_OFFSET = 0.95;
 
     public static final int CANVAS_WIDTH = 600;
     public static final int CANVAS_HEIGHT = 600;
@@ -37,4 +40,23 @@ public interface Constants {
     public static final String USER_DIR = "user.dir";
     public static final int FIELD_SIZE = 30;
 
+    public static final int TEXTBOX_ROWS = 5;
+
+    public static final String CREATE_NEW_WORK_SPACE_OPTION = "Create New WorkSpace";
+    public static final String WORK_SPACE_MESSAGE = "Choose a Work Space";
+    public static final String WORK_SPACE_TITLE = "Work Space";
+    public static final String CHANGED_WORKSPACE_MESSAGE =
+            "You are now in work space \n You are currently in Work Space";
+    public static final String NEW_WORKSPACE_MESSAGE =
+            "A new work space has been created. You are now in work space ";
+
+    public static final String CHANGE_WORKSPACE_NAME = "Change Workspace";
+    public static final String WORKSPACE_PREFERENCES_NAME = "Workspace Preferences";
+    public static final String SAVE_WORKSPACE_PREFERENCES = "Save Workspace Preferences";
+    public static final String LOAD_WORKSPACE_PREFERENCES = "Load Workspace Prefernces";
+    
+    
+    public static final String SELECT_A_VARIABLE_MESSAGE = "Select a variable";
+    public static final int TEXTBOX_COLUMNS = 15;
+    public static final String EDIT_BUTTON_NAME = "Edit";
 }

@@ -1,344 +1,120 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Checkbox;
-import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.io.IOException;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JComponent;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import jgame.JGColor;
+import javax.swing.JTextArea;
+import menuBar.MenuBar;
+import menuBar.MenuBarController;
 import model.Model;
-import view.sidebar.SidebarPanel;
 import view.display.Canvas;
-import view.display.ViewUpdater;
-import view.input.InputPanel;
-import view.input.RunButton;
-import view.input.Textbox;
+import view.display.CanvasSubject;
+import view.inputPanel.InputController;
+import view.inputPanel.InputPanel;
+import view.modulePanel.ModuleObserver;
+import view.modulePanel.ModulePanel;
+import view.modulePanel.ModulePanelController;
+import view.modulePanel.ModuleSubject;
+import view.optionsPanel.OptionsPanel;
+import view.optionsPanel.OptionsPanelController;
+import view.workspace.WorkSpacePreferences;
+import view.workspace.WorkSpacePreferencesController;
 
 
+@SuppressWarnings("serial")
 public class View extends JFrame {
-    protected ViewUpdater myViewUpdater;
 
-    private static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
-    private static final String USER_DIR = "user.dir";
-    private static final int FIELD_SIZE = 30;
+    private Model myModel;
 
-    private static Canvas viewCanvas;
+    private WorkSpacePreferences selector;
+    private MasterSubject subject;
 
     /**
      * Constructor for View Class
      */
     public View () {
+        
+        Canvas myCanvas = new Canvas();
+        Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
+        myModel = new Model();
+        List<Controller> controllers = new ArrayList<Controller>();
+        List<MasterSubject> subjects = new ArrayList<MasterSubject>();
 
+        subject = new MasterSubject(myModel);
+        subjects.add(subject);
+
+
+        initializeDisplaySettings();
+
+        makePanels(myCanvas, paramaters, controllers, subjects, subject);
+        setVisible(true);
+
+    }
+
+    private void makePanels (Canvas myCanvas,
+                             Map<String, JComponent> paramaters,
+                             List<Controller> controllers,
+                             List<MasterSubject> subjects,
+                             MasterSubject subject)
+
+                             {
+        JTextArea textbox = new JTextArea();
+        textbox.setRows(Constants.TEXTBOX_ROWS);
+        paramaters.put("textbox", textbox);
+        Controller moduleController = new ModulePanelController(subject, myModel, textbox);
+        controllers.add(moduleController);
+
+        JPanel modulePanel =  new ModulePanel(moduleController);
+        ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
+        subject.addSubject(myModuleSubject);
+
+        CanvasSubject myCanvasSubject = new CanvasSubject(myModel,myCanvas);
+        subject.addSubject(myCanvasSubject);
+
+        InputController inputController = new InputController(subject, myModel, textbox);
+        controllers.add(inputController);
+        JPanel inputPanel = new InputPanel(textbox,inputController);
+
+        OptionsPanelController optionsController = new OptionsPanelController(subject, myModel);
+        controllers.add(optionsController);
+        JPanel optionsPanel = new OptionsPanel( optionsController);
+
+        WorkSpacePreferencesController wokspaceController =
+                new WorkSpacePreferencesController(subject, controllers, subjects, myModel);
+        selector = new WorkSpacePreferences(wokspaceController);
+
+        MenuBarController menuController = new MenuBarController(subject, myModel);
+        controllers.add(menuController);
+        MenuBar menu = new MenuBar(menuController);
+        menu.add("selector", selector);
+        setJMenuBar(menu);
+
+        addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
+    }
+
+    private void initializeDisplaySettings () {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
-        Textbox textbox = new Textbox(Constants.FIELD_SIZE);
-        final JPanel sidebarPanel = new SidebarPanel(textbox);
+    }
 
-        final JPanel inputPanel = new InputPanel();
-        RunButton runbutton = new RunButton("RUN", textbox, (SidebarPanel) sidebarPanel, this);
-        inputPanel.add(new JScrollPane(textbox));
-        inputPanel.add(runbutton);
-
-        final JPanel optionsPanel = new JPanel();
-        optionsPanel.setLayout(new GridLayout(1, 0));
-
-        viewCanvas = new Canvas();
-
-        optionsPanel.add(makeGridCheckbox());
-
-        // optionsPanel.add(makeTurtleCheckBox());
-        optionsPanel.add(statusCheckBox());
-
-        // optionsPanel.add(new Checkbox("Pen Down", null, true));
-        optionsPanel.add(penColorChooser());
-        optionsPanel.add(makeBackgroundChooser());
-        optionsPanel.add(makeImageChooserButton());
-        optionsPanel.add(makeHelpButton());
-
-        this.getContentPane().add(sidebarPanel, BorderLayout.EAST);
+    private void addPanelsToLayout (Canvas canvas, JPanel modulePanel, JPanel inputPanel,
+                                    JPanel optionsPanel) {
+        this.getContentPane().add(modulePanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
-        this.getContentPane().add(viewCanvas, BorderLayout.CENTER);
-
-        setVisible(true);
-
-        Model.initModel();
+        this.getContentPane().add(canvas, BorderLayout.CENTER);
 
     }
 
-    public void updateCanvasData () {
-        viewCanvas.moveTurtle(Model.getTurtleX(), Model.getTurtleY());
-        viewCanvas.setHeading(Model.getTurtleAngle());
-        viewCanvas.setPaths(Model.getTurtlePaths());
-        viewCanvas.isTurtleVisible(Model.isTurtleVisible());
+    protected void changeModel (Model newModel) {
+        myModel = newModel;
     }
 
-    public void displayError (String error) {
-        viewCanvas.setError(error);
-    }
-
-    private JButton penColorChooser () {
-        JButton result = new JButton("Change Pen Color");
-        result.addActionListener(penColorListener());
-        return result;
-    }
-
-    /**
-     * Method that creates ActionListener for backgroundChooser button
-     * 
-     * @return ActionListener for backgroundListener
-     */
-    private ActionListener penColorListener () {
-        ActionListener listener = new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                Color newColor =
-                        JColorChooser.showDialog(null, "Choose a new pen color", Color.red);
-                viewCanvas.changePenColor(new JGColor(newColor.getRed(),
-                                                      newColor.getGreen(), newColor
-                                                              .getBlue()));
-            }
-
-        };
-
-        return listener;
-    }
-
-    /**
-     * Creates button to pop up color choosing dialogue
-     * 
-     * @return JButton with label "Change Color"
-     */
-    private JButton makeBackgroundChooser () {
-        JButton result = new JButton("Change BG Color");
-        result.addActionListener(backgroundListener());
-        return result;
-    }
-
-    /**
-     * Method that creates ActionListener for backgroundChooser button
-     * 
-     * @return ActionLitener for backgroundListener
-     */
-    private ActionListener backgroundListener () {
-        ActionListener listener = new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                Color newColor =
-                        JColorChooser.showDialog(null, "Choose a new background color", Color.red);
-                viewCanvas.changeBackgroundColor(new JGColor(newColor.getRed(),
-                                                             newColor.getGreen(), newColor
-                                                                     .getBlue()));
-            }
-
-        };
-
-        return listener;
-    }
-
-    /**
-     * Method that returns checkbox to toggle if turtle is visible
-     * 
-     * @return
-     */
-    private JCheckBox makeTurtleCheckBox () {
-        JCheckBox result = new JCheckBox("Turtle on Screen?", null, true);
-        result.addItemListener(turtleListener());
-        return result;
-    }
-
-    /**
-     * Listener to check if turtle is on screen
-     */
-    private ItemListener turtleListener () {
-        ItemListener listener = new ItemListener() {
-
-            public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    // TODO: Make this less hardcoded
-                    viewCanvas.changeTurtleImage("Turtle1.gif");
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    viewCanvas.changeTurtleImage("Invisible.gif");
-                }
-            }
-
-        };
-
-        return listener;
-    }
-
-    /**
-     * Checkbox for status
-     * 
-     * @return
-     */
-    private JCheckBox statusCheckBox () {
-        JCheckBox result = new JCheckBox("Turtle Status", null, true);
-        result.addItemListener(statusListener());
-
-        return result;
-    }
-
-    private ItemListener statusListener () {
-        ItemListener listener = new ItemListener() {
-
-            public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    viewCanvas.toggleStatus();
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    viewCanvas.toggleStatus();
-                }
-            }
-
-        };
-
-        return listener;
-    }
-
-    /**
-     * Class that makes checkbox for Grid
-     * 
-     * @return Checkbox that toggles grid
-     */
-    private JCheckBox makeGridCheckbox () {
-        JCheckBox result = new JCheckBox("Grid", null, false);
-        result.addItemListener(gridListener());
-
-        return result;
-    }
-
-    /**
-     * Method that returns an ItemListener meant to be used with the Grid Checkbox. If the
-     * checkbox is toggled, the status of the grid is toggled within the canvas class
-     * 
-     * @return
-     */
-    private ItemListener gridListener () {
-        ItemListener listener = new ItemListener() {
-
-            public void itemStateChanged (ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    viewCanvas.toggleGrid();
-                }
-                else if (e.getStateChange() == ItemEvent.DESELECTED) {
-                    viewCanvas.toggleGrid();
-                }
-            }
-
-        };
-
-        return listener;
-    }
-
-    /**
-     * Dropdown box for choosing image
-     * 
-     * @return
-     */
-    private JComboBox<?> makeImageChooserButton () {
-        String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
-        JComboBox<?> result = new JComboBox(turtleOptions);
-        result.addActionListener(imageListener());
-
-        return result;
-    }
-
-    /**
-     * Action Listener for image dropdown box
-     * 
-     * @return
-     */
-    private ActionListener imageListener () {
-        ActionListener listener = new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                JComboBox<?> cb = (JComboBox) e.getSource();
-                String turtleSelection = (String) cb.getSelectedItem();
-                viewCanvas.changeTurtleImage(turtleSelection);
-            }
-
-        };
-
-        return listener;
-    }
-
-    /**
-     * Method that creates button to open html help page
-     * 
-     * @return button with label "Help Me"
-     */
-    private JComponent makeHelpButton () {
-        JButton result = new JButton("Help Me");
-        result.addActionListener(helpListener());
-        return result;
-    }
-
-    /**
-     * Method that creates action listener for help button
-     * 
-     * @return
-     */
-    private ActionListener helpListener () {
-        ActionListener listener = new ActionListener() {
-
-            @Override
-            public void actionPerformed (ActionEvent e) {
-                String helpPage =
-                        "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
-                try {
-                    java.awt.Desktop.getDesktop().browse(java.net.URI.create(helpPage));
-                }
-                catch (IOException e1) {
-                    // TODO Auto-generated catch block
-                    e1.printStackTrace();
-                }
-            }
-
-        };
-
-        return listener;
-    }
-
-    // private JComponent makeDisplay () {
-    // JPanel display = new Display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    // return display;
-    // }
-
-    protected void sendInput () {
-        String input = "";
-        Model.parseInput(input);
-    }
-
-    private void updateSidebar () {
-
-    }
-
-    private void updateDisplay () {
-        myViewUpdater.displayOutput();
-    }
-
-    public static void main (String[] args) {
-        new View();
-    }
 }

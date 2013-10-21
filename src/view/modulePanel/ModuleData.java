@@ -1,36 +1,36 @@
-package view.sidebar;
+package view.modulePanel;
 
 import javax.swing.JComponent;
 
 
 @SuppressWarnings("serial")
 public class ModuleData extends JComponent {
-    String display;
-    String content;
+    String myDisplay;
+    String myContent;
 
     public String toString () {
-        return display;
+        return myDisplay;
     }
 
     public ModuleData (String displayString, String contentString) {
-        display = displayString;
-        content = contentString;
+        myDisplay = displayString;
+        myContent = contentString;
 
     }
 
-    public String getDisplay () {
-        String displayCopy = display;
+    protected String getDisplay () {
+        String displayCopy = myDisplay;
         return displayCopy;
 
     }
 
-    public String getContent () {
-        String contentCopy = content;
+    protected String getContent () {
+        String contentCopy = myContent;
         return contentCopy;
     }
 
     protected String setContent (String newContent) {
-        content = newContent;
+        myContent = newContent;
         return newContent;
     }
 }
