@@ -8,8 +8,10 @@ import javax.swing.JTextArea;
 
 
 @SuppressWarnings("serial")
-public class InputPanel extends JPanel {
+public class InputPanel extends JPanel implements InputObserver {
     private InputController myController;
+    private JButton undo;
+    private JButton redo;
 
     public InputPanel (JTextArea jTextArea, InputController controller) {
         super();
@@ -18,16 +20,24 @@ public class InputPanel extends JPanel {
         this.add(new JScrollPane(jTextArea));
         myController = controller;
         JButton run = new JButton("RUN");
-        JButton undo = new JButton("UNDO");
+        undo = new JButton("UNDO");
 
-        JButton redo = new JButton("REDO");
-
+        redo = new JButton("REDO");
+        undo.setEnabled(false);
+        redo.setEnabled(false);
         run.addMouseListener(myController.addExecuteListener());
         undo.addMouseListener(myController.addUndoListener());
         redo.addMouseListener(myController.addRedoListener());
         this.add(run);
         this.add(undo);
         this.add(redo);
+
+    }
+
+    @Override
+    public void update (Boolean canUndo, Boolean canRedo) {
+        undo.setEnabled(canUndo);
+        redo.setEnabled(canRedo);
 
     }
 

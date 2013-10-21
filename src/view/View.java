@@ -16,7 +16,9 @@ import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
 import view.inputPanel.InputController;
+import view.inputPanel.InputObserver;
 import view.inputPanel.InputPanel;
+import view.inputPanel.InputSubject;
 import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanel;
 import view.modulePanel.ModulePanelController;
@@ -79,6 +81,8 @@ public class View extends JFrame {
         InputController inputController = new InputController(subject, myModel, textbox);
         controllers.add(inputController);
         JPanel inputPanel = new InputPanel(textbox, inputController);
+        InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
+        subject.addSubject(inputSubject);
 
         OptionsPanelController optionsController =
                 new OptionsPanelController(subject, myModel, myCanvas);
