@@ -11,7 +11,7 @@ import model.Model;
 import model.Path;
 
 
-public class MasterSubject {
+public class MasterSubject implements Subject{
 
     List<Subject> subjects = new ArrayList<Subject>();
 

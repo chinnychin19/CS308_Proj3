@@ -7,18 +7,19 @@ import model.Model;
 import view.Constants;
 import view.Controller;
 import view.MasterSubject;
+import view.Subject;
 
 
 public class WorkSpacePreferencesController extends Controller {
 
     private List<Controller> myControllers;
-    private List<MasterSubject> mySubjects;
+    private List<Subject> mySubjects;
     private List<Model> myModels = new ArrayList<Model>();
     private int myCurrentWorkSpace = 1;
     private MasterSubject mySubject;
 
     public WorkSpacePreferencesController (MasterSubject subject, List<Controller> controllers,
-                                           List<MasterSubject> subjects,
+                                           List<Subject> subjects,
                                            Model model) {
         super(subject, model);
         myControllers = controllers;
@@ -60,7 +61,7 @@ public class WorkSpacePreferencesController extends Controller {
      * @param masterIndex
      */
     private void changeSubjectModel (Integer masterIndex) {
-        for (MasterSubject subject : mySubjects) {
+        for (Subject subject : mySubjects) {
             subject.changeCurrentModel(myModels.get(masterIndex));
             subject.notifyObservers("");
         }
