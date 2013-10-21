@@ -2,13 +2,13 @@ package model;
 
 public class Stamp {
     private double myX, myY, myAngle;
-    private int myShapeIndex;
+    private String myShape;
 
-    protected Stamp (double x, double y, double angle, int shape) {
+    protected Stamp (double x, double y, double angle, String shape) {
         myX = x;
         myY = y;
         myAngle = angle;
-        myShapeIndex = shape;
+        myShape = shape;
     }
 
     public int getX () {
@@ -23,7 +23,7 @@ public class Stamp {
         return (int) myAngle;
     }
 
-    public int getShapeIndex () {
-        return myShapeIndex;
+    public String getShape () {
+        return myShape;
     }
 }
