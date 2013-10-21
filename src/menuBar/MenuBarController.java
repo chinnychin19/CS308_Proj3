@@ -1,5 +1,6 @@
 package menuBar;
 
+import java.util.Collection;
 import model.Model;
 import view.Controller;
 import view.MasterSubject;
@@ -15,6 +16,10 @@ public class MenuBarController extends Controller {
     public void changeLanguage (String myLanguageValue) {
         myCurrentModel.setLanguage(myLanguageValue);
 
+    }
+
+    public Collection<String> getLanguages () {
+        return myCurrentModel.getAvailableLanguages();
     }
 
 }
