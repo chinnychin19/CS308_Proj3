@@ -16,10 +16,11 @@ public class CanvasSubject implements Subject {
 
     Model myCurrentModel;
 
-    public CanvasSubject (Model model) {
+    public CanvasSubject (Model model, Canvas myCanvas) {
         myCurrentModel = model;
 
         observers = new ArrayList<CanvasObserver>();
+        addObservers(myCanvas);
     }
 
     @Override

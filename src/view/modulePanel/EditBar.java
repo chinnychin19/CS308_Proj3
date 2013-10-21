@@ -9,12 +9,14 @@ import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import view.Constants;
 import view.Controller;
 
 
 @SuppressWarnings("serial")
 public class EditBar extends JPanel {
-    private static final int TEXTBOX_COLUMNS = 15;
+   
+    
     JButton myEdit;
     TextField myTextfield;
     JList<ModuleData> myList;
@@ -36,12 +38,12 @@ public class EditBar extends JPanel {
 
     private TextField addTextBox () {
         myTextfield = new TextField();
-        myTextfield.setColumns(TEXTBOX_COLUMNS);
+        myTextfield.setColumns(Constants.TEXTBOX_COLUMNS);
         return myTextfield;
     }
 
     private JButton addEditButton () {
-        myEdit = new JButton("Edit");
+        myEdit = new JButton(Constants.EDIT_BUTTON_NAME);
         myEdit.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
 
@@ -58,7 +60,7 @@ public class EditBar extends JPanel {
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
-                                                  "Select a variable");
+                                                  Constants.SELECT_A_VARIABLE_MESSAGE);
                 }
             }
 
