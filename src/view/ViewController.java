@@ -226,7 +226,7 @@ public class ViewController {
 
     public void changeImage (int shapeIndex) {
         myCurrentModel.setShape(shapeIndex);
-        myView.notifyObservers("");
+        myView.notifyObservers("");    
 
     }
 
