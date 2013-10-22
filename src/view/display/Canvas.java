@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import model.Model;
 import model.Path;
 import view.Constants;
+import view.Updatable;
 import view.ViewController;
 import jgame.JGColor;
 import jgame.JGFont;
@@ -21,7 +23,7 @@ import model.Stamp;
  * @author susanzhang93
  * 
  */
-public class Canvas extends JGEngine implements CanvasObserver {
+public class Canvas extends JGEngine implements Updatable {
     private ViewController myController;
     private String myImageName = "Turtle1_1.gif";
     private String myError = "";
@@ -36,13 +38,15 @@ public class Canvas extends JGEngine implements CanvasObserver {
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
     private Collection<Stamp> myTurtleStamps = new ArrayList<Stamp>();
     private String image = "turtleGif";
+    private Model myCurrentModel;
 
     public static void main (String[] args) {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
     }
 
-    public Canvas (ViewController controller) {
+    public Canvas (ViewController controller, Model model) {
         initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+        myCurrentModel =model;
         myController = controller;
     }
 
@@ -400,7 +404,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
         setPaths(paths);
     }
 
-    @Override
+
     public void update (String error,
                         ArrayList<Integer> activeTurtleList,
                         Map<Integer, Double> turtleXMap,
@@ -437,5 +441,88 @@ public class Canvas extends JGEngine implements CanvasObserver {
 
     public void setHighlights (boolean b) {
         myHighlights = b;
+    }
+
+    @Override
+    public void update (String error) {
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        Map<Integer, Double> turtleXMap = getTurtleX();
+        Map<Integer, Double> turtleYMap = getTurtleY();
+        Map<Integer, Double> turtleAngleMap = getTurtleAngle();
+        Map<Integer, Boolean> turtleVisibilityMap = getTurtleVisibility();
+        Collection<Path> paths = myCurrentModel.getTurtlePaths();
+        Collection<Stamp> stamps = myCurrentModel.getTurtleStamps();
+        Color pen = myCurrentModel.getPenColor();
+        Color bg = myCurrentModel.getBGColor();
+        Integer penSize = myCurrentModel.getPenSize();
+        String shape = myCurrentModel.getShape();
+        update(error, activeTurtleList, turtleXMap,
+               turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, stamps, pen,
+               bg,
+               penSize, shape);
+        
+    }
+
+    @Override
+    public void changeModel (Model model) {
+       myCurrentModel = model;
+        
+    }
+    private ArrayList<Integer> getActiveTurtles () {
+        return (ArrayList<Integer>) myCurrentModel.getActiveTurtleIDs();
+    }
+
+    private Map<Integer, Double> getTurtleX () {
+        Map<Integer, Double> turtleXMap = new HashMap<Integer, Double>();
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        for (Integer ID : activeTurtleList) {
+            turtleXMap.put(ID, myCurrentModel.getTurtleX(ID));
+        }
+
+        return turtleXMap;
+
+    }
+
+    private Map<Integer, Double> getTurtleY () {
+        Map<Integer, Double> turtleYMap = new HashMap<Integer, Double>();
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        for (Integer ID : activeTurtleList) {
+            turtleYMap.put(ID, myCurrentModel.getTurtleY(ID));
+        }
+
+        return turtleYMap;
+
+    }
+
+    private Map<Integer, Double> getTurtleAngle () {
+        Map<Integer, Double> turtleAngleMap = new HashMap<Integer, Double>();
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        for (Integer ID : activeTurtleList) {
+            turtleAngleMap.put(ID, myCurrentModel.getTurtleAngle(ID));
+        }
+
+        return turtleAngleMap;
+
+    }
+
+    private Map<Integer, Boolean> getTurtleVisibility () {
+        Map<Integer, Boolean> turtleVisibilityMap = new HashMap<Integer, Boolean>();
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        for (Integer ID : activeTurtleList) {
+            turtleVisibilityMap.put(ID, myCurrentModel.isTurtleVisible(ID));
+        }
+
+        return turtleVisibilityMap;
+
+    }
+
+    private ArrayList<String> getTurtleShape () {
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        ArrayList<String> activeTurtleShapes = new ArrayList<String>();
+        for (Integer ID : activeTurtleList) {
+            activeTurtleShapes.add(myCurrentModel.getTurtleShape(ID));
+        }
+
+        return activeTurtleShapes;
     }
 }
