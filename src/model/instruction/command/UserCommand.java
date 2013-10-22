@@ -11,7 +11,7 @@ import model.instruction.InstructionListNode;
 public class UserCommand extends Instruction {
     private List<String> myParamNames;
     private String myName;
-    private String myDefinitionString; // includes brackets
+    private String myCommandsString; // does not include brackets
     private InstructionListNode myRootCommand;
 
     public UserCommand (Instruction parent,
@@ -21,20 +21,8 @@ public class UserCommand extends Instruction {
         super(paramNames.size(), parent, m);
         myName = name;
         myParamNames = paramNames;
-        myDefinitionString = commandBody;
-        commandBody = commandBody.substring(1, commandBody.length() - 1).trim();
-        // chop off brackets
-        List<Instruction> commandList = null;
-        try {
-            commandList = getModel().getInterpreter().getInstructions(commandBody);
-        }
-        catch (Exception e) {
-            throw new Exception("User defined commands could not be interpreted.");
-        }
-        myRootCommand = new InstructionListNode(null, getModel());
-        for (Instruction instr : commandList) {
-            myRootCommand.addChild(instr);
-        }
+        myCommandsString = commandBody;
+        myRootCommand = new InstructionListNode(null, getModel(), commandBody);
     }
 
     public List<String> getParamNames () {
@@ -50,17 +38,18 @@ public class UserCommand extends Instruction {
     @Override
     public Instruction eval () throws Exception {
         List<Double> oldParameterValues = new ArrayList<Double>();
-        // // set parameter values
-        // for (int i = 1; i <= myParamNames.size(); i++) {
-        // double value = ((InstructionConstant) getChildren().get(i)).getValue();
-        // oldParameterValues.add(value);
-        // Model.getVariableCache().put(myParamNames.get(i - 1), value);
-        // }
+        // set parameter values and save old ones
+        for (int i = 1; i <= myParamNames.size(); i++) {
+            double oldValue = getModel().getVariableCache().get(myParamNames.get(i - 1));
+            double newValue = ((InstructionConstant) getChildren().get(i)).getValue();
+            oldParameterValues.add(oldValue);
+            getModel().getVariableCache().put(myParamNames.get(i - 1), newValue);
+        }
         Instruction ret = myRootCommand.eval();
-        // // reset old parameter values
-        // for (int i = 0; i < myParamNames.size(); i++) {
-        // Model.getVariableCache().put(myParamNames.get(i), oldParameterValues.get(i));
-        // }
+        // reset old parameter values
+        for (int i = 0; i < myParamNames.size(); i++) {
+            getModel().getVariableCache().put(myParamNames.get(i), oldParameterValues.get(i));
+        }
         return ret;
     }
 
@@ -70,6 +59,17 @@ public class UserCommand extends Instruction {
 
     public String getBody () {
         return "TO " + myName + " \n[ " + myParamNames.toString().replaceAll(",", "") + " ] \n" +
-               myDefinitionString;
+               "[ " + myCommandsString + " ]";
+    }
+
+    public UserCommand copy () {
+        try {
+            List<String> paramNamesCopy = new ArrayList<String>(myParamNames);
+            return new UserCommand(getParent(), myName, paramNamesCopy, myCommandsString,
+                                   getModel());
+        }
+        catch (Exception e) {
+            return null;
+        }
     }
 }
