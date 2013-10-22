@@ -12,20 +12,20 @@ import model.Model;
 public class ViewController {
     private JTextArea myTextbox;
     private Model myCurrentModel;
-    private MasterSubject mySubject;
+
     private Canvas myCanvas;
     private int myCurrentWorkSpace = 1;
     private List<Model> myModels = new ArrayList<Model>();
     private View myView;
 
-    public ViewController (MasterSubject subject,
+    public ViewController (
                            Model model,
                            JTextArea textbox,
                            Canvas canvas,
                            View view) {
         myView = view;
         myTextbox = textbox;
-        mySubject = subject;
+      
         myCurrentModel = model;
         myCanvas = canvas;
 
@@ -39,7 +39,7 @@ public class ViewController {
         if (input.trim().equals("")) { return; }
         String inputError = myCurrentModel.parseInput(input);
         myTextbox.setText("");
-        mySubject.notifyObservers(inputError);
+        myView.notifyObservers(inputError);
     }
 
     /**
@@ -47,7 +47,7 @@ public class ViewController {
      */
     public void undo () {
         String undoError = myCurrentModel.undo();
-        mySubject.notifyObservers(undoError);
+        myView.notifyObservers(undoError);
     }
 
     /**
@@ -55,13 +55,13 @@ public class ViewController {
      */
     public void redo () {
         String redoError = myCurrentModel.redo();
-        mySubject.notifyObservers(redoError);
+        myView.notifyObservers(redoError);
     }
 
     public String updateVariable (String key, String value) {
 
         String updateVariable = myCurrentModel.putVariable(key, value);
-        mySubject.notifyObservers(updateVariable);
+        myView.notifyObservers(updateVariable);
         return updateVariable;
 
     }
@@ -72,18 +72,18 @@ public class ViewController {
 
     public void setBGColor (int colorIndex) {
         myCurrentModel.setBGColor(colorIndex);
-        mySubject.notifyObservers("");
+        myView.notifyObservers("");
     }
 
     public void setGrid (boolean b) {
         myCanvas.setGridStatus(b);
-        mySubject.notifyObservers("");
+        myView.notifyObservers("");
 
     }
 
     public void setTurtleStatus (boolean b) {
         myCanvas.setTurtleStatus(b);
-        mySubject.notifyObservers("");
+        myView.notifyObservers("");
 
     }
 
@@ -109,7 +109,7 @@ public class ViewController {
             makeNewWorkSpace();
 
         }
-        mySubject.notifyObservers("");
+        myView.notifyObservers("");
 
     }
 
@@ -154,7 +154,7 @@ public class ViewController {
     }
 
     private void changeSubjectModel (int modelIndex) {
-        mySubject.changeCurrentModel(myModels.get(modelIndex));
+        myView.changeCurrentModel(myModels.get(modelIndex));
 
     }
 
@@ -183,12 +183,12 @@ public class ViewController {
 
     protected void parseWorkSpacePreferences (String filenmae) {
         // Talk the to the model
-        mySubject.notifyObservers(""); // can pass an error string to notifyObsers
+        myView.notifyObservers(""); // can pass an error string to notifyObsers
     }
 
     protected void saveWorkSpacePreferences (String filenmae) {
         // Talk the to the model
-        mySubject.notifyObservers(""); // can pass an error string to notifyObsers
+        myView.notifyObservers(""); // can pass an error string to notifyObsers
     }
 
     public void changeLanguage (String myLanguageValue) {

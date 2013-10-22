@@ -7,6 +7,7 @@ import view.Constants;
 import view.ViewController;
 
 
+@SuppressWarnings("serial")
 public class WorkSpaceSelector extends AbstractAction {
     private ViewController myController;
 

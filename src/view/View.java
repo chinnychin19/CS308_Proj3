@@ -30,9 +30,11 @@ public class View extends JFrame {
     private Model myModel;
 
     private WorkSpacePreferences selector;
-    private MasterSubject subject;
+
     private ViewController controller;
     private List<Subject> subjects = new ArrayList<Subject>();
+
+    private Model myCurrentModel;
 
     /**
      * Constructor for View Class
@@ -43,12 +45,10 @@ public class View extends JFrame {
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
 
-        subject = new MasterSubject(myModel);
-        subjects.add(subject);
 
         initializeDisplaySettings();
 
-        makePanels(myCanvas, paramaters, subjects, subject);
+        makePanels(myCanvas, paramaters, subjects);
         setVisible(true);
 
     }
@@ -56,31 +56,29 @@ public class View extends JFrame {
     private void makePanels (Canvas myCanvas,
                              Map<String, JComponent> paramaters,
 
-                             List<Subject> subjects,
-                             MasterSubject subject)
+                             List<Subject> subjects)
 
     {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
         controller =
-                new ViewController(subject, myModel, textbox, myCanvas, this);
-        JPanel modulePanel = addModulePanel(controller, subject, textbox);
+                new ViewController( myModel, textbox, myCanvas, this);
+        JPanel modulePanel = addModulePanel(controller, textbox);
 
-        addCanvas(myCanvas, subject);
+        addCanvas(myCanvas);
 
-        JPanel inputPanel = addInputPanel(subject, textbox, controller);
+        JPanel inputPanel = addInputPanel(textbox, controller);
 
         JPanel optionsPanel = addOptionsPanel(myCanvas, controller);
 
-        addMenu(controller, subjects, subject);
+        addMenu(controller, subjects);
 
         addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
     }
 
     private void addMenu (ViewController controller,
-                          List<Subject> subjects,
-                          MasterSubject subject) {
+                          List<Subject> subjects) {
 
         selector = new WorkSpacePreferences(controller);
 
@@ -98,27 +96,27 @@ public class View extends JFrame {
     }
 
     private JPanel addInputPanel (
-                                  MasterSubject subject,
+                                  
                                   JTextArea textbox, ViewController controller) {
 
         JPanel inputPanel = new InputPanel(textbox, controller);
         InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
-        subject.addSubject(inputSubject);
+        subjects.add(inputSubject);
         return inputPanel;
     }
 
-    private void addCanvas (Canvas myCanvas, MasterSubject subject) {
+    private void addCanvas (Canvas myCanvas) {
         CanvasSubject myCanvasSubject = new CanvasSubject(myModel, myCanvas);
-        subject.addSubject(myCanvasSubject);
+        subjects.add(myCanvasSubject);
     }
 
     private JPanel addModulePanel (ViewController controller,
-                                   MasterSubject subject,
+                                  
                                    JTextArea textbox) {
 
         JPanel modulePanel = new ModulePanel(controller);
         ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
-        subject.addSubject(myModuleSubject);
+        subjects.add(myModuleSubject);
         return modulePanel;
     }
 
@@ -140,5 +138,20 @@ public class View extends JFrame {
     protected void changeModel (Model newModel) {
         myModel = newModel;
     }
+    public void notifyObservers (String error) {
 
+        for (Subject subject : subjects) {
+            subject.notifyObservers(error);
+        }
+
+    }
+
+    public void changeCurrentModel (Model model) {
+        myCurrentModel = model;
+        for (Subject subject : subjects) {
+            subject.changeCurrentModel(myCurrentModel);
+
+        }
+
+    }
 }
