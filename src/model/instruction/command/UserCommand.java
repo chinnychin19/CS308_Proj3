@@ -61,4 +61,15 @@ public class UserCommand extends Instruction {
         return "TO " + myName + " \n[ " + myParamNames.toString().replaceAll(",", "") + " ] \n" +
                "[ " + myCommandsString + " ]";
     }
+
+    public UserCommand copy () {
+        try {
+            List<String> paramNamesCopy = new ArrayList<String>(myParamNames);
+            return new UserCommand(getParent(), myName, paramNamesCopy, myCommandsString,
+                                   getModel());
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 }

@@ -35,7 +35,7 @@ public class CommandCache {
         commandName = commandName.toUpperCase();
         if (!myMap.containsKey(commandName)) { return null; }
         // delete previous command parameters before returning, but maintain root command node
-        UserCommand ret = myMap.get(commandName);
+        UserCommand ret = myMap.get(commandName).copy();
         ret.getChildren().clear();
         ret.addChild(ret.getRootNode());
         // TODO: should return a COPY() of the command. VERY IMPORTANT

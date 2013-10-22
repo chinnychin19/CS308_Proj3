@@ -40,16 +40,16 @@ public class ComboTest {
         assertEquals(1, model.getTurtleY(1), DELTA);
     }
 
-    @Test
-    public void testComplicated () {
-        Model model = new Model();
-        model.parseInput("to square [ ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
-        model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
-        model.parseInput("make :a 3");
-        model.parseInput("make :b 2");
-        model.parseInput("ifelse sum :a :b [ square fd 10 ] [ rookMove :a fd :b to newMove [ :tick ] [ fd :tick fd sum :a :b ] newMove 2 ]");
-
-        assertEquals(10, model.getTurtleY(1), DELTA);
-
-    }
+    // @Test
+    // public void testComplicated () {
+    // Model model = new Model();
+    // model.parseInput("to square [ ] [ fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 fd 10 rt 90 ]");
+    // model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+    // model.parseInput("make :a 3");
+    // model.parseInput("make :b 2");
+    // model.parseInput("ifelse sum :a :b [ square fd 10 ] [ rookMove :a fd :b to newMove [ :tick ] [ fd :tick fd sum :a :b ] newMove 2 ]");
+    //
+    // assertEquals(10, model.getTurtleY(1), DELTA);
+    //
+    // }
 }
