@@ -11,20 +11,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import menuBar.MenuBar;
-import menuBar.MenuBarController;
 import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
-import view.inputPanel.InputController;
+import view.inputPanel.InputObserver;
 import view.inputPanel.InputPanel;
+import view.inputPanel.InputSubject;
 import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanel;
-import view.modulePanel.ModulePanelController;
 import view.modulePanel.ModuleSubject;
 import view.optionsPanel.OptionsPanel;
-import view.optionsPanel.OptionsPanelController;
 import view.workspace.WorkSpacePreferences;
-import view.workspace.WorkSpacePreferencesController;
 
 
 @SuppressWarnings("serial")
@@ -33,7 +30,11 @@ public class View extends JFrame {
     private Model myModel;
 
     private WorkSpacePreferences selector;
-    private MasterSubject subject;
+
+    private ViewController controller;
+    private List<Subject> subjects = new ArrayList<Subject>();
+
+    private Model myCurrentModel;
 
     /**
      * Constructor for View Class
@@ -43,59 +44,80 @@ public class View extends JFrame {
         Canvas myCanvas = new Canvas();
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
-        List<Controller> controllers = new ArrayList<Controller>();
-        List<MasterSubject> subjects = new ArrayList<MasterSubject>();
 
-        subject = new MasterSubject(myModel);
-        subjects.add(subject);
 
         initializeDisplaySettings();
 
-        makePanels(myCanvas, paramaters, controllers, subjects, subject);
+        makePanels(myCanvas, paramaters, subjects);
         setVisible(true);
 
     }
 
     private void makePanels (Canvas myCanvas,
                              Map<String, JComponent> paramaters,
-                             List<Controller> controllers,
-                             List<MasterSubject> subjects,
-                             MasterSubject subject)
+
+                             List<Subject> subjects)
 
     {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
-        Controller moduleController = new ModulePanelController(subject, myModel, textbox);
-        controllers.add(moduleController);
+        controller =
+                new ViewController( myModel, textbox, myCanvas, this);
+        JPanel modulePanel = addModulePanel(controller, textbox);
 
-        JPanel modulePanel = new ModulePanel(moduleController);
-        ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
-        subject.addSubject(myModuleSubject);
+        addCanvas(myCanvas);
 
-        CanvasSubject myCanvasSubject = new CanvasSubject(myModel, myCanvas);
-        subject.addSubject(myCanvasSubject);
+        JPanel inputPanel = addInputPanel(textbox, controller);
 
-        InputController inputController = new InputController(subject, myModel, textbox);
-        controllers.add(inputController);
-        JPanel inputPanel = new InputPanel(textbox, inputController);
+        JPanel optionsPanel = addOptionsPanel(myCanvas, controller);
 
-        OptionsPanelController optionsController =
-                new OptionsPanelController(subject, myModel, myCanvas);
-        controllers.add(optionsController);
-        JPanel optionsPanel = new OptionsPanel(optionsController);
-
-        WorkSpacePreferencesController wokspaceController =
-                new WorkSpacePreferencesController(subject, controllers, subjects, myModel);
-        selector = new WorkSpacePreferences(wokspaceController);
-
-        MenuBarController menuController = new MenuBarController(subject, myModel);
-        controllers.add(menuController);
-        MenuBar menu = new MenuBar(menuController);
-        menu.add("selector", selector);
-        setJMenuBar(menu);
+        addMenu(controller, subjects);
 
         addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
+    }
+
+    private void addMenu (ViewController controller,
+                          List<Subject> subjects) {
+
+        selector = new WorkSpacePreferences(controller);
+
+        MenuBar menu = new MenuBar(controller);
+        menu.add("selector", selector);
+        setJMenuBar(menu);
+    }
+
+    private JPanel addOptionsPanel (Canvas myCanvas,
+
+                                    ViewController controller) {
+
+        JPanel optionsPanel = new OptionsPanel(controller);
+        return optionsPanel;
+    }
+
+    private JPanel addInputPanel (
+                                  
+                                  JTextArea textbox, ViewController controller) {
+
+        JPanel inputPanel = new InputPanel(textbox, controller);
+        InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
+        subjects.add(inputSubject);
+        return inputPanel;
+    }
+
+    private void addCanvas (Canvas myCanvas) {
+        CanvasSubject myCanvasSubject = new CanvasSubject(myModel, myCanvas);
+        subjects.add(myCanvasSubject);
+    }
+
+    private JPanel addModulePanel (ViewController controller,
+                                  
+                                   JTextArea textbox) {
+
+        JPanel modulePanel = new ModulePanel(controller);
+        ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
+        subjects.add(myModuleSubject);
+        return modulePanel;
     }
 
     private void initializeDisplaySettings () {
@@ -116,5 +138,20 @@ public class View extends JFrame {
     protected void changeModel (Model newModel) {
         myModel = newModel;
     }
+    public void notifyObservers (String error) {
 
+        for (Subject subject : subjects) {
+            subject.notifyObservers(error);
+        }
+
+    }
+
+    public void changeCurrentModel (Model model) {
+        myCurrentModel = model;
+        for (Subject subject : subjects) {
+            subject.changeCurrentModel(myCurrentModel);
+
+        }
+
+    }
 }

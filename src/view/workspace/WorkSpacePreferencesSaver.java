@@ -8,14 +8,20 @@ import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import view.Constants;
+import view.ViewController;
 
 
 public class WorkSpacePreferencesSaver extends AbstractAction {
-    private WorkSpacePreferencesController myController;
+
+    private ViewController myController;
+
+
+
     private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
     
-    protected WorkSpacePreferencesSaver (WorkSpacePreferencesController controller) {
+    protected WorkSpacePreferencesSaver (ViewController controller) {
+
         super(Constants.SAVE_WORKSPACE_PREFERENCES);
         myController = controller;
     }

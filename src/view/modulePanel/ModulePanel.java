@@ -8,14 +8,14 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import view.Controller;
+import view.ViewController;
 
 
 @SuppressWarnings("serial")
 public class ModulePanel extends JPanel implements ModuleObserver {
     private List<Module> myModules;
 
-    public ModulePanel (Controller controller) {
+    public ModulePanel (ViewController controller) {
         super();
         myModules = new ArrayList<Module>();
 

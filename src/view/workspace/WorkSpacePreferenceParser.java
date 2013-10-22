@@ -18,13 +18,14 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 import org.w3c.dom.Node;
 import view.Constants;
+import view.ViewController;
 
 
 public class WorkSpacePreferenceParser {
-    private WorkSpacePreferencesController myController;
+    private ViewController myController;
 
-    public WorkSpacePreferenceParser (WorkSpacePreferencesController controller) {
-        myController = controller;
+    public WorkSpacePreferenceParser (ViewController myController) {
+        myController = myController;
     }
 
     public void loadPreferences (File prefFile) throws IOException {

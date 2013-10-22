@@ -10,7 +10,7 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import view.Constants;
-import view.Controller;
+import view.ViewController;
 
 
 @SuppressWarnings("serial")
@@ -20,11 +20,11 @@ public class EditBar extends JPanel {
     TextField myTextfield;
     JList<ModuleData> myList;
     DefaultListModel<ModuleData> myListModel;
-    Controller myController;
+    ViewController myController;
 
     public EditBar (JList<ModuleData> list,
                     DefaultListModel<ModuleData> listModel,
-                    Controller controller) {
+                    ViewController controller) {
         myController = controller;
         myList = list;
         myListModel = listModel;
@@ -53,7 +53,7 @@ public class EditBar extends JPanel {
                     String newValue = myTextfield.getText();
                     myTextfield.setText("");
 
-                    ((ModulePanelController) myController).updateVariable(selected
+                    (myController).updateVariable(selected
                             .getDisplay(), newValue);
 
                 }
