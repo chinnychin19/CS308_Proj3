@@ -41,7 +41,7 @@ public class View extends JFrame {
      */
     public View () {
 
-        Canvas myCanvas = new Canvas();
+        Canvas myCanvas = new Canvas(controller);
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
 

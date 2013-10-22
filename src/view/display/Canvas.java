@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import model.Path;
 import view.Constants;
+import view.ViewController;
 import jgame.JGColor;
 import jgame.JGFont;
 import jgame.JGPoint;
@@ -21,6 +22,7 @@ import model.Stamp;
  * 
  */
 public class Canvas extends JGEngine implements CanvasObserver {
+    private ViewController myController;
     private String myImageName = "Turtle1_1.gif";
     private String myError = "";
     private Collection<Path> myPointList = new ArrayList<Path>();
@@ -30,7 +32,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
     private boolean myMouseClicked = false;
     private boolean myHighlights = false;
 
-    // IMPLEMENTATION 2
     private Map<Integer, TurtleSprite> myTurtleMap = new HashMap<Integer, TurtleSprite>();
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
     private Collection<Stamp> myTurtleStamps = new ArrayList<Stamp>();
@@ -40,8 +41,9 @@ public class Canvas extends JGEngine implements CanvasObserver {
         new Canvas(new JGPoint(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT));
     }
 
-    public Canvas () {
+    public Canvas (ViewController controller) {
         initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
+        myController = controller;
     }
 
     public Canvas (JGPoint size) {
@@ -57,7 +59,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
     @Override
     public void initGame () {
         setFrameRate(Constants.FRAMES_PER_SECOND, 2);
-        setPFWrap(true, true, 0, 0);
+        // setPFWrap(true, true, 0, 0);
         defineImage(image + 1, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
 
         TurtleSprite myTurtle = new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 -
@@ -110,6 +112,10 @@ public class Canvas extends JGEngine implements CanvasObserver {
         int offset = 0;
 
         for (int ID : myActiveTurtleIDs) {
+            if (!myTurtleMap.containsKey(ID)) {
+                addNewTurtle(ID);
+            }
+
 
             TurtleSprite currentTurtle = myTurtleMap.get(ID);
 
@@ -138,12 +144,13 @@ public class Canvas extends JGEngine implements CanvasObserver {
     private void handleMouseClick () {
         if (getMouseButton(1)) {
             myMouseClicked = true;
-            System.out.println((getMouseX() - Constants.CANVAS_WIDTH / 2) + " " + (-getMouseY() +
-                               Constants.CANVAS_HEIGHT / 2)); // TODO: How to ensure only once?
+            
         }
 
         else if (!getMouseButton(1) && myMouseClicked) {
             myMouseClicked = false;
+            System.out.println((getMouseX() - Constants.CANVAS_WIDTH / 2) + " " + (-getMouseY() +
+                    Constants.CANVAS_HEIGHT / 2)); // TODO: How to ensure only once?
         }
     }
 
@@ -201,8 +208,13 @@ public class Canvas extends JGEngine implements CanvasObserver {
      */
     public void changeTurtleImage (String imageName) {
         myImageName = imageName;
+       
 
         for (int ID : myActiveTurtleIDs) {
+            if (!myTurtleMap.containsKey(ID)) {
+                addNewTurtle(ID);
+            }
+
             adjustImageAngle(myTurtleMap.get(ID).getHeading());
             defineImage(image + ID, myImageName);
         }
@@ -213,6 +225,10 @@ public class Canvas extends JGEngine implements CanvasObserver {
      * Sets heading of turtle
      */
     public void setHeading (int ID, double newHeading) {
+//        if (!myTurtleMap.containsKey(ID)) {
+//            addNewTurtle(ID);
+//        }
+
 
         if (myTurtleMap.get(ID).getHeading() != newHeading) {
             myTurtleMap.get(ID).setHeading(newHeading);
@@ -223,14 +239,16 @@ public class Canvas extends JGEngine implements CanvasObserver {
     }
 
     private void moveTurtle (int ID, double x, double y) {
+
+        
         TurtleSprite toMove = myTurtleMap.get(ID);
 
-        // toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
-        // Constants.TURTLE_OFFSET,
-        // -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+         toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
+         Constants.TURTLE_OFFSET,
+         -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
 
-        toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+//        toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+//                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
 
     }
 
@@ -320,7 +338,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
             Stamp s = ((ArrayList<Stamp>) myTurtleStamps).get(i);
             adjustImageAngle(s.getAngle());
             defineImage("" + i, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
-            // System.out.println(s.getX()+ " " + s.getY() + " " + s.getAngle());
             drawImage("" + i, s.getX() + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                       -s.getY() + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
         }
@@ -351,6 +368,17 @@ public class Canvas extends JGEngine implements CanvasObserver {
                     50);
     }
 
+    private void addNewTurtle (int ID) {
+        defineImage(image + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+
+        TurtleSprite myTurtle =
+                new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+                                 Constants.CANVAS_HEIGHT / 2 -
+                                         Constants.TURTLE_OFFSET, 1,
+                                 image + ID);
+        myTurtleMap.put(ID, myTurtle);
+    }
+
     private void adjustTurtle (ArrayList<Integer> activeTurtleList,
                                Map<Integer, Double> turtleXMap,
                                Map<Integer, Double> turtleYMap,
@@ -361,15 +389,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
 
         for (Integer ID : activeTurtleList) {
             if (!myTurtleMap.containsKey(ID)) {
-                defineImage(image + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
-
-                TurtleSprite myTurtle =
-                        new TurtleSprite(this, turtleXMap.get(ID) + Constants.CANVAS_WIDTH / 2 -
-                                               turtleYMap.get(ID) + Constants.TURTLE_OFFSET,
-                                         Constants.CANVAS_HEIGHT / 2 -
-                                                 Constants.TURTLE_OFFSET, 1,
-                                         image + ID);
-                myTurtleMap.put(ID, myTurtle);
+                addNewTurtle(ID);
             }
 
             setHeading(ID, turtleAngleMap.get(ID));
@@ -393,18 +413,17 @@ public class Canvas extends JGEngine implements CanvasObserver {
                         Color bg,
                         Integer penSize,
                         String shape) {
-        adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
-                     paths);
 
+        
         myError = error;
         if (!shape.equals(myImageName.substring(0, 7))) {
-            System.out.println(shape);
             changeTurtleImage(shape);
         }
         myTurtleStamps = stamps;
         changeBackgroundColor(colorToJGColor(bg));
         changePenColor(colorToJGColor(pen));
-
+        adjustTurtle(activeTurtleList, turtleXMap, turtleYMap, turtleAngleMap, turtleVisibilityMap,
+                     paths);
     }
 
     public void setGridStatus (boolean b) {
@@ -415,8 +434,8 @@ public class Canvas extends JGEngine implements CanvasObserver {
     public void setTurtleStatus (boolean b) {
         myTurtleStatus = b;
     }
-    
-    public void setHighlights (boolean b){
+
+    public void setHighlights (boolean b) {
         myHighlights = b;
     }
 }
