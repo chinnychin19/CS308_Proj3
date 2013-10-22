@@ -63,7 +63,7 @@ public class InputPanel extends JPanel implements Updatable {
     }
 
     @Override
-    public void update () {
+    public void update (String error) {
         undo.setEnabled(canUndo());
         redo.setEnabled(canRedo());
 

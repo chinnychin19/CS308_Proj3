@@ -90,7 +90,7 @@ public class ModulePanel extends JPanel implements Updatable {
     }
 
     @Override
-    public void update () {
+    public void update (String error) {
         update(getModelInformation(), "");
 
     }
