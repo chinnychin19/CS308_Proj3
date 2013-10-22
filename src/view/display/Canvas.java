@@ -209,7 +209,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
     public void changeTurtleImage (String imageName) {
         myImageName = imageName;
        
-
         for (int ID : myActiveTurtleIDs) {
             if (!myTurtleMap.containsKey(ID)) {
                 addNewTurtle(ID);
@@ -225,11 +224,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
      * Sets heading of turtle
      */
     public void setHeading (int ID, double newHeading) {
-//        if (!myTurtleMap.containsKey(ID)) {
-//            addNewTurtle(ID);
-//        }
-
-
         if (myTurtleMap.get(ID).getHeading() != newHeading) {
             myTurtleMap.get(ID).setHeading(newHeading);
             adjustImageAngle(newHeading);
@@ -238,9 +232,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
 
     }
 
-    private void moveTurtle (int ID, double x, double y) {
-
-        
+    private void moveTurtle (int ID, double x, double y) {       
         TurtleSprite toMove = myTurtleMap.get(ID);
 
          toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
@@ -250,18 +242,6 @@ public class Canvas extends JGEngine implements CanvasObserver {
 //        toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
 //                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
 
-    }
-
-    /**
-     * Moves turtle sprite, and draws line between displacement
-     * 
-     * @param x new x location of turtle
-     * @param y new y location of turtle
-     */
-    @Deprecated
-    public void moveTurtle (double x, double y) {
-        myTurtleMap.get(1).setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-                                  -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
     }
 
     /**
