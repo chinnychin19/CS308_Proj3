@@ -1,12 +1,27 @@
 package model.instruction;
 
+import java.util.List;
 import model.Model;
 
 
 public class InstructionMultiParameter extends Instruction {
 
-    public InstructionMultiParameter (Instruction parent, Model m) {
-        super(Integer.MAX_VALUE, parent, m);
+    public InstructionMultiParameter (String expression, Instruction parent, Model m)
+                                                                                     throws Exception {
+        super(-1, parent, m); // all children assigned in constructor, so no new children should be
+                              // added
+        expression = expression.substring(1, expression.length() - 1).trim();
+        String[] tokens = expression.split("\\s");
+        String commandString = tokens[0];
+        String paramString = expression.substring(commandString.length()).trim();
+
+        Instruction command = getModel().getInstructionFactory()
+                .getInstruction(commandString, null);
+        List<Instruction> parameters = getModel().getInterpreter().getInstructions(paramString);
+        addChild(command); // command is first child
+        for (Instruction child : parameters) {
+            addChild(child);
+        }
     }
 
     @Override

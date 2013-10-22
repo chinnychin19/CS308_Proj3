@@ -38,14 +38,6 @@ public abstract class Instruction {
     }
 
     public void addChild (Instruction child) {
-        if (myChildren.size() >= getNumParams()) {
-            try {
-                throw new InternalError();
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
         myChildren.add(child);
     }
 
