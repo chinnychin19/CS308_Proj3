@@ -9,11 +9,8 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-
 import view.ViewController;
-
 import view.workspace.WorkSpacePreferenceParser;
-
 import view.workspace.WorkSpacePreferences;
 
 
@@ -38,8 +35,8 @@ public class MenuBar extends JMenuBar {
             @Override
             public void actionPerformed (ActionEvent e) {
                 int loadObject = INPUT_CHOOSER.showOpenDialog(null);
-                if (loadObject == JFileChooser.APPROVE_OPTION) {                   
-                   myController.loadFile(INPUT_CHOOSER.getSelectedFile().toString());
+                if (loadObject == JFileChooser.APPROVE_OPTION) {
+                    myController.loadFile(INPUT_CHOOSER.getSelectedFile().toString());
                 }
             }
         });
@@ -49,14 +46,14 @@ public class MenuBar extends JMenuBar {
             public void actionPerformed (ActionEvent e) {
                 int result = INPUT_CHOOSER.showSaveDialog(null);
                 if (result == JFileChooser.APPROVE_OPTION) {
-                        File file = INPUT_CHOOSER.getSelectedFile();
-                        System.out.println(file);
-                        myController.saveFile(file.toString());
-                       
+                    File file = INPUT_CHOOSER.getSelectedFile();
+                    System.out.println(file);
+                    myController.saveFile(file.toString());
+
                 }
             }
         });
-        
+
         result.addSeparator();
         JMenu submenu = new JMenu("Select Language");
         Collection<String> languages = myController.getLanguages();

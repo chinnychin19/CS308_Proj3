@@ -15,9 +15,7 @@ import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
 import view.inputPanel.InputPanel;
-import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanel;
-import view.modulePanel.ModuleSubject;
 import view.optionsPanel.OptionsPanel;
 import view.workspace.WorkSpacePreferences;
 
@@ -32,7 +30,8 @@ public class View extends JFrame {
     private ViewController controller;
     private List<Subject> subjects = new ArrayList<Subject>();
     private List<Updatable> updatables = new ArrayList<Updatable>();
-    private Model myCurrentModel;
+
+    // private Model myCurrentModel;
 
     /**
      * Constructor for View Class
@@ -112,9 +111,10 @@ public class View extends JFrame {
 
                                    JTextArea textbox) {
 
-        JPanel modulePanel = new ModulePanel(controller);
-        ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
-        subjects.add(myModuleSubject);
+        JPanel modulePanel = new ModulePanel(controller, myModel);
+        updatables.add((Updatable) modulePanel);
+        // ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
+        // subjects.add(myModuleSubject);
         return modulePanel;
     }
 
@@ -133,9 +133,9 @@ public class View extends JFrame {
 
     }
 
-    protected void changeModel (Model newModel) {
-        myModel = newModel;
-    }
+    // protected void changeModel (Model newModel) {
+    // myModel = newModel;
+    // }
 
     public void notifyObservers (String error) {
 
@@ -149,10 +149,13 @@ public class View extends JFrame {
     }
 
     public void changeCurrentModel (Model model) {
-        myCurrentModel = model;
-        for (Subject subject : subjects) {
-            subject.changeCurrentModel(myCurrentModel);
 
+        for (Subject subject : subjects) {
+            subject.changeCurrentModel(model);
+
+        }
+        for (Updatable updateable : updatables) {
+            updateable.changeModel(model);
         }
 
     }

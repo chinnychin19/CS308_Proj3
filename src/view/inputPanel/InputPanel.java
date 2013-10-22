@@ -17,7 +17,7 @@ public class InputPanel extends JPanel implements Updatable {
     private JButton redo;
     private Model myCurrentModel;
 
-    public InputPanel (JTextArea jTextArea, ViewController controller,Model model) {
+    public InputPanel (JTextArea jTextArea, ViewController controller, Model model) {
         super();
         this.setLayout(new GridLayout(1, 4));
 
@@ -43,7 +43,6 @@ public class InputPanel extends JPanel implements Updatable {
         this.add(redo);
     }
 
-
     /**
      * Speaks to model to determine if a user can select undo
      * 
@@ -65,9 +64,15 @@ public class InputPanel extends JPanel implements Updatable {
 
     @Override
     public void update () {
-        undo.setEnabled(canUndo () );
-        redo.setEnabled( canRedo ());
-        
+        undo.setEnabled(canUndo());
+        redo.setEnabled(canRedo());
+
+    }
+
+    @Override
+    public void changeModel (Model model) {
+        myCurrentModel = model;
+
     }
 
 }

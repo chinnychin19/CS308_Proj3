@@ -415,8 +415,8 @@ public class Canvas extends JGEngine implements CanvasObserver {
     public void setTurtleStatus (boolean b) {
         myTurtleStatus = b;
     }
-    
-    public void setHighlights (boolean b){
+
+    public void setHighlights (boolean b) {
         myHighlights = b;
     }
 }

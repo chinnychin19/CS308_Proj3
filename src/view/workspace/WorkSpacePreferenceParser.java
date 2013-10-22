@@ -33,23 +33,23 @@ public class WorkSpacePreferenceParser {
         try {
             BufferedReader br = new BufferedReader(new FileReader(prefFile));
             String sCurrentLine = br.readLine();
-            
+
             if (!sCurrentLine.equals("preferences")) {
                 JOptionPane.showMessageDialog(null, Constants.WRONG_PREF_FILE_MESSAGE);
             }
 
             while ((sCurrentLine = br.readLine()) != null) {
-                  String[] s = sCurrentLine.split(" ");
-                  if (s[0].equals("background") && !s[1].equals(null)){
-                      myController.setBGColor(Integer.parseInt(s[1]));
-                  }
-                  if (s[0].equals("penIndex") && !s[1].equals(null)){
-                      myController.setPenColor(Integer.parseInt(s[1]));
-                  }
-                  if (s[0].equals("turtleImage") && !s[1].equals(null)){
-                      myController.changeImage(Integer.parseInt(s[1]));
-                  }               
-                  
+                String[] s = sCurrentLine.split(" ");
+                if (s[0].equals("background") && !s[1].equals(null)) {
+                    myController.setBGColor(Integer.parseInt(s[1]));
+                }
+                if (s[0].equals("penIndex") && !s[1].equals(null)) {
+                    myController.setPenColor(Integer.parseInt(s[1]));
+                }
+                if (s[0].equals("turtleImage") && !s[1].equals(null)) {
+                    myController.changeImage(Integer.parseInt(s[1]));
+                }
+
             }
             br.close();
         }

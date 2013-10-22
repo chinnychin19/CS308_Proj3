@@ -16,7 +16,6 @@ public class WorkSpacePreferencesLoader extends AbstractAction {
     private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
 
-
     protected WorkSpacePreferencesLoader (ViewController controller) {
         super(Constants.LOAD_WORKSPACE_PREFERENCES);
         myController = controller;
@@ -26,7 +25,7 @@ public class WorkSpacePreferencesLoader extends AbstractAction {
     public void actionPerformed (ActionEvent e) {
         int loadObject = INPUT_CHOOSER.showOpenDialog(null);
         if (loadObject == JFileChooser.APPROVE_OPTION) {
-            WorkSpacePreferenceParser p =new WorkSpacePreferenceParser(myController);
+            WorkSpacePreferenceParser p = new WorkSpacePreferenceParser(myController);
             try {
                 p.loadPreferences(INPUT_CHOOSER.getSelectedFile());
             }
