@@ -3,26 +3,25 @@ package view.optionsPanel;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JCheckBox;
-import view.View;
 import view.ViewController;
-import view.display.Canvas;
 
 
-public class StatusCheckBox extends JCheckBox {
+public class HighlightCheckBox extends JCheckBox {
     private ViewController myController;
 
-    public StatusCheckBox (ViewController controller) {
-        super("Turtle Status", null, true);
+    public HighlightCheckBox (ViewController controller) {
+        super("Highlight", null, false);
         myController = controller;
 
         addItemListener(new ItemListener() {
 
+            @Override
             public void itemStateChanged (ItemEvent e) {
-                myController.setTurtleStatus(e.getStateChange() == ItemEvent.SELECTED);
+                myController.setHighlights((e.getStateChange() == ItemEvent.SELECTED));
+
             }
 
         });
-
     }
 
 }

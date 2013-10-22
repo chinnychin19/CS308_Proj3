@@ -1,13 +1,15 @@
 package view.inputPanel;
 
+import view.ViewController;
+
+
 @SuppressWarnings("serial")
-public class RedoButton extends InputButtons  {
+public class RedoButton extends InputButtons {
 
-    protected RedoButton (InputController controller) {
+    protected RedoButton (ViewController controller) {
         super("REDO", controller);
-       
-    }
 
+    }
 
     @Override
     protected void mouseClickAction () {

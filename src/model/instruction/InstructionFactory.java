@@ -1,17 +1,10 @@
 package model.instruction;
 
-import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import model.Model;
-import model.instruction.turtle.*;
-import model.instruction.loop.*;
-import model.instruction.math.*;
-import model.instruction.bool.*;
-import model.instruction.conditional.*;
 import model.instruction.error.LanguageNotFound;
 import dataType.DataTypeChecker;
 
@@ -50,10 +43,11 @@ public class InstructionFactory {
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })
-    public Instruction getInstruction (String s, Instruction parent) {
+    public Instruction getInstruction (String s, Instruction parent) throws Exception {
         if (DataTypeChecker.isString(s)) {
             // User variables
-            if (s.charAt(0) == ':') { return new InstructionVariable(s, parent, myModel); }
+            if (s.startsWith(":")) { return new InstructionVariable(s, parent, myModel); }
+            if (s.startsWith("(")) { return new InstructionMultiParameter(s, parent, myModel); }
 
             try {
                 String className = myMap.get(s.toUpperCase());
@@ -67,7 +61,7 @@ public class InstructionFactory {
                     return myModel.getCommandCache().get(s);
                 }
                 else {
-                    return null;
+                    throw new Exception("Invalid command entered");
                 }
             }
         }
