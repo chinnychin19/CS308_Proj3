@@ -14,9 +14,7 @@ import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
-import view.inputPanel.InputObserver;
 import view.inputPanel.InputPanel;
-import view.inputPanel.InputSubject;
 import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanel;
 import view.modulePanel.ModuleSubject;
@@ -45,7 +43,6 @@ public class View extends JFrame {
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
 
-
         initializeDisplaySettings();
 
         makePanels(myCanvas, paramaters, subjects);
@@ -63,7 +60,7 @@ public class View extends JFrame {
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
         controller =
-                new ViewController( myModel, textbox, myCanvas, this);
+                new ViewController(myModel, textbox, myCanvas, this);
         JPanel modulePanel = addModulePanel(controller, textbox);
 
         addCanvas(myCanvas);
@@ -96,13 +93,13 @@ public class View extends JFrame {
     }
 
     private JPanel addInputPanel (
-                                  
+
                                   JTextArea textbox, ViewController controller) {
 
-        JPanel inputPanel = new InputPanel(textbox, controller,myModel);
+        JPanel inputPanel = new InputPanel(textbox, controller, myModel);
         updatables.add((Updatable) inputPanel);
-//        InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
-//        subjects.add(inputSubject);
+        // InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
+        // subjects.add(inputSubject);
         return inputPanel;
     }
 
@@ -112,7 +109,7 @@ public class View extends JFrame {
     }
 
     private JPanel addModulePanel (ViewController controller,
-                                  
+
                                    JTextArea textbox) {
 
         JPanel modulePanel = new ModulePanel(controller);
@@ -139,12 +136,13 @@ public class View extends JFrame {
     protected void changeModel (Model newModel) {
         myModel = newModel;
     }
+
     public void notifyObservers (String error) {
 
         for (Subject subject : subjects) {
             subject.notifyObservers(error);
         }
-        for (Updatable updateable: updatables){
+        for (Updatable updateable : updatables) {
             updateable.update();
         }
 
