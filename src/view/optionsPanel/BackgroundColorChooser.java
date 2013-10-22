@@ -35,7 +35,7 @@ public class BackgroundColorChooser extends JButton {
     private int createBackgroundSelector () {
         String[] possibilities = getIndexOptions();
         String choice = (String) JOptionPane.showInputDialog(
-                                                             null,                                                             
+                                                             null,
                                                              "Choose a color index",
                                                              "Background color chooser",
                                                              JOptionPane.PLAIN_MESSAGE,

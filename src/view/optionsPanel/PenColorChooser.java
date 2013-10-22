@@ -28,11 +28,11 @@ public class PenColorChooser extends JButton {
 
         });
     }
-    
+
     private int createPenSelector () {
         String[] possibilities = getIndexOptions();
         String choice = (String) JOptionPane.showInputDialog(
-                                                             null,                                                             
+                                                             null,
                                                              "Choose a color index",
                                                              "Pen color chooser",
                                                              JOptionPane.PLAIN_MESSAGE,

@@ -37,11 +37,11 @@ public class CanvasSubject implements Subject {
         Color bg = myCurrentModel.getBGColor();
         Integer penSize = myCurrentModel.getPenSize();
         String shape = myCurrentModel.getShape();
-        
 
         for (CanvasObserver observer : observers) {
             observer.update(error, activeTurtleList, turtleXMap,
-                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, stamps, pen, bg,
+                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, stamps, pen,
+                            bg,
                             penSize, shape);
         }
 
@@ -97,17 +97,16 @@ public class CanvasSubject implements Subject {
         return turtleVisibilityMap;
 
     }
-    
-    private ArrayList<String> getTurtleShape(){
+
+    private ArrayList<String> getTurtleShape () {
         ArrayList<Integer> activeTurtleList = getActiveTurtles();
         ArrayList<String> activeTurtleShapes = new ArrayList<String>();
         for (Integer ID : activeTurtleList) {
             activeTurtleShapes.add(myCurrentModel.getTurtleShape(ID));
         }
-        
+
         return activeTurtleShapes;
     }
-    
 
     public void addObservers (Canvas myCanvas) {
         observers.add(myCanvas);
