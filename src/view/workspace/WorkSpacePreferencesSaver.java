@@ -15,11 +15,9 @@ public class WorkSpacePreferencesSaver extends AbstractAction {
 
     private ViewController myController;
 
-
-
     private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
-    
+
     protected WorkSpacePreferencesSaver (ViewController controller) {
 
         super(Constants.SAVE_WORKSPACE_PREFERENCES);
@@ -31,30 +29,23 @@ public class WorkSpacePreferencesSaver extends AbstractAction {
 
         int result = INPUT_CHOOSER.showSaveDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
-                File file = INPUT_CHOOSER.getSelectedFile();
-                System.out.println(file);
-                
+            File file = INPUT_CHOOSER.getSelectedFile();
+            System.out.println(file);
 
-                
-                try {
-                    PrintStream out = new PrintStream(file);
-                    out.println("preferences");
-                    out.println("background " + 1);
-                    out.println("penIndex " + 1);
-                    out.println("turtleImage " + 1);
-                    out.close();
-                }
-                catch (FileNotFoundException e1) {
-                   
-                    e1.printStackTrace();
-                }
-              
-              
-      
-            
-               
+            try {
+                PrintStream out = new PrintStream(file);
+                out.println("preferences");
+                out.println("background " + 1);
+                out.println("penIndex " + 1);
+                out.println("turtleImage " + 1);
+                out.close();
+            }
+            catch (FileNotFoundException e1) {
+
+                e1.printStackTrace();
+            }
+
         }
-    
 
     }
 

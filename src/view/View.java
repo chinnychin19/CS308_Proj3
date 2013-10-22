@@ -14,12 +14,8 @@ import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
-import view.inputPanel.InputObserver;
 import view.inputPanel.InputPanel;
-import view.inputPanel.InputSubject;
-import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanel;
-import view.modulePanel.ModuleSubject;
 import view.optionsPanel.OptionsPanel;
 import view.workspace.WorkSpacePreferences;
 
@@ -33,8 +29,9 @@ public class View extends JFrame {
 
     private ViewController controller;
     private List<Subject> subjects = new ArrayList<Subject>();
+    private List<Updatable> updatables = new ArrayList<Updatable>();
 
-    private Model myCurrentModel;
+    // private Model myCurrentModel;
 
     /**
      * Constructor for View Class
@@ -44,7 +41,6 @@ public class View extends JFrame {
         Canvas myCanvas = new Canvas(controller);
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
-
 
         initializeDisplaySettings();
 
@@ -63,7 +59,7 @@ public class View extends JFrame {
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
         controller =
-                new ViewController( myModel, textbox, myCanvas, this);
+                new ViewController(myModel, textbox, myCanvas, this);
         JPanel modulePanel = addModulePanel(controller, textbox);
 
         addCanvas(myCanvas);
@@ -96,12 +92,13 @@ public class View extends JFrame {
     }
 
     private JPanel addInputPanel (
-                                  
+
                                   JTextArea textbox, ViewController controller) {
 
-        JPanel inputPanel = new InputPanel(textbox, controller);
-        InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
-        subjects.add(inputSubject);
+        JPanel inputPanel = new InputPanel(textbox, controller, myModel);
+        updatables.add((Updatable) inputPanel);
+        // InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
+        // subjects.add(inputSubject);
         return inputPanel;
     }
 
@@ -111,12 +108,13 @@ public class View extends JFrame {
     }
 
     private JPanel addModulePanel (ViewController controller,
-                                  
+
                                    JTextArea textbox) {
 
-        JPanel modulePanel = new ModulePanel(controller);
-        ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
-        subjects.add(myModuleSubject);
+        JPanel modulePanel = new ModulePanel(controller, myModel);
+        updatables.add((Updatable) modulePanel);
+        // ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
+        // subjects.add(myModuleSubject);
         return modulePanel;
     }
 
@@ -135,22 +133,29 @@ public class View extends JFrame {
 
     }
 
-    protected void changeModel (Model newModel) {
-        myModel = newModel;
-    }
+    // protected void changeModel (Model newModel) {
+    // myModel = newModel;
+    // }
+
     public void notifyObservers (String error) {
 
         for (Subject subject : subjects) {
             subject.notifyObservers(error);
         }
+        for (Updatable updateable : updatables) {
+            updateable.update();
+        }
 
     }
 
     public void changeCurrentModel (Model model) {
-        myCurrentModel = model;
-        for (Subject subject : subjects) {
-            subject.changeCurrentModel(myCurrentModel);
 
+        for (Subject subject : subjects) {
+            subject.changeCurrentModel(model);
+
+        }
+        for (Updatable updateable : updatables) {
+            updateable.changeModel(model);
         }
 
     }

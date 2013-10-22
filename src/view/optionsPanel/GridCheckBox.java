@@ -3,15 +3,12 @@ package view.optionsPanel;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JCheckBox;
-
 import view.ViewController;
-
 
 
 public class GridCheckBox extends JCheckBox {
 
     private ViewController myController;
-
 
     public GridCheckBox (ViewController controller) {
 

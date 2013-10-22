@@ -49,7 +49,7 @@ public interface Constants {
             "Choose a Work Space \n You are currently in Work Space ";
     public static final String NEW_WORKSPACE_MESSAGE =
             "A new work space has been created. You are now in work space ";
-    
+
     public static final String WRONG_PREF_FILE_MESSAGE = "Not a preference file";
     public static final String NOT_XML_MESSAGE = "Not an XML file";
 
