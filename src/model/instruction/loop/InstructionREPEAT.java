@@ -4,39 +4,47 @@ import java.util.List;
 import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
+import model.instruction.InstructionListNode;
 import model.instruction.error.ErrorInstruction;
 
 
 public class InstructionREPEAT extends InstructionLoop {
-    private boolean hasBadParamaters;
-
     public InstructionREPEAT (Instruction parent, Model m) {
         super(parent, m);
-        hasBadParamaters = false;
     }
 
     @Override
-    public void setParameters (String parameters) {
+    public int getNumWords () {
+        return 0;
+    }
+
+    @Override
+    public int getNumExpressions () {
+        return 1;
+    }
+
+    @Override
+    public int getNumLists () {
+        return 1;
+    }
+
+    @Override
+    public void processParameters (List<String> params) throws Exception {
         try {
-            // parameters will not be in brackets, it will just be an expression
-            parameters = parameters.trim(); // chop off potential white space
+            String parameters = params.get(0);
+            String commands = params.get(1);
             List<Instruction> paramNodes = getModel().getInterpreter().getInstructions(parameters);
-            // Parameters: variable, limit (end + 1)
+            // Parameter: end
             setEnd(((InstructionConstant) paramNodes.get(0).eval()).getValue());
             setStart(1); // hard coded for REPEAT
             setIncrement(1); // hard coded for REPEAT
             setVariable(":repcount");// hard coded for REPEAT
+            InstructionListNode instructionNode =
+                    new InstructionListNode(null, getModel(), commands);
+            addChild(instructionNode);
         }
         catch (Exception e) {
-            hasBadParamaters = true;
+            throw new Exception("Invalid parameters for REPEAT");
         }
     }
-
-    @Override
-    public Instruction eval () throws Exception {
-        if (hasBadParamaters) { return new ErrorInstruction("REPEAT loop had bad parameters",
-                                                            getModel()); }
-        return super.eval();
-    }
-
 }
