@@ -13,7 +13,7 @@ import model.instruction.error.ColorNotFound;
  * coordinates, its direction, whether or not its pen is down, whether or not it is visible, whether
  * or not it is active, a collection of its visible paths, a collection of its stamps, its ID, the
  * current instance of the model that it is being used by, the color and size of its pen, and the
- * index of the shape being used to portray it in the model.
+ * index of the shape being used to portray it in the model
  * 
  * @author Chinmay Patwardhan
  * @author Ken McAndrews
@@ -37,7 +37,7 @@ public class Turtle {
      * degrees, facing up. By default, a turtle will have its pen down, be visible, be active, and
      * have a shape index of 0. It initializes the turtle's pen color and size to the model's
      * current pen color and size. The constructor also creates new lists for the turtle's paths and
-     * stamps. The turtle also stores the model it is being used by.
+     * stamps. The turtle also stores the model it is being used by
      * 
      * @param id The ID of the turtle to be constructed
      * @param model The model instance that the turtle is being constructed in
@@ -256,7 +256,7 @@ public class Turtle {
 
     /**
      * Moves the turtle forward the given number of pixels from its current location using its
-     * current direction. If the turtle's pen is down, creates a new path on the turtle's route.
+     * current direction. If the turtle's pen is down, creates a new path on the turtle's route
      * 
      * @param pixels The number of pixels for the turtle to move forward
      * @return The number of pixels that the turtle has moved forward by
@@ -315,7 +315,7 @@ public class Turtle {
     /**
      * Rotates the turtle towards a specified x and y location. If new direction has less of an
      * angle than the original direction, rotates the turtle clockwise. If new direction has a
-     * greater angle than the original direction, rotates the turtle counterclockwise.
+     * greater angle than the original direction, rotates the turtle counterclockwise
      * 
      * @param x The x coordinate of the point to rotate the turtle towards
      * @param y The y coordinate of the point to rotate the turtle towards
@@ -366,7 +366,7 @@ public class Turtle {
 
     /**
      * Helper function to calculate the remainder of a given number divided by a given divisor. If
-     * the remainder is negative, converts to a positive remainder by adding the divisor.
+     * the remainder is negative, converts to a positive remainder by adding the divisor
      * 
      * @param num The number that is being divided
      * @param divisor The divisor to divide the number by
