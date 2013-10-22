@@ -31,6 +31,8 @@ public class View extends JFrame {
 
     private WorkSpacePreferences selector;
     private MasterSubject subject;
+    private ViewController controller;
+    private List<Subject> subjects = new ArrayList<Subject>();
 
     /**
      * Constructor for View Class
@@ -40,8 +42,6 @@ public class View extends JFrame {
         Canvas myCanvas = new Canvas();
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
-
-        List<Subject> subjects = new ArrayList<Subject>();
 
         subject = new MasterSubject(myModel);
         subjects.add(subject);
@@ -63,8 +63,8 @@ public class View extends JFrame {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
-        ViewController controller =
-                new ViewController(subject, myModel, textbox, myCanvas, subjects);
+        controller =
+                new ViewController(subject, myModel, textbox, myCanvas, this);
         JPanel modulePanel = addModulePanel(controller, subject, textbox);
 
         addCanvas(myCanvas, subject);

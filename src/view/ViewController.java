@@ -16,20 +16,20 @@ public class ViewController {
     private Canvas myCanvas;
     private int myCurrentWorkSpace = 1;
     private List<Model> myModels = new ArrayList<Model>();
-    private List<Subject> mySubjects = new ArrayList<Subject>();
+    private View myView;
 
     public ViewController (MasterSubject subject,
                            Model model,
                            JTextArea textbox,
                            Canvas canvas,
-                           List<Subject> subjects) {
-
+                           View view) {
+        myView = view;
         myTextbox = textbox;
         mySubject = subject;
         myCurrentModel = model;
         myCanvas = canvas;
 
-        mySubjects = subjects;
+        // mySubjects = subjects;
         myModels.add(model);
 
     }
@@ -87,17 +87,9 @@ public class ViewController {
 
     }
 
-    /**
-     * @return the number of currently defined Workspaces which
-     *         is determined by the number of Models we have defined
-     */
     public int getNumberOfWorkspaces () {
 
         return myModels.size();
-    }
-
-    private Model getCurrentModel () {
-        return myModels.get(myCurrentWorkSpace);
     }
 
     /**
@@ -117,6 +109,7 @@ public class ViewController {
             makeNewWorkSpace();
 
         }
+        mySubject.notifyObservers("");
 
     }
 
@@ -129,6 +122,8 @@ public class ViewController {
 
         Integer choiceVal = Integer.parseInt(choice);
 
+        notifyNewModel(choiceVal - 1);
+
         String message = Constants.CHANGED_WORKSPACE_MESSAGE + choiceVal;
         displayMessage(message);
         myCurrentWorkSpace = choiceVal;
@@ -139,12 +134,33 @@ public class ViewController {
      */
     private void makeNewWorkSpace () {
         myModels.add(new Model());
-
+        notifyNewModel(myModels.size() - 1);
         String message =
-                Constants.NEW_WORKSPACE_MESSAGE +
+                Constants.NEW_WORKSPACE_MESSAGE + 
                         myModels.size();
         displayMessage(message);
         myCurrentWorkSpace = myModels.size();
+    }
+
+    /**
+     * Notifies all Controllers and Subjects of new Model
+     * being used
+     * 
+     * @param modelIndex - index of the model in current workspace
+     */
+    private void notifyNewModel (int modelIndex) {
+        changeCurrentModel(modelIndex);
+        changeSubjectModel(modelIndex);
+    }
+
+    private void changeSubjectModel (int modelIndex) {
+        mySubject.changeCurrentModel(myModels.get(modelIndex));
+
+    }
+
+    private void changeCurrentModel (int modelIndex) {
+        myCurrentModel = myModels.get(modelIndex);
+
     }
 
     /**

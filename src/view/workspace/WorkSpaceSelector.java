@@ -39,17 +39,21 @@ public class WorkSpaceSelector extends AbstractAction {
      */
     private String createAndDisplaySelector () {
         String[] possibilities = createWorkSpaceOptions();
-        String message =
-                Constants.WORK_SPACE_MESSAGE +
-                        myController.getCurrentWorkSpace();
-        String choice = (String) JOptionPane.showInputDialog(
-                                                             null,
-                                                             message,
-                                                             Constants.WORK_SPACE_TITLE,
-                                                             JOptionPane.PLAIN_MESSAGE,
-                                                             null,
-                                                             possibilities,
-                                                             "1");
+        String title =
+                Constants.WORK_SPACE_MESSAGE;
+
+        String choice =
+                (String) JOptionPane.showInputDialog(
+                                                     null,
+
+                                                     Constants.CHANGED_WORKSPACE_MESSAGE +
+                                                             myController.getCurrentWorkSpace(),
+                                                     title
+                                                     ,
+                                                     JOptionPane.PLAIN_MESSAGE,
+                                                     null,
+                                                     possibilities,
+                                                     "1");
         return choice;
     }
 

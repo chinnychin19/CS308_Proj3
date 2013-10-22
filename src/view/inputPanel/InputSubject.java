@@ -30,7 +30,7 @@ public class InputSubject implements Subject {
 
     @Override
     public void changeCurrentModel (Model model) {
-        // TODO Auto-generated method stub
+        myCurrentModel = model;
 
     }
 
