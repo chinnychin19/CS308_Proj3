@@ -46,7 +46,7 @@ public interface Constants {
     public static final String WORK_SPACE_MESSAGE = "Choose a Work Space";
     public static final String WORK_SPACE_TITLE = "Work Space";
     public static final String CHANGED_WORKSPACE_MESSAGE =
-            "You are now in work space \n You are currently in Work Space ";
+            "Choose a Work Space \n You are currently in Work Space ";
     public static final String NEW_WORKSPACE_MESSAGE =
             "A new work space has been created. You are now in work space ";
     

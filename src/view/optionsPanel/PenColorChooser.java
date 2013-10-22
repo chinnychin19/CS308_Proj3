@@ -8,13 +8,14 @@ import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import jgame.JGColor;
 import view.View;
+import view.ViewController;
 import view.display.Canvas;
 
 
 public class PenColorChooser extends JButton {
-    OptionsPanelController myController;
+    ViewController myController;
 
-    public PenColorChooser (final OptionsPanelController controller) {
+    public PenColorChooser (final ViewController controller) {
         super("Change Pen Color");
         myController = controller;
 

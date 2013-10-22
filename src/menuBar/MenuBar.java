@@ -9,16 +9,22 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+
+import view.ViewController;
+
 import view.workspace.WorkSpacePreferenceParser;
+
 import view.workspace.WorkSpacePreferences;
 
 
 public class MenuBar extends JMenuBar {
-    private MenuBarController myController;
+
+    private ViewController myController;
+
     private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
 
-    public MenuBar (MenuBarController controller) {
+    public MenuBar (ViewController controller) {
         myController = controller;
         add(fileMenu());
         add(helpMenu());

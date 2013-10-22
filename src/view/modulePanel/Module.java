@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import view.Controller;
+import view.ViewController;
 
 
 /**
@@ -25,13 +25,13 @@ public class Module extends JPanel {
     protected DefaultListModel<ModuleData> myListModel;
 
     private String MODULE_NAME;
-    private ModulePanelController myController;
+    private ViewController myController;
 
-    protected Module (String name, Controller controller) {
+    protected Module (String name, ViewController controller) {
 
         super();
         setModuleName();
-        myController = (ModulePanelController) controller;
+        myController = controller;
 
         setPreferredSize(new Dimension(DISPLAY_WIDTH, DISPLAY_HEIGHT));
         MODULE_NAME = name;

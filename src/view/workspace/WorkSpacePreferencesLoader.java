@@ -6,14 +6,18 @@ import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import view.Constants;
+import view.ViewController;
 
 
 public class WorkSpacePreferencesLoader extends AbstractAction {
-    private WorkSpacePreferencesController myController;
+
+    private ViewController myController;
+
     private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
 
-    protected WorkSpacePreferencesLoader (WorkSpacePreferencesController controller) {
+
+    protected WorkSpacePreferencesLoader (ViewController controller) {
         super(Constants.LOAD_WORKSPACE_PREFERENCES);
         myController = controller;
     }

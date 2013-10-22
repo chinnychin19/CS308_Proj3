@@ -2,17 +2,18 @@ package menuBar;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
+import view.ViewController;
 
 
 @SuppressWarnings("serial")
 public class LanguageOption extends AbstractAction {
     private String myLanguageValue;
-    private MenuBarController myController;
+    private ViewController myController;
 
-    protected LanguageOption (String value, MenuBarController controller) {
+    protected LanguageOption (String value, ViewController controller) {
         super(value);
         myLanguageValue = value;
-        myController = controller;
+        myController = myController;
     }
 
     @Override
