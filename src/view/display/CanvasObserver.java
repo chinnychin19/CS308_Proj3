@@ -22,5 +22,4 @@ public interface CanvasObserver {
                         Integer penSize,
                         String shape);
 
-
 }

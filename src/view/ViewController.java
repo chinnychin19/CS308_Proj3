@@ -25,7 +25,7 @@ public class ViewController {
                            View view) {
         myView = view;
         myTextbox = textbox;
-      
+
         myCurrentModel = model;
         myCanvas = canvas;
 
@@ -136,7 +136,7 @@ public class ViewController {
         myModels.add(new Model());
         notifyNewModel(myModels.size() - 1);
         String message =
-                Constants.NEW_WORKSPACE_MESSAGE + 
+                Constants.NEW_WORKSPACE_MESSAGE +
                         myModels.size();
         displayMessage(message);
         myCurrentWorkSpace = myModels.size();
@@ -200,29 +200,26 @@ public class ViewController {
         return myCurrentModel.getAvailableLanguages();
     }
 
-
-    
-    public void loadFile(String fileName){
+    public void loadFile (String fileName) {
         myCurrentModel.readLibrary(fileName);
         myView.notifyObservers("");
     }
-    
-    public void saveFile(String fileName){
+
+    public void saveFile (String fileName) {
         myCurrentModel.saveLibrary(fileName);
     }
 
-    
     public void setPenColor (int colorIndex) {
         myCurrentModel.setPenColor(colorIndex);
         myView.notifyObservers("");
     }
 
     public int getNumberOfColors () {
-     
+
         return myCurrentModel.getAvailableColors().size();
     }
 
-    public void setHighlights(boolean b){
+    public void setHighlights (boolean b) {
         myCanvas.setHighlights(b);
         myView.notifyObservers("");
     }
@@ -230,9 +227,7 @@ public class ViewController {
     public void changeImage (int shapeIndex) {
         myCurrentModel.setShape(shapeIndex);
         myView.notifyObservers("");
-        
-        
+
     }
-    
 
 }
