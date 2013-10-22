@@ -173,4 +173,8 @@ public class WorkSpacePreferencesController extends Controller {
         getCurrentModel().setShape(i);
         mySubject.notifyObservers("");
     }
+    
+//    protected int getBGColor(int i){
+//        //return getCurrentModel().getBGColor();
+//    }
 }

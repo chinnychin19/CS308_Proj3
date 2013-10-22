@@ -32,5 +32,10 @@ public class OptionsPanelController extends Controller {
         mySubject.notifyObservers("");
 
     }
+    
+    public void setHighlights(boolean b){
+        myCanvas.setHighlights(b);
+        mySubject.notifyObservers("");
+    }
 
 }

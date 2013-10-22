@@ -1,6 +1,7 @@
 package view.workspace;
 
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -22,7 +23,12 @@ public class WorkSpacePreferencesLoader extends AbstractAction {
         int loadObject = INPUT_CHOOSER.showOpenDialog(null);
         if (loadObject == JFileChooser.APPROVE_OPTION) {
             WorkSpacePreferenceParser p =new WorkSpacePreferenceParser(myController);
-            p.loadPreferences(INPUT_CHOOSER.getSelectedFile());
+            try {
+                p.loadPreferences(INPUT_CHOOSER.getSelectedFile());
+            }
+            catch (IOException e1) {
+                e1.printStackTrace();
+            }
         }
 
     }

@@ -50,6 +50,7 @@ public class MenuBar extends JMenuBar {
                 }
             }
         });
+        
         result.addSeparator();
         JMenu submenu = new JMenu("Select Language");
         Collection<String> languages = myController.getLanguages();

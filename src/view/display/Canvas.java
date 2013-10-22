@@ -28,7 +28,7 @@ public class Canvas extends JGEngine implements CanvasObserver {
     private boolean myGridStatus = false;
     private boolean myTurtleStatus = true;
     private boolean myMouseClicked = false;
-    private int myPenSize = 1;
+    private boolean myHighlights = false;
 
     // IMPLEMENTATION 2
     private Map<Integer, TurtleSprite> myTurtleMap = new HashMap<Integer, TurtleSprite>();
@@ -95,9 +95,11 @@ public class Canvas extends JGEngine implements CanvasObserver {
             changeTurtleImage("Turtle2.gif");
         }
 
-        for (int ID : myActiveTurtleIDs) {
-            if (!myTurtleMap.get(ID).isSuspended()) {
-                highlightTurtle(ID);
+        if (myHighlights) {
+            for (int ID : myActiveTurtleIDs) {
+                if (!myTurtleMap.get(ID).isSuspended()) {
+                    highlightTurtle(ID);
+                }
             }
         }
 
@@ -412,5 +414,9 @@ public class Canvas extends JGEngine implements CanvasObserver {
 
     public void setTurtleStatus (boolean b) {
         myTurtleStatus = b;
+    }
+    
+    public void setHighlights (boolean b){
+        myHighlights = b;
     }
 }

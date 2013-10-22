@@ -1,7 +1,12 @@
 package view.workspace;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Scanner;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
@@ -17,101 +22,50 @@ import view.Constants;
 
 public class WorkSpacePreferenceParser {
     private WorkSpacePreferencesController myController;
-    
+
     public WorkSpacePreferenceParser (WorkSpacePreferencesController controller) {
-        myController=controller;
+        myController = controller;
     }
 
-    public void loadPreferences (File prefFile) {
-        String f = prefFile.toString();
-        System.out.println(f.substring(f.length()-4, f.length()));
+    public void loadPreferences (File prefFile) throws IOException {
 
-        if (!f.substring(f.length()-4, f.length()).equals(".xml")){
-            JOptionPane.showMessageDialog(null, Constants.NOT_XML_MESSAGE);
-            return;
-        }
-        
-        DocumentBuilder dBuilder = null;
         try {
-            dBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        }
-        catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-
-        Document doc = null;
-        try {
-            doc = dBuilder.parse(prefFile);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        catch (SAXException e) {
-            e.printStackTrace();
-        }
-             
-        if (doc.hasChildNodes()) {
-            String name =doc.getChildNodes().item(0).getNodeName();
+            BufferedReader br = new BufferedReader(new FileReader(prefFile));
+            String sCurrentLine = br.readLine();
             
-            if (name.equals("preferences")){
-                parse(doc.getChildNodes());
-            }
-                
-            else{
+            if (!sCurrentLine.equals("preferences")) {
                 JOptionPane.showMessageDialog(null, Constants.WRONG_PREF_FILE_MESSAGE);
             }
+
+            while ((sCurrentLine = br.readLine()) != null) {
+                  String[] s = sCurrentLine.split(" ");
+                  if (s[0].equals("background") && !s[1].equals(null)){
+                      myController.setBGColor(Integer.parseInt(s[1]));
+                  }
+                  if (s[0].equals("penIndex") && !s[1].equals(null)){
+                      myController.setPenColor(Integer.parseInt(s[1]));
+                  }
+                  if (s[0].equals("turtleImage") && !s[1].equals(null)){
+                      myController.changeImage(Integer.parseInt(s[1]));
+                  }               
+                  
+            }
+            br.close();
+        }
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
 
     }
 
     private void parse (NodeList childNodes) {
 
-        for (int count = 0; count < childNodes.getLength(); count++) {
-            Node tempNode = childNodes.item(count);
-
-            if (tempNode.getNodeType() == Node.ELEMENT_NODE) {
-                String nodeName = tempNode.getNodeName();
-
-                if (tempNode.hasAttributes()) {
-                    NamedNodeMap nodeMap = tempNode.getAttributes();
-                    Node node = nodeMap.item(0);
-                    
-                    if ("background".equals(nodeName)) {
-                        myController.setBGColor(Integer.parseInt(node.getNodeValue()));
-                    }
-                    
-                    if ("pen".equals(nodeName)) {
-                        myController.setPenColor(Integer.parseInt(node.getNodeValue()));
-                    }
-                    
-                    if ("turtles".equals(nodeName)){
-                        //TODO: myController.METHOD(Integer.parseInt(node.getNodeValue()));
-                    }
-                    
-                    if ("file".equals(nodeName)){
-                        //myController.readFile(node.getNodeValue());
-                    }
-                    
-                    if ("turtleImage".equals(nodeName)){
-                        myController.changeImage(Integer.parseInt(node.getNodeValue()));
-                    }
-                    
-
-                }
-
-            }
-
-            if (tempNode.hasChildNodes()) {
-                parse(tempNode.getChildNodes());
-            }
-        }
-
     }
 
-//    public static void main (String[] args) {
-//        WorkSpacePreferenceParser p = new WorkSpacePreferenceParser();
-//        File f = new File("pref.xml");
-//        p.loadPreferences(f);
-//    }
+    // public static void main (String[] args) {
+    // WorkSpacePreferenceParser p = new WorkSpacePreferenceParser();
+    // File f = new File("pref.xml");
+    // p.loadPreferences(f);
+    // }
 
 }
