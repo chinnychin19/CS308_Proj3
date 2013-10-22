@@ -160,16 +160,6 @@ public class Model {
     }
 
     /**
-     * Puts a command into the command cache with a given command name and command
-     * 
-     * @param commandName Name of the command to be stored
-     * @param command Actual command to be stored that is called by the given name
-     */
-    public void putCommand (String commandName, UserCommand command) {
-        myCommandCache.put(commandName, command);
-    }
-
-    /**
      * Clears the commands in the command cache
      */
     public void clearCommands () {
