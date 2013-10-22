@@ -49,11 +49,14 @@ public interface Constants {
             "Choose a Work Space \n You are currently in Work Space ";
     public static final String NEW_WORKSPACE_MESSAGE =
             "A new work space has been created. You are now in work space ";
+    
+    public static final String WRONG_PREF_FILE_MESSAGE = "Not a preference file";
+    public static final String NOT_XML_MESSAGE = "Not an XML file";
 
     public static final String CHANGE_WORKSPACE_NAME = "Change Workspace";
     public static final String WORKSPACE_PREFERENCES_NAME = "Workspace Preferences";
     public static final String SAVE_WORKSPACE_PREFERENCES = "Save Workspace Preferences";
-    public static final String LOAD_WORKSPACE_PREFERENCES = "Load Workspace Prefernces";
+    public static final String LOAD_WORKSPACE_PREFERENCES = "Load Workspace Preferences";
 
     public static final String SELECT_A_VARIABLE_MESSAGE = "Select a variable";
     public static final int TEXTBOX_COLUMNS = 15;

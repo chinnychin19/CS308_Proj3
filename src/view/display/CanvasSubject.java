@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import model.Model;
 import model.Path;
+import model.Stamp;
 import view.Subject;
 
 
@@ -31,16 +32,17 @@ public class CanvasSubject implements Subject {
         Map<Integer, Double> turtleAngleMap = getTurtleAngle();
         Map<Integer, Boolean> turtleVisibilityMap = getTurtleVisibility();
         Collection<Path> paths = myCurrentModel.getTurtlePaths();
+        Collection<Stamp> stamps = myCurrentModel.getTurtleStamps();
         Color pen = myCurrentModel.getPenColor();
         Color bg = myCurrentModel.getBGColor();
-        Boolean gridStatus = true; // myCurrentModel.getGridStatus();
-        Boolean turtleStatus = true; // myCurrentModel.getTurtleStatus();
         Integer penSize = myCurrentModel.getPenSize();
+        String shape = myCurrentModel.getShape();
+        
 
         for (CanvasObserver observer : observers) {
             observer.update(error, activeTurtleList, turtleXMap,
-                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, pen, bg,
-                            gridStatus, turtleStatus, penSize);
+                            turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, stamps, pen, bg,
+                            penSize, shape);
         }
 
     }
@@ -95,6 +97,17 @@ public class CanvasSubject implements Subject {
         return turtleVisibilityMap;
 
     }
+    
+    private ArrayList<String> getTurtleShape(){
+        ArrayList<Integer> activeTurtleList = getActiveTurtles();
+        ArrayList<String> activeTurtleShapes = new ArrayList<String>();
+        for (Integer ID : activeTurtleList) {
+            activeTurtleShapes.add(myCurrentModel.getTurtleShape(ID));
+        }
+        
+        return activeTurtleShapes;
+    }
+    
 
     public void addObservers (Canvas myCanvas) {
         observers.add(myCanvas);

@@ -200,4 +200,39 @@ public class ViewController {
         return myCurrentModel.getAvailableLanguages();
     }
 
+
+    
+    public void loadFile(String fileName){
+        myCurrentModel.readLibrary(fileName);
+        myView.notifyObservers("");
+    }
+    
+    public void saveFile(String fileName){
+        myCurrentModel.saveLibrary(fileName);
+    }
+
+    
+    public void setPenColor (int colorIndex) {
+        myCurrentModel.setPenColor(colorIndex);
+        myView.notifyObservers("");
+    }
+
+    public int getNumberOfColors () {
+     
+        return myCurrentModel.getAvailableColors().size();
+    }
+
+    public void setHighlights(boolean b){
+        myCanvas.setHighlights(b);
+        myView.notifyObservers("");
+    }
+
+    public void changeImage (int shapeIndex) {
+        myCurrentModel.setShape(shapeIndex);
+        myView.notifyObservers("");
+        
+        
+    }
+    
+
 }

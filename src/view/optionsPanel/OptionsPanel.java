@@ -17,9 +17,9 @@ public class OptionsPanel extends JPanel {
 
         super();
         this.setLayout(new GridLayout(1, 0));
-        // NEED BACKEND TO SUPPORT THE COMMENDTED ITEMS
         this.add(new StatusCheckBox(controller));
         this.add(new GridCheckBox(controller));
+        this.add(new HighlightCheckBox(controller));
         this.add(new PenColorChooser(controller));
         this.add(new BackgroundColorChooser(controller));
         // this.add(imageChooserButton);

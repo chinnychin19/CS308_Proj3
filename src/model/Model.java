@@ -324,6 +324,9 @@ public class Model {
         myCommandHistory.add("SETPS " + pixels);
         if (pixels < 0) { return "Pen size must be non-negative"; }
         myPenSize = pixels;
+        for (Turtle t : getActiveTurtles()) {
+            t.setPenSize(pixels);
+        }
         return "";
     }
 
@@ -342,6 +345,7 @@ public class Model {
     public String setShape (int shapeIndex) {
         myCommandHistory.add("SETSH " + shapeIndex);
         if (shapeIndex < 0 || shapeIndex >= myAvailableShapes.size()) { return "Index is out of range"; }
+        myShapeIndex = shapeIndex;
         for (Turtle t : getActiveTurtles()) {
             t.setShape(shapeIndex);
         }
