@@ -38,6 +38,7 @@ public class CommandCache {
         UserCommand ret = myMap.get(commandName);
         ret.getChildren().clear();
         ret.addChild(ret.getRootNode());
+        // TODO: should return a COPY() of the command. VERY IMPORTANT
         return ret;
     }
 

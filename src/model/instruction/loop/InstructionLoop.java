@@ -18,8 +18,6 @@ public abstract class InstructionLoop extends Instruction implements ComplexPara
         myIncrement = 1;
     }
 
-    public abstract void setParameters (String parameters) throws Exception;
-
     @Override
     public Instruction eval () throws Exception {
         Instruction ret = null;
