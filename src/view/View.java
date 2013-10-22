@@ -33,7 +33,7 @@ public class View extends JFrame {
 
     private ViewController controller;
     private List<Subject> subjects = new ArrayList<Subject>();
-
+    private List<Updatable> updatables = new ArrayList<Updatable>();
     private Model myCurrentModel;
 
     /**
@@ -99,9 +99,10 @@ public class View extends JFrame {
                                   
                                   JTextArea textbox, ViewController controller) {
 
-        JPanel inputPanel = new InputPanel(textbox, controller);
-        InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
-        subjects.add(inputSubject);
+        JPanel inputPanel = new InputPanel(textbox, controller,myModel);
+        updatables.add((Updatable) inputPanel);
+//        InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
+//        subjects.add(inputSubject);
         return inputPanel;
     }
 
@@ -142,6 +143,9 @@ public class View extends JFrame {
 
         for (Subject subject : subjects) {
             subject.notifyObservers(error);
+        }
+        for (Updatable updateable: updatables){
+            updateable.update();
         }
 
     }
