@@ -19,6 +19,11 @@ public class OptionsPanelController extends Controller {
         myCurrentModel.setBGColor(colorIndex);
         mySubject.notifyObservers("");
     }
+    
+    protected void setPenColor (int colorIndex) {
+        myCurrentModel.setPenColor(colorIndex);
+        mySubject.notifyObservers("");
+    }
 
     public void setGrid (boolean b) {
         myCanvas.setGridStatus(b);
@@ -36,6 +41,10 @@ public class OptionsPanelController extends Controller {
     public void setHighlights(boolean b){
         myCanvas.setHighlights(b);
         mySubject.notifyObservers("");
+    }
+    
+    public int getNumberOfColors(){
+        return myCurrentModel.getAvailableColors().size();
     }
 
 }
