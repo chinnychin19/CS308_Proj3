@@ -15,6 +15,22 @@ import model.instruction.command.UserCommand;
 import model.instruction.error.FileNotFound;
 
 
+/**
+ * 
+ * Model class that keeps track of all aspects of a SLogo environment. This is the API that
+ * interfaces with the view. It keeps track of the interpreter, the command cache, the variable
+ * cache, the turtles, the command history, the instruction factory that creates new instruction
+ * objects, the current language, the current background color, the current pen color, the current
+ * pen size, the current available colors, the current available shapes, the current available
+ * languages, and the current shape index. It contains public methods that the view uses to act upon
+ * the various aspects of the SLogo environment such as turtles, commands, and variables while
+ * protecting these aspects from the view.
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
+
 public class Model {
     private Interpreter myInterpreter;
     private CommandCache myCommandCache;
@@ -31,6 +47,9 @@ public class Model {
     private List<String> myAvailableLanguages;
     private int myShapeIndex;
 
+    /**
+     * 
+     */
     public Model () {
         initializeColors();
         initializeShapes();
@@ -43,7 +62,7 @@ public class Model {
         myCommandHistory = new CommandHistory();
         myInstructionFactory = new InstructionFactory(this);
         myLanguage = "English";
-        myPenSize = 5;
+        myPenSize = 1;
         myShapeIndex = 0;
     }
 
@@ -350,6 +369,18 @@ public class Model {
             t.setShape(shapeIndex);
         }
         return "";
+    }
+
+    public int getBGColorIndex () {
+        return myBGColorIndex;
+    }
+
+    public int getPenColorIndex () {
+        return myPenColorIndex;
+    }
+
+    public int getShapeIndex () {
+        return myShapeIndex;
     }
 
     public List<String> getAvailableShapes () {
