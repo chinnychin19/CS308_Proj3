@@ -48,10 +48,7 @@ public class CanvasSubject implements Subject {
     }
 
     private ArrayList<Integer> getActiveTurtles () {
-
-        ArrayList<Integer> activeTurtleList = new ArrayList<Integer>(); // myModel.getActiveTurtleIDs();
-        activeTurtleList.add(1);
-        return activeTurtleList;
+        return (ArrayList<Integer>) myCurrentModel.getActiveTurtleIDs();
     }
 
     private Map<Integer, Double> getTurtleX () {
