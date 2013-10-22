@@ -1,8 +1,10 @@
 package model.instruction.conditional;
 
+import java.util.List;
 import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
+import model.instruction.InstructionListNode;
 
 
 public class InstructionIFELSE extends InstructionConditional {
@@ -31,5 +33,20 @@ public class InstructionIFELSE extends InstructionConditional {
     @Override
     public int getNumLists () {
         return 2;
+    }
+
+    @Override
+    public void processParameters (List<String> params) throws Exception {
+        String condition = params.get(0);
+        String commandsIf = params.get(1);
+        String commandsElse = params.get(2);
+        List<Instruction> condList = getModel().getInterpreter().getInstructions(condition);
+        InstructionListNode commListIf =
+                new InstructionListNode(getParent(), getModel(), commandsIf);
+        InstructionListNode commListElse =
+                new InstructionListNode(getParent(), getModel(), commandsElse);
+        addChild(condList.get(0));
+        addChild(commListIf);
+        addChild(commListElse);
     }
 }

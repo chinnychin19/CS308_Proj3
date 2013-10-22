@@ -27,21 +27,19 @@ public class Interpreter {
         input = input.replaceAll("\\s+", " "); // all white space becames a ' ' (space character)
         input = input.trim();
         if (input.isEmpty()) { return ""; }
-        List<Instruction> instructions = new ArrayList<Instruction>();
         Parser parser = new Parser(input, myModel);
         String ret = "";
         while (parser.hasNext()) {
             try {
                 List<Instruction> list = getInstructions(parser.nextExpression());
-                instructions.addAll(list);
-            }
-            catch (Exception e) {
-                ret = ret + e.getMessage() + "\n";
-            }
-        }
-        for (Instruction instr : instructions) {
-            try {
-                instr.eval();
+                for (Instruction instr : list) {
+                    try {
+                        instr.eval();
+                    }
+                    catch (Exception e) {
+                        ret = ret + e.getMessage() + "\n";
+                    }
+                }
             }
             catch (Exception e) {
                 ret = ret + e.getMessage() + "\n";
@@ -58,105 +56,20 @@ public class Interpreter {
         Instruction cur = root;
         while (parser.hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
-                if (cur instanceof InstructionLoop) {
-                    if (cur instanceof InstructionREPEAT) {
-                        String parameters = parser.nextExpression(); // not enclosed in brackets
-                        ((InstructionLoop) cur).setParameters(parameters);
+                if (cur instanceof ComplexParameterInstruction) {
+                    ComplexParameterInstruction complexCur = (ComplexParameterInstruction) cur;
+                    List<String> params = new ArrayList<String>();
+                    for (int i = 0; i < complexCur.getNumWords(); i++) {
+                        params.add(parser.nextWord());
                     }
-                    else {
-                        String parameters = parser.nextList(); // should be enclosed in brackets
-                        ((InstructionLoop) cur).setParameters(parameters);
+                    for (int i = 0; i < complexCur.getNumExpressions(); i++) {
+                        params.add(parser.nextExpression());
                     }
-                    String commandsInLoop = parser.nextList();
-                    commandsInLoop = removeBrackets(commandsInLoop);
-                    List<Instruction> listCommands = getInstructions(commandsInLoop);
-                    InstructionListNode node = new InstructionListNode(cur, myModel);
-                    for (Instruction instr : listCommands) {
-                        node.addChild(instr); // add all instructions to the list
+                    for (int i = 0; i < complexCur.getNumLists(); i++) {
+                        params.add(removeBrackets(parser.nextList()));
+                        // params must be stripped of outside brackets
                     }
-                    cur.addChild(node);
-                }
-                else if (cur instanceof InstructionConditional) {
-                    String strCondition = parser.nextExpression();
-                    cur.addChild(getInstructions(strCondition).get(0));
-                    int numLists = (cur instanceof InstructionIF) ? 1 : 2;
-                    for (int listIndex = 0; listIndex < numLists; listIndex++) {
-                        String commandsInLoop = parser.nextList();
-                        commandsInLoop = removeBrackets(commandsInLoop);
-                        List<Instruction> listCommands = getInstructions(commandsInLoop);
-                        InstructionListNode node = new InstructionListNode(cur, myModel);
-                        for (Instruction instr : listCommands) {
-                            node.addChild(instr); // add all instructions to the list
-                        }
-                        cur.addChild(node);
-                    }
-                }
-                else if (cur instanceof InstructionTO) {
-                    String name = parser.nextWord();
-                    String params = parser.nextList();
-                    String commands = parser.nextList();
-                    cur.addChild(new InstructionString(name, cur, myModel));
-                    cur.addChild(new InstructionString(params, cur, myModel));
-                    cur.addChild(new InstructionString(commands, cur, myModel));
-                    try {
-                        cur.eval();
-                    }
-                    catch (Exception e) {
-                        // need to return the current list, plus an error node
-                        instructions.add(new ErrorInstruction("Error in the TO command", myModel));
-                        return instructions;
-                    }
-                }
-                else if (cur instanceof UserCommand) {
-                    List<String> paramNames = ((UserCommand) cur).getParamNames();
-                    for (int i = 0; i < paramNames.size(); i++) {
-                        cur.addChild(new InstructionVariable(paramNames.get(i), cur, myModel));
-                        String param = parser.nextWord();
-                        myModel.getVariableCache().put(paramNames.get(i),
-                                                       getParamValue(param));
-                    }
-                }
-                else if (cur instanceof InstructionTELL) {
-                    String idList = parser.nextList();
-                    idList = removeBrackets(idList);
-                    List<Instruction> parameters = getInstructions(idList);
-                    for (Instruction child : parameters) {
-                        cur.addChild(child);
-                    }
-                    cur = cur.getParent();
-                }
-                else if (cur instanceof InstructionASK) {
-                    String idList = parser.nextList();
-                    idList = removeBrackets(idList);
-                    List<Instruction> parameters = getInstructions(idList);
-                    for (Instruction child : parameters) {
-                        cur.addChild(child);
-                    }
-                    String commandList = parser.nextList();
-                    commandList = removeBrackets(commandList);
-                    List<Instruction> commands = getInstructions(commandList);
-                    InstructionListNode commandsNode = new InstructionListNode(cur, myModel);
-                    for (Instruction child : commands) {
-                        commandsNode.addChild(child);
-                    }
-                    cur.addChild(commandsNode);
-                    cur = cur.getParent();
-                }
-                else if (cur instanceof InstructionASKWITH) {
-                    String conditionList = parser.nextList();
-                    conditionList = removeBrackets(conditionList);
-                    List<Instruction> conditions = getInstructions(conditionList);
-                    if (conditions.size() != 1) { throw new Exception(
-                                                                      "Only one condition should be provided in ASKWITH"); }
-                    cur.addChild(conditions.get(0)); // the only condition
-                    String commandList = parser.nextList();
-                    commandList = removeBrackets(commandList);
-                    List<Instruction> commands = getInstructions(commandList);
-                    InstructionListNode commandsNode = new InstructionListNode(cur, myModel);
-                    for (Instruction child : commands) {
-                        commandsNode.addChild(child);
-                    }
-                    cur.addChild(commandsNode);
+                    complexCur.processParameters(params);
                     cur = cur.getParent();
                 }
                 else { // Normal instruction or multi parameter command
@@ -201,7 +114,10 @@ public class Interpreter {
         return myModel.getVariableCache().get(paramString);
     }
 
-    private static String removeBrackets (String s) {
-        return s.substring(1, s.length() - 1).trim();
+    private static String removeBrackets (String s) throws Exception {
+        s = s.trim();
+        if (!s.startsWith("[") || !s.endsWith("]")) { throw new Exception(
+                                                                          "Expected a bracket-enclosed list."); }
+        return s.substring(1, s.length() - 1);
     }
 }

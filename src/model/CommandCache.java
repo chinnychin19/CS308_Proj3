@@ -13,7 +13,8 @@ public class CommandCache {
         myMap = new HashMap<String, UserCommand>();
     }
 
-    public UserCommand get (String key) {
+    public UserCommand get (String key) { // TODO: should return a copy of the command. VERY
+                                          // IMPORTANT
         key = key.toUpperCase();
         if (!myMap.containsKey(key)) { return null; }
         // delete previous command parameters before returning, but maintain root command node

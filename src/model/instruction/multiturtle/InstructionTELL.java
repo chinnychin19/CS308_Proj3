@@ -1,5 +1,6 @@
 package model.instruction.multiturtle;
 
+import java.util.List;
 import model.Model;
 import model.Turtle;
 import model.instruction.ComplexParameterInstruction;
@@ -39,6 +40,15 @@ public class InstructionTELL extends Instruction implements ComplexParameterInst
     @Override
     public int getNumWords () {
         return 0;
+    }
+
+    @Override
+    public void processParameters (List<String> params) throws Exception {
+        String idList = params.get(0);
+        List<Instruction> parameters = getModel().getInterpreter().getInstructions(idList);
+        for (Instruction child : parameters) {
+            addChild(child);
+        }
     }
 
 }

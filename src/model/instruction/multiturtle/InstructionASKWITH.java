@@ -1,6 +1,7 @@
 package model.instruction.multiturtle;
 
 import java.util.Collection;
+import java.util.List;
 import model.Model;
 import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
@@ -60,5 +61,17 @@ public class InstructionASKWITH extends Instruction implements ComplexParameterI
     @Override
     public int getNumWords () {
         return 0;
+    }
+
+    @Override
+    public void processParameters (List<String> params) throws Exception {
+        String condition = params.get(0);
+        String commands = params.get(1);
+        List<Instruction> conditions = getModel().getInterpreter().getInstructions(condition);
+        if (conditions.size() != 1) { throw new Exception(
+                                                          "Only one condition should be provided in ASKWITH"); }
+        addChild(conditions.get(0)); // the only condition
+        InstructionListNode instructionNode = new InstructionListNode(null, getModel(), commands);
+        addChild(instructionNode);
     }
 }
