@@ -2,13 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 import model.Model;
-import model.instruction.error.DivideByZero;
-import model.instruction.error.InfiniteLoop;
-import model.instruction.error.InvalidCommandInstruction;
-import model.instruction.error.LogOfZero;
-import model.instruction.error.NonPositiveRandom;
-import model.instruction.error.TanOfNinety;
-import model.instruction.error.TooFewParametersInstruction;
+import model.instruction.error.*;
 import org.junit.Test;
 
 
@@ -80,7 +74,7 @@ public class ErrorTests {
     public void testInvalidCommand () {
         Model model = new Model();
         String ret = model.parseInput("hakuna 17");
-        assertEquals(InvalidCommandInstruction.MESSAGE, ret);
+        assertEquals(InvalidCommand.MESSAGE, ret);
     }
 
     @Test

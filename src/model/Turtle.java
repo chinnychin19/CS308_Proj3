@@ -73,7 +73,8 @@ public class Turtle {
 
     public void addStamp () {
         String shape = myModel.getTurtleShape(myID);
-        myStamps.add(new Stamp(myX, myY, myAngle, shape));
+        double angleInDegrees = radiansToDegrees(myAngle);
+        myStamps.add(new Stamp(myX, myY, angleInDegrees, shape));
     }
 
     private void addPath (double x1, double y1, double x2, double y2) {
