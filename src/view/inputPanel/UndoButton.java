@@ -1,12 +1,14 @@
 package view.inputPanel;
 
+import view.ViewController;
+
+
 @SuppressWarnings("serial")
 public class UndoButton extends InputButtons {
-    
-    protected UndoButton (InputController controller) {
-        super("UNDO",controller);
-        
-        
+
+    protected UndoButton (ViewController myController) {
+        super("UNDO", myController);
+
     }
 
     @Override

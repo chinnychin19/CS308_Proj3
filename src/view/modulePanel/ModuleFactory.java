@@ -1,10 +1,10 @@
 package view.modulePanel;
 
-import view.Controller;
+import view.ViewController;
 
 
 public class ModuleFactory {
-    public static Module createModule (String module, Controller controller) {
+    public static Module createModule (String module, ViewController controller) {
         if (module.equals("history")) { return new Module("History", controller);
 
         }

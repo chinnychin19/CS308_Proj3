@@ -4,14 +4,15 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JCheckBox;
 import view.View;
+import view.ViewController;
 import view.display.Canvas;
 
 
 public class GridCheckBox extends JCheckBox {
 
-    private OptionsPanelController myController;
+    private ViewController myController;
 
-    public GridCheckBox (OptionsPanelController controller) {
+    public GridCheckBox (ViewController controller) {
 
         super("Grid", null, false);
         myController = controller;

@@ -6,13 +6,14 @@ import java.util.Collection;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
+import view.ViewController;
 import view.workspace.WorkSpacePreferences;
 
 
 public class MenuBar extends JMenuBar {
-    private MenuBarController myController;
+    private ViewController myController;
 
-    public MenuBar (MenuBarController controller) {
+    public MenuBar (ViewController controller) {
         myController = controller;
         add(fileMenu());
         add(helpMenu());

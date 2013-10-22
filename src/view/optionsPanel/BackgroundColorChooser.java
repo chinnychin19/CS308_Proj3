@@ -7,13 +7,13 @@ import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import jgame.JGColor;
 import view.View;
+import view.ViewController;
 import view.display.Canvas;
-import view.inputPanel.InputController;
 
 
 public class BackgroundColorChooser extends JButton {
 
-    public BackgroundColorChooser (final OptionsPanelController controller) {
+    public BackgroundColorChooser (final ViewController controller) {
         super("Change BG Color");
 
         addActionListener(new ActionListener() {

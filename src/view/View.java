@@ -11,22 +11,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import menuBar.MenuBar;
-import menuBar.MenuBarController;
 import model.Model;
 import view.display.Canvas;
 import view.display.CanvasSubject;
-import view.inputPanel.InputController;
 import view.inputPanel.InputObserver;
 import view.inputPanel.InputPanel;
 import view.inputPanel.InputSubject;
 import view.modulePanel.ModuleObserver;
 import view.modulePanel.ModulePanel;
-import view.modulePanel.ModulePanelController;
 import view.modulePanel.ModuleSubject;
 import view.optionsPanel.OptionsPanel;
-import view.optionsPanel.OptionsPanelController;
 import view.workspace.WorkSpacePreferences;
-import view.workspace.WorkSpacePreferencesController;
 
 
 @SuppressWarnings("serial")
@@ -45,7 +40,7 @@ public class View extends JFrame {
         Canvas myCanvas = new Canvas();
         Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
-        List<Controller> controllers = new ArrayList<Controller>();
+
         List<Subject> subjects = new ArrayList<Subject>();
 
         subject = new MasterSubject(myModel);
@@ -53,14 +48,14 @@ public class View extends JFrame {
 
         initializeDisplaySettings();
 
-        makePanels(myCanvas, paramaters, controllers, subjects, subject);
+        makePanels(myCanvas, paramaters, subjects, subject);
         setVisible(true);
 
     }
 
     private void makePanels (Canvas myCanvas,
                              Map<String, JComponent> paramaters,
-                             List<Controller> controllers,
+
                              List<Subject> subjects,
                              MasterSubject subject)
 
@@ -68,50 +63,45 @@ public class View extends JFrame {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         paramaters.put("textbox", textbox);
-        JPanel modulePanel = addModulePanel(controllers, subject, textbox);
+        ViewController controller =
+                new ViewController(subject, myModel, textbox, myCanvas, subjects);
+        JPanel modulePanel = addModulePanel(controller, subject, textbox);
 
         addCanvas(myCanvas, subject);
 
-        JPanel inputPanel = addInputController(controllers, subject, textbox);
+        JPanel inputPanel = addInputPanel(subject, textbox, controller);
 
-        JPanel optionsPanel = addOptionsPanel(myCanvas, controllers, subject);
+        JPanel optionsPanel = addOptionsPanel(myCanvas, controller);
 
-        addMenu(controllers, subjects, subject);
+        addMenu(controller, subjects, subject);
 
         addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
     }
 
-    private void addMenu (List<Controller> controllers,
+    private void addMenu (ViewController controller,
                           List<Subject> subjects,
                           MasterSubject subject) {
-        WorkSpacePreferencesController wokspaceController =
-                new WorkSpacePreferencesController(subject, controllers, subjects, myModel);
-        selector = new WorkSpacePreferences(wokspaceController);
 
-        MenuBarController menuController = new MenuBarController(subject, myModel);
-        controllers.add(menuController);
-        MenuBar menu = new MenuBar(menuController);
+        selector = new WorkSpacePreferences(controller);
+
+        MenuBar menu = new MenuBar(controller);
         menu.add("selector", selector);
         setJMenuBar(menu);
     }
-    //Observed/Subject  - sends
-    //Observer/Subscriber 
+
     private JPanel addOptionsPanel (Canvas myCanvas,
-                                    List<Controller> controllers,
-                                    MasterSubject subject) {
-        OptionsPanelController optionsController =
-                new OptionsPanelController(subject, myModel, myCanvas);
-        controllers.add(optionsController);
-        JPanel optionsPanel = new OptionsPanel(optionsController);
+
+                                    ViewController controller) {
+
+        JPanel optionsPanel = new OptionsPanel(controller);
         return optionsPanel;
     }
 
-    private JPanel addInputController (List<Controller> controllers,
-                                       MasterSubject subject,
-                                       JTextArea textbox) {
-        InputController inputController = new InputController(subject, myModel, textbox);
-        controllers.add(inputController);
-        JPanel inputPanel = new InputPanel(textbox, inputController);
+    private JPanel addInputPanel (
+                                  MasterSubject subject,
+                                  JTextArea textbox, ViewController controller) {
+
+        JPanel inputPanel = new InputPanel(textbox, controller);
         InputSubject inputSubject = new InputSubject(myModel, (InputObserver) inputPanel);
         subject.addSubject(inputSubject);
         return inputPanel;
@@ -122,13 +112,11 @@ public class View extends JFrame {
         subject.addSubject(myCanvasSubject);
     }
 
-    private JPanel addModulePanel (List<Controller> controllers,
-                                MasterSubject subject,
-                                JTextArea textbox) {
-        Controller moduleController = new ModulePanelController(subject, myModel, textbox);
-        controllers.add(moduleController);
+    private JPanel addModulePanel (ViewController controller,
+                                   MasterSubject subject,
+                                   JTextArea textbox) {
 
-        JPanel modulePanel = new ModulePanel(moduleController);
+        JPanel modulePanel = new ModulePanel(controller);
         ModuleSubject myModuleSubject = new ModuleSubject(myModel, (ModuleObserver) modulePanel);
         subject.addSubject(myModuleSubject);
         return modulePanel;

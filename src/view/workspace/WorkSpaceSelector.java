@@ -4,12 +4,13 @@ import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import javax.swing.JOptionPane;
 import view.Constants;
+import view.ViewController;
 
 
 public class WorkSpaceSelector extends AbstractAction {
-    private WorkSpacePreferencesController myController;
+    private ViewController myController;
 
-    protected WorkSpaceSelector (WorkSpacePreferencesController controller) {
+    protected WorkSpaceSelector (ViewController controller) {
         super(Constants.CHANGE_WORKSPACE_NAME);
         myController = controller;
     }

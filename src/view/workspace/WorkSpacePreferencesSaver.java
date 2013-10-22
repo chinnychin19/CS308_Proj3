@@ -3,12 +3,13 @@ package view.workspace;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
 import view.Constants;
+import view.ViewController;
 
 
 public class WorkSpacePreferencesSaver extends AbstractAction {
-    private WorkSpacePreferencesController myController;
+    private ViewController myController;
 
-    protected WorkSpacePreferencesSaver (WorkSpacePreferencesController controller) {
+    protected WorkSpacePreferencesSaver (ViewController controller) {
         super(Constants.SAVE_WORKSPACE_PREFERENCES);
         myController = controller;
     }

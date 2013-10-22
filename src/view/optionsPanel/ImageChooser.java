@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JComboBox;
 import view.View;
+import view.ViewController;
 import view.display.Canvas;
 
 
@@ -12,7 +13,7 @@ public class ImageChooser extends JComboBox {
     private static final String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
 
     @SuppressWarnings("unchecked")
-    public ImageChooser (final OptionsPanelController controller) {
+    public ImageChooser (final ViewController controller) {
         super(turtleOptions);
 
         addActionListener(new ActionListener() {

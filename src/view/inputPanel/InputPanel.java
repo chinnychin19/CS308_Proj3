@@ -5,15 +5,16 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import view.ViewController;
 
 
 @SuppressWarnings("serial")
 public class InputPanel extends JPanel implements InputObserver {
-    private InputController myController;
+    private ViewController myController;
     private JButton undo;
     private JButton redo;
 
-    public InputPanel (JTextArea jTextArea, InputController controller) {
+    public InputPanel (JTextArea jTextArea, ViewController controller) {
         super();
         this.setLayout(new GridLayout(1, 4));
 
