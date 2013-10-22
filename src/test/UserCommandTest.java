@@ -12,7 +12,9 @@ public class UserCommandTest {
     @Test
     public void testSimple () {
         Model model = new Model();
-        model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+        String status =
+                model.parseInput("to rookMove [ :step ] [ fd :step fd :step rt 90 fd :step lt 90 ]");
+        System.out.println(status);
         assertEquals(0, model.getTurtleY(1), DELTA);
         model.parseInput("rookMove 5");
         assertEquals(10, model.getTurtleY(1), DELTA);
@@ -23,9 +25,7 @@ public class UserCommandTest {
     public void testNested () {
         Model model = new Model();
         model.parseInput("to rookMove [ :step ] [ fd :step fd :step ]");
-        model.parseInput("to secondMove [ :step :rotate ] [ rookMove :step rt :rotate rookMove :step ]");
-        // TODO: if variable name same as before, will call original value. If new name, will use
-        // original :step value when calling rookMove
+        model.parseInput("to secondMove [ :step2 :rotate ] [ rookMove :step2 rt :rotate rookMove :step2 ]");
         model.parseInput("rookMove 5");
         assertEquals(10, model.getTurtleY(1), DELTA);
         model.parseInput("secondMove 3 90");
@@ -46,7 +46,7 @@ public class UserCommandTest {
     @Test
     public void testCallImmediately () {
         Model model = new Model();
-        model.parseInput("to simpleMove [ :step ] [ fd :step ] simpleMove 2");
+        System.out.println(model.parseInput("to simpleMove [ :step ] [ fd :step ] simpleMove 2"));
         assertEquals(2, model.getTurtleY(1), DELTA);
     }
 

@@ -66,4 +66,47 @@ public class ParserTests {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public void testCondition () { // TODO: include ifelse test
+        Model model = new Model();
+        String input = "if lessp xcor 10 [ fd 3 fd 4 fd sum 3 4 ]";
+        Parser p = new Parser(input, model);
+        try {
+            assertEquals(input, p.nextExpression());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testMultiParam () {
+        Model model = new Model();
+        String input = "fd ( sum 3 4 5 )";
+        Parser p = new Parser(input, model);
+        try {
+            assertEquals(input, p.nextExpression());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
+
+    @Test
+    public void testUserCommands () {
+        Model model = new Model();
+        String input = "to simpleMove [ :step ] [ fd :step ] simpleMove 2";
+        String status = model.parseInput("to simpleMove [ :step ] [ fd :step ]");
+        Parser p = new Parser(input, model);
+        try {
+            assertEquals("to simpleMove [ :step ] [ fd :step ]", p.nextExpression());
+            assertEquals("simpleMove 2", p.nextExpression());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            fail();
+        }
+    }
 }

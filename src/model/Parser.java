@@ -1,8 +1,8 @@
 package model;
 
 import java.util.Stack;
+import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
-import model.instruction.loop.InstructionLoop;
 
 
 public class Parser {
@@ -24,8 +24,9 @@ public class Parser {
     }
 
     public String nextWord () {
+        // special case: multi parameter expression
         if (myInput.charAt(0) == '(') {
-            // Return the string encased in the outer brackets
+            // Return the string encased in the outer parentheses
             Stack<Character> stack = new Stack<Character>();
             stack.push('[');
             int stoppingPoint = -1;
@@ -92,19 +93,24 @@ public class Parser {
         Instruction cur = root;
         while (hasNext()) {
             if (cur.getChildren().size() < cur.getNumParams()) {
-                if (cur instanceof InstructionLoop) { // TODO: and not a REPEAT loop
-                    String parameters = nextList(); // enclosed in brackets
-                    expression.append(parameters + " ");
-                    ((InstructionLoop) cur).setParameters(parameters);
-                    String commandsInLoop = nextList();
-                    expression.append(commandsInLoop + " ");
-                    cur.addChild(null); // the commands stored in the loop don't matter in this case
+                if (cur instanceof ComplexParameterInstruction) {
+                    ComplexParameterInstruction complexCur = (ComplexParameterInstruction) cur;
+                    for (int i = 0; i < complexCur.getNumWords(); i++) {
+                        expression.append(nextWord() + " ");
+                    }
+                    for (int i = 0; i < complexCur.getNumExpressions(); i++) {
+                        expression.append(nextExpression() + " ");
+                    }
+                    for (int i = 0; i < complexCur.getNumLists(); i++) {
+                        expression.append(nextList() + " ");
+                    }
+                    cur = cur.getParent(); // all children account for
                 }
                 else { // Normal instruction
                     String nextInstruction = nextWord();
                     expression.append(nextInstruction + " ");
-                    Instruction temp =
-                            myModel.getInstructionFactory().getInstruction(nextInstruction, cur);
+                    Instruction temp = null;
+                    temp = myModel.getInstructionFactory().getInstruction(nextInstruction, cur);
                     cur.addChild(temp);
                     cur = temp;
                 }
