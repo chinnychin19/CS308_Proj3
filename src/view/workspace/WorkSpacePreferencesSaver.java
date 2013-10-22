@@ -1,13 +1,20 @@
 package view.workspace;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
+import java.util.Map;
 import javax.swing.AbstractAction;
+import javax.swing.JFileChooser;
 import view.Constants;
 
 
 public class WorkSpacePreferencesSaver extends AbstractAction {
     private WorkSpacePreferencesController myController;
-
+    private static final JFileChooser INPUT_CHOOSER =
+            new JFileChooser(System.getProperties().getProperty("user.dir"));
+    
     protected WorkSpacePreferencesSaver (WorkSpacePreferencesController controller) {
         super(Constants.SAVE_WORKSPACE_PREFERENCES);
         myController = controller;
@@ -15,7 +22,33 @@ public class WorkSpacePreferencesSaver extends AbstractAction {
 
     @Override
     public void actionPerformed (ActionEvent e) {
-        // TODO Auto-generated method stub
+
+        int result = INPUT_CHOOSER.showSaveDialog(null);
+        if (result == JFileChooser.APPROVE_OPTION) {
+                File file = INPUT_CHOOSER.getSelectedFile();
+                System.out.println(file);
+                
+
+                
+                try {
+                    PrintStream out = new PrintStream(file);
+                    out.println("preferences");
+                    out.println("background " + 1);
+                    out.println("penIndex " + 1);
+                    out.println("turtleImage " + 1);
+                    out.close();
+                }
+                catch (FileNotFoundException e1) {
+                   
+                    e1.printStackTrace();
+                }
+              
+              
+      
+            
+               
+        }
+    
 
     }
 
