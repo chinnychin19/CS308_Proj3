@@ -16,7 +16,7 @@ import view.ViewController;
  * @author Susan Zhang
  * 
  */
-public class PenColorChooser extends JButton {
+public class PenColorChooser extends ColorChooser {
     ViewController myController;
 
     /**
@@ -25,7 +25,7 @@ public class PenColorChooser extends JButton {
      * @param controller Controller used to send pen index selection to Model
      */
     public PenColorChooser (final ViewController controller) {
-        super("Change Pen Color");
+        super(Constants.CHANGE_PEN_BUTTON, controller);
         myController = controller;
 
         addActionListener(new ActionListener() {
@@ -49,7 +49,7 @@ public class PenColorChooser extends JButton {
                 (String) JOptionPane.showInputDialog(
                                                      null,
                                                      Constants.CHOOSE_COLOR_INDEX +
-                                                             myController.getBackgroundIndex(),
+                                                             myController.getPenIndex(),
                                                      Constants.PEN_CHOOSER_TITLE,
                                                      JOptionPane.PLAIN_MESSAGE,
                                                      null,
@@ -59,20 +59,6 @@ public class PenColorChooser extends JButton {
         return Integer.parseInt(choice);
     }
 
-    /**
-     * Method that returns a string array of options based on Model's array of available colors
-     * 
-     * @return
-     */
-    private String[] getIndexOptions () {
-        int size = myController.getNumberOfColors();
-        String[] options = new String[size];
-
-        for (int i = 0; i < size; i++) {
-            options[i] = Integer.toString(i);
-        }
-
-        return options;
-    }
+  
 
 }

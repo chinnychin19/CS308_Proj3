@@ -7,8 +7,9 @@ import javax.swing.JOptionPane;
 import view.Constants;
 import view.ViewController;
 
+
 /**
- * Class for button that enables changing of pen color based on available color indexes
+ * Class for button that enables changing of the image index based on available image indexes
  * stored in Model class
  * 
  * @author Lalita Maraj
@@ -18,6 +19,11 @@ import view.ViewController;
 public class ImageChooser extends JButton {
     ViewController myController;
 
+    /**
+     * Constructor for ImageChooser class
+     * 
+     * @param controller Controller used to send image index selection to Model
+     */
     public ImageChooser (final ViewController controller) {
         super(Constants.CHANGE_IMAGE_BUTTON);
         myController = controller;
@@ -33,6 +39,11 @@ public class ImageChooser extends JButton {
         });
     }
 
+    /**
+     * Method that returns an integer based on user's selection from InputDialog dropdown
+     * 
+     * @return new turtle image index
+     */
     private int createImageSelector () {
         String choice =
                 (String) JOptionPane.showInputDialog(

@@ -8,12 +8,13 @@ import javax.swing.JTextArea;
 import view.display.Canvas;
 import model.Model;
 
+
 /**
- * Class in charge of communication between the View and Model
+ * Class that facilitates communication between the View and Model
  * 
  * @author Lalita Maraj
  * @author Susan Zhang
- *
+ * 
  */
 public class ViewController {
     private JTextArea myTextbox;
@@ -24,6 +25,14 @@ public class ViewController {
     private List<Model> myModels = new ArrayList<Model>();
     private View myView;
 
+    /**
+     * Constructor for ViewController class
+     * 
+     * @param model current Model
+     * @param textbox textbox for input
+     * @param canvas canvas
+     * @param view view
+     */
     public ViewController (
                            Model model,
                            JTextArea textbox,
@@ -35,11 +44,13 @@ public class ViewController {
         myCurrentModel = model;
         myCanvas = canvas;
 
-        // mySubjects = subjects;
         myModels.add(model);
 
     }
 
+    /**
+     * Sends String from textbox to Model to be parsed and updates relevant classes
+     */
     public void executeCommand () {
         String input = myTextbox.getText();
         if (input.trim().equals("")) { return; }
@@ -64,8 +75,14 @@ public class ViewController {
         myView.notifyUpdatables(redoError);
     }
 
+    /**
+     * Updates value of variable
+     * 
+     * @param key
+     * @param value
+     * @return
+     */
     public String updateVariable (String key, String value) {
-
         String updateVariable = myCurrentModel.putVariable(key, value);
         myView.notifyUpdatables(updateVariable);
         return updateVariable;
@@ -181,89 +198,156 @@ public class ViewController {
     }
 
     /**
-     * @return the number of workspaces currently defined.
+     * Returns the current workspace
+     * 
+     * @return current workspace
      */
     public int getCurrentWorkSpace () {
         return myCurrentWorkSpace;
     }
 
-    protected void parseWorkSpacePreferences (String filenmae) {
-        // Talk the to the model
-        myView.notifyUpdatables(""); // can pass an error string to notifyObsers
-    }
-
-    protected void saveWorkSpacePreferences (String filenmae) {
-        // Talk the to the model
-        myView.notifyUpdatables(""); // can pass an error string to notifyObsers
-    }
-
+    /**
+     * Changes the language of the model
+     * 
+     * @param myLanguageValue new language to be set
+     */
     public void changeLanguage (String myLanguageValue) {
         myCurrentModel.setLanguage(myLanguageValue);
-
     }
 
+    /**
+     * Gets Collection of available languages from Model
+     * 
+     * @return Collection of currrently available languages
+     */
     public Collection<String> getLanguages () {
         return myCurrentModel.getAvailableLanguages();
     }
 
+    /**
+     * Loads a variable/command file
+     * 
+     * @param fileName name of file
+     */
     public void loadFile (String fileName) {
         myCurrentModel.readLibrary(fileName);
         myView.notifyUpdatables("");
     }
 
+    /**
+     * Saves file of variables/commands
+     * 
+     * @param fileName name of file
+     */
     public void saveFile (String fileName) {
         myCurrentModel.saveLibrary(fileName);
     }
 
+    /**
+     * Sets pen color to new index in Model
+     * 
+     * @param colorIndex new pen color index
+     */
     public void setPenColor (int colorIndex) {
-        
         myCurrentModel.setPenColor(colorIndex);
         myView.notifyUpdatables("");
-        
+
     }
 
+    /**
+     * Gets number of available colors from Model
+     * 
+     * @return
+     */
     public int getNumberOfColors () {
         return myCurrentModel.getAvailableColors().size();
     }
 
-    public void setHighlights (boolean b) {
-        myCanvas.setHighlights(b);
+    /**
+     * Sets status of highlighting in Canvas
+     * 
+     * @param status whether active turtles should be highlighted in canvas
+     */
+    public void setHighlights (boolean status) {
+        myCanvas.setHighlights(status);
         myView.notifyUpdatables("");
     }
 
+    /**
+     * Changes image index of turtle
+     * 
+     * @param shapeIndex new index of image
+     */
     public void changeImage (int shapeIndex) {
         myCurrentModel.setShape(shapeIndex);
         myView.notifyUpdatables("");
     }
-    
-    public void onClick(int x, int y){
+
+    /**
+     * Runs ONCLICK command if defined in Model
+     * 
+     * @param x x position
+     * @param y y position
+     */
+    public void onClick (int x, int y) {
         myCurrentModel.mouseClicked(x, y);
         myView.notifyUpdatables("");
     }
-    
-    public void onMove(int x, int y){
+
+    /**
+     * Runs ONMOVE command if defined in Model
+     * 
+     * @param x x position
+     * @param y y position
+     */
+    public void onMove (int x, int y) {
         myCurrentModel.mouseMoved(x, y);
         myView.notifyUpdatables("");
     }
-    
-    public void onKey(int k){
+
+    /**
+     * Runs ONKEY command if defined in Model
+     * 
+     * @param k keyCode of pressed key
+     */
+    public void onKey (int k) {
         myCurrentModel.keyPressed(k);
         myView.notifyUpdatables("");
     }
-    
-    public String getShape(){
+
+    /**
+     * Returns current shape of turtle
+     * 
+     * @return name of current shape of turtle
+     */
+    public String getShape () {
         return myCurrentModel.getShape();
     }
-    
-    public int getShapeIndex(){
+
+    /**
+     * Returns current shape index of turtle
+     * 
+     * @return shape index of turtle
+     */
+    public int getShapeIndex () {
         return myCurrentModel.getShapeIndex();
     }
-    
-    public int getBackgroundIndex(){
-        return myCurrentModel.getBGColorIndex ();
+
+    /**
+     * Returns index of background color
+     * 
+     * @return background color index
+     */
+    public int getBackgroundIndex () {
+        return myCurrentModel.getBGColorIndex();
     }
-    
-    public int getPenIndex(){
+
+    /**
+     * Returns index of pen color
+     * 
+     * @return pen color index
+     */
+    public int getPenIndex () {
         return myCurrentModel.getPenColorIndex();
     }
 }
