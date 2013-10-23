@@ -332,6 +332,26 @@ public class Turtle {
     }
 
     /**
+     * 
+     */
+    // TODO: Javadoc for clone
+    public Turtle clone () {
+        Turtle ret = new Turtle(myID, myModel);
+        ret.isActive = isActive;
+        ret.isDrawing = isDrawing;
+        ret.isVisible = isVisible;
+        ret.myAngle = myAngle;
+        ret.myColor = myColor;
+        ret.myPaths = myPaths;
+        ret.myPenSize = myPenSize;
+        ret.myShapeIndex = myShapeIndex;
+        ret.myStamps = myStamps;
+        ret.myX = myX;
+        ret.myY = myY;
+        return ret;
+    }
+
+    /**
      * Helper function to convert a given number of radians to degrees
      * 
      * @param radians Radians to convert
