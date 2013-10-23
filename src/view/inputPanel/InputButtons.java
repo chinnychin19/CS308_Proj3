@@ -14,10 +14,14 @@ import view.ViewController;
  * 
  */
 @SuppressWarnings("serial")
-public abstract class InputButtons extends JButton {
+abstract class InputButtons extends JButton {
 
     protected ViewController myController;
 
+    /**
+     * @param name Name of button
+     * @param controller Controller used to communicate with Model
+     */
     protected InputButtons (String name, ViewController controller) {
 
         super(name);

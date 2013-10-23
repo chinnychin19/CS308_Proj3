@@ -1,4 +1,4 @@
-package view.workspace;
+package view.menuBar.workspace;
 
 import javax.swing.JMenu;
 import view.Constants;

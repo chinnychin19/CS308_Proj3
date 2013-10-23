@@ -6,21 +6,37 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import model.Model;
-import view.Updatable;
+import view.Constants;
+import view.UpdatableDisplay;
 import view.ViewController;
 
 
+/**
+ * JPanel that contains the elements that the user can interact with
+ * to send input to the Model. To illustrate, the textbox is contained in this panel.
+ * The textbox allows the user to type commands to be sent to the model
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ * 
+ */
 @SuppressWarnings("serial")
-public class InputPanel extends JPanel implements Updatable {
+public class InputPanel extends JPanel implements UpdatableDisplay {
     private ViewController myController;
     private JButton undo;
     private JButton redo;
     private Model myCurrentModel;
 
+    /**
+     * Constructor
+     * 
+     * @param jTextArea Input textbox
+     * @param controller Controller used to send information to Model
+     * @param model Model used to gather information
+     * */
     public InputPanel (JTextArea jTextArea, ViewController controller, Model model) {
         super();
-        this.setLayout(new GridLayout(1, 4));
-
+        this.setLayout(new GridLayout(Constants.INPUT_PANEL_ROWS, Constants.INPUT_PANEL_COLUMNS));
         this.add(new JScrollPane(jTextArea));
         myCurrentModel = model;
         myController = controller;
@@ -44,7 +60,7 @@ public class InputPanel extends JPanel implements Updatable {
     }
 
     /**
-     * Speaks to model to determine if a user can select undo
+     * Communicates with model to determine if a user can select undo
      * 
      * @return boolean to indicate if undo is possible
      */
@@ -53,7 +69,7 @@ public class InputPanel extends JPanel implements Updatable {
     }
 
     /**
-     * Speaks to model to determine if a user can select redo
+     * Communicates with model to determine if a user can select redo
      * 
      * @return boolean to indicate if redo is possible
      */
@@ -63,7 +79,7 @@ public class InputPanel extends JPanel implements Updatable {
     }
 
     @Override
-    public void update (String error) {
+    public void updateDisplay (String error) {
         undo.setEnabled(canUndo());
         redo.setEnabled(canRedo());
 

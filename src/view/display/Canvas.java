@@ -10,7 +10,7 @@ import java.util.Map;
 import model.Model;
 import model.Path;
 import view.Constants;
-import view.Updatable;
+import view.UpdatableDisplay;
 import view.ViewController;
 import jgame.JGColor;
 import jgame.JGFont;
@@ -26,7 +26,8 @@ import model.Stamp;
  * @author Susan Zhang
  */
 
-public class Canvas extends JGEngine implements Updatable {
+public class Canvas extends JGEngine implements UpdatableDisplay {
+
     private ViewController myController;
     private String myImageName = "Turtle1_1.gif";
     private String myError = "";
@@ -381,7 +382,7 @@ public class Canvas extends JGEngine implements Updatable {
     }
 
     @Override
-    public void update (String error) {
+    public void updateDisplay (String error) {
         ArrayList<Integer> activeTurtleList = getActiveTurtles();
         Map<Integer, String> turtleShapeList = getTurtleShape();
         Map<Integer, Double> turtleXMap = getTurtleX();
