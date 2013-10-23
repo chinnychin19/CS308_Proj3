@@ -22,7 +22,7 @@ public class View extends JFrame {
     private Model myModel;
 
     private ViewController controller;
-    private List<Updatable> updatables = new ArrayList<Updatable>();
+    private List<UpdatableDisplay> updatables = new ArrayList<UpdatableDisplay>();
 
     /**
      * Constructor for View Class
@@ -89,13 +89,13 @@ public class View extends JFrame {
      */
     private JPanel addInputPanel (JTextArea textbox, ViewController controller) {
         JPanel inputPanel = new InputPanel(textbox, controller, myModel);
-        updatables.add((Updatable) inputPanel);
+        updatables.add((UpdatableDisplay) inputPanel);
         return inputPanel;
     }
 
     private JPanel addSideBarPanel (ViewController controller, JTextArea textbox) {
         JPanel sideBarPanel = new InputDisplayPanel(controller, myModel);
-        updatables.add((Updatable) sideBarPanel);
+        updatables.add((UpdatableDisplay) sideBarPanel);
         return sideBarPanel;
     }
 
@@ -136,8 +136,8 @@ public class View extends JFrame {
      */
     public void notifyUpdatables (String error) {
 
-        for (Updatable updateable : updatables) {
-            updateable.update(error);
+        for (UpdatableDisplay updateable : updatables) {
+            updateable.updateDisplay(error);
         }
 
     }
@@ -149,7 +149,7 @@ public class View extends JFrame {
      */
     public void changeCurrentModel (Model model) {
 
-        for (Updatable updateable : updatables) {
+        for (UpdatableDisplay updateable : updatables) {
             updateable.changeModel(model);
         }
 
