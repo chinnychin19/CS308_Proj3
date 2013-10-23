@@ -1,18 +1,27 @@
-package view.modulePanel;
+package view.sidebarPanel;
 
 import javax.swing.JComponent;
 
 
+/**
+ * Used by InputDisplay classes to encapsulate
+ * the data and content of the input that is displayed
+ * by InputDisplays
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ * 
+ */
 @SuppressWarnings("serial")
-public class ModuleData extends JComponent {
-    String myDisplay;
-    String myContent;
+class InputDisplayData extends JComponent {
+    private String myDisplay;
+    private String myContent;
 
     public String toString () {
         return myDisplay;
     }
 
-    public ModuleData (String displayString, String contentString) {
+    protected InputDisplayData (String displayString, String contentString) {
         myDisplay = displayString;
         myContent = contentString;
 
