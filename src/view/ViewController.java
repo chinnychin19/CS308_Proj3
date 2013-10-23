@@ -111,7 +111,6 @@ public class ViewController {
     }
 
     public int getNumberOfWorkspaces () {
-
         return myModels.size();
     }
 
@@ -132,6 +131,7 @@ public class ViewController {
             makeNewWorkSpace();
 
         }
+        myCanvas.clearTurtleMap();
         myView.notifyUpdatables("");
 
     }
@@ -183,7 +183,6 @@ public class ViewController {
 
     private void changeCurrentModel (int modelIndex) {
         myCurrentModel = myModels.get(modelIndex);
-
     }
 
     /**
