@@ -89,27 +89,50 @@ public class ViewController {
 
     }
 
+    /**
+     * Adds clicked input display to textbox
+     * 
+     * @param clickedContent input display String
+     */
     public void populateTextBox (String clickedContent) {
         myTextbox.setText(clickedContent);
     }
-
+ 
+    /**
+     * Sets background color to color at index stored in Model
+     * 
+     * @param colorIndex index of color
+     */
     public void setBGColor (int colorIndex) {
         myCurrentModel.setBGColor(colorIndex);
         myView.notifyUpdatables("");
     }
 
+    /**
+     * Sets status of grid in Canvas
+     * 
+     * @param b status of grid
+     */
     public void setGrid (boolean b) {
         myCanvas.setGridStatus(b);
         myView.notifyUpdatables("");
-
     }
 
+    /**
+     * Sets status of turtle status displaying
+     * 
+     * @param b status of turtle status
+     */
     public void setTurtleStatus (boolean b) {
         myCanvas.setTurtleStatus(b);
         myView.notifyUpdatables("");
-
     }
 
+    /**
+     * Returns number of workspaces
+     * 
+     * @return number of current workspaces
+     */
     public int getNumberOfWorkspaces () {
         return myModels.size();
     }
@@ -122,7 +145,7 @@ public class ViewController {
      */
     public void setWorkSpace (String choice) {
         if ((choice == null) || (choice.length() <= 0)) {
-
+            return;
         }
         else if (!choice.equals(Constants.CREATE_NEW_WORK_SPACE_OPTION)) {
             switchWorkSpace(choice);
@@ -133,7 +156,6 @@ public class ViewController {
         }
         myCanvas.clearTurtleMap();
         myView.notifyUpdatables("");
-
     }
 
     /**
