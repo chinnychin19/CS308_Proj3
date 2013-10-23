@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import stack.Stack;
+import stack.StackNode;
 import model.instruction.InstructionFactory;
 import model.instruction.command.UserCommand;
 import model.instruction.error.FileNotFound;
@@ -46,6 +48,8 @@ public class Model {
     private List<String> myAvailableShapes;
     private List<String> myAvailableLanguages;
     private int myShapeIndex;
+    private Stack myUndoStack;
+    private Stack myRedoStack;
 
     /**
      * Constructor for an instance of a model. It initializes the available colors to black and red
@@ -70,6 +74,8 @@ public class Model {
         myLanguage = "English";
         myPenSize = 1;
         myShapeIndex = 0;
+        myUndoStack = new Stack();
+        myRedoStack = new Stack();
     }
 
     /**
@@ -228,6 +234,8 @@ public class Model {
      * @return An error string if there was an error
      */
     public String parseInput (String s) {
+        myUndoStack.push((HashMap<Integer, Turtle>) myTurtles);
+        myRedoStack.clear();
         myCommandHistory.add(s);
         String ret = myInterpreter.parseInput(s);
         return ret;
@@ -417,7 +425,7 @@ public class Model {
      * @return True if the user can undo their previous action, false if they can't
      */
     public boolean canUndo () {
-        return false; // TODO
+        return !myUndoStack.isEmpty();
     }
 
     /**
@@ -426,14 +434,23 @@ public class Model {
      * @return An error string if there was an error
      */
     public String undo () {
-        return null; // TODO
+        final String UNDO_ERROR = "Can't undo";
+        if (canUndo()) {
+            myRedoStack.push((HashMap<Integer, Turtle>) myTurtles);
+            HashMap<Integer, Turtle> undoTurtles = myUndoStack.pop();
+            myTurtles = undoTurtles;
+            return "";
+        }
+        else {
+            return UNDO_ERROR;
+        }
     }
 
     /**
      * @return True if the user can redo a previously undone command, false if they can't
      */
     public boolean canRedo () {
-        return false; // TODO
+        return !myRedoStack.isEmpty();
     }
 
     /**
@@ -442,7 +459,16 @@ public class Model {
      * @return An error string if there was an error
      */
     public String redo () {
-        return null; // TODO
+        final String REDO_ERROR = "Can't redo";
+        if (canRedo()) {
+            myUndoStack.push((HashMap<Integer, Turtle>) myTurtles);
+            HashMap<Integer, Turtle> redoTurtles = myRedoStack.pop();
+            myTurtles = redoTurtles;
+            return "";
+        }
+        else {
+            return REDO_ERROR;
+        }
     }
 
     /**
