@@ -18,8 +18,10 @@ public class ImageChooser extends JButton {
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
+
                 int i = createImageSelector();
                 myController.changeImage(i - 1);
+
             }
 
         });

@@ -409,6 +409,8 @@ public class Canvas extends JGEngine implements Updatable {
         Collection<Stamp> stamps = myCurrentModel.getTurtleStamps();
         Color pen = myCurrentModel.getPenColor();
         Color bg = myCurrentModel.getBGColor();
+        myImageName = myCurrentModel.getShape();
+        myTurtleStamps = stamps;
         myError = error;
         myActiveTurtleIDs = activeTurtleList;
 

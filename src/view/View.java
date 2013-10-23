@@ -12,7 +12,7 @@ import model.Model;
 import view.display.Canvas;
 import view.inputPanel.InputPanel;
 import view.optionsPanel.OptionsPanel;
-import view.sidebarPanel.SideBarPanel;
+import view.sidebarPanel.InputDisplayPanel;
 import view.workspace.WorkSpacePreferences;
 
 
@@ -34,7 +34,7 @@ public class View extends JFrame {
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         controller = new ViewController(myModel, textbox, myCanvas, this);
-         myCanvas.addController(controller);
+        myCanvas.addController(controller);
         updatables.add(myCanvas);
         initializeDisplaySettings();
         makePanels(myCanvas, textbox);
@@ -94,7 +94,7 @@ public class View extends JFrame {
     }
 
     private JPanel addSideBarPanel (ViewController controller, JTextArea textbox) {
-        JPanel sideBarPanel = new SideBarPanel(controller, myModel);
+        JPanel sideBarPanel = new InputDisplayPanel(controller, myModel);
         updatables.add((Updatable) sideBarPanel);
         return sideBarPanel;
     }
