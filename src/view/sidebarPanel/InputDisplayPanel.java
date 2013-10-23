@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import model.Model;
 import view.Constants;
-import view.Updatable;
+import view.UpdatableDisplay;
 import view.ViewController;
 
 
@@ -22,7 +22,7 @@ import view.ViewController;
  * 
  */
 @SuppressWarnings("serial")
-public class InputDisplayPanel extends JPanel implements Updatable {
+public class InputDisplayPanel extends JPanel implements UpdatableDisplay {
 
     private Map<String, InputDisplay> myInputDisplays;
     private Model myCurrentModel;
@@ -119,7 +119,7 @@ public class InputDisplayPanel extends JPanel implements Updatable {
     }
 
     @Override
-    public void update (String error) {
+    public void updateDisplay (String error) {
         updateInputDisplays();
         if (!error.equals("")) {
             JOptionPane.showMessageDialog(null,

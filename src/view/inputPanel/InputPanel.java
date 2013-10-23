@@ -7,7 +7,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import model.Model;
 import view.Constants;
-import view.Updatable;
+import view.UpdatableDisplay;
 import view.ViewController;
 
 
@@ -21,7 +21,7 @@ import view.ViewController;
  * 
  */
 @SuppressWarnings("serial")
-public class InputPanel extends JPanel implements Updatable {
+public class InputPanel extends JPanel implements UpdatableDisplay {
     private ViewController myController;
     private JButton undo;
     private JButton redo;
@@ -79,7 +79,7 @@ public class InputPanel extends JPanel implements Updatable {
     }
 
     @Override
-    public void update (String error) {
+    public void updateDisplay (String error) {
         undo.setEnabled(canUndo());
         redo.setEnabled(canRedo());
 
