@@ -28,14 +28,16 @@ public class ImageChooser extends JButton {
     }
 
     private int createImageSelector () {
-        String choice = (String) JOptionPane.showInputDialog(
-                                                             null,
-                                                             Constants.CHOOSE_IMAGE + myController.getShape(),
-                                                             "Turtle Image Chooser",
-                                                             JOptionPane.PLAIN_MESSAGE,
-                                                             null,
-                                                             Constants.TURTLE_OPTIONS,
-                                                             "");
+        String choice =
+                (String) JOptionPane.showInputDialog(
+                                                     null,
+                                                     Constants.CHOOSE_IMAGE +
+                                                             myController.getShape(),
+                                                     "Turtle Image Chooser",
+                                                     JOptionPane.PLAIN_MESSAGE,
+                                                     null,
+                                                     Constants.TURTLE_OPTIONS,
+                                                     "");
         return Integer.parseInt(choice.substring(6, 7));
     }
 
