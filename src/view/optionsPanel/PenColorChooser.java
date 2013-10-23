@@ -39,6 +39,9 @@ public class PenColorChooser extends JButton {
                                                              null,
                                                              possibilities,
                                                              "");
+        if (choice == null) {
+            return myController.getPenIndex();
+        }
         return Integer.parseInt(choice);
     }
 

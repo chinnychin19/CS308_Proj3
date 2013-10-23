@@ -216,8 +216,10 @@ public class ViewController {
     }
 
     public void setPenColor (int colorIndex) {
+        
         myCurrentModel.setPenColor(colorIndex);
         myView.notifyUpdatables("");
+        
     }
 
     public int getNumberOfColors () {
@@ -251,5 +253,13 @@ public class ViewController {
     
     public String getShape(){
         return myCurrentModel.getShape();
+    }
+    
+    public int getBackgroundIndex(){
+        return myCurrentModel.getBGColorIndex ();
+    }
+    
+    public int getPenIndex(){
+        return myCurrentModel.getPenColorIndex();
     }
 }

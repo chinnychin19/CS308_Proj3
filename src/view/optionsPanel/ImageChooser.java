@@ -37,7 +37,11 @@ public class ImageChooser extends JButton {
                                                      null,
                                                      Constants.TURTLE_OPTIONS,
                                                      "");
-        return Integer.parseInt(choice.substring(Constants.SHAPE_NAME_LENGTH-1, Constants.SHAPE_NAME_LENGTH));
+        if (choice == null) {
+            choice = myController.getShape();
+        }
+        return Integer.parseInt(choice.substring(Constants.SHAPE_NAME_LENGTH - 1,
+                                                 Constants.SHAPE_NAME_LENGTH));
     }
 
 }

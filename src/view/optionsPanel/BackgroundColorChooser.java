@@ -12,7 +12,12 @@ import view.View;
 import view.ViewController;
 import view.display.Canvas;
 
-
+/**
+ * A JButton subclass that allows the user to change the background color index from 
+ * 
+ * @author susanzhang93
+ *
+ */
 public class BackgroundColorChooser extends JButton {
     private ViewController myController;
 
@@ -42,6 +47,9 @@ public class BackgroundColorChooser extends JButton {
                                                              null,
                                                              possibilities,
                                                              "");
+        if (choice == null) {
+            return myController.getBackgroundIndex();
+        }
         return Integer.parseInt(choice);
     }
 
