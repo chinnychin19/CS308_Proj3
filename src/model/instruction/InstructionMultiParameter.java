@@ -4,6 +4,14 @@ import java.util.List;
 import model.Model;
 
 
+/**
+ * 
+ * Multiparameter instruction for SLogo. Evaluates commands with multiple parameters
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionMultiParameter extends Instruction {
 
     public InstructionMultiParameter (String expression, Instruction parent, Model m)

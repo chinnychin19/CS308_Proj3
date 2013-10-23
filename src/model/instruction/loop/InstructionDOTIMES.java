@@ -6,10 +6,17 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
 import model.instruction.InstructionVariable;
-import model.instruction.error.TooFewParametersInstruction;
 import model.instruction.loop.InstructionLoop;
 
 
+/**
+ * 
+ * Dotimes instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionDOTIMES extends InstructionLoop {
 
     public InstructionDOTIMES (Instruction parent, Model m) {

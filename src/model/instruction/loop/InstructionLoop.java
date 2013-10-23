@@ -6,6 +6,16 @@ import model.instruction.Instruction;
 import model.instruction.error.InfiniteLoop;
 
 
+/**
+ * 
+ * Abstract loop class that is implemented by all loops. Since all loops have essentially the same
+ * implementation, just with different start, ends, and variable names, they all just individually
+ * set the specific values based on the loop specified
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public abstract class InstructionLoop extends Instruction implements ComplexParameterInstruction {
     private String myVariable;
     private double myStart, myEnd, myIncrement;

@@ -6,6 +6,14 @@ import model.Model;
 import model.instruction.command.UserCommand;
 
 
+/**
+ * 
+ * To instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionTO extends Instruction implements ComplexParameterInstruction {
 
     public InstructionTO (Instruction parent, Model m) {

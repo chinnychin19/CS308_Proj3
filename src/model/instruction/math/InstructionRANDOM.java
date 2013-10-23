@@ -6,6 +6,14 @@ import model.instruction.InstructionConstant;
 import model.instruction.error.NonPositiveRandom;
 
 
+/**
+ * 
+ * Random instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionRANDOM extends Instruction {
 
     public InstructionRANDOM (Instruction parent, Model m) {

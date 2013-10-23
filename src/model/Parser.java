@@ -5,24 +5,48 @@ import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
 
 
+/**
+ * 
+ * Parser class that parses in text entered by the user. Breaks down commands into parts to pass
+ * back to the interpreter. Stores the input entered by the user, the model that the parser belongs
+ * to, and a character constant that stores a space
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class Parser {
     private String myInput;
     private Model myModel;
     private final static char SPACE = ' ';
 
-    // TODO: methods should be throws exceptions
-
+    /**
+     * Constructor for the parser that creates an instance of a parser. Stores the input as a
+     * trimmed input by replacing all new lines with spaces. Stores the model that the parser
+     * belongs to
+     * 
+     * @param input The string that the user has entered
+     * @param m The model that the parser belongs to
+     */
     protected Parser (String input, Model m) {
         input.replaceAll("\\s+", SPACE + "");
         myInput = input.trim();
         myModel = m;
     }
 
+    /**
+     * @return True if the parsed input has more to be parsed, false if there is nothing left to be
+     *         parsed
+     */
     public boolean hasNext () {
         myInput = myInput.trim();
         return !myInput.isEmpty();
     }
 
+    /**
+     * @return The next word that is parsed. A word is defined as anything not enclosed in brackets.
+     *         Does include multi parameter expressions, however
+     */
     public String nextWord () {
         // special case: multi parameter expression
         if (myInput.charAt(0) == '(') {
@@ -56,6 +80,9 @@ public class Parser {
         return ret;
     }
 
+    /**
+     * @return The next list that is parsed. A list is defined as something in brackets
+     */
     public String nextList () {
         myInput = myInput.trim();
         if (myInput.charAt(0) == '[') {
@@ -80,11 +107,16 @@ public class Parser {
             return ret.trim();
         }
         else {
-            // TODO: error, not at a list
             return null;
         }
     }
 
+    /**
+     * @return The next expression that is parsed. An expression is defined as parameters for an
+     *         instruction
+     * @throws Exception An error if an error occurs, such as not enough parameters for the given
+     *         instruction
+     */
     public String nextExpression () throws Exception {
         StringBuilder expression = new StringBuilder();
         String firstWord = nextWord();

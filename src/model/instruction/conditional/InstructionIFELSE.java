@@ -7,6 +7,14 @@ import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
 
 
+/**
+ * 
+ * Ifelse instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionIFELSE extends InstructionConditional {
 
     public InstructionIFELSE (Instruction parent, Model m) {

@@ -6,6 +6,14 @@ import model.instruction.InstructionConstant;
 import model.instruction.error.LogOfZero;
 
 
+/**
+ * 
+ * Log instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionLOG extends Instruction {
 
     public InstructionLOG (Instruction parent, Model m) {

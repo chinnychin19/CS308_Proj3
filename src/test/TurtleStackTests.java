@@ -5,7 +5,7 @@ import model.Model;
 import org.junit.Test;
 
 
-public class StackTests {
+public class TurtleStackTests {
     public static final double DELTA = 0.001;
 
     @Test

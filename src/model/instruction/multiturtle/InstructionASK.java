@@ -3,13 +3,20 @@ package model.instruction.multiturtle;
 import java.util.Collection;
 import java.util.List;
 import model.Model;
-import model.Turtle;
 import model.instruction.ComplexParameterInstruction;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
 
 
+/**
+ * 
+ * Ask instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionASK extends Instruction implements ComplexParameterInstruction {
 
     public InstructionASK (Instruction parent, Model m) {

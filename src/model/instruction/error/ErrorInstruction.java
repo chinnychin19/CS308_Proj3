@@ -4,6 +4,14 @@ import model.Model;
 import model.instruction.Instruction;
 
 
+/**
+ * 
+ * The error instruction class that keeps track of an error message. Returns back the error message
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class ErrorInstruction extends Instruction {
 
     private String myMessage;

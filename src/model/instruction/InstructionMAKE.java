@@ -3,6 +3,14 @@ package model.instruction;
 import model.Model;
 
 
+/**
+ * 
+ * Make instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionMAKE extends Instruction {
 
     public InstructionMAKE (Instruction parent, Model m) {

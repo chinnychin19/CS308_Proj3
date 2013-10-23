@@ -80,9 +80,8 @@ public class Path {
     }
 
     /**
-     * 
+     * @return A clone of the current path
      */
-    // TODO: Javadoc for clone
     public Path clone () {
         Path newPath = new Path(x1, y1, x2, y2, myColor, myPenSize);
         return newPath;
