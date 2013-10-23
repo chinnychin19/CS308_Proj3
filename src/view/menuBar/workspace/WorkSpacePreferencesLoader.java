@@ -8,7 +8,13 @@ import javax.swing.JOptionPane;
 import view.Constants;
 import view.ViewController;
 
-
+/**
+ * Class that creates popup to select a workspace preference file to read in
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ *
+ */
 public class WorkSpacePreferencesLoader extends AbstractAction {
 
     private ViewController myController;
