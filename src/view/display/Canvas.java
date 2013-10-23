@@ -1,6 +1,8 @@
 package view.display;
 
 import java.awt.Color;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -34,8 +36,8 @@ public class Canvas extends JGEngine implements Updatable {
     private boolean myTurtleStatus = true;
     private boolean myMouseClicked = false;
     private boolean myHighlights = false;
-    private int x;
-    private int y;
+    private int x = 0;
+    private int y = 0;
 
     private Map<Integer, TurtleSprite> myTurtleMap = new HashMap<Integer, TurtleSprite>();
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
@@ -50,6 +52,22 @@ public class Canvas extends JGEngine implements Updatable {
     public Canvas (Model model) {
         initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
         myCurrentModel = model;
+        this.addKeyListener(new KeyListener() {
+
+            public void keyTyped (KeyEvent e) {
+                System.out.println("W");
+            }
+
+            /** Handle the key-pressed event from the text field. */
+            public void keyPressed (KeyEvent e) {
+                System.out.println("D");
+            }
+
+            /** Handle the key-released event from the text field. */
+            public void keyReleased (KeyEvent e) {
+            }
+
+        });
     }
 
     public void addController (ViewController controller) {
@@ -170,10 +188,10 @@ public class Canvas extends JGEngine implements Updatable {
             }
         }
     }
-    
-    private void handleKeyEvent(){
+
+    private void handleKeyEvent () {
         if (getMouseInside()) {
-        
+
         }
     }
 

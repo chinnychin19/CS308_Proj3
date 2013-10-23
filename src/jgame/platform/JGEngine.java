@@ -1191,6 +1191,21 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
         jre.canvas = canvas;
 
         jre.clearKeymap();
+        canvas.addKeyListener(new KeyListener(){
+
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            public void keyPressed(KeyEvent e) {
+                System.out.println(e.getKeyCode());
+            }
+
+            /** Handle the key-released event from the text field. */
+            public void keyReleased(KeyEvent e) {
+            }
+            
+        });
         canvas.addMouseListener(jre);
         canvas.addMouseMotionListener(jre);
         canvas.addFocusListener(jre);

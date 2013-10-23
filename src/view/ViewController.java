@@ -238,4 +238,9 @@ public class ViewController {
         myCurrentModel.mouseMoved(x, y);
         myView.notifyUpdatables("");
     }
+    
+    public void onKey(int k){
+        myCurrentModel.keyPressed(k);
+        myView.notifyUpdatables("");
+    }
 }
