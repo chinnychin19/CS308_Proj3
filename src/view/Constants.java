@@ -1,12 +1,14 @@
 package view;
 
+import javax.swing.JFileChooser;
 import jgame.JGColor;
 
 
 /**
  * Class that stores constants for the view
  * 
- * @author susanzhang93
+ * @author Lalita Maraj
+ * @author Susan Zhang
  * 
  */
 public interface Constants {
@@ -43,8 +45,18 @@ public interface Constants {
     public static final int NUM_GRIDLINES = 20;
     public static String[] TURTLE_OPTIONS = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
     
+    public static final String GRID = "Grid";
+    public static final String HIGHLIGHT = "Highlight";
+    public static final String TURTLE_STATUS = "Turtle Status";
+    
+    public static final String CHANGE_IMAGE_BUTTON = "Change Image";
+    public static final String CHANGE_BG_BUTTON = "Change BG Color";
+    public static final String CHANGE_PEN_BUTTON ="Change Pen Color";
+    public static final String CHOOSE_COLOR_INDEX = "Choose a color index. \nThe current index is ";
     public static final String CHOOSE_IMAGE = "Choose a turtle image. \nThe current image is ";
     public static final String IMAGE_CHOOSER_TITLE = "Turtle Image Chooser";
+    public static final String BG_CHOOSER_TITLE = "Background color chooser";
+    public static final String PEN_CHOOSER_TITLE = "Pen color chooser";
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     public static final String USER_DIR = "user.dir";
@@ -61,7 +73,6 @@ public interface Constants {
             "A new work space has been created. You are now in work space ";
 
     public static final String WRONG_PREF_FILE_MESSAGE = "Not a preference file";
-    public static final String NOT_XML_MESSAGE = "Not an XML file";
 
     public static final String CHANGE_WORKSPACE_NAME = "Change Workspace";
     public static final String WORKSPACE_PREFERENCES_NAME = "Workspace Preferences";
@@ -80,4 +91,14 @@ public interface Constants {
     public static final int INPUT_DISPLAY_WIDTH = 300;
     public static final int INPUT_PANEL_ROWS = 1;
     public static final int INPUT_PANEL_COLUMNS = 4;
+    public static final String FILE_MENU_NAME = "File";
+    public static final String OPEN_MENU_NAME = "Open";
+    public static final String SAVE_MENU_NAME = "Save";
+    public static final String HELP_URL_PART_2 = "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
+    public static final String HELP_URL_PART_3 = "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands2.php";
+    public static final String HELP_MENU_2 = "Part 2 Help";
+    public static final String HELP_MENU_3 = "Part 3 Help";
+    public static final String HELP_MENU_NAME = "Help";
+    public static final JFileChooser INPUT_CHOOSER =
+            new JFileChooser(System.getProperties().getProperty("user.dir"));
 }

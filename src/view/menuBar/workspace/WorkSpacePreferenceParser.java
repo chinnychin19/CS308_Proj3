@@ -24,13 +24,12 @@ import view.ViewController;
 public class WorkSpacePreferenceParser {
     private ViewController myController;
 
-    public WorkSpacePreferenceParser (ViewController myController) {
-        myController = myController;
+    public WorkSpacePreferenceParser (ViewController controller) {
+        myController = controller;
     }
 
     public void loadPreferences (File prefFile) throws IOException {
 
-        try {
             BufferedReader br = new BufferedReader(new FileReader(prefFile));
             String sCurrentLine = br.readLine();
 
@@ -40,33 +39,22 @@ public class WorkSpacePreferenceParser {
 
             while ((sCurrentLine = br.readLine()) != null) {
                 String[] s = sCurrentLine.split(" ");
-                if (s[0].equals("background") && !s[1].equals(null)) {
-                    myController.setBGColor(Integer.parseInt(s[1]));
+
+                if (s[0].equals("background") && s[1]!=null) {    
+                   myController.setBGColor(Integer.parseInt(s[1]));
                 }
-                if (s[0].equals("penIndex") && !s[1].equals(null)) {
+                if (s[0].equals("penIndex") && s[1]!=null) {
                     myController.setPenColor(Integer.parseInt(s[1]));
                 }
-                if (s[0].equals("turtleImage") && !s[1].equals(null)) {
+                if (s[0].equals("turtleImage") && s[1]!=null) {
                     myController.changeImage(Integer.parseInt(s[1]));
                 }
 
             }
             br.close();
-        }
-        catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+       
 
     }
 
-    private void parse (NodeList childNodes) {
-
-    }
-
-    // public static void main (String[] args) {
-    // WorkSpacePreferenceParser p = new WorkSpacePreferenceParser();
-    // File f = new File("pref.xml");
-    // p.loadPreferences(f);
-    // }
 
 }
