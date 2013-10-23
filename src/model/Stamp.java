@@ -56,4 +56,13 @@ public class Stamp {
     public String getShape () {
         return myShape;
     }
+
+    /**
+     * 
+     */
+    // TODO: Javadoc for clone
+    public Stamp clone () {
+        Stamp newStamp = new Stamp(myX, myY, myAngle, myShape);
+        return newStamp;
+    }
 }
