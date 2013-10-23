@@ -7,13 +7,13 @@ import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
 import view.inputPanel.InputPanel;
+import view.menuBar.MenuBar;
+import view.menuBar.workspace.WorkSpacePreferences;
 import view.optionsPanel.OptionsPanel;
 import view.sidebarPanel.InputDisplayPanel;
-import view.workspace.WorkSpacePreferences;
 
 
 @SuppressWarnings("serial")

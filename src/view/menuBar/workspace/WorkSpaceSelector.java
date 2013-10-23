@@ -1,4 +1,4 @@
-package view.workspace;
+package view.menuBar.workspace;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
