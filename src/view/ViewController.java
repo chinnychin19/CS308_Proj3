@@ -8,7 +8,13 @@ import javax.swing.JTextArea;
 import view.display.Canvas;
 import model.Model;
 
-
+/**
+ * Class in charge of communication between the View and Model
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ *
+ */
 public class ViewController {
     private JTextArea myTextbox;
     private Model myCurrentModel;
@@ -215,7 +221,6 @@ public class ViewController {
     }
 
     public int getNumberOfColors () {
-
         return myCurrentModel.getAvailableColors().size();
     }
 
@@ -242,10 +247,6 @@ public class ViewController {
     public void onKey(int k){
         myCurrentModel.keyPressed(k);
         myView.notifyUpdatables("");
-    }
-    
-    public boolean onMoveDefined(){
-        return myCurrentModel.getCommandCache().contains("ONMOVE");
     }
     
     public String getShape(){
