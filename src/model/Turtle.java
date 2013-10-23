@@ -332,6 +332,36 @@ public class Turtle {
     }
 
     /**
+     * 
+     */
+    // TODO: Javadoc for clone
+    public Turtle clone () {
+        Turtle ret = new Turtle(myID, myModel);
+        Collection<Stamp> newStamps = new ArrayList<Stamp>();
+        Collection<Path> newPaths = new ArrayList<Path>();
+
+        for (int i = 0; i < myStamps.size(); i++) {
+            newStamps.add(((ArrayList<Stamp>) myStamps).get(i).clone());
+        }
+        for (int i = 0; i < myPaths.size(); i++) {
+            newPaths.add(((ArrayList<Path>) myPaths).get(i).clone());
+        }
+
+        ret.isActive = isActive;
+        ret.isDrawing = isDrawing;
+        ret.isVisible = isVisible;
+        ret.myAngle = myAngle;
+        ret.myColor = myColor;
+        ret.myPaths = newPaths;
+        ret.myPenSize = myPenSize;
+        ret.myShapeIndex = myShapeIndex;
+        ret.myStamps = newStamps;
+        ret.myX = myX;
+        ret.myY = myY;
+        return ret;
+    }
+
+    /**
      * Helper function to convert a given number of radians to degrees
      * 
      * @param radians Radians to convert

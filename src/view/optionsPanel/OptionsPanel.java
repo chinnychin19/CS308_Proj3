@@ -11,7 +11,6 @@ import view.display.Canvas;
 
 @SuppressWarnings("serial")
 public class OptionsPanel extends JPanel {
-    private Canvas myCanvas;
 
     public OptionsPanel (ViewController controller) {
 
@@ -20,9 +19,9 @@ public class OptionsPanel extends JPanel {
         this.add(new StatusCheckBox(controller));
         this.add(new GridCheckBox(controller));
         this.add(new HighlightCheckBox(controller));
+        this.add(new ImageChooser(controller));
         this.add(new PenColorChooser(controller));
         this.add(new BackgroundColorChooser(controller));
-        // this.add(imageChooserButton);
 
     }
 

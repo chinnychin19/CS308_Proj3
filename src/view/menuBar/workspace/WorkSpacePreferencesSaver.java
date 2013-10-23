@@ -4,22 +4,31 @@ import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
-import java.util.Map;
 import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import view.Constants;
 import view.ViewController;
 
 
+/**
+ * Class that allows workspace preferences (background color, pen color, and image index)
+ * to be stored in a text file
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ * 
+ */
 public class WorkSpacePreferencesSaver extends AbstractAction {
-
     private ViewController myController;
-
     private static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
 
+    /**
+     * Constructor for WorkSpacePreferenceSaver class
+     * 
+     * @param controller Controller used to send pen index selection to Model
+     */
     protected WorkSpacePreferencesSaver (ViewController controller) {
-
         super(Constants.SAVE_WORKSPACE_PREFERENCES);
         myController = controller;
     }
@@ -35,9 +44,9 @@ public class WorkSpacePreferencesSaver extends AbstractAction {
             try {
                 PrintStream out = new PrintStream(file);
                 out.println("preferences");
-                out.println("background " + 1);
-                out.println("penIndex " + 1);
-                out.println("turtleImage " + 1);
+                out.println("background " + myController.getBackgroundIndex());
+                out.println("penIndex " + myController.getPenIndex());
+                out.println("turtleImage " + myController.getShapeIndex());
                 out.close();
             }
             catch (FileNotFoundException e1) {
