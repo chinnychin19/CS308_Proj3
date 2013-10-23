@@ -11,11 +11,14 @@ import view.Updatable;
 import view.ViewController;
 
 
-/**JPanel that contains the elements that the user can interact with
- * to send input to the Model. To illustrate, the textbox is contained in this panel. 
+/**
+ * JPanel that contains the elements that the user can interact with
+ * to send input to the Model. To illustrate, the textbox is contained in this panel.
  * The textbox allows the user to type commands to be sent to the model
+ * 
  * @author Lalita Maraj
- *
+ * @author Susan Zhang
+ * 
  */
 @SuppressWarnings("serial")
 public class InputPanel extends JPanel implements Updatable {
@@ -24,11 +27,13 @@ public class InputPanel extends JPanel implements Updatable {
     private JButton redo;
     private Model myCurrentModel;
 
-    /**Constructor
+    /**
+     * Constructor
+     * 
      * @param jTextArea Input textbox
-     * @param controller  Controller used to send information to Model
+     * @param controller Controller used to send information to Model
      * @param model Model used to gather information
-     *      */
+     * */
     public InputPanel (JTextArea jTextArea, ViewController controller, Model model) {
         super();
         this.setLayout(new GridLayout(Constants.INPUT_PANEL_ROWS, Constants.INPUT_PANEL_COLUMNS));

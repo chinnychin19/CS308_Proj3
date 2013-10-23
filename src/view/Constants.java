@@ -69,5 +69,5 @@ public interface Constants {
     public static final int INPUT_DISPLAY_HEIGHT = 100;
     public static final int INPUT_DISPLAY_WIDTH = 300;
     public static final int INPUT_PANEL_ROWS = 1;
-    public static final int INPUT_PANEL_COLUMNS =4;
+    public static final int INPUT_PANEL_COLUMNS = 4;
 }
