@@ -97,7 +97,7 @@ public class Canvas extends JGEngine implements Updatable {
         drawStamps();
 
         displayError(myError);
-        
+
         if (myHighlights) {
             for (int ID : myActiveTurtleIDs) {
                 if (!myTurtleMap.get(ID).isSuspended()) {
@@ -206,10 +206,9 @@ public class Canvas extends JGEngine implements Updatable {
      * 
      * @param imageName name of image
      */
-    public void changeTurtleImage (int ID, String imageName) { 
-            String newName=adjustImageAngle(imageName, myTurtleMap.get(ID).getHeading());
-            defineImage(image + ID, newName);
- 
+    public void changeTurtleImage (int ID, String imageName) {
+        String newName = adjustImageAngle(imageName, myTurtleMap.get(ID).getHeading());
+        defineImage(image + ID, newName);
 
     }
 
@@ -224,7 +223,7 @@ public class Canvas extends JGEngine implements Updatable {
         }
 
     }
-    
+
     private String adjustImageAngle (String imageName, double angle) {
         int index;
         if (angle < 45) {
@@ -240,7 +239,6 @@ public class Canvas extends JGEngine implements Updatable {
         defineImage(name, "-", Constants.TURTLE_CID, imageName, "-", 0, 0, 50,
                     50);
     }
-
 
     private void moveTurtle (int ID, double x, double y) {
         TurtleSprite toMove = myTurtleMap.get(ID);
@@ -342,7 +340,6 @@ public class Canvas extends JGEngine implements Updatable {
         drawLine(x, y + 50, x, y, 1, JGColor.green);
     }
 
- 
     private void addNewTurtle (int ID) {
         defineImage(image + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
 
@@ -353,7 +350,6 @@ public class Canvas extends JGEngine implements Updatable {
                                  image + ID);
         myTurtleMap.put(ID, myTurtle);
     }
-
 
     public void setGridStatus (boolean b) {
         myGridStatus = b;
@@ -381,18 +377,18 @@ public class Canvas extends JGEngine implements Updatable {
         Color pen = myCurrentModel.getPenColor();
         Color bg = myCurrentModel.getBGColor();
         myImageName = myCurrentModel.getShape();
-        myTurtleStamps = stamps;     
+        myTurtleStamps = stamps;
         myError = error;
         myActiveTurtleIDs = activeTurtleList;
-        
+
         changeBackgroundColor(colorToJGColor(bg));
         changePenColor(colorToJGColor(pen));
-        
+
         for (Integer ID : activeTurtleList) {
             if (!myTurtleMap.containsKey(ID)) {
                 addNewTurtle(ID);
             }
-            
+
             changeTurtleImage(ID, turtleShapeList.get(ID));
             setHeading(ID, turtleAngleMap.get(ID), turtleShapeList.get(ID));
             moveTurtle(ID, turtleXMap.get(ID), turtleYMap.get(ID));

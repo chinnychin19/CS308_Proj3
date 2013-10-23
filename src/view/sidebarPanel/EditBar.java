@@ -13,21 +13,33 @@ import view.Constants;
 import view.ViewController;
 
 
+/**
+ * Panel used to enter input when user wants to edit a variable value
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ */
 @SuppressWarnings("serial")
-public class EditBar extends JPanel {
+class EditBar extends JPanel {
 
-    JButton myEdit;
-    TextField myTextfield;
-    JList<ModuleData> myList;
-    DefaultListModel<ModuleData> myListModel;
-    ViewController myController;
+    private JButton myEdit;
+    private TextField myTextfield;
+    private JList<InputDisplayData> myList;
+    private DefaultListModel<InputDisplayData> myListModel;
+    private ViewController myController;
 
-    public EditBar (JList<ModuleData> list,
-                    DefaultListModel<ModuleData> listModel,
-                    ViewController controller) {
+    /**
+     * @param list the Jlist that the different variables are displayed in
+     * @param listModel the listModel the variables are stored in
+     * @param controller the controller used to communicate with the model
+     */
+    protected EditBar (JList<InputDisplayData> list,
+                       DefaultListModel<InputDisplayData> listModel,
+                       ViewController controller) {
         myController = controller;
         myList = list;
         myListModel = listModel;
+
         JPanel bottomPane = new JPanel();
         bottomPane.add(addTextBox());
         bottomPane.add(addEditButton());
@@ -35,32 +47,51 @@ public class EditBar extends JPanel {
 
     }
 
+    /**
+     * Helper method to add the TextBox to the EditBar panel
+     * 
+     * @return
+     */
     private TextField addTextBox () {
         myTextfield = new TextField();
         myTextfield.setColumns(Constants.TEXTBOX_COLUMNS);
         return myTextfield;
     }
 
+    /**
+     * Creates a button that when clicked, updates a variable value
+     * with input specified in textfield
+     * 
+     * @return
+     */
     private JButton addEditButton () {
         myEdit = new JButton(Constants.EDIT_BUTTON_NAME);
         myEdit.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent e) {
 
+                updateVariable();
+            }
+
+            private void updateVariable () {
                 int index = myList.getSelectedIndex();
                 if (index != -1) {
 
-                    ModuleData selected = (ModuleData) myListModel.get(index);
-                    String newValue = myTextfield.getText();
-                    myTextfield.setText("");
-
-                    (myController).updateVariable(selected
-                            .getDisplay(), newValue);
+                    changeVariableValue(index);
 
                 }
                 else {
                     JOptionPane.showMessageDialog(null,
                                                   Constants.SELECT_A_VARIABLE_MESSAGE);
                 }
+            }
+
+            private void changeVariableValue (int index) {
+                InputDisplayData selected = (InputDisplayData) myListModel.get(index);
+                String newValue = myTextfield.getText();
+                myTextfield.setText("");
+
+                (myController).updateVariable(selected
+                        .getDisplay(), newValue);
             }
 
         });

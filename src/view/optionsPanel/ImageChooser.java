@@ -22,7 +22,7 @@ public class ImageChooser extends JComboBox {
                 JComboBox<?> cb = (JComboBox<?>) e.getSource();
                 String turtleSelection = (String) cb.getSelectedItem();
                 System.out.println(turtleSelection);
-                //myCanvas.changeTurtleImage(turtleSelection);
+                // myCanvas.changeTurtleImage(turtleSelection);
             }
 
         });

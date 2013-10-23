@@ -61,4 +61,11 @@ public interface Constants {
     public static final String SELECT_A_VARIABLE_MESSAGE = "Select a variable";
     public static final int TEXTBOX_COLUMNS = 15;
     public static final String EDIT_BUTTON_NAME = "Edit";
+
+    public static final String VARIABLE_INPUT_DISPLAY_NAME = "variable";
+    public static final String COMMAND_INPUT_DISPLAY_NAME = "command";
+    public static final String HISTORY_INPUT_DISPLAY_NAME = "history";
+
+    public static final int INPUT_DISPLAY_HEIGHT = 100;
+    public static final int INPUT_DISPLAY_WIDTH = 300;
 }
