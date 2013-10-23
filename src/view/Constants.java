@@ -15,8 +15,14 @@ public interface Constants {
     public static final int GUI_HEIGHT = 758;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
-
+    
+    public static final int LINE_OFFSET = 13;
     public static final int TURTLE_OFFSET = 25;
+    public static final int FONT_SIZE = 12;
+    public static final int MARGIN = 5;
+    public static final int SHAPE_NAME_LENGTH = 7;
+    public static final String IMAGE_NAME = "turtleGif";
+   
 
     public static final int GRID_CID = 2;
     public static final int TURTLE_CID = 0;
@@ -38,6 +44,7 @@ public interface Constants {
     public static String[] TURTLE_OPTIONS = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
     
     public static final String CHOOSE_IMAGE = "Choose a turtle image. \nThe current image is ";
+    public static final String IMAGE_CHOOSER_TITLE = "Turtle Image Chooser";
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     public static final String USER_DIR = "user.dir";

@@ -18,7 +18,6 @@ public class ImageChooser extends JButton {
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-
                 int i = createImageSelector();
                 myController.changeImage(i - 1);
 
@@ -33,12 +32,12 @@ public class ImageChooser extends JButton {
                                                      null,
                                                      Constants.CHOOSE_IMAGE +
                                                              myController.getShape(),
-                                                     "Turtle Image Chooser",
+                                                     Constants.IMAGE_CHOOSER_TITLE,
                                                      JOptionPane.PLAIN_MESSAGE,
                                                      null,
                                                      Constants.TURTLE_OPTIONS,
                                                      "");
-        return Integer.parseInt(choice.substring(6, 7));
+        return Integer.parseInt(choice.substring(Constants.SHAPE_NAME_LENGTH-1, Constants.SHAPE_NAME_LENGTH));
     }
 
 }
