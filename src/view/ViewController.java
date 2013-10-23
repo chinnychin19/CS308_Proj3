@@ -255,6 +255,10 @@ public class ViewController {
         return myCurrentModel.getShape();
     }
     
+    public int getShapeIndex(){
+        return myCurrentModel.getShapeIndex();
+    }
+    
     public int getBackgroundIndex(){
         return myCurrentModel.getBGColorIndex ();
     }

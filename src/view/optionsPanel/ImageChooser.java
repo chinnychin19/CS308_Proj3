@@ -7,12 +7,19 @@ import javax.swing.JOptionPane;
 import view.Constants;
 import view.ViewController;
 
-
+/**
+ * Class for button that enables changing of pen color based on available color indexes
+ * stored in Model class
+ * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
+ * 
+ */
 public class ImageChooser extends JButton {
     ViewController myController;
 
     public ImageChooser (final ViewController controller) {
-        super("Change Turtle Image");
+        super(Constants.CHANGE_IMAGE_BUTTON);
         myController = controller;
 
         addActionListener(new ActionListener() {
