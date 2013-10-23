@@ -20,18 +20,22 @@ import model.Stamp;
 /**
  * Class that displays the turtle sprite(s) within the canvas.
  * 
- * 
+ * @author Lalita Maraj
+ * @author Susan Zhang
  */
+
 public class Canvas extends JGEngine implements Updatable {
     private ViewController myController;
     private String myImageName = "Turtle1_1.gif";
     private String myError = "";
-    private Collection<Path> myPointList = new ArrayList<Path>();
+    private Collection<Path> myPathList = new ArrayList<Path>();
     private JGColor myPenColor = JGColor.red;
     private boolean myGridStatus = false;
     private boolean myTurtleStatus = true;
     private boolean myMouseClicked = false;
     private boolean myHighlights = false;
+    private int x;
+    private int y;
 
     private Map<Integer, TurtleSprite> myTurtleMap = new HashMap<Integer, TurtleSprite>();
     private ArrayList<Integer> myActiveTurtleIDs = new ArrayList<Integer>();
@@ -80,6 +84,8 @@ public class Canvas extends JGEngine implements Updatable {
     @Override
     public void doFrame () {
         handleMouseClick();
+        handleMove();
+
     }
 
     @Override
@@ -97,7 +103,7 @@ public class Canvas extends JGEngine implements Updatable {
         drawStamps();
 
         displayError(myError);
-        
+
         if (myHighlights) {
             for (int ID : myActiveTurtleIDs) {
                 if (!myTurtleMap.get(ID).isSuspended()) {
@@ -149,11 +155,33 @@ public class Canvas extends JGEngine implements Updatable {
 
         else if (!getMouseButton(1) && myMouseClicked) {
             myMouseClicked = false;
-            System.out.println((getMouseX() - Constants.CANVAS_WIDTH / 2) + " " + (-getMouseY() +
-                               Constants.CANVAS_HEIGHT / 2)); // TODO: How to ensure only once?
+            myController.onClick((getMouseX() - Constants.CANVAS_WIDTH / 2), (-getMouseY() +
+                                 Constants.CANVAS_HEIGHT / 2));
         }
     }
 
+    private void handleMove () {
+        if (getMouseInside()) {
+            if (getMouseX() != x || getMouseY() != y) {
+                x = getMouseX();
+                y = getMouseY();
+                myController.onMove((getMouseX() - Constants.CANVAS_WIDTH / 2), (-getMouseY() +
+                                    Constants.CANVAS_HEIGHT / 2));
+            }
+        }
+    }
+    
+    private void handleKeyEvent(){
+        if (getMouseInside()) {
+        
+        }
+    }
+
+    /**
+     * 
+     * @param ID Turtle ID
+     * @param visible visibility status of turtle
+     */
     private void changeTurtleVisiblity (int ID, boolean visible) {
         TurtleSprite tempTurtle = myTurtleMap.get(ID);
 
@@ -173,8 +201,8 @@ public class Canvas extends JGEngine implements Updatable {
      * Method that draws the turtle's path from Model's stored list of paths
      */
     private void drawPath () {
-        for (int i = 0; i < myPointList.size(); i++) {
-            Path toDraw = ((ArrayList<Path>) myPointList).get(i);
+        for (int i = 0; i < myPathList.size(); i++) {
+            Path toDraw = ((ArrayList<Path>) myPathList).get(i);
             // splitLine(toDraw);
             drawLine(toDraw.getX1() + Constants.CANVAS_WIDTH / 2, -toDraw.getY1() +
                                                                   Constants.CANVAS_WIDTH / 2,
@@ -206,10 +234,9 @@ public class Canvas extends JGEngine implements Updatable {
      * 
      * @param imageName name of image
      */
-    public void changeTurtleImage (int ID, String imageName) { 
-            String newName=adjustImageAngle(imageName, myTurtleMap.get(ID).getHeading());
-            defineImage(image + ID, newName);
- 
+    public void changeTurtleImage (int ID, String imageName) {
+        String newName = adjustImageAngle(imageName, myTurtleMap.get(ID).getHeading());
+        defineImage(image + ID, newName);
 
     }
 
@@ -224,7 +251,7 @@ public class Canvas extends JGEngine implements Updatable {
         }
 
     }
-    
+
     private String adjustImageAngle (String imageName, double angle) {
         int index;
         if (angle < 45) {
@@ -241,17 +268,12 @@ public class Canvas extends JGEngine implements Updatable {
                     50);
     }
 
-
     private void moveTurtle (int ID, double x, double y) {
         TurtleSprite toMove = myTurtleMap.get(ID);
 
         toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
                       Constants.TURTLE_OFFSET,
                       -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
-
-        // toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-        // -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
-
     }
 
     /**
@@ -289,15 +311,6 @@ public class Canvas extends JGEngine implements Updatable {
         }
     }
 
-    /**
-     * Sets list of points
-     * 
-     * @param list new ArrayList of points
-     */
-    public void setPaths (Collection<Path> list) {
-        myPointList = list;
-    }
-
     // public void splitLine(Path p){
     //
     // if (p.getX1() > Constants.GUI_WIDTH/2){
@@ -327,7 +340,7 @@ public class Canvas extends JGEngine implements Updatable {
         for (int i = 0; i < myTurtleStamps.size(); i++) {
             Stamp s = ((ArrayList<Stamp>) myTurtleStamps).get(i);
             String newName = adjustImageAngle(s.getShape(), s.getAngle());
-            defineImage("" + i, "-", Constants.TURTLE_CID, newName, "-", 0, 0, 50, 50);
+            defineImage("" + i, newName);
             drawImage("" + i, s.getX() + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
                       -s.getY() + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
         }
@@ -342,9 +355,8 @@ public class Canvas extends JGEngine implements Updatable {
         drawLine(x, y + 50, x, y, 1, JGColor.green);
     }
 
- 
     private void addNewTurtle (int ID) {
-        defineImage(image + ID, "-", Constants.TURTLE_CID, myImageName, "-", 0, 0, 50, 50);
+        defineImage(image + ID, myImageName);
 
         TurtleSprite myTurtle =
                 new TurtleSprite(this, Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
@@ -353,7 +365,6 @@ public class Canvas extends JGEngine implements Updatable {
                                  image + ID);
         myTurtleMap.put(ID, myTurtle);
     }
-
 
     public void setGridStatus (boolean b) {
         myGridStatus = b;
@@ -380,19 +391,21 @@ public class Canvas extends JGEngine implements Updatable {
         Collection<Stamp> stamps = myCurrentModel.getTurtleStamps();
         Color pen = myCurrentModel.getPenColor();
         Color bg = myCurrentModel.getBGColor();
-        myImageName = myCurrentModel.getShape();
-        myTurtleStamps = stamps;     
         myError = error;
         myActiveTurtleIDs = activeTurtleList;
-        
+
         changeBackgroundColor(colorToJGColor(bg));
         changePenColor(colorToJGColor(pen));
-        
+
         for (Integer ID : activeTurtleList) {
             if (!myTurtleMap.containsKey(ID)) {
                 addNewTurtle(ID);
             }
-            
+
+            if (myImageName.substring(0, 7).equals(myCurrentModel.getShape())) {
+                myImageName = myCurrentModel.getShape() + "_1.gif";
+            }
+
             changeTurtleImage(ID, turtleShapeList.get(ID));
             setHeading(ID, turtleAngleMap.get(ID), turtleShapeList.get(ID));
             moveTurtle(ID, turtleXMap.get(ID), turtleYMap.get(ID));
@@ -400,7 +413,7 @@ public class Canvas extends JGEngine implements Updatable {
         }
 
         myTurtleStamps = stamps;
-        setPaths(paths);
+        myPathList = paths;
 
     }
 
@@ -420,9 +433,7 @@ public class Canvas extends JGEngine implements Updatable {
         for (Integer ID : activeTurtleList) {
             turtleXMap.put(ID, myCurrentModel.getTurtleX(ID));
         }
-
         return turtleXMap;
-
     }
 
     private Map<Integer, Double> getTurtleY () {
@@ -431,9 +442,7 @@ public class Canvas extends JGEngine implements Updatable {
         for (Integer ID : activeTurtleList) {
             turtleYMap.put(ID, myCurrentModel.getTurtleY(ID));
         }
-
         return turtleYMap;
-
     }
 
     private Map<Integer, Double> getTurtleAngle () {
@@ -442,9 +451,7 @@ public class Canvas extends JGEngine implements Updatable {
         for (Integer ID : activeTurtleList) {
             turtleAngleMap.put(ID, myCurrentModel.getTurtleAngle(ID));
         }
-
         return turtleAngleMap;
-
     }
 
     private Map<Integer, Boolean> getTurtleVisibility () {
@@ -453,9 +460,7 @@ public class Canvas extends JGEngine implements Updatable {
         for (Integer ID : activeTurtleList) {
             turtleVisibilityMap.put(ID, myCurrentModel.isTurtleVisible(ID));
         }
-
         return turtleVisibilityMap;
-
     }
 
     private Map<Integer, String> getTurtleShape () {

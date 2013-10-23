@@ -227,7 +227,15 @@ public class ViewController {
     public void changeImage (int shapeIndex) {
         myCurrentModel.setShape(shapeIndex);
         myView.notifyUpdatables("");
-
     }
-
+    
+    public void onClick(int x, int y){
+        myCurrentModel.mouseClicked(x, y);
+        myView.notifyUpdatables("");
+    }
+    
+    public void onMove(int x, int y){
+        myCurrentModel.mouseMoved(x, y);
+        myView.notifyUpdatables("");
+    }
 }

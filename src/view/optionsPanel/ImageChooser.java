@@ -2,30 +2,39 @@ package view.optionsPanel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JComboBox;
-import view.View;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import view.Constants;
 import view.ViewController;
-import view.display.Canvas;
 
 
-public class ImageChooser extends JComboBox {
-    private Canvas myCanvas;
-    private static final String[] turtleOptions = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
+public class ImageChooser extends JButton {
+    ViewController myController;
 
-    @SuppressWarnings("unchecked")
     public ImageChooser (final ViewController controller) {
-        super(turtleOptions);
+        super("Change Turtle Image");
+        myController = controller;
 
         addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e) {
-                JComboBox<?> cb = (JComboBox<?>) e.getSource();
-                String turtleSelection = (String) cb.getSelectedItem();
-                System.out.println(turtleSelection);
-                //myCanvas.changeTurtleImage(turtleSelection);
+                int i = createImageSelector();
+                myController.changeImage(i - 1);
             }
 
         });
+    }
+
+    private int createImageSelector () {
+        String choice = (String) JOptionPane.showInputDialog(
+                                                             null,
+                                                             "Choose a turtle image",
+                                                             "Turtle Image Chooser",
+                                                             JOptionPane.PLAIN_MESSAGE,
+                                                             null,
+                                                             Constants.TURTLE_OPTIONS,
+                                                             "");
+        return Integer.parseInt(choice.substring(6, 7));
     }
 
 }

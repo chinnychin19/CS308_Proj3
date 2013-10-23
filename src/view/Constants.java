@@ -35,6 +35,7 @@ public interface Constants {
     public static final JGColor GRIDLINE_COLOR = JGColor.black;
     public static final int GRIDLINE_THICKNESS = 2;
     public static final int NUM_GRIDLINES = 20;
+    public static String[] TURTLE_OPTIONS = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
 
     public static final String DEFAULT_RESOURCE_PACKAGE = "resources.";
     public static final String USER_DIR = "user.dir";
