@@ -30,11 +30,11 @@ public class View extends JFrame {
     public View () {
 
         myModel = new Model();
-        Canvas myCanvas = new Canvas(controller, myModel);
+        Canvas myCanvas = new Canvas(myModel);
         JTextArea textbox = new JTextArea();
         textbox.setRows(Constants.TEXTBOX_ROWS);
         controller = new ViewController(myModel, textbox, myCanvas, this);
-        // myCanvas.addController(controller);
+         myCanvas.addController(controller);
         updatables.add(myCanvas);
         initializeDisplaySettings();
         makePanels(myCanvas, textbox);
