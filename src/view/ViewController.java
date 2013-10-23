@@ -39,7 +39,7 @@ public class ViewController {
         if (input.trim().equals("")) { return; }
         String inputError = myCurrentModel.parseInput(input);
         myTextbox.setText("");
-        myView.notifyObservers(inputError);
+        myView.notifyUpdatables(inputError);
     }
 
     /**
@@ -47,7 +47,7 @@ public class ViewController {
      */
     public void undo () {
         String undoError = myCurrentModel.undo();
-        myView.notifyObservers(undoError);
+        myView.notifyUpdatables(undoError);
     }
 
     /**
@@ -55,13 +55,13 @@ public class ViewController {
      */
     public void redo () {
         String redoError = myCurrentModel.redo();
-        myView.notifyObservers(redoError);
+        myView.notifyUpdatables(redoError);
     }
 
     public String updateVariable (String key, String value) {
 
         String updateVariable = myCurrentModel.putVariable(key, value);
-        myView.notifyObservers(updateVariable);
+        myView.notifyUpdatables(updateVariable);
         return updateVariable;
 
     }
@@ -72,18 +72,18 @@ public class ViewController {
 
     public void setBGColor (int colorIndex) {
         myCurrentModel.setBGColor(colorIndex);
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
     }
 
     public void setGrid (boolean b) {
         myCanvas.setGridStatus(b);
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
 
     }
 
     public void setTurtleStatus (boolean b) {
         myCanvas.setTurtleStatus(b);
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
 
     }
 
@@ -109,7 +109,7 @@ public class ViewController {
             makeNewWorkSpace();
 
         }
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
 
     }
 
@@ -183,12 +183,12 @@ public class ViewController {
 
     protected void parseWorkSpacePreferences (String filenmae) {
         // Talk the to the model
-        myView.notifyObservers(""); // can pass an error string to notifyObsers
+        myView.notifyUpdatables(""); // can pass an error string to notifyObsers
     }
 
     protected void saveWorkSpacePreferences (String filenmae) {
         // Talk the to the model
-        myView.notifyObservers(""); // can pass an error string to notifyObsers
+        myView.notifyUpdatables(""); // can pass an error string to notifyObsers
     }
 
     public void changeLanguage (String myLanguageValue) {
@@ -202,7 +202,7 @@ public class ViewController {
 
     public void loadFile (String fileName) {
         myCurrentModel.readLibrary(fileName);
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
     }
 
     public void saveFile (String fileName) {
@@ -211,7 +211,7 @@ public class ViewController {
 
     public void setPenColor (int colorIndex) {
         myCurrentModel.setPenColor(colorIndex);
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
     }
 
     public int getNumberOfColors () {
@@ -221,12 +221,12 @@ public class ViewController {
 
     public void setHighlights (boolean b) {
         myCanvas.setHighlights(b);
-        myView.notifyObservers("");
+        myView.notifyUpdatables("");
     }
 
     public void changeImage (int shapeIndex) {
         myCurrentModel.setShape(shapeIndex);
-        myView.notifyObservers("");    
+        myView.notifyUpdatables("");
 
     }
 
