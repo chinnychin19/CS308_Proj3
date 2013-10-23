@@ -1,17 +1,25 @@
-package menuBar;
+package view.menuBar;
 
 import java.awt.event.ActionEvent;
+import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import javax.swing.AbstractAction;
+import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import view.workspace.WorkSpacePreferences;
+import view.ViewController;
 
 
+@SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
-    private MenuBarController myController;
 
-    public MenuBar (MenuBarController controller) {
+    private ViewController myController;
+
+    private static final JFileChooser INPUT_CHOOSER =
+            new JFileChooser(System.getProperties().getProperty("user.dir"));
+
+    public MenuBar (ViewController controller) {
         myController = controller;
         add(fileMenu());
         add(helpMenu());
@@ -24,22 +32,33 @@ public class MenuBar extends JMenuBar {
         result.add(new AbstractAction("Open") {
             @Override
             public void actionPerformed (ActionEvent e) {
-
+                int loadObject = INPUT_CHOOSER.showOpenDialog(null);
+                if (loadObject == JFileChooser.APPROVE_OPTION) {
+                    myController.loadFile(INPUT_CHOOSER.getSelectedFile().toString());
+                }
             }
         });
 
         result.add(new AbstractAction("Save") {
             @Override
             public void actionPerformed (ActionEvent e) {
-                // TODO Auto-generated method stub
+                int result = INPUT_CHOOSER.showSaveDialog(null);
+                if (result == JFileChooser.APPROVE_OPTION) {
+                    File file = INPUT_CHOOSER.getSelectedFile();
+                    System.out.println(file);
+                    myController.saveFile(file.toString());
+
+                }
             }
         });
+
         result.addSeparator();
-        // TO DO FIND A WAY TO DYNAMICALLY ADD LANGUAGES
-        // /WANT TO AVOID HARDCODING
         JMenu submenu = new JMenu("Select Language");
-        submenu.add(new LanguageOption("English", myController));
-        submenu.add(new LanguageOption("French", myController));
+        Collection<String> languages = myController.getLanguages();
+        for (String language : languages) {
+            submenu.add(new LanguageOption(language, myController));
+        }
+
         result.add(submenu);
 
         return result;

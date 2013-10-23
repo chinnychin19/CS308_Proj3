@@ -6,19 +6,22 @@ import javax.swing.JCheckBox;
 import view.ViewController;
 
 
-public class GridCheckBox extends JCheckBox {
-
+public class HighlightCheckBox extends JCheckBox {
     private ViewController myController;
 
-    public GridCheckBox (ViewController controller) {
-
-        super("Grid", null, false);
+    public HighlightCheckBox (ViewController controller) {
+        super("Highlight", null, false);
         myController = controller;
+
         addItemListener(new ItemListener() {
+
+            @Override
             public void itemStateChanged (ItemEvent e) {
-                myController.setGrid((e.getStateChange() == ItemEvent.SELECTED));
+                myController.setHighlights((e.getStateChange() == ItemEvent.SELECTED));
+
             }
 
         });
     }
+
 }

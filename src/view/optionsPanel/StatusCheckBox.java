@@ -4,20 +4,21 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import javax.swing.JCheckBox;
 import view.View;
+import view.ViewController;
 import view.display.Canvas;
 
 
 public class StatusCheckBox extends JCheckBox {
-    private OptionsPanelController myController;
+    private ViewController myController;
 
-    public StatusCheckBox (OptionsPanelController controller) {
+    public StatusCheckBox (ViewController controller) {
         super("Turtle Status", null, true);
         myController = controller;
 
         addItemListener(new ItemListener() {
 
             public void itemStateChanged (ItemEvent e) {
-                myController.setStatus(e.getStateChange() == ItemEvent.SELECTED);
+                myController.setTurtleStatus(e.getStateChange() == ItemEvent.SELECTED);
             }
 
         });
