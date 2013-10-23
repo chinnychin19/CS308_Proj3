@@ -1,4 +1,4 @@
-package menuBar;
+package view.menuBar;
 
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;

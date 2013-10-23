@@ -1,4 +1,4 @@
-package view.workspace;
+package view.menuBar.workspace;
 
 import java.io.BufferedReader;
 import java.io.File;
