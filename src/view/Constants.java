@@ -1,5 +1,6 @@
 package view;
 
+import javax.swing.JFileChooser;
 import jgame.JGColor;
 
 
@@ -85,4 +86,14 @@ public interface Constants {
     public static final int INPUT_DISPLAY_WIDTH = 300;
     public static final int INPUT_PANEL_ROWS = 1;
     public static final int INPUT_PANEL_COLUMNS = 4;
+    public static final String FILE_MENU_NAME = "File";
+    public static final String OPEN_MENU_NAME = "Open";
+    public static final String SAVE_MENU_NAME = "Save";
+    public static final String HELP_URL_PART_2 = "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands.php";
+    public static final String HELP_URL_PART_3 = "http://www.cs.duke.edu/courses/compsci308/current/assign/03_slogo/commands2.php";
+    public static final String HELP_MENU_2 = "Part 2 Help";
+    public static final String HELP_MENU_3 = "Part 3 Help";
+    public static final String HELP_MENU_NAME = "Help";
+    public static final JFileChooser INPUT_CHOOSER =
+            new JFileChooser(System.getProperties().getProperty("user.dir"));
 }
