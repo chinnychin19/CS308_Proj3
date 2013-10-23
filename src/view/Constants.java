@@ -44,8 +44,13 @@ public interface Constants {
     public static final int NUM_GRIDLINES = 20;
     public static String[] TURTLE_OPTIONS = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
     
+    public static final String GRID = "Grid";
+    public static final String HIGHLIGHT = "Highlight";
+    public static final String TURTLE_STATUS = "Turtle Status";
     
     public static final String CHANGE_IMAGE_BUTTON = "Change Image";
+    public static final String CHANGE_BG_BUTTON = "Change BG Color";
+    public static final String CHANGE_PEN_BUTTON ="Change Pen Color";
     public static final String CHOOSE_COLOR_INDEX = "Choose a color index. \nThe current index is ";
     public static final String CHOOSE_IMAGE = "Choose a turtle image. \nThe current image is ";
     public static final String IMAGE_CHOOSER_TITLE = "Turtle Image Chooser";

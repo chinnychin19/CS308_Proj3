@@ -12,10 +12,11 @@ import view.ViewController;
  * Class for button that enables changing of background color based on available color indexes
  * stored in Model class
  * 
- * @author susanzhang93
+ * @author Lalita Maraj
+ * @author Susan Zhang
  * 
  */
-public class BackgroundColorChooser extends JButton {
+public class BackgroundColorChooser extends ColorChooser {
     private ViewController myController;
 
     /**
@@ -24,11 +25,10 @@ public class BackgroundColorChooser extends JButton {
      * @param controller Controller used to send background index selection to Model
      */
     public BackgroundColorChooser (final ViewController controller) {
-        super("Change BG Color");
+        super(Constants.CHANGE_BG_BUTTON, controller);
         myController = controller;
 
         addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed (ActionEvent e) {
                 int i = createBackgroundSelector();
@@ -60,19 +60,5 @@ public class BackgroundColorChooser extends JButton {
         return Integer.parseInt(choice);
     }
 
-    /**
-     * Method that returns a string array of options based on Model's array of available colors
-     * 
-     * @return
-     */
-    private String[] getIndexOptions () {
-        int size = myController.getNumberOfColors();
-        String[] options = new String[size];
-
-        for (int i = 0; i < size; i++) {
-            options[i] = Integer.toString(i);
-        }
-
-        return options;
-    }
+ 
 }

@@ -157,7 +157,7 @@ import java.awt.event.*;
  * dbgPrint and dbgShowException, which print to stdout.
  */
 public abstract class JGEngine extends Applet implements JGEngineInterface {
-    public ViewController myController;
+    protected ViewController myController;
     JREImage imageutil = new JREImage();
 
     EngineLogic el = new EngineLogic(imageutil, true, true);
