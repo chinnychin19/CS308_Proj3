@@ -1,4 +1,4 @@
-package view.modulePanel;
+package view.sidebarPanel;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -15,11 +15,11 @@ import view.ViewController;
 
 
 @SuppressWarnings("serial")
-public class ModulePanel extends JPanel implements Updatable {
+public class SideBarPanel extends JPanel implements Updatable {
     private List<Module> myModules;
     private Model myCurrentModel;
 
-    public ModulePanel (ViewController controller, Model model) {
+    public SideBarPanel (ViewController controller, Model model) {
         super();
         myModules = new ArrayList<Module>();
         myCurrentModel = model;

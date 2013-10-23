@@ -1,4 +1,4 @@
-package view.modulePanel;
+package view.sidebarPanel;
 
 import java.awt.BorderLayout;
 import java.awt.TextField;

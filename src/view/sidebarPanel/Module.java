@@ -1,4 +1,4 @@
-package view.modulePanel;
+package view.sidebarPanel;
 
 import java.awt.Color;
 import java.awt.Dimension;

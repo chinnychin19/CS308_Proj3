@@ -3,10 +3,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -14,8 +11,8 @@ import menuBar.MenuBar;
 import model.Model;
 import view.display.Canvas;
 import view.inputPanel.InputPanel;
-import view.modulePanel.ModulePanel;
 import view.optionsPanel.OptionsPanel;
+import view.sidebarPanel.SideBarPanel;
 import view.workspace.WorkSpacePreferences;
 
 
@@ -24,112 +21,120 @@ public class View extends JFrame {
 
     private Model myModel;
 
-    private WorkSpacePreferences selector;
-
     private ViewController controller;
-    // private List<Subject> subjects = new ArrayList<Subject>();
     private List<Updatable> updatables = new ArrayList<Updatable>();
-
-    // private Model myCurrentModel;
 
     /**
      * Constructor for View Class
      */
     public View () {
 
-        Map<String, JComponent> paramaters = new HashMap<String, JComponent>();
         myModel = new Model();
-        Canvas myCanvas = new Canvas(controller, myModel);
+        Canvas myCanvas = new Canvas(myModel);
+        JTextArea textbox = new JTextArea();
+        textbox.setRows(Constants.TEXTBOX_ROWS);
+        controller = new ViewController(myModel, textbox, myCanvas, this);
+         myCanvas.addController(controller);
         updatables.add(myCanvas);
         initializeDisplaySettings();
-
-        makePanels(myCanvas, paramaters);
+        makePanels(myCanvas, textbox);
+        addMenu(controller);
         setVisible(true);
 
     }
 
-    private void makePanels (Canvas myCanvas,
-                             Map<String, JComponent> paramaters
-
-            )
-
-    {
-        JTextArea textbox = new JTextArea();
-        textbox.setRows(Constants.TEXTBOX_ROWS);
-        paramaters.put("textbox", textbox);
-        controller =
-                new ViewController(myModel, textbox, myCanvas, this);
-        JPanel modulePanel = addModulePanel(controller, textbox);
-
-        addCanvas(myCanvas);
-
-        JPanel inputPanel = addInputPanel(textbox, controller);
-
+    /**
+     * Creates panels for the GUI
+     * 
+     * @param myCanvas The Canvas used in the GUI
+     * @param inputTextbox The textbox used to type command
+     */
+    private void makePanels (Canvas myCanvas, JTextArea inputTextbox) {
+        JPanel modulePanel = addSideBarPanel(controller, inputTextbox);
+        JPanel inputPanel = addInputPanel(inputTextbox, controller);
         JPanel optionsPanel = addOptionsPanel(myCanvas, controller);
-
-        addMenu(controller);
-
         addPanelsToLayout(myCanvas, modulePanel, inputPanel, optionsPanel);
     }
 
+    /**
+     * Creates a JMenu for the GUI
+     * 
+     * @param controller
+     */
     private void addMenu (ViewController controller) {
-
-        selector = new WorkSpacePreferences(controller);
-
+        WorkSpacePreferences selector = new WorkSpacePreferences(controller);
         MenuBar menu = new MenuBar(controller);
         menu.add("selector", selector);
         setJMenuBar(menu);
     }
 
-    private JPanel addOptionsPanel (Canvas myCanvas,
-
-                                    ViewController controller) {
-
+    /**
+     * Creates an options panel for the GUI
+     * 
+     * @param myCanvas - canvas used in GUI
+     * @param controller - controller used to send information to Model
+     * @return an OptionsPanel
+     */
+    private JPanel addOptionsPanel (Canvas myCanvas, ViewController controller) {
         JPanel optionsPanel = new OptionsPanel(controller);
         return optionsPanel;
     }
 
-    private JPanel addInputPanel (
-
-                                  JTextArea textbox, ViewController controller) {
-
+    /**
+     * Creates an options panel for the GUI
+     * 
+     * @param textbox - input textbox
+     * @param controller - controller used to send information to Model
+     * @return an InputPanel
+     */
+    private JPanel addInputPanel (JTextArea textbox, ViewController controller) {
         JPanel inputPanel = new InputPanel(textbox, controller, myModel);
         updatables.add((Updatable) inputPanel);
-
         return inputPanel;
     }
 
-    private void addCanvas (Canvas myCanvas) {
-        // CanvasSubject myCanvasSubject = new CanvasSubject(myModel, myCanvas);
-        // subjects.add(myCanvasSubject);
+    private JPanel addSideBarPanel (ViewController controller, JTextArea textbox) {
+        JPanel sideBarPanel = new SideBarPanel(controller, myModel);
+        updatables.add((Updatable) sideBarPanel);
+        return sideBarPanel;
     }
 
-    private JPanel addModulePanel (ViewController controller,
-
-                                   JTextArea textbox) {
-
-        JPanel modulePanel = new ModulePanel(controller, myModel);
-        updatables.add((Updatable) modulePanel);
-
-        return modulePanel;
-    }
-
+    /**
+     * Initializes display settings of Slogo Frame
+     * 
+     */
     private void initializeDisplaySettings () {
         setTitle("SLogo");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setMinimumSize(new Dimension(Constants.GUI_WIDTH, Constants.GUI_HEIGHT));
     }
 
-    private void addPanelsToLayout (Canvas canvas, JPanel modulePanel, JPanel inputPanel,
+    /**
+     * Adds Panels to the appropriate positions
+     * 
+     * @param canvas the Canvas used in the GUI
+     * @param sideBarPanel panel that displays history, commands, and variables
+     * @param inputPanel panel that allows users to enter input
+     * @param optionsPanel panel that allows users to modify options
+     */
+    private void addPanelsToLayout (Canvas canvas,
+                                    JPanel sideBarPanel,
+                                    JPanel inputPanel,
                                     JPanel optionsPanel) {
-        this.getContentPane().add(modulePanel, BorderLayout.EAST);
+        this.getContentPane().add(sideBarPanel, BorderLayout.EAST);
         this.getContentPane().add(inputPanel, BorderLayout.SOUTH);
         this.getContentPane().add(optionsPanel, BorderLayout.NORTH);
         this.getContentPane().add(canvas, BorderLayout.CENTER);
 
     }
 
-    public void notifyObservers (String error) {
+    /**
+     * Notifies all objects that have an updatables interface
+     * that a change was made on the GUI
+     * 
+     * @param error used to pass errors to the Canvas to display
+     */
+    public void notifyUpdatables (String error) {
 
         for (Updatable updateable : updatables) {
             updateable.update(error);
@@ -137,6 +142,11 @@ public class View extends JFrame {
 
     }
 
+    /**
+     * Used to change workspaces. When workspaces change, a different Model is used
+     * 
+     * @param model new model to be used in new workspae
+     */
     public void changeCurrentModel (Model model) {
 
         for (Updatable updateable : updatables) {
