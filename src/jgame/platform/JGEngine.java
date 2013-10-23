@@ -10,6 +10,7 @@ import java.applet.*;
 import java.awt.event.*;
 import javax.swing.ListCellRenderer;
 import javax.swing.JList;
+import view.ViewController;
 import java.net.*;
 import java.util.*;
 import java.io.*;
@@ -156,7 +157,7 @@ import java.awt.event.*;
  * dbgPrint and dbgShowException, which print to stdout.
  */
 public abstract class JGEngine extends Applet implements JGEngineInterface {
-
+    private ViewController myController;
     JREImage imageutil = new JREImage();
 
     EngineLogic el = new EngineLogic(imageutil, true, true);
@@ -199,6 +200,10 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
     Graphics bgg = null;
 
     /* ====== images ====== */
+
+    public void setEngineController (ViewController controller) {
+        myController = controller;
+    }
 
     public JGImage getImage (String imgname) {
         return el.getImage(imgname);
@@ -1191,20 +1196,20 @@ public abstract class JGEngine extends Applet implements JGEngineInterface {
         jre.canvas = canvas;
 
         jre.clearKeymap();
-        canvas.addKeyListener(new KeyListener(){
+        canvas.addKeyListener(new KeyListener() {
 
-            public void keyTyped(KeyEvent e) {
+            public void keyTyped (KeyEvent e) {
 
             }
 
-            public void keyPressed(KeyEvent e) {
-                System.out.println(e.getKeyCode());
+            public void keyPressed (KeyEvent e) {
+                myController.onKey(e.getKeyCode());
             }
 
             /** Handle the key-released event from the text field. */
-            public void keyReleased(KeyEvent e) {
+            public void keyReleased (KeyEvent e) {
             }
-            
+
         });
         canvas.addMouseListener(jre);
         canvas.addMouseMotionListener(jre);

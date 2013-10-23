@@ -30,7 +30,7 @@ public class ImageChooser extends JButton {
     private int createImageSelector () {
         String choice = (String) JOptionPane.showInputDialog(
                                                              null,
-                                                             "Choose a turtle image",
+                                                             Constants.CHOOSE_IMAGE + myController.getShape(),
                                                              "Turtle Image Chooser",
                                                              JOptionPane.PLAIN_MESSAGE,
                                                              null,

@@ -52,25 +52,10 @@ public class Canvas extends JGEngine implements Updatable {
     public Canvas (Model model) {
         initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
         myCurrentModel = model;
-        this.addKeyListener(new KeyListener() {
-
-            public void keyTyped (KeyEvent e) {
-                System.out.println("W");
-            }
-
-            /** Handle the key-pressed event from the text field. */
-            public void keyPressed (KeyEvent e) {
-                System.out.println("D");
-            }
-
-            /** Handle the key-released event from the text field. */
-            public void keyReleased (KeyEvent e) {
-            }
-
-        });
     }
 
     public void addController (ViewController controller) {
+        setEngineController(controller);
         myController = controller;
     }
 
@@ -103,7 +88,6 @@ public class Canvas extends JGEngine implements Updatable {
     public void doFrame () {
         handleMouseClick();
         handleMove();
-
     }
 
     @Override
@@ -179,19 +163,11 @@ public class Canvas extends JGEngine implements Updatable {
     }
 
     private void handleMove () {
-        if (getMouseInside()) {
-            if (getMouseX() != x || getMouseY() != y) {
-                x = getMouseX();
-                y = getMouseY();
-                myController.onMove((getMouseX() - Constants.CANVAS_WIDTH / 2), (-getMouseY() +
-                                    Constants.CANVAS_HEIGHT / 2));
-            }
-        }
-    }
-
-    private void handleKeyEvent () {
-        if (getMouseInside()) {
-
+        if ((getMouseX() != x || getMouseY() != y) && myController.onMoveDefined()) {
+            x = getMouseX();
+            y = getMouseY();
+            myController.onMove((getMouseX() - Constants.CANVAS_WIDTH / 2), (-getMouseY() +
+                                Constants.CANVAS_HEIGHT / 2));
         }
     }
 
@@ -271,12 +247,19 @@ public class Canvas extends JGEngine implements Updatable {
     }
 
     private String adjustImageAngle (String imageName, double angle) {
-        int index;
-        if (angle < 45) {
-            angle = 360 + angle;
+        int index = 1;
+
+        if (angle >= 135 && angle < 225) {
+            index = 2;
         }
 
-        index = (int) Math.floor((angle - 45) / 90 + 1);
+        else if (angle >= 225 && angle < 315) {
+            index = 3;
+        }
+
+        else if (angle >= 315 || angle < 45) {
+            index = 4;
+        }
 
         return imageName.substring(0, 7) + "_" + index + ".gif";
     }
@@ -491,4 +474,5 @@ public class Canvas extends JGEngine implements Updatable {
         }
         return activeTurtleShapes;
     }
+
 }

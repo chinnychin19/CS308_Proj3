@@ -243,4 +243,12 @@ public class ViewController {
         myCurrentModel.keyPressed(k);
         myView.notifyUpdatables("");
     }
+    
+    public boolean onMoveDefined(){
+        return myCurrentModel.getCommandCache().contains("ONMOVE");
+    }
+    
+    public String getShape(){
+        return myCurrentModel.getShape();
+    }
 }
