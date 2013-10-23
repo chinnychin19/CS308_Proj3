@@ -6,6 +6,14 @@ import model.instruction.InstructionConstant;
 import model.instruction.error.TanOfNinety;
 
 
+/**
+ * 
+ * Tan instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionTAN extends Instruction {
 
     private static final int PI_DEGREES = 180;

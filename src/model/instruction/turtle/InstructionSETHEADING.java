@@ -6,6 +6,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Setheading instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionSETHEADING extends Instruction {
 
     public InstructionSETHEADING (Instruction parent, Model m) {

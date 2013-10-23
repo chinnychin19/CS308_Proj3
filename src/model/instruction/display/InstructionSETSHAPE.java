@@ -5,6 +5,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Setshape instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionSETSHAPE extends Instruction {
 
     public InstructionSETSHAPE (Instruction parent, Model m) {

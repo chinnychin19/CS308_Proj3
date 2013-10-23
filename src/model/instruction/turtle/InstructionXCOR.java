@@ -6,6 +6,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Xcor instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionXCOR extends Instruction {
 
     public InstructionXCOR (Instruction parent, Model m) {

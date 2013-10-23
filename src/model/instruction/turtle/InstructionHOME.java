@@ -6,6 +6,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Home instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionHOME extends Instruction {
 
     public InstructionHOME (Instruction parent, Model m) {

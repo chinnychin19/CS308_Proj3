@@ -5,6 +5,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Setpensize instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionSETPENSIZE extends Instruction {
 
     public InstructionSETPENSIZE (Instruction parent, Model m) {

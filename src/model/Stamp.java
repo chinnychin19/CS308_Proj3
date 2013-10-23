@@ -58,9 +58,8 @@ public class Stamp {
     }
 
     /**
-     * 
+     * @return A clone of the current stamp
      */
-    // TODO: Javadoc for clone
     public Stamp clone () {
         Stamp newStamp = new Stamp(myX, myY, myAngle, myShape);
         return newStamp;

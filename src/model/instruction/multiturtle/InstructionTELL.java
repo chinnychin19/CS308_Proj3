@@ -8,6 +8,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Tell instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionTELL extends Instruction implements ComplexParameterInstruction {
 
     public InstructionTELL (Instruction parent, Model m) {

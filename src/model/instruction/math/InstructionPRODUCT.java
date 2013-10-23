@@ -5,6 +5,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Product instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionPRODUCT extends Instruction {
 
     public InstructionPRODUCT (Instruction parent, Model m) {

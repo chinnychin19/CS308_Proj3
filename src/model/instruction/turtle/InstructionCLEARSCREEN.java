@@ -6,6 +6,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Clearscreen instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionCLEARSCREEN extends Instruction {
 
     public InstructionCLEARSCREEN (Instruction parent, Model m) {

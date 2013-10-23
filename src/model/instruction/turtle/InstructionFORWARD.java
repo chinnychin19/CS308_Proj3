@@ -6,6 +6,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Forward instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionFORWARD extends Instruction {
 
     public InstructionFORWARD (Instruction parent, Model m) {

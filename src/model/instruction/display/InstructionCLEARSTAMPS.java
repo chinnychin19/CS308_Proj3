@@ -5,6 +5,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Clearstamps instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionCLEARSTAMPS extends Instruction {
 
     public InstructionCLEARSTAMPS (Instruction parent, Model m) {

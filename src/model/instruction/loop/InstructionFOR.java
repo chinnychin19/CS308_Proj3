@@ -8,6 +8,14 @@ import model.instruction.InstructionListNode;
 import model.instruction.InstructionVariable;
 
 
+/**
+ * 
+ * For instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionFOR extends InstructionLoop {
 
     public InstructionFOR (Instruction parent, Model m) {

@@ -1,13 +1,20 @@
 package model.instruction.conditional;
 
 import java.util.List;
-import model.Interpreter;
 import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
 
 
+/**
+ * 
+ * If instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionIF extends InstructionConditional {
     public InstructionIF (Instruction parent, Model m) {
         super(2, parent, m);

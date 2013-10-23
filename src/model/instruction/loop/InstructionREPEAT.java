@@ -5,9 +5,16 @@ import model.Model;
 import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 import model.instruction.InstructionListNode;
-import model.instruction.error.ErrorInstruction;
 
 
+/**
+ * 
+ * Repeat instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionREPEAT extends InstructionLoop {
     public InstructionREPEAT (Instruction parent, Model m) {
         super(parent, m);

@@ -5,6 +5,14 @@ import model.instruction.Instruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Setpalette instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionSETPALETTE extends Instruction {
 
     public InstructionSETPALETTE (Instruction parent, Model m) {

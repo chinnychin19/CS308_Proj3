@@ -332,9 +332,8 @@ public class Turtle {
     }
 
     /**
-     * 
+     * @return A clone of the current turtle
      */
-    // TODO: Javadoc for clone
     public Turtle clone () {
         Turtle ret = new Turtle(myID, myModel);
         Collection<Stamp> newStamps = new ArrayList<Stamp>();
