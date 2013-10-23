@@ -1,4 +1,4 @@
-package view.modulePanel;
+package view.sidebarPanel;
 
 import view.ViewController;
 

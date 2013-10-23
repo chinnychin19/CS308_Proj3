@@ -46,8 +46,9 @@ public class Canvas extends JGEngine implements Updatable {
 
     public Canvas (ViewController controller, Model model) {
         initEngineComponent(Constants.CANVAS_WIDTH, Constants.CANVAS_HEIGHT);
-        myCurrentModel =model;
+        myCurrentModel = model;
         myController = controller;
+
     }
 
     public Canvas (JGPoint size) {
@@ -120,7 +121,6 @@ public class Canvas extends JGEngine implements Updatable {
                 addNewTurtle(ID);
             }
 
-
             TurtleSprite currentTurtle = myTurtleMap.get(ID);
 
             drawString("Turtle " + ID, 5, offset += 13, -1, new JGFont("arial", 0, 12),
@@ -148,13 +148,13 @@ public class Canvas extends JGEngine implements Updatable {
     private void handleMouseClick () {
         if (getMouseButton(1)) {
             myMouseClicked = true;
-            
+
         }
 
         else if (!getMouseButton(1) && myMouseClicked) {
             myMouseClicked = false;
             System.out.println((getMouseX() - Constants.CANVAS_WIDTH / 2) + " " + (-getMouseY() +
-                    Constants.CANVAS_HEIGHT / 2)); // TODO: How to ensure only once?
+                               Constants.CANVAS_HEIGHT / 2)); // TODO: How to ensure only once?
         }
     }
 
@@ -212,7 +212,7 @@ public class Canvas extends JGEngine implements Updatable {
      */
     public void changeTurtleImage (String imageName) {
         myImageName = imageName;
-       
+
         for (int ID : myActiveTurtleIDs) {
             if (!myTurtleMap.containsKey(ID)) {
                 addNewTurtle(ID);
@@ -236,15 +236,15 @@ public class Canvas extends JGEngine implements Updatable {
 
     }
 
-    private void moveTurtle (int ID, double x, double y) {       
+    private void moveTurtle (int ID, double x, double y) {
         TurtleSprite toMove = myTurtleMap.get(ID);
 
-         toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
-         Constants.TURTLE_OFFSET,
-         -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+        toMove.setPos(forceWithinBounds(x) + Constants.CANVAS_WIDTH / 2 -
+                      Constants.TURTLE_OFFSET,
+                      -forceWithinBounds(y) + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
 
-//        toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
-//                      -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
+        // toMove.setPos(x + Constants.CANVAS_WIDTH / 2 - Constants.TURTLE_OFFSET,
+        // -y + Constants.CANVAS_HEIGHT / 2 - Constants.TURTLE_OFFSET);
 
     }
 
@@ -384,7 +384,6 @@ public class Canvas extends JGEngine implements Updatable {
         setPaths(paths);
     }
 
-
     public void update (String error,
                         ArrayList<Integer> activeTurtleList,
                         Map<Integer, Double> turtleXMap,
@@ -398,7 +397,6 @@ public class Canvas extends JGEngine implements Updatable {
                         Integer penSize,
                         String shape) {
 
-        
         myError = error;
         if (!shape.equals(myImageName.substring(0, 7))) {
             changeTurtleImage(shape);
@@ -440,14 +438,15 @@ public class Canvas extends JGEngine implements Updatable {
                turtleYMap, turtleAngleMap, turtleVisibilityMap, paths, stamps, pen,
                bg,
                penSize, shape);
-        
+
     }
 
     @Override
     public void changeModel (Model model) {
-       myCurrentModel = model;
-        
+        myCurrentModel = model;
+
     }
+
     private ArrayList<Integer> getActiveTurtles () {
         return (ArrayList<Integer>) myCurrentModel.getActiveTurtleIDs();
     }
