@@ -6,23 +6,29 @@ import javax.swing.JFileChooser;
 import view.Constants;
 import view.ViewController;
 
-/**Menu specific to openning a file
+
+/**
+ * Menu specific to openning a file
+ * 
  * @author Susan Zhang
  * @author Lalita Maraj
- *
+ * 
  */
 @SuppressWarnings("serial")
 class OpenMenuItem extends AbstractAction {
     private ViewController myController;
 
-    /**Constructor
+    /**
+     * Constructor
+     * 
      * @param controller Controller used to communicate with Model
      * @param name Name of menu
      */
-    protected OpenMenuItem(ViewController controller, String name){
+    protected OpenMenuItem (ViewController controller, String name) {
         super(name);
         myController = controller;
     }
+
     @Override
     public void actionPerformed (ActionEvent e) {
         loadFile();

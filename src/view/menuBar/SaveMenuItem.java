@@ -18,8 +18,10 @@ import view.ViewController;
 public class SaveMenuItem extends AbstractAction {
     private ViewController myController;
 
-    /**A menu that allows users to save currently defined environment factors
+    /**
+     * A menu that allows users to save currently defined environment factors
      * like variables and commands
+     * 
      * @param name Name of menu
      * @param controller Controller used to communicate with View
      */

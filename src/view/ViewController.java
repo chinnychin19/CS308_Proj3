@@ -97,7 +97,7 @@ public class ViewController {
     public void populateTextBox (String clickedContent) {
         myTextbox.setText(clickedContent);
     }
- 
+
     /**
      * Sets background color to color at index stored in Model
      * 

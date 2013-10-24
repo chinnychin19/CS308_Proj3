@@ -6,15 +6,19 @@ import java.io.IOException;
 import javax.swing.AbstractAction;
 
 
-/**Menu bar specific to Help menus
+/**
+ * Menu bar specific to Help menus
+ * 
  * @author Lalita Maraj
- *@author Susan Zhang
+ * @author Susan Zhang
  */
 @SuppressWarnings("serial")
 public class HelpMenuItem extends AbstractAction {
     private String myURLHelpPage;
 
-    /**Constructor
+    /**
+     * Constructor
+     * 
      * @param name Name of menu
      * @param urlHelpPage page to be taken to when menu selected
      * 
@@ -32,7 +36,9 @@ public class HelpMenuItem extends AbstractAction {
 
     }
 
-    /**Takes user to a browser loaded with the given url
+    /**
+     * Takes user to a browser loaded with the given url
+     * 
      * @param helpPage the url of the help page
      */
     private void goToHelpPage (String helpPage) {

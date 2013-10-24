@@ -17,7 +17,7 @@ import model.Stamp;
 
 
 /**
- * Class that displays the turtle sprites 
+ * Class that displays the turtle sprites
  * 
  * @author Lalita Maraj
  * @author Susan Zhang
@@ -284,7 +284,8 @@ public class Canvas extends JGEngine implements UpdatableDisplay {
             index = Constants.INDEX_4;
         }
 
-        return imageName.substring(0, Constants.SHAPE_NAME_LENGTH) + "_" + index + Constants.IMAGE_SUFFIX;
+        return imageName.substring(0, Constants.SHAPE_NAME_LENGTH) + "_" + index +
+               Constants.IMAGE_SUFFIX;
     }
 
     /**
@@ -455,7 +456,6 @@ public class Canvas extends JGEngine implements UpdatableDisplay {
 
     }
 
-
     @Override
     public void changeModel (Model model) {
         myCurrentModel = model;
@@ -469,15 +469,15 @@ public class Canvas extends JGEngine implements UpdatableDisplay {
     private ArrayList<Integer> getActiveTurtles () {
         return (ArrayList<Integer>) myCurrentModel.getActiveTurtleIDs();
     }
-    
+
     /**
      * Clears turtleMap
      */
-    public void clearTurtleMap(){
-        for (int ID: myTurtleMap.keySet()){
+    public void clearTurtleMap () {
+        for (int ID : myTurtleMap.keySet()) {
             myTurtleMap.get(ID).remove();
         }
-            
+
         myTurtleMap.clear();
     }
 

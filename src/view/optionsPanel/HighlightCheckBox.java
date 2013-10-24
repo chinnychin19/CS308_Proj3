@@ -6,12 +6,13 @@ import javax.swing.JCheckBox;
 import view.Constants;
 import view.ViewController;
 
+
 /**
  * Class that creates checkbox to toggle on/off highlighting of active turtle(s)
  * 
  * @author Lalita Maraj
  * @author Susan Zhang
- *
+ * 
  */
 public class HighlightCheckBox extends JCheckBox {
     private ViewController myController;
