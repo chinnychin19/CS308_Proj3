@@ -50,39 +50,39 @@ public class TestView {
         assertEquals("", textbox.getText());
     }
 
-    // @Test
-    // public void testVariableUpdates () {
-    // textbox.setText("make :x 10");
-    // controller.executeCommand();
-    //
-    // controller.updateVariable("x", "20.0");
-    // assertEquals("20.0", model.getAllVariables().get("x"));
-    // }
-    //
-    // @Test
-    // public void testWorkSpaceChange () {
-    // textbox.setText("make :y 10");
-    // controller.executeCommand();
-    //
-    // controller.setWorkSpace(Constants.CREATE_NEW_WORK_SPACE_OPTION);
-    //
-    // textbox.setText("make :x 200");
-    // controller.executeCommand();
-    //
-    // controller.setWorkSpace("1");
-    // assertEquals("10.0", model.getAllVariables().get(":y"));
-    //
-    // }
-    //
-    // @Test
-    // public void testDefineCommands () {
-    // textbox.setText("to foo [ :x ] [ fd :x ]");
-    // controller.executeCommand();
-    //
-    // assertEquals("TO foo \n[ [:x] ] \n[ fd :x ]"
-    // , (model.getAllCommands().get("FOO")));
-    //
-    // }
+    @Test
+    public void testVariableUpdates () {
+        textbox.setText("make :x 10");
+        controller.executeCommand();
+
+        controller.updateVariable("x", "20.0");
+        assertEquals("20.0", model.getAllVariables().get("x"));
+    }
+
+    @Test
+    public void testWorkSpaceChange () {
+        textbox.setText("make :y 10");
+        controller.executeCommand();
+
+        controller.setWorkSpace(Constants.CREATE_NEW_WORK_SPACE_OPTION);
+
+        textbox.setText("make :x 200");
+        controller.executeCommand();
+
+        controller.setWorkSpace("1");
+        assertEquals("10.0", model.getAllVariables().get(":y"));
+
+    }
+
+    @Test
+    public void testDefineCommands () {
+        textbox.setText("to foo [ :x ] [ fd :x ]");
+        controller.executeCommand();
+
+        assertEquals("TO foo \n[ [:x] ] \n[ fd :x ]"
+                     , (model.getAllCommands().get("FOO")));
+
+    }
 
     @Test
     public void testCanvas () throws NoSuchMethodException, SecurityException,
@@ -110,6 +110,7 @@ public class TestView {
         getActiveTurtles.setAccessible(true);
         ArrayList<String> activeTurtles = (ArrayList<String>) getActiveTurtles.invoke(canvas);
         assertEquals(2, activeTurtles.size(), Constants.DELTA);
+
     }
 
 }

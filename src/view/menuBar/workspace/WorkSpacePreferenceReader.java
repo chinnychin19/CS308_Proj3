@@ -16,10 +16,10 @@ import view.ViewController;
  * @author Susan Zhang
  * 
  */
-public class WorkSpacePreferenceParser {
+public class WorkSpacePreferenceReader {
     private ViewController myController;
 
-    public WorkSpacePreferenceParser (ViewController controller) {
+    public WorkSpacePreferenceReader (ViewController controller) {
         myController = controller;
     }
 
@@ -35,19 +35,25 @@ public class WorkSpacePreferenceParser {
         while ((sCurrentLine = br.readLine()) != null) {
             String[] s = sCurrentLine.split(" ");
 
-            if (s[0].equals("background") && s[1] != null) {
+            if (s[0].equals(Constants.BACKGROUND_KEYWORD) && s.length == Constants.COLOR_LINE_LENGTH) {
                 myController.setBGColor(Integer.parseInt(s[1]));
+                setPalette(s[1], s[2], s[3], s[4]);
             }
-            if (s[0].equals("penIndex") && s[1] != null) {
+            if (s[0].equals(Constants.PEN_KEYWORD) && s.length == Constants.COLOR_LINE_LENGTH) {
                 myController.setPenColor(Integer.parseInt(s[1]));
+                setPalette(s[1], s[2], s[3], s[4]);
             }
-            if (s[0].equals("turtleImage") && s[1] != null) {
+            if (s[0].equals(Constants.IMAGE_KEYWORD) && s[1] != null) {
                 myController.changeImage(Integer.parseInt(s[1]));
             }
 
         }
         br.close();
 
+    }
+    
+    private void setPalette(String index, String r, String g, String b){
+        myController.setPalette(Integer.parseInt(index), Integer.parseInt(r), Integer.parseInt(g), Integer.parseInt(b));
     }
 
 }

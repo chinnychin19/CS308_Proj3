@@ -24,7 +24,7 @@ import model.Stamp;
  */
 
 public class Canvas extends JGEngine implements UpdatableDisplay {
-    private String myImageName = Constants.IMAGE_LOCATION;
+    private String myImageName = Constants.IMAGE_FULL_NAME;
     private String myError = Constants.INITIAL_ERROR;
     private Collection<Path> myPathList = new ArrayList<Path>();
     private JGColor myPenColor = Constants.PEN_COLOR;
@@ -421,13 +421,13 @@ public class Canvas extends JGEngine implements UpdatableDisplay {
 
     @Override
     public void updateDisplay (String error) {
+        myError = error;
         myTurtleIDs = getAllTurtles();
         myActiveTurtleIDs = getActiveTurtles();
-        Color pen = myCurrentModel.getPenColor();
-        Color bg = myCurrentModel.getBGColor();
         myTurtleStamps = myCurrentModel.getTurtleStamps();
         myPathList = myCurrentModel.getTurtlePaths();
-        myError = error;
+        Color pen = myCurrentModel.getPenColor();
+        Color bg = myCurrentModel.getBGColor();
         Map<Integer, String> turtleShapeList = getTurtleShape();
         Map<Integer, Double> turtleXMap = getTurtleX();
         Map<Integer, Double> turtleYMap = getTurtleY();
@@ -474,7 +474,6 @@ public class Canvas extends JGEngine implements UpdatableDisplay {
         for (int ID : myTurtleMap.keySet()) {
             myTurtleMap.get(ID).remove();
         }
-
         myTurtleMap.clear();
     }
 

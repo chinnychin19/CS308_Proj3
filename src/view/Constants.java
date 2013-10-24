@@ -14,7 +14,7 @@ import jgame.JGColor;
 public interface Constants {
     public static final int FRAMES_PER_SECOND = 20;
     public static final int GUI_WIDTH = 900;
-    public static final int GUI_HEIGHT = 758;
+    public static final int GUI_HEIGHT = 755;
     public static final int DISPLAY_HEIGHT = 100;
     public static final int DISPLAY_WIDTH = 300;
 
@@ -24,14 +24,14 @@ public interface Constants {
     public static final int MARGIN = 5;
     public static final int SHAPE_NAME_LENGTH = 7;
     public static final String IMAGE_NAME = "turtleGif";
-    public static final String IMAGE_LOCATION = "Turtle1_1.gif";
+    public static final String IMAGE_FULL_NAME = "Turtle1_1.gif";
     public static final String DEFAULT_IMAGE_SUFFIX = "_1.gif";
     public static final String IMAGE_SUFFIX = ".gif";
 
     public static final int Q1 = 135;
     public static final int Q2 = 225;
     public static final int Q3 = 315;
-    public static final int Q4 = 44;
+    public static final int Q4 = 45;
     public static final int INDEX_1 = 1;
     public static final int INDEX_2 = 2;
     public static final int INDEX_3 = 3;
@@ -50,8 +50,6 @@ public interface Constants {
     public static final int X_TILES = 50;
     public static final int TILE_HEIGHT = 12;
 
-    public static final JGColor GRIDLINE_COLOR = JGColor.black;
-    public static final int GRIDLINE_THICKNESS = 2;
     public static final int NUM_GRIDLINES = 20;
     public static String[] TURTLE_OPTIONS = { "Turtle1.gif", "Turtle2.gif", "Turtle3.gif" };
 
@@ -74,20 +72,24 @@ public interface Constants {
 
     public static final int TEXTBOX_ROWS = 5;
 
-    public static final String CREATE_NEW_WORK_SPACE_OPTION = "Create New WorkSpace";
-    public static final String WORK_SPACE_MESSAGE = "Choose a Work Space";
-    public static final String WORK_SPACE_TITLE = "Work Space";
+    public static final String CREATE_NEW_WORK_SPACE_OPTION = "Create New Workspace";
+    public static final String WORK_SPACE_MESSAGE = "Choose a Workspace";
+    public static final String WORK_SPACE_TITLE = "Workspace";
     public static final String CHANGED_WORKSPACE_MESSAGE =
-            "Choose a Work Space \n You are currently in Work Space ";
+            "Choose a Workspace \n You are currently in Workspace ";
     public static final String NEW_WORKSPACE_MESSAGE =
-            "A new work space has been created. You are now in work space ";
+            "A new Workspace has been created. You are now in Workspace ";
 
     public static final String WRONG_PREF_FILE_MESSAGE = "Not a preference file";
+    public static final String BACKGROUND_KEYWORD = "background";
+    public static final String PEN_KEYWORD = "pen";
+    public static final String IMAGE_KEYWORD = "image";
 
     public static final String CHANGE_WORKSPACE_NAME = "Change Workspace";
     public static final String WORKSPACE_PREFERENCES_NAME = "Workspace Preferences";
     public static final String SAVE_WORKSPACE_PREFERENCES = "Save Workspace Preferences";
     public static final String LOAD_WORKSPACE_PREFERENCES = "Load Workspace Preferences";
+    public static final int COLOR_LINE_LENGTH = 5;
 
     public static final String SELECT_A_VARIABLE_MESSAGE = "Select a variable";
     public static final int TEXTBOX_COLUMNS = 15;
