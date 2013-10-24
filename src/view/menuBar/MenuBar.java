@@ -1,4 +1,5 @@
 package view.menuBar;
+
 import java.util.Collection;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -9,15 +10,17 @@ import view.ViewController;
 /**
  * @author Lalita Maraj
  * @author Susan Zhang
- *The MenuBar class extends JMenuBar an Swing component
- *It has submenus specific to the Slogo game
+ *         The MenuBar class extends JMenuBar an Swing component
+ *         It has submenus specific to the Slogo game
  */
 @SuppressWarnings("serial")
 public class MenuBar extends JMenuBar {
 
     private ViewController myController;
 
-    /**Constructor 
+    /**
+     * Constructor
+     * 
      * @param controller used to send information to the Model
      */
     public MenuBar (ViewController controller) {
@@ -27,13 +30,15 @@ public class MenuBar extends JMenuBar {
 
     }
 
-    /** Creates the file menu
+    /**
+     * Creates the file menu
+     * 
      * @return the file menu
      */
     private JMenu fileMenu () {
         JMenu menu = new JMenu(Constants.FILE_MENU_NAME);
-        menu.add(new OpenMenuItem(myController,Constants.OPEN_MENU_NAME) );
-        menu.add(new SaveMenuItem(Constants.SAVE_MENU_NAME,myController ));
+        menu.add(new OpenMenuItem(myController, Constants.OPEN_MENU_NAME));
+        menu.add(new SaveMenuItem(Constants.SAVE_MENU_NAME, myController));
         menu.addSeparator();
         JMenu submenu = addLanguageMenu();
         menu.add(submenu);
@@ -41,7 +46,9 @@ public class MenuBar extends JMenuBar {
         return menu;
     }
 
-    /**Creates the menu to allow users to change language
+    /**
+     * Creates the menu to allow users to change language
+     * 
      * @return a Language Menu
      */
     private JMenu addLanguageMenu () {
@@ -53,7 +60,9 @@ public class MenuBar extends JMenuBar {
         return submenu;
     }
 
-    /**Creates the help menu
+    /**
+     * Creates the help menu
+     * 
      * @return a help menu
      */
     private JMenu addHelpMenu () {

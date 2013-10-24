@@ -20,7 +20,9 @@ import view.ViewController;
 class WorkSpaceSelector extends AbstractAction {
     private ViewController myController;
 
-    /**Constructor
+    /**
+     * Constructor
+     * 
      * @param controller Controller used to send workspace selection to Model
      */
     protected WorkSpaceSelector (ViewController controller) {
@@ -50,7 +52,7 @@ class WorkSpaceSelector extends AbstractAction {
     /**
      * Creates the inputDialog box based on the number of workspaces currently defined
      * 
-     * @return user's choice as  a String
+     * @return user's choice as a String
      */
     private String createAndDisplaySelector () {
         String[] possibilities = createWorkSpaceOptions();

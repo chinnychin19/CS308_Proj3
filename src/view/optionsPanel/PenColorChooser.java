@@ -59,6 +59,4 @@ public class PenColorChooser extends ColorChooser {
         return Integer.parseInt(choice);
     }
 
-  
-
 }

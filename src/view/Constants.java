@@ -113,4 +113,6 @@ public interface Constants {
     public static final String HELP_MENU_NAME = "Help";
     public static final JFileChooser INPUT_CHOOSER =
             new JFileChooser(System.getProperties().getProperty("user.dir"));
+
+    public static final double DELTA = 0.01;
 }

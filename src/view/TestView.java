@@ -1,6 +1,10 @@
 package view;
 
 import static org.junit.Assert.*;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Map;
 import javax.swing.JTextArea;
 import model.Model;
 import org.junit.After;
@@ -36,48 +40,76 @@ public class TestView {
         // and textbox is cleared after command is executed
         textbox.setText("fd 10");
         controller.executeCommand();
-        assertEquals(10, model.getTurtleY(1), 0.01);
+        assertEquals(10, model.getTurtleY(1), Constants.DELTA);
         assertEquals("", textbox.getText());
 
         // Background Test
         textbox.setText("setbg 1");
         controller.executeCommand();
-        assertEquals(1, model.getBGColorIndex(), 0.01);
+        assertEquals(1, model.getBGColorIndex(), Constants.DELTA);
         assertEquals("", textbox.getText());
     }
 
+    // @Test
+    // public void testVariableUpdates () {
+    // textbox.setText("make :x 10");
+    // controller.executeCommand();
+    //
+    // controller.updateVariable("x", "20.0");
+    // assertEquals("20.0", model.getAllVariables().get("x"));
+    // }
+    //
+    // @Test
+    // public void testWorkSpaceChange () {
+    // textbox.setText("make :y 10");
+    // controller.executeCommand();
+    //
+    // controller.setWorkSpace(Constants.CREATE_NEW_WORK_SPACE_OPTION);
+    //
+    // textbox.setText("make :x 200");
+    // controller.executeCommand();
+    //
+    // controller.setWorkSpace("1");
+    // assertEquals("10.0", model.getAllVariables().get(":y"));
+    //
+    // }
+    //
+    // @Test
+    // public void testDefineCommands () {
+    // textbox.setText("to foo [ :x ] [ fd :x ]");
+    // controller.executeCommand();
+    //
+    // assertEquals("TO foo \n[ [:x] ] \n[ fd :x ]"
+    // , (model.getAllCommands().get("FOO")));
+    //
+    // }
+
     @Test
-    public void testVariableUpdates () {
-        textbox.setText("make :x 10");
+    public void testCanvas () throws NoSuchMethodException, SecurityException,
+                             IllegalAccessException, IllegalArgumentException,
+                             InvocationTargetException, NoSuchFieldException {
+        textbox.setText("fd 100");
         controller.executeCommand();
 
-        controller.updateVariable("x", "20.0");
-        assertEquals("20.0", model.getAllVariables().get("x"));
-    }
+        Method method = Canvas.class.getDeclaredMethod("getTurtleY");
+        method.setAccessible(true);
+        Map<Integer, Double> output = (Map<Integer, Double>) method.invoke(canvas);
+        assertEquals(100.0, output.get(1), Constants.DELTA);
 
-    @Test
-    public void testWorkSpaceChange () {
-        textbox.setText("make :y 10");
+        textbox.setText("tell [2 3]");
         controller.executeCommand();
 
-        controller.setWorkSpace(Constants.CREATE_NEW_WORK_SPACE_OPTION);
+        Method getAllTurtles =
+                Canvas.class.getDeclaredMethod("getAllTurtles");
+        getAllTurtles.setAccessible(true);
+        ArrayList<String> allTurtles = (ArrayList<String>) getAllTurtles.invoke(canvas);
+        assertEquals(3, allTurtles.size(), Constants.DELTA);
 
-        textbox.setText("make :x 200");
-        controller.executeCommand();
-
-        controller.setWorkSpace("1");
-        assertEquals("10.0", model.getAllVariables().get(":y"));
-
-    }
-
-    @Test
-    public void testDefineCommands () {
-        textbox.setText("to foo [ :x ] [ fd :x ]");
-        controller.executeCommand();
-
-        assertEquals("TO foo \n[ [:x] ] \n[ fd :x ]"
-                     , (model.getAllCommands().get("FOO")));
-
+        Method getActiveTurtles =
+                Canvas.class.getDeclaredMethod("getActiveTurtles");
+        getActiveTurtles.setAccessible(true);
+        ArrayList<String> activeTurtles = (ArrayList<String>) getActiveTurtles.invoke(canvas);
+        assertEquals(2, activeTurtles.size(), Constants.DELTA);
     }
 
 }

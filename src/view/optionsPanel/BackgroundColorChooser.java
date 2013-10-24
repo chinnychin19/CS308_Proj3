@@ -60,5 +60,4 @@ public class BackgroundColorChooser extends ColorChooser {
         return Integer.parseInt(choice);
     }
 
- 
 }

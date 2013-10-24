@@ -3,16 +3,17 @@ package view.optionsPanel;
 import javax.swing.JButton;
 import view.ViewController;
 
+
 /**
  * Superclass for color changing button dialog
  * 
  * @author Lalita Maraj
  * @author Susan Zhang
- *
+ * 
  */
 public class ColorChooser extends JButton {
     protected ViewController myController;
-    
+
     /**
      * Constructor for ColorChooser class
      * 
@@ -22,8 +23,8 @@ public class ColorChooser extends JButton {
     public ColorChooser (String title, ViewController controller) {
         super(title);
         myController = controller;
-    } 
-    
+    }
+
     /**
      * Method that returns a string array of options based on Model's array of available colors
      * 
