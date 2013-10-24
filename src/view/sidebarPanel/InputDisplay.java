@@ -15,12 +15,15 @@ import view.ViewController;
 
 
 /**
+ * 
+ * Acts as a container that displays the different types of user input.
+ * Each element of displayed information is clickable and copy/paste enabled
+ * This class gathers the information to be displayed from the Model and displays it
+ * using a JList
+ * 
  * @author Lalita Maraj
  * @author Susan Zhang
- *         Acts as a container that displays the different types of user input.
- *         Each element of displayed information is clickable and copy/paste enabled
- *         This class gathers the information to be displayed from the Model and displays it
- *         using a JList
+ * 
  */
 @SuppressWarnings("serial")
 public class InputDisplay extends JPanel {
