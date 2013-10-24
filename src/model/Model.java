@@ -105,6 +105,9 @@ public class Model {
         myAvailableColors = new ArrayList<Color>();
         myAvailableColors.add(myBGColorIndex, Color.black);
         myAvailableColors.add(myPenColorIndex, Color.red);
+        myAvailableColors.add(Color.yellow);
+        myAvailableColors.add(Color.green);
+        myAvailableColors.add(Color.blue);
 
     }
 
