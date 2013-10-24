@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -198,22 +199,31 @@ public class ViewController {
         changeSubjectModel(modelIndex);
     }
 
+    /**
+     * Changes model contained in the view
+     * 
+     * @param modelIndex index of new Model
+     */
     private void changeSubjectModel (int modelIndex) {
         myView.changeCurrentModel(myModels.get(modelIndex));
 
     }
 
+    /**
+     * Changes current model in viewcontroller class
+     * 
+     * @param modelIndex
+     */
     private void changeCurrentModel (int modelIndex) {
         myCurrentModel = myModels.get(modelIndex);
     }
 
     /**
-     * Displays message
+     * Displays (error) message in popup JOptionPane
      * 
      * @param message - String indicating message
      */
     private void displayMessage (String message) {
-
         JOptionPane.showMessageDialog(null,
                                       message);
     }
@@ -370,5 +380,35 @@ public class ViewController {
      */
     public int getPenIndex () {
         return myCurrentModel.getPenColorIndex();
+    }
+
+    /**
+     * Returns current Pen Color
+     * 
+     * @return pen color
+     */
+    public Color getPenColor () {
+        return myCurrentModel.getPenColor();
+    }
+
+    /**
+     * Returns current Background Color
+     * 
+     * @return background color
+     */
+    public Color getBackgroundColor (){
+        return myCurrentModel.getBGColor();
+    }
+    
+    /**
+     * Sets color corresponding to index in Model
+     * 
+     * @param index index of color
+     * @param r red value of color (0-255)
+     * @param g green value of color (0-255)
+     * @param b blue value of color (0-255)
+     */
+    public void setPalette (int index, int r, int g, int b) {
+        myCurrentModel.setPalette(index, r, g, b);
     }
 }
