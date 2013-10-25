@@ -3,10 +3,17 @@ package model.instruction.math;
 import model.Model;
 import model.instruction.Instruction;
 import model.instruction.error.DivideByZero;
-import model.instruction.error.ErrorInstruction;
 import model.instruction.InstructionConstant;
 
 
+/**
+ * 
+ * Quotient instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionQUOTIENT extends Instruction {
 
     public InstructionQUOTIENT (Instruction parent, Model m) {

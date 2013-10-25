@@ -6,6 +6,14 @@ import model.instruction.InstructionConstant;
 import model.instruction.error.DivideByZero;
 
 
+/**
+ * 
+ * Remainder instruction for SLogo
+ * 
+ * @author Chinmay Patwardhan
+ * @author Ken McAndrews
+ * 
+ */
 public class InstructionREMAINDER extends Instruction {
 
     public InstructionREMAINDER (Instruction parent, Model m) {

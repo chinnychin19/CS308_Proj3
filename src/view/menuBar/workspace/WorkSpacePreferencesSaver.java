@@ -1,5 +1,6 @@
 package view.menuBar.workspace;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +22,7 @@ import view.ViewController;
 public class WorkSpacePreferencesSaver extends AbstractAction {
     private ViewController myController;
     private static final JFileChooser INPUT_CHOOSER =
-            new JFileChooser(System.getProperties().getProperty("user.dir"));
+            Constants.INPUT_CHOOSER;
 
     /**
      * Constructor for WorkSpacePreferenceSaver class
@@ -44,9 +45,14 @@ public class WorkSpacePreferencesSaver extends AbstractAction {
             try {
                 PrintStream out = new PrintStream(file);
                 out.println("preferences");
-                out.println("background " + myController.getBackgroundIndex());
-                out.println("penIndex " + myController.getPenIndex());
-                out.println("turtleImage " + myController.getShapeIndex());
+
+                Color c = myController.getBackgroundColor();
+                out.println(Constants.BACKGROUND_KEYWORD + " " + myController.getBackgroundIndex() +
+                            " " + c.getRed() + " " + c.getGreen() + " " + c.getBlue());
+                c = myController.getPenColor();
+                out.println(Constants.PEN_KEYWORD + " " + myController.getPenIndex() +
+                            " " + c.getRed() + " " + c.getGreen() + " " + c.getBlue());
+                out.println(Constants.IMAGE_KEYWORD + " " + myController.getShapeIndex());
                 out.close();
             }
             catch (FileNotFoundException e1) {

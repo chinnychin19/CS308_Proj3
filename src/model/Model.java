@@ -10,10 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import stack.Stack;
-import stack.StackNode;
+import stack.TurtleStack;
 import model.instruction.InstructionFactory;
-import model.instruction.command.UserCommand;
 import model.instruction.error.FileNotFound;
 
 
@@ -48,8 +46,8 @@ public class Model {
     private List<String> myAvailableShapes;
     private List<String> myAvailableLanguages;
     private int myShapeIndex;
-    private Stack myUndoStack;
-    private Stack myRedoStack;
+    private TurtleStack myUndoStack;
+    private TurtleStack myRedoStack;
 
     /**
      * Constructor for an instance of a model. It initializes the available colors to black and red
@@ -74,8 +72,8 @@ public class Model {
         myLanguage = "English";
         myPenSize = 1;
         myShapeIndex = 0;
-        myUndoStack = new Stack();
-        myRedoStack = new Stack();
+        myUndoStack = new TurtleStack();
+        myRedoStack = new TurtleStack();
     }
 
     /**
@@ -107,6 +105,9 @@ public class Model {
         myAvailableColors = new ArrayList<Color>();
         myAvailableColors.add(myBGColorIndex, Color.black);
         myAvailableColors.add(myPenColorIndex, Color.red);
+        myAvailableColors.add(Color.yellow);
+        myAvailableColors.add(Color.green);
+        myAvailableColors.add(Color.blue);
 
     }
 
@@ -429,7 +430,7 @@ public class Model {
     }
 
     /**
-     * Undoes the user's previous action
+     * Undoes the user's previous turtle action
      * 
      * @return An error string if there was an error
      */
@@ -454,7 +455,7 @@ public class Model {
     }
 
     /**
-     * Redoes a command the user previous undid
+     * Redoes a turtle command the user previous undid
      * 
      * @return An error string if there was an error
      */
